@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/components/*": [
+                "./components/*"
+            ],
+            "@/common/*": [
+                "./common/*"
+            ],
+            "@/src/*": [
+                "./src/*"
+            ],
+            "@/page/*": [
+                "./src/page/*"
+            ],
+            "@/subpages/*": [
+                "./src/subpages/*"
+            ],
+            "@/utils/*": [
+                "./utils/*"
+            ],
+            "@/store/*": [
+                "./store/*"
+            ],
+            "@/assets/*": [
+                "./assets/*"
+            ],
+            "@/services/*": [
+                "./services/*"
+            ],
+        }
+    }
+}

@@ -1,0 +1,60 @@
+.center_wrap {
+    min-height: 100vh;
+    background-color: #eeeeee;
+
+    .userinfo {
+        color: #fff;
+
+        .avatar-wrap {}
+
+        .info {
+            width: calc(100% - 16vw);
+            box-sizing: border-box;
+            padding: 0 16px;
+
+            .nickname {}
+
+            .mobile {}
+        }
+    }
+
+    .line {
+        background: #74A6FF;
+        height: 2px;
+        width: 100%;
+    }
+
+    .other_info {
+        height: 120px;
+        position: relative;
+        margin-bottom: 24px;
+
+        .line-w {
+            height: 50%;
+            width: 2px;
+            background: #74A6FF;
+        }
+
+    }
+
+    .handle {
+        height: 120px;
+        background-color: #fff;
+        padding: 0 34px 0 40px;
+
+        .right {
+            max-width: 50%;
+            text-align: right;
+        }
+    }
+
+    .out-login {
+        width: 100%;
+        background-color: #fff;
+        height: 100px;
+        position: fixed;
+        bottom: 0;
+        color: #ccc;
+        font-size: 28px;
+    }
+}

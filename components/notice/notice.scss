@@ -1,0 +1,39 @@
+@keyframes move {
+    0% {
+        transform: translateX(100%);
+    }
+
+    50% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-101%);
+    }
+}
+
+.notice-wrap {
+    width: 100vw;
+    height: 70px;
+    background-color: rgb(255, 240, 217);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+    .iconfont {
+        width: 70px;
+        height: 70px;
+        z-index: 1;
+        position: absolute;
+        left: 0;
+    }
+
+    .content {
+        min-width: 100%;
+        font-size: 28px;
+        white-space: nowrap;
+        display: block;
+        animation: move 8s infinite linear;
+    }
+}

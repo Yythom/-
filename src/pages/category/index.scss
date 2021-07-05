@@ -1,0 +1,94 @@
+@import '../../../common/mixins/index.scss';
+
+.cate-wrap {
+    max-height: 100vh;
+    overflow: hidden;
+
+    // tabs
+    .vTabs-wrap {
+        .parentClass {
+            background-color: rgb(245, 245, 245);
+        }
+
+        .tabs_item {
+            color: #555;
+            background-color: none;
+            font-size: 30px;
+        }
+
+        .tabs_act_item {
+            background-color: #fff;
+        }
+
+        .nav-line {
+            width: 3px;
+            background-color: rgb(243, 60, 28);
+        }
+
+        .item_scroll {
+            padding: 24px;
+            box-sizing: border-box;
+        }
+
+        .cate-content {
+            width: 100%;
+
+            ::-webkit-scrollbar {
+                display: none;
+            }
+
+            .child-tab {
+                width: 100%;
+                overflow-x: scroll;
+                flex-shrink: 0;
+                margin-bottom: 24px;
+
+                .other-cate {
+                    white-space: nowrap;
+                    font-size: 28px;
+                    background-color: rgb(231, 231, 231);
+                    padding: 4px 24px;
+                    border-radius: 8px;
+                    margin-right: 24px;
+                    color: #999;
+                }
+
+                .act_other-cate {
+                    color: rgb(243, 60, 28);
+                }
+            }
+
+            .item-box {
+                // background-color: pink;
+                width: 100%;
+                flex-shrink: 0;
+                flex-wrap: wrap;
+
+                .item {
+                    justify-content: flex-start;
+                    width: 33%;
+                    align-items: center;
+                    font-size: 30px;
+                    color: #888;
+                    height: 320px;
+
+                    .img {
+                        margin-bottom: 16px;
+                        width: 140px;
+                        height: 140px;
+                        border-radius: 8px;
+                        overflow: hidden;
+                    }
+
+                    .text {
+                        max-width: 140px;
+                        text-align: center;
+                        line-height: 1.6;
+                    }
+                }
+            }
+
+
+        }
+    }
+}
