@@ -9,6 +9,7 @@ function BlurImg(props) {
     const {
         src,
         className,
+        mode
     } = props;
 
     // const [w, setW] = useState(false);
@@ -46,7 +47,7 @@ function BlurImg(props) {
                         className={load ? 'image_mohu weapp' : 'image_mohu image--not-loaded'}
                         src={src}
                         onLoad={() => { setLoad(true) }}
-                        mode='aspectFill'
+                        mode={mode || 'aspectFill'}
                     />
             }
         </View>

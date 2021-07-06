@@ -14,13 +14,18 @@
     }
 
     .nav {
-        height: 80px;
+        height: 70px;
         display: flex;
         justify-content: space-around;
 
         .nav-item {
             // width: 20%;
             margin: 0;
+        }
+
+        .nav-line {
+            height: 8px;
+            margin-bottom: 6px;
         }
     }
 

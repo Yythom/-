@@ -1,9 +1,12 @@
+@import '../../../common/mixins/index.scss';
+
 .index-wrap {
-    background-color: rgb(245, 245, 245);
+    background-color: rgb(250, 250, 250);
+    min-height: 100vh;
 
     .search {
         margin-top: 24px;
-        background-color: rgb(245, 245, 245);
+        background-color: rgb(250, 250, 250);
     }
 
     .home-searchv {
@@ -13,5 +16,58 @@
     .index-banner {
         margin-top: 24px;
         height: 400px;
+    }
+
+    .pro-title {
+        font-size: 34px;
+        color: #666;
+        height: 100px;
+    }
+
+    .pro-list {
+        width: 100%;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+        padding: 0 16px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+
+        .pro-item {
+            width: 45.5vw;
+            padding-bottom: 16px;
+            background-color: #fff;
+            margin-bottom: 16px;
+            // height: 600px;
+
+            .img {
+                width: 45.5vw;
+                height: 45.5vw;
+            }
+
+            .p-name,
+            .p-price {
+                margin-top: 8px;
+                box-sizing: border-box;
+                padding: 0 8px;
+                font-size: 30px;
+
+            }
+
+            .p-name {
+                color: #666;
+                @include line(2)
+            }
+
+            .p-price {
+                color: rgb(255, 36, 36);
+            }
+
+            .old-price {
+                color: #ccc;
+                font-size: 26px;
+                margin: 0 20px;
+                text-decoration: line-through;
+            }
+        }
     }
 }

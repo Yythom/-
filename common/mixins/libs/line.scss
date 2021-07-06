@@ -2,11 +2,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @if ($num == 1) {
+  @if ($num==1) {
     white-space: nowrap;
-  } @else {
+  }
+
+  @else {
     display: -webkit-box;
     -webkit-line-clamp: $num;
+    word-break: break-all;
 
     /* autoprefixer: off */
     -webkit-box-orient: vertical;
