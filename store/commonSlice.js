@@ -8,19 +8,20 @@ import { getStorageSync, setStorageSync } from '@tarojs/taro'
  */
 const initialState = {
     bar_h: getStorageSync('bar-h') || 50,
+    themeConfig: {
+
+    }
 }
 /**
  * reducers
  */
 const reducers = {
-    setBarHeight: (state, action) => {
-        console.log(action.payload);
-        state.bar_h = action.payload;
-        setStorageSync('bar-h', action.payload)
+    setThemeConfig: (state, action) => {
+        state.themeConfig = action.payload
     },
 }
 
-const userSlice = createSlice({
+const commonSlice = createSlice({
     name: 'common',
     initialState,
     reducers,
@@ -28,7 +29,7 @@ const userSlice = createSlice({
 
 
 export const actions = {
-    ...userSlice.actions,
+    ...commonSlice.actions,
 };
 
-export default userSlice.reducer;
+export default commonSlice.reducer;

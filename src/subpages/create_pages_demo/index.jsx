@@ -7,7 +7,8 @@ import './index.scss'
 
 
 const Index = () => {
-    const userStore = useSelector(store => store, shallowEqual);
+    const store = useSelector(_store => _store, shallowEqual);
+    const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
     Taro.useDidShow(() => {
         Taro.showShareMenu();

@@ -5,30 +5,19 @@ import { Provider, useDispatch } from 'react-redux'
 // import { initErrorNet } from '../utils/wx-net_error';
 // import { init, breadcrumb } from '../utils/wx';
 import { actions } from '@/store/commonSlice';
-import { setStorageSync } from '@tarojs/taro';
-import '../assets/icon.css';
 import store from '../store';
+import '../assets/icon.css';
 import './app.scss';
-import isWeapp from '@/utils/env';
 
 const InitStore = memo(() => {
     const dispatch = useDispatch();
     console.log('执行store');
     useEffect(() => {
-        function query() {
-            if (!document.querySelector('.weui-tabbar')) {
-                setTimeout(() => {
-                    query()
-                }, 200);
-            } else {
-                dispatch(actions.setBarHeight(document.querySelector('.weui-tabbar').clientHeight))
-            }
-        }
-        query();
+        dispatch(actions.setThemeConfig({
+            theme: '#333'
+        }))
     }, [])
-    return (
-        <> </>
-    )
+    return null
 });
 
 class App extends Component {
@@ -59,7 +48,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                {!isWeapp && <InitStore />}
+                <InitStore />
                 {this.props.children}
             </Provider>
         )

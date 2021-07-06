@@ -6,9 +6,12 @@ import NavBar from '@/components/navbar/NavBar';
 import Search from '@/components/search/Search';
 import Notice from '@/components/notice/Notice';
 import BlurImg from '@/components/blur-img/BlurImg';
+import { shallowEqual, useSelector } from 'react-redux';
 import './index.scss';
 
 function Index() {
+    const store = useSelector(_store => _store, shallowEqual);
+    const commonConfig = store.commonStore.themeConfig;
     const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState([
         {
@@ -34,7 +37,7 @@ function Index() {
         },
     ]);
     useDidShow(() => {
-        // console.log(userStore);
+        console.log(commonConfig);
     })
     return (
         <View className='index-wrap' >

@@ -280,6 +280,9 @@ async function lkGetUserInfo(url) {
             };
             return userObj
         } catch (err) {
+            if (err.errMsg === "getUserProfile:fail auth deny") {
+                return await 'deny'
+            }
             return null;
         }
     }

@@ -40,17 +40,11 @@ const WithUserVerify = ({
         }
     }
     const handleGetUserInfo = async () => {
-
         if (!type) {
             const userInfoRes = await lkGetUserInfo();
-            if (userInfoRes !== 'openSetting') {
-                dispatch(actions.setUserInfo(userInfoRes));
-
-                dispatch(actions.changeTokenActionAsync('data---test'));
-                Taro.showToast({
-                    icon: 'none',
-                    title: '获取用户信息成功'
-                })
+            console.log(userInfoRes, 'userInfoRes');
+            if (userInfoRes !== 'openSetting' && userInfoRes !== 'deny') {
+                // dispatch(actions.changeTokenActionAsync('data---test'));
                 setType('');
                 // if (!isVerifyPhone) onClick();
             } else {
