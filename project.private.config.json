@@ -20,12 +20,12 @@
         },
         {
           "name": "购物车",
-          "pathName": "subpages/cart/index",
+          "pathName": "pages/cart/index",
           "query": "",
           "scene": null
         },
         {
-          "name": "pages/category/index",
+          "name": "分类",
           "pathName": "pages/category/index",
           "query": "",
           "scene": null
@@ -34,6 +34,36 @@
           "name": "个人中心",
           "pathName": "pages/center/index",
           "query": "",
+          "scene": null
+        },
+        {
+          "name": "订单详情",
+          "pathName": "subpages/order/order-detail/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "地址列表",
+          "pathName": "subpages/address/address-list/index",
+          "query": "__key_=16254706106481",
+          "scene": null
+        },
+        {
+          "name": "添加地址",
+          "pathName": "subpages/address/address-add/index",
+          "query": "__key_=16254721646372",
+          "scene": null
+        },
+        {
+          "name": "编辑地址",
+          "pathName": "subpages/address/address-edit/index",
+          "query": "__key_=16254730723331",
+          "scene": null
+        },
+        {
+          "name": "订单列表",
+          "pathName": "subpages/order/order-list/index",
+          "query": "__key_=16255387270071",
           "scene": null
         }
       ]

@@ -44,8 +44,9 @@
     flex-shrink: 0;
 
     .check {
+        margin-left: 10px;
         height: 100%;
-        width: 14%;
+        width: 10%;
 
         .radio {
             // color: ;
@@ -53,12 +54,14 @@
     }
 
     .product {
-        max-width: calc(100vw - 14% - 32px);
+        max-width: calc(100vw - 10% - 10px);
         flex-shrink: 0;
 
         .img {
             width: 200px;
             height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .desc {

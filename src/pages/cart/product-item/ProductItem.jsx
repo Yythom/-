@@ -11,7 +11,7 @@ import isWeapp from '@/utils/env';
 
 const ProductItem = memo(({ product, onChange = Function.prototype, list, index, onChangeNumber = Function.prototype }) => {
     return (
-        <Move value={100} padding={16}>
+        <Move value={80} padding={16}>
             <View className='card flex' style={{ marginBottom: '0.2rem' }}>
                 <View className='check fc'
                     onClick={() => {

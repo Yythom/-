@@ -9,6 +9,7 @@ import TestService from '../services/test'
 const initialState = {
     token: getStorageSync('token') || null,
     userInfo: getStorageSync('info') || null,
+    localtion: null,
 }
 /**
  * reducers

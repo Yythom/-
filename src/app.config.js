@@ -13,7 +13,17 @@ export default {
         'product-detail/index',
         'product-list/index',
         'search/index', // 搜索
+
         'user-handle/info/index',// 个人信息
+
+        /** 订单 */
+        'order/order-detail/index', // 订单详情
+        'order/order-list/index', // 订单列表
+
+        /** 地址 */
+        'address/address-list/index',
+        'address/address-add/index',
+        'address/address-edit/index',
       ],
     },
   ],

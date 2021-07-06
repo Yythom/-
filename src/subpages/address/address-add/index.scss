@@ -1,0 +1,66 @@
+.edit_address_wrap {
+    background-color: rgb(250, 250, 250);
+
+    form {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .edit_box {
+        width: 96vw;
+        margin-top: 20px;
+        box-sizing: border-box;
+        background-color: #fff;
+        padding: 0 16px;
+        border-radius: 20px;
+        color: #333;
+
+        .iconfont {
+            font-size: 36px;
+        }
+
+        .name,
+        .phone,
+        .address,
+        .address_desc,
+        .is_default {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 30px;
+            border-radius: 20px;
+            height: 100px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgb(245, 245, 245);
+
+            label {
+                width: 180px;
+            }
+
+            input {
+                width: calc(100% - 180px);
+                text-align: right;
+                color: #777;
+            }
+        }
+
+        .is_default {
+            border-bottom: none;
+        }
+    }
+
+    .picker {
+        color: #777;
+    }
+
+    .foot_address_btn {
+        width: 96vw;
+        height: 100px;
+        background-color: rgb(255, 66, 41);
+        color: #fff;
+        font-size: 34px;
+        border-radius: 50px;
+        margin-top: 80px;
+    }
+
+}

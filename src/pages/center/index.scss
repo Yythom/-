@@ -1,60 +1,106 @@
 .center_wrap {
     min-height: 100vh;
-    background-color: #eeeeee;
+    background-color: rgb(250, 250, 250);
 
-    .userinfo {
-        color: #fff;
+    .user {
+        // height: 200px;
+        background-color: #fff;
 
-        .avatar-wrap {}
+        .userinfo {
+            background: rgb(250, 245, 235);
+            // box-sizing: border-box;
+            padding: 0 24px;
+            height: 120px;
+            color: rgb(182, 136, 50);
+            border-radius: 0 0 80px 80px;
+            padding-bottom: 100px;
 
-        .info {
-            width: calc(100% - 16vw);
-            box-sizing: border-box;
-            padding: 0 16px;
+            .avatar-wrap {
+                width: 120px;
+                height: 120px;
+            }
 
-            .nickname {}
+            .info {
+                height: 100%;
+                width: calc(100% - 16vw);
+                box-sizing: border-box;
+                padding: 0 16px;
+                padding-left: 32px;
 
-            .mobile {}
-        }
-    }
+                .left {
+                    height: 100%;
+                    justify-content: space-around;
+                }
 
-    .line {
-        background: #74A6FF;
-        height: 2px;
-        width: 100%;
-    }
+                .nickname {
+                    font-size: 36px;
+                }
 
-    .other_info {
-        height: 120px;
-        position: relative;
-        margin-bottom: 24px;
-
-        .line-w {
-            height: 50%;
-            width: 2px;
-            background: #74A6FF;
+                .mobile {}
+            }
         }
 
     }
 
     .handle {
-        height: 120px;
-        background-color: #fff;
-        padding: 0 34px 0 40px;
+        box-sizing: border-box;
+        padding: 0 24px;
 
-        .right {
-            max-width: 50%;
-            text-align: right;
+        .wallet-common {
+            height: 200px;
+            position: relative;
+            margin-bottom: 24px;
+            border-radius: 8px;
+            background-color: #fff;
+            font-size: 28px;
+            padding: 0 34px 0 40px;
+            color: #777;
+            flex-shrink: 0;
+
+            .fdc {
+                width: 25%;
+            }
+
+            .iconfont,
+            .price {
+                height: 52px;
+                margin-bottom: 16px;
+            }
+        }
+
+        .wallet {
+            .price {
+                font-size: 36px;
+                color: rgb(255, 65, 40);
+            }
+        }
+
+        .order-card {
+            color: #777;
+            height: 160px;
+        }
+
+        .my-server {
+            height: auto;
+            flex-wrap: wrap;
+            background-color: #fff;
+
+            .iconfont {
+                color: rgb(255, 65, 40);
+            }
+
+            .title {
+                width: 100%;
+                height: 80px;
+                font-size: 34px;
+                margin-bottom: 40px;
+                color: #333;
+            }
+
+            .fdc {
+                margin-bottom: 60px;
+            }
         }
     }
 
-    .out-login {
-        width: 100%;
-        background-color: #fff;
-        height: 100px;
-        position: fixed;
-        bottom: 0;
-        color: #ccc;
-        font-size: 28px;
-    }
 }
