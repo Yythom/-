@@ -6,59 +6,67 @@ import { navLinkTo } from '@/common/publicFunc';
 import vtab_data from '../tab';
 import { showToast } from '@tarojs/taro';
 
-function VtabList({ list, child, setList, tabIndex }) {
+function VtabList({ list }) {
     const [cate_child, setcate_child] = useState(null);
+    const [renderChild, setRenderChild] = useState({
+        cate: false,
+        pro: [],
+    });
 
-    const RenderList = () =>
-        list?.pro?.map((e, i) => {
-            return (
-                <View className='fd item' key={i} onClick={() => navLinkTo('product-list/index', {})}>
-                    <BlurImg className='img' src={e.image} />
-                    <View className='text'>{e.name}</View>
-                </View>
-            )
-        })
-
-    const TabRenderList = () =>
-        child.map((e, i) => {
-            return (
-                <Fragment key={i + '_parent-cate'}>
+    /**
+     * 
+     * @param {*} 
+     *      [{
+                child_cate: '分类1',
+                pro: [
                     {
-                        e.pro.map(product => {
-                            return (
-                                <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
-                                    <BlurImg className='img' src={product.image} />
-                                    <View className='text'>{product.name}</View>
-                                </View>
-                            )
-                        })
+                        name: '3',
+                        image,
                     }
-                </Fragment>
+                ]
+            }], 
+     * @returns 
+     */
+    const RenderList = ({ _list }) => {
+        console.log(_list, '_list');
+        return _list?.map((e, i) => {
+            return (
+                e.pro.map(product => {
+                    return (
+                        <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
+                            <BlurImg className='img' src={product.image} />
+                            <View className='text'>{product.name}</View>
+                        </View>
+                    )
+                })
             )
         })
+    }
+
+
+    const TabRenderList = memo(({ childList }) => {
+        console.log(childList, 'childList------1');
+        return <RenderList _list={childList} />
+    })
+
+
 
     const IsTabsRenderList = () => {
-        console.log(cate_child, 'cate_child');
-        return child ?
+        return list.child ?
             <>
                 <View className='child-tab flex' >
                     {
-                        child.map(el => <View
+                        list.child.map(el => <View
                             key={el.child_cate + '_cate_name'}
                             className={`other-cate fc ${cate_child === el && ' act_other-cate'}`}
                             onClick={() => {
-                                let child_list = vtab_data[tabIndex].child.filter(e => e.child_cate === el.child_cate)[0];
+                                let child_list = list.child.filter(e => e.child_cate === el.child_cate)[0];
                                 console.log(child_list);
                                 if (child_list?.pro[0]) {
-                                    console.log(el);
-                                    setList(child_list);
+                                    setRenderChild(child_list);
                                     setcate_child(el);
                                 }
-                                else showToast({
-                                    title: '该分类暂无商品',
-                                    icon: 'none',
-                                })
-
+                                else showToast({ title: '该分类暂无商品', icon: 'none', })
                             }}
                         >
                             {el.child_cate}
@@ -67,15 +75,11 @@ function VtabList({ list, child, setList, tabIndex }) {
                     }
                 </View>
                 <View className='flex item-box'>
-                    {
-                        list?.pro
-                            ? <RenderList /> :
-                            <TabRenderList />
-                    }
+                    <TabRenderList childList={renderChild.pro[0] ? [renderChild] : list.child} />
                 </View>
             </> :
             <View className='flex item-box'>
-                <RenderList />
+                <TabRenderList _list={[list]} />
             </View>
     }
 

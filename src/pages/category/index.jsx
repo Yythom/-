@@ -16,7 +16,6 @@ function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
     const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState(vtab_data[0]);
-    const [child, setChild] = useState(vtab_data[0].child);
 
     useDidShow(() => {
         // console.log(userStore);
@@ -38,14 +37,11 @@ function Index() {
                         console.log(i);
                         setList(vtab_data[i]);
                         setTabIndex(i);
-                        setChild(vtab_data[i]?.child);
                     }}
                 >
                     <View className='cate-content'>
                         <VtabList
-                            child={child}
                             list={list}
-                            tabIndex={tabIndex}
                             setList={setList}
                         />
                     </View>

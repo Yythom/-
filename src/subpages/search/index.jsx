@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from '@tarojs/components';
-import HistorySearch from '@/components/histoty-search/HistorySearch';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
+import HistorySearch from './histoty-search/HistorySearch';
 import './index.scss'
 
 

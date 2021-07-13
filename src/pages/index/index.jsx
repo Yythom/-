@@ -8,10 +8,22 @@ import Notice from '@/components/notice/Notice';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import './index.scss';
+import useCountdown from './useCountDown';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);
     const commonConfig = store.commonStore.themeConfig;
+    const [countdown, setTargetDate, formattedRes] = useCountdown(
+        {
+            targetDate: '2021-08-31 24:00:00',
+            interval: 1000,
+            onEnd: () => { console.log('end'); }
+        }
+    );
+    const { days, hours, minutes, seconds, milliseconds } = formattedRes;
+
+    console.log(formattedRes);
+
     const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState([
         {
@@ -44,6 +56,7 @@ function Index() {
             <NavBar title='首页' />
             <View className='fc search'>
                 <Search width='98vw' text='搜索商品' />
+                倒计时 ： {days}:{hours}:{minutes}:{seconds}
             </View>
             <Banner w='100vw' className='index-banner' />
             <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' />
