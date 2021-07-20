@@ -1,19 +1,19 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useEffect, useState } from 'react';
 import { View, Text, Radio } from '@tarojs/components';
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
+import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/sku/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import Move from './MoveSquare/move';
+import isWeapp from '@/utils/env';
 
 
 const ProductItem = memo(({
     product,
+    onChange = Function.prototype,
     list,
     index,
-    shop_id,
-    onChange = Function.prototype,
     onChangeNumber = Function.prototype
 }) => {
     return (
@@ -22,13 +22,14 @@ const ProductItem = memo(({
                 <View className='check fc'
                     onClick={() => {
                         const newList = JSON.parse(JSON.stringify(list));
-                        const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
-                        let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
-                        item.checked = !item.checked; // 修改当前商品选择状态
-                        onChange(newList);
+                        newList[index].checked = !newList[index].checked;
+                        let filter = JSON.parse(JSON.stringify(newList)).filter(item => {
+                            return item.checked
+                        })
+                        onChange(newList, filter);
                     }}
                 >
-                    <Radio className='radio' color='#eb472b' checked={product.checked} />
+                    <Radio className='radio' color='#eb472b' checked={product?.checked} />
                 </View>
                 <View className='product flex' onClick={(e) => { navLinkTo('product-detail/index', { product_id: product.product_id }); e.stopPropagation(); }}>
                     <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />

@@ -11,47 +11,58 @@ import np from 'number-precision'
 import isWeapp from '@/utils/env';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
+import useSummary from './useSummary';
 
 
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
-
-
     const [pageData, setPageData] = useState([
         {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-        {
-            product_id: '103',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
+            shop_id: '1',
+            products: [
+                {
+                    product_id: '101',
+                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+                    price: '7999',
+                    sale_price: '888',
+                    sku: ['银色', '64G', '套餐一'],
+                    num: '2',
+                },
+                {
+                    product_id: '102',
+                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+                    price: '7999',
+                    sku: ['银色', '64G', '套餐一'],
+                    num: '2',
+                },
+            ]
+        }, {
+            shop_id: '2',
+            products: [
+                {
+                    product_id: '201',
+                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+                    price: '7999',
+                    sale_price: '888',
+                    sku: ['银色', '64G', '套餐一'],
+                    num: '2',
+                },
+                {
+                    product_id: '202',
+                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+                    price: '7999',
+                    sku: ['银色', '64G', '套餐一'],
+                    num: '2',
+                },
+            ]
+        }
     ]);
-    const [select, setselect] = useState([]);
+
     const [edit, setEdit] = useReducer((state) => !state, false);
-    const [s_all, setS_all] = useReducer((state, action) => action, false); // 全选状态
+    const [list, summaryShop, isAll, price] = useSummary(pageData);
 
-    const totalSellPrice = useCallback(select.reduce((prev, next) => np.plus( // 总价
-        prev, np.times(next.price, next.num),
-    ), 0), [select])
-
-    useEffect(() => {
-        select.length == pageData?.length ? setS_all(true) : setS_all(false)
-    }, [select]);
+    console.log(list, summaryShop, isAll);
 
     const init = async () => {
 
@@ -92,41 +103,66 @@ const Index = () => {
             </View>
             <View className='list' >
                 {
-                    pageData?.map((e, i) => <ProductItem
-                        list={pageData}
-                        index={i}
-                        key={e.product_id}
-                        product={e}
-                        onChange={(newList, fiflter) => {
-                            setPageData(newList);
-                            setselect(fiflter)
-                            console.log(newList, fiflter);
-                        }}
-                        onChangeNumber={(number) => {
-                            console.log(number, 'req');
-                        }}
-                    />)
+                    pageData?.map((e, i) =>
+                        <View className='shop_wrap' key={e.shop_id}>
+                            <View className='shopname flex'
+                                style={{ height: '80rpx' }}
+                            >
+                                <Radio className='radio' color='#eb472b' checked={summaryShop[e.shop_id]?.checked} onClick={() => {
+                                    const newList = JSON.parse(JSON.stringify(pageData));
+                                    newList.forEach(shop => {
+                                        if (shop.shop_id == e.shop_id) {
+                                            shop.products.forEach(el => {
+                                                el.checked = !summaryShop[e.shop_id]?.checked
+                                            })
+                                        }
+                                    });
+                                    setPageData(newList);
+                                }} />{e.shop_id}
+                            </View>
+                            {
+                                e.products.map((product_item, index) =>
+                                    <ProductItem
+                                        key={product_item.product_id}
+                                        list={pageData}
+                                        shop_id={e.shop_id}
+                                        index={index}
+                                        product={product_item}
+                                        onChange={(newList) => {
+                                            setPageData(newList);
+                                            console.log(newList);
+                                        }}
+                                        onChangeNumber={(number) => {
+                                            console.log(number, 'req');
+                                        }}
+                                    />
+                                )
+                            }
+                        </View>
+                    )
+
                 }
             </View>
             <View className='footer fb' style={!isWeapp && { bottom: commonStore?.bar_h + 'px' }} >
                 <View className='pay fb'>
                     <View className='left flex' onClick={() => {
                         const newList = JSON.parse(JSON.stringify(pageData));
-                        newList.forEach(e => e.checked = !s_all);
-                        if (!s_all) setselect(newList);
-                        else setselect([]);
+                        console.log(isAll, 'isAll');
+                        newList.forEach(e => {
+                            e.products.forEach(el => {
+                                el.checked = !isAll
+                            })
+                        });
                         setPageData(newList);
-                        console.log(newList);
-                        setS_all(!s_all)
                     }}>
-                        <Radio className='radio' color='#eb472b' checked={s_all} />
-                        {!s_all ? "全选" : "全不选"}
+                        <Radio className='radio' color='#eb472b' checked={isAll} />
+                        {!isAll ? "全选" : "全不选"}
                     </View>
 
                     <View className='p_wrap fc'>
                         <View className='price' onClick={(event) => { }} >
                             <View className='fc'>
-                                合计：<Text className='price-color'><Text className='_money'>¥</Text>{totalSellPrice} </Text>
+                                合计：<Text className='price-color'><Text className='_money'>¥</Text>{price}</Text>
                             </View>
                             {/* <View style={{ fontSize: '0.5rem', color: 'rgb(255, 91, 41)' }}>
                                 已优惠 ¥{22}
@@ -137,7 +173,7 @@ const Index = () => {
                             className='btn'
                             onClick={(event) => {
                                 event.stopPropagation();
-                                if (select.length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
+                                if (Object.keys(summaryShop).length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
                                 if (edit) pay();
                                 else del()
                             }}
@@ -148,13 +184,6 @@ const Index = () => {
                     </View>
                 </View>
             </View>
-
-            {/* <FloatBottom >
-                <View className=''>
-
-                </View>
-            </FloatBottom> */}
-
         </View>
     )
 }
