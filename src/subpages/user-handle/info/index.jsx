@@ -40,8 +40,8 @@ const Index = () => {
     return (
         <View className='info_wrap' style={{ paddingBottom: `${getStorageSync('safeArea') * 2 + getStorageSync('bar_height') * 2}rpx` }} >
             <NavBar back title='个人中心' background='#fff' color='#fff' />
-            <View className='fd' style={{ background: '#fff' }} >
-                <Avatar style={{ background: '#fff', }} size={200} />
+            <View className='fd' style={{ background: '#fff', alignItems: 'center' }} >
+                <Avatar style={{ background: '#fff' }} size={200} />
                 <UpImg
                     onOk={(url) => {
                         dispath(actions.setAvatar(url))

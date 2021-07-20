@@ -43,13 +43,10 @@ function VtabList({ list }) {
         })
     }
 
-
     const TabRenderList = memo(({ childList }) => {
         console.log(childList, 'childList------1');
         return <RenderList _list={childList} />
     })
-
-
 
     const IsTabsRenderList = () => {
         return list.child ?

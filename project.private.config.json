@@ -65,6 +65,12 @@
           "pathName": "subpages/order/order-list/index",
           "query": "__key_=16255387270071",
           "scene": null
+        },
+        {
+          "name": "subpages/user-handle/info/index",
+          "pathName": "subpages/user-handle/info/index",
+          "query": "__key_=16267690392731",
+          "scene": null
         }
       ]
     }

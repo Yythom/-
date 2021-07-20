@@ -44,7 +44,7 @@ const WithUserVerify = ({
             const userInfoRes = await lkGetUserInfo();
             console.log(userInfoRes, 'userInfoRes');
             if (userInfoRes !== 'openSetting' && userInfoRes !== 'deny') {
-                // dispatch(actions.changeTokenActionAsync('data---test'));
+                dispatch(actions.changeTokenActionAsync(userInfoRes));
                 setType('');
                 // if (!isVerifyPhone) onClick();
             } else {

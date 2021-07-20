@@ -25,8 +25,7 @@ const Index = () => {
         <View className='center_wrap' style={{ paddingBottom: `${getStorageSync('safeArea') * 2 + getStorageSync('bar_height') * 2}rpx` }} >
             <NavBar background='rgb(250,245,235)' />
             <View className='user'>
-                <WithUserVerify isVerifyPhone // onClick={() => { navLinkTo('user-handle/info/index', {}) }}
-                >
+                <WithUserVerify onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >
                         <Avatar style={{ background: '#fff', }} />
                         <View className='fb info'>

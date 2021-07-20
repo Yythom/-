@@ -50,7 +50,7 @@ const changeTokenActionAsync = createAsyncThunk(
         const Tlogin = await login();
         // const res = await TestService.getTestDataApi(Tlogin.code); // 通过微信登入获取code取接口token
         // setStorageSync('token',res.token)
-        return Tlogin.code;
+        return data;
     }
 )
 /**
@@ -60,7 +60,8 @@ const changeTokenActionAsync = createAsyncThunk(
 const extraReducers = builder => {
     builder.addCase(changeTokenActionAsync.fulfilled, (state, action) => {
         console.log(action);
-        state.token = action.payload
+        setStorageSync('info', action.payload)
+        state.userInfo = action.payload
     })
 }
 
