@@ -8,7 +8,7 @@ import Notice from '@/components/notice/Notice';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import './index.scss';
-import useCountdown from './useCountDown';
+import useCountdown from '../../../hooks/useCountDown';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);

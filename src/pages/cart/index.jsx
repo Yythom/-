@@ -11,7 +11,7 @@ import np from 'number-precision'
 import isWeapp from '@/utils/env';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
-import useSummary from './useSummary';
+import useSummary from '../../../hooks/useSummary';
 
 
 
