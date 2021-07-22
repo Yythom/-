@@ -4,11 +4,11 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { showLoading, showToast } from '@tarojs/taro';
 // import { data } from './data';
-import SkuUtil from './sku_fn';
+import SkuUtil from '../../../../components/page/sku/sku_fn';
 // import data_filter from './data_filter';
+import HandleInput from '../../../../components/page/sku/handle-input/HandleInput';
+import useSku from '../../../../hooks/useSku';
 import './sku.scss'
-import HandleInput from './handle-input/HandleInput';
-import useSku from './useSku';
 
 const Skuhooks = memo(({
     show = 1, // 1加入购物车 2 购买 3 all

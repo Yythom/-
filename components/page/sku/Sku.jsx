@@ -3,7 +3,7 @@ import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'rea
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { showLoading, showToast } from '@tarojs/taro';
-import { data } from './data';
+import { data } from '../../../hooks/sku-utils/data';
 import SkuUtil from './sku_fn';
 // import data_filter from './data_filter';
 import './sku.scss'

@@ -3,13 +3,13 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro, { getStorageSync, showModal } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
-import Sku from '@/components/page/sku/sku-hooks';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
 import { callPhone } from '@/common/public';
 import { navLinkTo } from '@/common/publicFunc';
-import { data } from '@/components/page/sku/data';
+import { data } from '../../../hooks/sku-utils/data';
 import ProductInfo from './product-info/ProductInfo';
+import Sku from './sku/sku-hooks';
 import './index.scss'
 
 

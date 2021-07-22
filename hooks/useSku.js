@@ -6,7 +6,7 @@ import {
     transPrice,
     transSpec,
     checkSpecAttrDisabled,
-} from "./utils";
+} from "./sku-utils/utils";
 
 /**
  * @param {*} data { skuList:[], skuSpec:[] }
