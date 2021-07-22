@@ -3,103 +3,51 @@ import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'rea
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { showLoading, showToast } from '@tarojs/taro';
-import { data } from './data';
+// import { data } from './data';
 import SkuUtil from './sku_fn';
 // import data_filter from './data_filter';
 import './sku.scss'
 import HandleInput from './handle-input/HandleInput';
+import useSku from './useSku';
 
-const Sku = memo(({
+const Skuhooks = memo(({
     show = 1, // 1加入购物车 2 购买 3 all
     onChange = Function.prototype,
     product,
+    data,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
-    const [specList, setSpecList] = useState([]); // 规格列表
-    const [specListData, setSpecListData] = useState([]); // 选中的规格属性数据对象
-    // const [fil, setFil] = useState(''); // 剩余sku选择项的描述文字
-    const skuObj = SkuUtil.getSelectObj(specListData, specList); // 选择完成之后的sku对象
-    const [skuInit, setSkuInit] = useState(false); // 判断sku是否加载完成
-    const [filterStr, setFilterStr] = useState('')
-
-    function transPrice() {
-        const price = SkuUtil.getPrice(specListData)
-        if (!price) return null;
-        if (price.maxPrice === price.minPrice) return `${price.maxPrice}`;
-        return `${price.minPrice} - ${price.maxPrice}`
-    }
-
-    function transSpec(_list) { // sku描述
-        return _list.filter(item => item).map(item => item.name).join(' ')
-    }
-
-    const selectSpec = transSpec(specListData);  // sku描述
-    const selectPrice = transPrice();  // sku价格区间
-    const stock = SkuUtil.getStock(specListData); // 库存
-
-    useLayoutEffect(() => {
-        if (!data) return
-        SkuUtil.clear();
-        setTimeout(() => {
-            SkuUtil.initSku(data.skuList, setSkuInit);
-        }, 2000);
-        setSpecList(data.skuSpec);
-        setFilterStr(data.skuSpec.map(e => e.specName).join(' '));
-    }, []);
-
-    function handleSpecAttr(item, index) { // sku选择
-        // clearInterval(timmer);
-        const list = SkuUtil.getActionSpecList(specListData, item, index);
-        let str = filterStr;
-        str.split(' ').forEach(el => {
-            list.forEach(e => {
-                if (el && e) {
-                    if (e.parent_name == el) {
-                        str = str.replace(el, '')
-                    }
-                }
-            })
-        })
-        list && setSpecListData(list);
-        onChange({
-            sku_item: SkuUtil.getSelectObj(list, specList),
-            desc: {
-                str: str.trim().length > 0 ? str : filterStr,
-                select: transSpec(list)
-            },
-            price: selectPrice
-        });
-    }
+    const [option, load, { sku, desc }, specList] = useSku(data);
+    useEffect(() => {
+        console.log(sku, desc);
+        onChange({ sku, desc })
+    }, [sku, desc])
 
     return (
         <>
             {
-                skuInit
+                load
                     ?
                     <View className='sku'>
                         <View className='iconfont icon-close' onClick={() => { }}></View>
                         <View className='title flex'>
-                            <BlurImg className='img' src={skuObj ? skuObj.img : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
+                            <BlurImg className='img' src={sku ? sku.img : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
+
                             <View className='content fd'>
                                 <View className='price'>
                                     <Text className='_money'>¥</Text>
-                                    {
-                                        !selectPrice ? 1
-                                            : (skuObj ? selectPrice : selectPrice)
-                                    }
+                                    {desc.price ? desc.price : 'min-price - max-price'}
                                 </View>
                                 <View className='select'>
                                     {
-                                        ((stock || stock === 0) && (!!skuObj)) &&
-                                        <View className='stock'>
-                                            {skuObj && '库存：' + stock}
-                                        </View>
+                                        sku?.stock && <View className='stock'> 库存： {sku?.stock} </View>
                                     }
                                 </View>
-                                {selectSpec && <View className='select'>
-                                    已选：{selectSpec}
-                                </View>}
+                                {
+                                    desc?.filterStr && <View className='select'>已选：{desc?.filterStr}</View>
+                                }
                             </View>
+
                         </View>
                         <View className='spec-box' >
                             {
@@ -108,14 +56,14 @@ const Sku = memo(({
                                         <View className='select_title'>{item.specName}</View>
                                         <View className='select_list flex' key={item.id}>
                                             {item.specAttrList.map(attrItem => {
-                                                const disabled = SkuUtil.checkSpecAttrDisabled(specListData, attrItem.id, index);
-                                                const active = SkuUtil.checkSpecAttrActive(specListData, attrItem.id);
+                                                const { disabled, active } = option.checkSpecAttrDisabled(attrItem.id, index);
                                                 return (
                                                     <View
                                                         key={attrItem.id}
-                                                        onClick={() => !disabled && handleSpecAttr({ ...attrItem, parent_name: item.specName }, index)}
+                                                        onClick={() => !disabled && option.handleSpecAttr({ ...attrItem, parent_name: item.specName }, index)}
                                                         className={`${disabled && ' disabled'} ${active && ' act_item'} item`}
-                                                    >{attrItem.name}
+                                                    >
+                                                        {attrItem.name}
                                                     </View>
                                                 )
                                             })}
@@ -158,4 +106,4 @@ const Sku = memo(({
     )
 })
 
-export default Sku;
+export default Skuhooks;

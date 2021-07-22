@@ -3,13 +3,13 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import Taro, { getStorageSync, showModal } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
-import Sku from '@/components/page/sku/Sku';
+import Sku from '@/components/page/sku/sku-hooks';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
-import isWeapp from '@/utils/env';
-import ProductInfo from './product-info/ProductInfo';
 import { callPhone } from '@/common/public';
 import { navLinkTo } from '@/common/publicFunc';
+import { data } from '@/components/page/sku/data';
+import ProductInfo from './product-info/ProductInfo';
 import './index.scss'
 
 
@@ -35,7 +35,7 @@ const Index = () => {
             {/* 打开sku */}
             <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
                 <View>
-                    选择：<Text className='desc'>{sku?.str || '尺寸 内存 颜色'}</Text>
+                    选择：<Text className='desc'>{sku?.desc.str}</Text>
                 </View>
                 <Text className='iconfont icon-right' />
             </View>
@@ -51,8 +51,7 @@ const Index = () => {
 
             {/* sku弹框 */}
             <FloatBottom className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
-                <Sku show={show} product={pageData} onChange={(e) => {
-                    console.log(e, 'sku');
+                <Sku show={show} data={data} product={pageData} onChange={(e) => {
                     if (e) setSku(e);
                 }} />
             </FloatBottom>

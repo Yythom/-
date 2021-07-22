@@ -4,7 +4,8 @@ export const data = {
         "101;201;302": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 200,
-            "stock": 10
+            "stock": 10,
+            'yyt': 'attr',
         },
         // 4.7寸;16G;黄色
         "101;201;303": {
