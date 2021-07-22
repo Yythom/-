@@ -54,7 +54,11 @@ const ProductItem = memo(({
 
                                     // }
                                     // onChangeNumber()
-                                    onChangeNumber(value)
+                                    const newList = JSON.parse(JSON.stringify(list));
+                                    const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
+                                    let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
+                                    item.num = value; // 修改当前商品选择状态
+                                    onChangeNumber(newList)
                                 }}
                             />
                         </View>

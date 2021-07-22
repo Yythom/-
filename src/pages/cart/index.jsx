@@ -130,10 +130,9 @@ const Index = () => {
                                         product={product_item}
                                         onChange={(newList) => {
                                             setPageData(newList);
-                                            console.log(newList);
                                         }}
-                                        onChangeNumber={(number) => {
-                                            console.log(number, 'req');
+                                        onChangeNumber={(newList) => {
+                                            setPageData(newList);
                                         }}
                                     />
                                 )

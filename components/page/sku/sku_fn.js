@@ -15,7 +15,7 @@ export default class SkuUtil {
      * 初始化sku
      * @param {Array} data 
      */
-    static initSku(data) {
+    static initSku(data, cb) {
         const skuKeys = Object.keys(data);
         skuKeys.forEach(skuKey => {
             const sku = data[skuKey];
@@ -31,6 +31,7 @@ export default class SkuUtil {
             // 将原始库存组合也加到结果集里面
             // this.skuResult[skuKey] = sku;
         })
+        cb(true)
         return this.skuResult;
     }
 

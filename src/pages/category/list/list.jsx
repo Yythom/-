@@ -76,7 +76,7 @@ function VtabList({ list }) {
                 </View>
             </> :
             <View className='flex item-box'>
-                <TabRenderList _list={[list]} />
+                <RenderList _list={[list]} />
             </View>
     }
 

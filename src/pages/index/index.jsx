@@ -9,6 +9,7 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import './index.scss';
 import useCountdown from '../../../hooks/useCountDown';
+import { navLinkTo } from '@/common/publicFunc';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);
@@ -67,7 +68,7 @@ function Index() {
                 {
                     list.map((e, i) => {
                         return (
-                            <View key={e.product_id} className='pro-item fd'>
+                            <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {})}>
                                 <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
                                 {/* <Image mode='widthFix' /> */}
                                 <View className='p-name'>
