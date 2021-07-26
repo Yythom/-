@@ -13,6 +13,7 @@ export default memo(() => {
     const tabbarState = useSelector(state => state.tabbar, shallowEqual);
     //去除底部安全区
     useEffect(() => {
+        console.log(systemInfo, 'systemInfo');
         if (systemInfo.model.indexOf('iPhone X') !== -1 || systemInfo.model.indexOf('iPhone 11') !== -1 || systemInfo.model.indexOf('iPhone 12') !== -1) {
             setStorageSync('safeArea', systemInfo.safeArea.top);
         } else {
@@ -23,21 +24,53 @@ export default memo(() => {
     }, [])
     const [tabBars] = useState([
         {
-            url: '/pages/test/index',
-            text: '测试',
+            pagePath: '/pages/index/index',
+            text: '首页',
             icon: <Text className='iconfont icon-square' />,
             iconColor: '',
             activeIcon: <Text className='iconfont  icon-squarecheckfill' />,
             activeIconColor: '',
         },
         {
-            url: '/pages/index/index',
-            text: '首页',
+            pagePath: '/pages/category/index',
+            text: '分类',
             icon: <Text className='iconfont icon-square' />,
             iconColor: '',
-            activeIcon: <Text className='iconfont icon-squarecheckfill' />,
+            activeIcon: <Text className='iconfont  icon-squarecheckfill' />,
             activeIconColor: '',
         },
+        {
+            pagePath: '/pages/cart/index',
+            text: '购物车',
+            icon: <Text className='iconfont icon-square' />,
+            iconColor: '',
+            activeIcon: <Text className='iconfont  icon-squarecheckfill' />,
+            activeIconColor: '',
+        },
+        {
+            pagePath: '/pages/center/index',
+            text: '我的',
+            icon: <Text className='iconfont icon-square' />,
+            iconColor: '',
+            activeIcon: <Text className='iconfont  icon-squarecheckfill' />,
+            activeIconColor: '',
+        },
+        // {
+        //     url: '/pages/test/index',
+        //     text: '测试',
+        //     icon: <Text className='iconfont icon-square' />,
+        //     iconColor: '',
+        //     activeIcon: <Text className='iconfont  icon-squarecheckfill' />,
+        //     activeIconColor: '',
+        // },
+        // {
+        //     url: '/pages/index/index',
+        //     text: '首页',
+        //     icon: <Text className='iconfont icon-square' />,
+        //     iconColor: '',
+        //     activeIcon: <Text className='iconfont icon-squarecheckfill' />,
+        //     activeIconColor: '',
+        // },
     ])
 
     const handleClick = (url, index) => {
@@ -53,11 +86,12 @@ export default memo(() => {
     }
 
     return (
-        <View className='tabbar-wrap' style={{ height: bar_height * 2 + 'rpx', paddingBottom: `env(safe-area-inset-bottom)` }} >
+        <View className='tabbar-wrap' style={{ height: bar_height * 2 + 'rpx', paddingBottom: `calc(${systemInfo.safeArea.top / 2}px)` }}
+        >
             {
                 tabBars[0] && tabBars.map((item, index) => {
                     return (
-                        <View key={item.url} className={`${index === tabbarState.active ? 'text-main _widthAuto' : '_widthAuto'}`} onClick={() => handleClick(item.url, index)} >
+                        <View key={item.url} className={`${index === tabbarState.active ? 'text-main _widthAuto' : '_widthAuto'}`} onClick={() => handleClick(item.pagePath, index)} >
                             <View className='icon_wrap' style={{ borderRadius: '50%', }}>
                                 <View style={index === tabbarState.active && item.activeIcon ? { color: item.activeIconColor } : { color: item.iconColor }}>
                                     {
@@ -72,7 +106,7 @@ export default memo(() => {
                 })
             }
 
-        </View>
+        </ View>
     )
 })
 

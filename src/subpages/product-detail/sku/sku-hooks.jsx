@@ -17,11 +17,31 @@ const Skuhooks = memo(({
     data,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
-    const [option, load, { sku, desc }, specList] = useSku(data);
+    const [option, load, { sku, desc }, specList, setSku] = useSku(data);
+
     useEffect(() => {
         console.log(sku, desc);
         onChange({ sku, desc })
     }, [sku, desc])
+    useEffect(() => {
+        if (load && specList) { // 如果sku没有可选择的默认设置
+            if (specList.length < 1) {
+                setSku({
+                    sku: {
+                        "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
+                        "price": 200,
+                        "stock": 10,
+                        'yyt': 'attr',
+                    },
+                    desc: {
+                        // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
+                        // filterStr: desc,
+                        price: 200,
+                    },
+                })
+            }
+        }
+    }, [load])
 
     return (
         <>

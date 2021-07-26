@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useState } from 'react';
-import Taro, { getStorageSync, useDidShow } from '@tarojs/taro';
+import Taro, { getStorageSync, hideLoading, showLoading, useDidShow } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import isWeapp from '@/utils/env';
-import { navLinkTo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
 import VtabList from './list/list';
 import vtab_data from './tab';
@@ -31,18 +31,22 @@ function Index() {
             <View>
                 <Vtabs
                     windowTabsLength={15}
-                    height={isWeapp ? `calc(${100}vh - ${80}rpx)` : `calc(${window.innerHeight}px - ${commonStore?.bar_h}px )`}
+                    height={isWeapp ? `calc(${100}vh - ${80}rpx - ${120}rpx - ${systemInfo.safeArea.top / 2}px)` : `calc(${window.innerHeight}px - ${commonStore?.bar_h}px )`}
                     list={vtab_data}
                     onChange={(i) => {
-                        console.log(i);
-                        setList(vtab_data[i]);
+                        console.log(vtab_data[i]);
+                        showLoading();
+                        setList([]);
+                        setTimeout(() => {
+                            hideLoading();
+                            setList(vtab_data[i]);
+                        }, 600);
                         setTabIndex(i);
                     }}
                 >
                     <View className='cate-content'>
                         <VtabList
                             list={list}
-                            setList={setList}
                         />
                     </View>
                 </Vtabs>

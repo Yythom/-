@@ -9,7 +9,7 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import './index.scss';
 import useCountdown from '../../../hooks/useCountDown';
-import { navLinkTo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);
@@ -50,10 +50,11 @@ function Index() {
         },
     ]);
     useDidShow(() => {
+        Taro.showShareMenu();
         console.log(commonConfig);
     })
     return (
-        <View className='index-wrap' >
+        <View className='index-wrap' style={!systemInfo.ios && { paddingBottom: '50rpx' }} >
             <NavBar title='首页' />
             <View className='fc search'>
                 <Search width='98vw' text='搜索商品' />

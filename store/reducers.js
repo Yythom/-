@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit'
 
+import tabbar from '../src/custom-tab-bar/store/slice'
 import userSlice from './userSlice'
 import commonSlice from './commonSlice'
 
@@ -8,6 +9,7 @@ import commonSlice from './commonSlice'
  */
 const reducers = {
     userStore: userSlice,
+    tabbar,
     commonStore: commonSlice
 }
 

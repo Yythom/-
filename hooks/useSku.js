@@ -1,10 +1,9 @@
-import { memo, useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
     combInFlags, getActionSpecList,
     getSelectObj,
     skuOptionAttrResult,
     transPrice,
-    transSpec,
     checkSpecAttrDisabled,
 } from "./sku-utils/utils";
 
@@ -26,10 +25,10 @@ const useSku = (data) => {
     const [load, setload] = useState(false);
 
     useEffect(() => {
-        if (data) option().init(data)
+        if (data) option.init(data)
     }, [])
 
-    const option = useCallback(() => {
+    const option = useMemo(() => {
         const clear = () => {
             if (Object.keys(skuResult)[0]) {
                 setskuResult(null);
@@ -59,7 +58,8 @@ const useSku = (data) => {
             setspecList(skuSpec);
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
             setTimeout(() => {
-                setload(true)
+                setload(true);
+
             }, 100);
         }
 
@@ -97,7 +97,7 @@ const useSku = (data) => {
         }
     }, [skuResult, specList]);
 
-    return [option(), load, sku, specList]
+    return [option, load, sku, specList, setSku]
 }
 
 export default useSku

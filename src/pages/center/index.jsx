@@ -1,28 +1,36 @@
 /* eslint-disable react/jsx-indent-props */
-import React from 'react';
-import { View, Text } from '@tarojs/components';
-
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import React, { useState } from 'react';
+import { View, Text, ScrollView } from '@tarojs/components';
+import Taro, { getStorageSync, setBackgroundColor, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import WithUserVerify from '@/components/auth/UserVerify';
-import { navLinkTo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Avatar from '@/components/avatar/Avatar';
 import { hideMobile } from '@/common/public';
 import { shallowEqual, useSelector } from 'react-redux';
 import NavBar from '@/components/navbar/NavBar';
-import './index.scss'
-
+import './index.scss';
 
 const Index = () => {
     const userStore = useSelector(store => store.userStore, shallowEqual);
     const { userInfo } = userStore;
-    usePullDownRefresh(() => {
-        ///
-        stopPullDownRefresh();
-    })
+    const [flag, setFLag] = useState(false);
+
     console.log(userInfo);
 
     return (
-        <View className='center_wrap' style={{ paddingBottom: `${getStorageSync('safeArea') * 2 + getStorageSync('bar_height') * 2}rpx` }} >
+        <ScrollView
+            refresherEnabled
+            refresherTriggered={flag}
+            onRefresherRefresh={() => {
+                setFLag(true)
+                setTimeout(() => {
+                    setFLag(false)
+                }, 1000);
+            }}
+            scrollY
+            style={{ height: `calc(100vh - ${systemInfo.safeArea.top / 2}px - 120rpx)` }}
+            className='center_wrap'
+        >
             <NavBar background='rgb(250,245,235)' />
             <View className='user'>
                 <WithUserVerify onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
@@ -105,7 +113,7 @@ const Index = () => {
                 </View>
             </View>
 
-        </View>
+        </ScrollView>
     )
 }
 export default Index;

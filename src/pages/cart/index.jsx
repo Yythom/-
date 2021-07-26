@@ -12,6 +12,7 @@ import isWeapp from '@/utils/env';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
 import useSummary from '../../../hooks/useSummary';
+import { systemInfo } from '@/common/publicFunc';
 
 
 
@@ -142,7 +143,7 @@ const Index = () => {
 
                 }
             </View>
-            <View className='footer fb' style={!isWeapp && { bottom: commonStore?.bar_h + 'px' }} >
+            <View className='footer fb' style={{ bottom: `calc(${systemInfo.safeArea.top / 2}px + ${60 * 2}rpx)` }} >
                 <View className='pay fb'>
                     <View className='left flex' onClick={() => {
                         const newList = JSON.parse(JSON.stringify(pageData));

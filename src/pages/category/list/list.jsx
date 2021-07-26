@@ -31,7 +31,7 @@ function VtabList({ list }) {
         console.log(_list, '_list');
         return _list?.map((e, i) => {
             return (
-                e.pro.map(product => {
+                e?.pro?.map(product => {
                     return (
                         <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
                             <BlurImg className='img' src={product.image} />
