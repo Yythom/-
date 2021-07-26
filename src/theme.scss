@@ -10,3 +10,8 @@
 .theme-bg {
     background: #5290FF;
 }
+
+.index {
+    box-sizing: border-box;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 70px) !important;
+}

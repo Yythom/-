@@ -32,7 +32,7 @@ const Float = ({
                 console.log(document.querySelector('.' + className).offsetHeight + 10);
                 setTop(-(document.querySelector('.' + className).offsetHeight + 10));
             } else {
-                setTop(-(700));
+                setTop(-(900));
                 RefInfo(`${className}`).then(res => {
                     setTop(-(res.height + 10))
                 })

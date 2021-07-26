@@ -29,7 +29,7 @@ const Index = () => {
             }}
             scrollY
             style={{ height: `calc(100vh - ${systemInfo.safeArea.top / 2}px - 120rpx)` }}
-            className='center_wrap'
+            className='center_wrap index'
         >
             <NavBar background='rgb(250,245,235)' />
             <View className='user'>

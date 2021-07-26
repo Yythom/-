@@ -54,7 +54,7 @@ function Index() {
         console.log(commonConfig);
     })
     return (
-        <View className='index-wrap' style={!systemInfo.ios && { paddingBottom: '50rpx' }} >
+        <View className='index-wrap index' style={!systemInfo.ios && { paddingBottom: '50rpx' }} >
             <NavBar title='首页' />
             <View className='fc search'>
                 <Search width='98vw' text='搜索商品' />

@@ -90,7 +90,7 @@ const Index = () => {
     });
 
     return (
-        <View className='cart-wrap' style={!isWeapp && { minHeight: window.innerHeight + 'px' }}>
+        <View className='cart-wrap index' >
             <View className='cart-title fb' style={{ top: 0 + 'px' }}>
                 <View className='total'>共2件商品</View>
                 <View className='header_edit' onClick={() => { setEdit(!edit) }} >

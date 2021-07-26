@@ -23,7 +23,7 @@ function Index() {
 
 
     return (
-        <View className='cate-wrap' >
+        <View className='cate-wrap index' >
             <View className='fc search' style={{ width: '100vw' }}>
                 <Search width='84vw' text='搜索商品' />
                 <Text className='iconfont icon-dingdan'></Text>
