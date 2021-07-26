@@ -51,7 +51,7 @@ const Move = memo(({
             }}
             style={{
                 transform: `translateX(-${left / scalc}vw)`,
-                width: `calc(${100 + value / scalc}vw - ${padding * 100 / (isWeapp ? systemInfo.windowWidth : window.screen.width)}vw)`,
+                width: `calc(${102 + value / scalc}vw - ${padding * 100 / (isWeapp ? systemInfo.windowWidth : window.screen.width)}vw)`,
                 ...style
             }}
         >

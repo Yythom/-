@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Taro, { getStorageSync, useDidShow } from '@tarojs/taro';
+import Taro, { getStorageSync, useDidShow, useReachBottom } from '@tarojs/taro';
 import { View, Button, Text, Image } from '@tarojs/components';
 import Banner from '@/components/page/banner/Banner';
 import NavBar from '@/components/navbar/NavBar';
@@ -53,8 +53,11 @@ function Index() {
         Taro.showShareMenu();
         console.log(commonConfig);
     })
+    useReachBottom(() => {
+        console.log('doiddd');
+    })
     return (
-        <View className='index-wrap index' style={!systemInfo.ios && { paddingBottom: '50rpx' }} >
+        <View className='index-wrap index' >
             <NavBar title='首页' />
             <View className='fc search'>
                 <Search width='98vw' text='搜索商品' />

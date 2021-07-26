@@ -12,6 +12,7 @@
 }
 
 .index {
+    min-height: 100%;
     box-sizing: border-box;
-    padding-bottom: calc(env(safe-area-inset-bottom) + 70px) !important;
+    padding-bottom: 140px !important;
 }
