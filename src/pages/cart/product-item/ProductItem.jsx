@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import { View, Text, Radio } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -16,25 +16,32 @@ const ProductItem = memo(({
     onChange = Function.prototype,
     onChangeNumber = Function.prototype
 }) => {
+
+    const handle = (type, value) => {
+        const newList = JSON.parse(JSON.stringify(list));
+        const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
+        let shop = newList[shopIndex]       // 查找到某个店铺
+        let item = shop.products[index];  // 查找到某个店铺下的该商品
+        switch (type) {
+            case 'delete':
+                shop.products.splice(index, 1);
+                break;
+            case 'number':
+                item.num = value; // 修改当前商品选择状态
+                onChangeNumber(newList);
+                break;
+            case 'check':
+                item.checked = !item.checked; // 修改当前商品选择状态
+                break;
+        }
+        type !== 'number' && onChange(newList)
+    }
+
     return (
-        <Move value={80} padding={16} onClick={() => {
-            const newList = JSON.parse(JSON.stringify(list));
-            const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
-            // console.log();
-            newList[shopIndex].products.splice(index, 1);
-            // let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
-            // item.checked = !item.checked; // 修改当前商品选择状态
-            onChange(newList);
-        }}>
+        <Move value={80} padding={16} onClick={() => { handle('delete') }}  >
             <View className='card flex' style={{ marginBottom: '0.2rem' }}>
                 <View className='check fc'
-                    onClick={() => {
-                        const newList = JSON.parse(JSON.stringify(list));
-                        const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
-                        let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
-                        item.checked = !item.checked; // 修改当前商品选择状态
-                        onChange(newList);
-                    }}
+                    onClick={() => { handle('check') }}
                 >
                     <Radio className='radio' color='#eb472b' checked={product.checked} />
                 </View>
@@ -62,11 +69,7 @@ const ProductItem = memo(({
 
                                     // }
                                     // onChangeNumber()
-                                    const newList = JSON.parse(JSON.stringify(list));
-                                    const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
-                                    let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
-                                    item.num = value; // 修改当前商品选择状态
-                                    onChangeNumber(newList)
+                                    handle('number', value)
                                 }}
                             />
                         </View>
