@@ -60,7 +60,7 @@ const useSku = (data) => {
             setTimeout(() => {
                 setload(true);
 
-            }, 100);
+            }, 3000);
         }
 
         function handleSpecAttr(item, index) { // sku选择
@@ -97,7 +97,7 @@ const useSku = (data) => {
         }
     }, [skuResult, specList]);
 
-    return [option, load, sku, specList, setSku]
+    return [option, load, sku, specList, setSku];
 }
 
-export default useSku
+export default useSku;

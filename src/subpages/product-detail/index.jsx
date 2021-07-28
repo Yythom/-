@@ -51,9 +51,13 @@ const Index = () => {
 
             {/* sku弹框 */}
             <FloatBottom className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
-                <Sku show={show} data={data} product={pageData} onChange={(e) => {
-                    if (e) setSku(e);
-                }} />
+                <Sku
+                    show={show}
+                    data={data}
+                    onChange={(e) => {
+                        if (e) setSku(e);
+                    }}
+                />
             </FloatBottom>
 
             {/* 服务弹框 */}

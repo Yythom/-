@@ -22,7 +22,8 @@ const Skuhooks = memo(({
     useEffect(() => {
         console.log(sku, desc);
         onChange({ sku, desc })
-    }, [sku, desc])
+    }, [sku, desc]);
+
     useEffect(() => {
         if (load && specList) { // 如果sku没有可选择的默认设置
             if (specList.length < 1) {
