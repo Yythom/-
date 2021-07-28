@@ -1,16 +1,12 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
 import { Text, View, Radio } from '@tarojs/components';
-import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, setStorageSync, showLoading, showToast, useDidShow } from '@tarojs/taro'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { actions } from '@/store/userSlice'
-import './index.scss'
+import Taro, { getStorageSync, hideLoading, navigateBack, setStorageSync, showLoading, showToast, useDidShow } from '@tarojs/taro'
 import { navLinkTo } from '@/common/publicFunc';
+import './index.scss'
 
 const AddressManage = () => {
-
     // const localStore = useSelector(e => e.userStore.localtion, shallowEqual);
-
     const [list, setList] = useState([
         {
             address: "2单元",

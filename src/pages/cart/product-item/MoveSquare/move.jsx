@@ -10,6 +10,7 @@ const scalc = (isWeapp ? systemInfo.windowWidth : window.screen.width) / 100;
 const Move = memo(({
     className,
     children,
+    onClick = Function.prototype,
     padding, //  px ->vw
     value = 100, // 隐藏容器宽度 px ->vw
     style // example  width：`calc(100% + ${value * 2}rpx)`
@@ -64,6 +65,7 @@ const Move = memo(({
                     style={{ width: `${value / scalc}vw` }}
                     onClick={async (event) => {
                         event.stopPropagation();
+                        onClick();
                     }}
                 >
                     删除

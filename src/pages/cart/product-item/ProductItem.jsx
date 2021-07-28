@@ -17,7 +17,15 @@ const ProductItem = memo(({
     onChangeNumber = Function.prototype
 }) => {
     return (
-        <Move value={80} padding={16}>
+        <Move value={80} padding={16} onClick={() => {
+            const newList = JSON.parse(JSON.stringify(list));
+            const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
+            // console.log();
+            newList[shopIndex].products.splice(index, 1);
+            // let item = newList[shopIndex].products[index]; // 查找到某个店铺下的该商品
+            // item.checked = !item.checked; // 修改当前商品选择状态
+            onChange(newList);
+        }}>
             <View className='card flex' style={{ marginBottom: '0.2rem' }}>
                 <View className='check fc'
                     onClick={() => {
