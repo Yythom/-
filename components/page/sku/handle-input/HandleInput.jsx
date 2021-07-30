@@ -19,7 +19,9 @@ const HandleInput = ({
     }, []);
 
     return (
-        <View className='handle_input'>
+        <View className='handle_input' onClick={(e) => {
+            e.stopPropagation();
+        }} >
             <View
                 className='minus btn'
                 onClick={(e) => {
@@ -31,8 +33,13 @@ const HandleInput = ({
                 -
             </View>
             <Input type='number' className={`num ${window && 'fc'}`} placeholderStyle='color:#333' placeholder={num}
+                value={num}
                 onInput={(e) => {
                     e.stopPropagation();
+                    if (e.detail.value < 0) {
+                        _onChange(1);
+                        return
+                    }
                     _onChange(e.detail.value)
                 }}
             />

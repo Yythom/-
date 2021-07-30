@@ -28,6 +28,8 @@ const ProductItem = memo(({
                 break;
             case 'number':
                 item.num = value; // 修改当前商品选择状态
+                console.log(value);
+                // if(value>4)  item.num = value;
                 onChangeNumber(newList);
                 break;
             case 'check':
