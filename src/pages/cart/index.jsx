@@ -61,9 +61,9 @@ const Index = () => {
     ]);
 
     const [edit, setEdit] = useReducer((state) => !state, false);
-    const [list, summaryShop, isAll, price] = useSummary(pageData);
+    const [list, summaryShop, isAll, price, selectArr] = useSummary(pageData);
 
-    console.log(list, summaryShop, isAll);
+    console.log(list, summaryShop);
 
     const init = async () => {
 
@@ -72,9 +72,19 @@ const Index = () => {
     const pay = async () => {
 
     }
-    const del = async () => {
 
+    const del = async () => {
+        console.log('11321');
+        console.log(selectArr);
     }
+
+    const onChange = useCallback(async (newList) => {
+        setPageData(newList)
+    }, [list])
+
+    const onChangeNumber = useCallback(async (newList) => {
+        setPageData(newList)
+    }, [list])
 
     usePullDownRefresh(() => {
         console.log('刷新');
@@ -129,12 +139,8 @@ const Index = () => {
                                         shop_id={e.shop_id}
                                         index={index}
                                         product={product_item}
-                                        onChange={(newList) => {
-                                            setPageData(newList);
-                                        }}
-                                        onChangeNumber={(newList) => {
-                                            setPageData(newList);
-                                        }}
+                                        onChange={onChange}
+                                        onChangeNumber={onChangeNumber}
                                     />
                                 )
                             }
@@ -174,7 +180,7 @@ const Index = () => {
                             onClick={(event) => {
                                 event.stopPropagation();
                                 if (Object.keys(summaryShop).length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
-                                if (edit) pay();
+                                if (!edit) pay();
                                 else del()
                             }}
                         >

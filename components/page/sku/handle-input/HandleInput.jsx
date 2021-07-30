@@ -4,19 +4,20 @@ import { View, Text, Input } from '@tarojs/components';
 import { debounce, throttle } from '@/common/utils';
 
 const HandleInput = ({
+    list,
     num,
     onChange = Function.prototype,
 }) => {
 
     // const _onChange = useCallback(debounce((number) => {
     //     onChange(number);
-    // }), []);
+    // }), [list]);
     // const _onChange = useCallback(throttle((number) => {
     //     onChange(number);
-    // }), []);
+    // }), [list]);
     const _onChange = useCallback((number) => {
         onChange(number);
-    }, []);
+    }, [list]);
 
     return (
         <View className='handle_input' onClick={(e) => {

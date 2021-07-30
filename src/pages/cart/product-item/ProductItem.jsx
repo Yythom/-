@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, Radio } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -16,8 +16,7 @@ const ProductItem = memo(({
     onChange = Function.prototype,
     onChangeNumber = Function.prototype
 }) => {
-
-    const handle = (type, value) => {
+    const handle = useCallback((type, value) => {
         const newList = JSON.parse(JSON.stringify(list));
         const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
         let shop = newList[shopIndex]       // 查找到某个店铺
@@ -25,20 +24,20 @@ const ProductItem = memo(({
         switch (type) {
             case 'delete':
                 shop.products.splice(index, 1);
+                if (!shop.products[0]) newList.splice(shopIndex, 1);
+                console.log('delete', newList);
                 break;
             case 'number':
                 item.num = value; // 修改当前商品选择状态
-                console.log(value);
-                // if(value>4)  item.num = value;
                 onChangeNumber(newList);
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
+                console.log('check', newList);
                 break;
         }
         type !== 'number' && onChange(newList)
-    }
-
+    }, [list])
     return (
         <Move value={80} padding={16} onClick={() => { handle('delete') }}  >
             <View className='card flex' style={{ marginBottom: '0.2rem' }}>
@@ -61,6 +60,7 @@ const ProductItem = memo(({
                         <View className='p-num fb'>
                             <Text className='p-price price-color'><Text className='_money'>¥</Text>{product?.price}</Text>
                             <HandleInput
+                                list={list}
                                 num={product.num}
                                 onChange={(value) => {
                                     // console.log(value);
