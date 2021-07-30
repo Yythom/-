@@ -25,7 +25,6 @@ const ProductItem = memo(({
             case 'delete':
                 shop.products.splice(index, 1);
                 if (!shop.products[0]) newList.splice(shopIndex, 1);
-                console.log('delete', newList);
                 break;
             case 'number':
                 item.num = value; // 修改当前商品选择状态
