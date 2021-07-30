@@ -30,18 +30,18 @@ function ProductInfo({
                 <View className='price'>
                     <Text className='new price-color'>
                         <Text className='_moneny'>¥</Text>
-                        6999
+                        {product?.sale_price}
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
-                        0.00
+                        {product?.price}
                     </Text>
                 </View>
-                <View className='sale'>已售0件</View>
+                <View className='sale'>已售 {product?.sale}件</View>
             </View>
             <View className='p-name fb'>
                 <View className='name'>
-                    【6期免息 学生领券至高减300】一加OnePlus 9手机骁龙888旗舰120Hz屏幕游戏智能拍照一加丨哈苏手机影像系统
+                    {product?.product_name}
                 </View>
                 <Button openType='share' className='share fd' style={{ alignItems: 'center' }}
                     onClick={(e) => {

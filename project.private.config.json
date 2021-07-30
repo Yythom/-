@@ -71,6 +71,12 @@
           "pathName": "subpages/user-handle/info/index",
           "query": "__key_=16267690392731",
           "scene": null
+        },
+        {
+          "name": "确认订单",
+          "pathName": "subpages/order-comfirm/index",
+          "query": "__key_=16275354803121",
+          "scene": null
         }
       ]
     }

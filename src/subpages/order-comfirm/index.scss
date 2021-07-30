@@ -1,0 +1,256 @@
+@import '../../../common/mixins/index.scss';
+
+.order_confirm_wrap {
+    padding: 0 16px;
+    padding-top: 12px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding-bottom: 150px;
+    background-color: rgb(250, 250, 250);
+
+    .icon-right {
+        font-size: 32px;
+        color: #ccc;
+    }
+
+    .address_wrap {
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 14px 16px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+
+        .icon-dingwei {
+            padding: 10px;
+            font-size: 24px;
+            border-radius: 50%;
+            background-color: #ff7214;
+            color: #fff;
+            margin-right: 12px;
+        }
+
+        .s_address {
+            color: #333;
+
+            .phone {
+                color: #999;
+                margin-left: 12px;
+                font-size: 26px;
+            }
+
+            .address {
+                font-size: 24px;
+                max-width: 70vw;
+                @include line(2)
+            }
+        }
+
+    }
+
+    .pruduct_wrap {
+        background-color: #fff;
+        margin-top: 24px;
+        box-sizing: border-box;
+        padding: 16px 16px;
+        width: 100%;
+        min-height: 300px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+        color: #333;
+
+        .shop_name {
+            width: 100%;
+            @include line();
+            font-size: 36px;
+            margin-bottom: 24px;
+            position: relative;
+
+            .icon-shangpu {
+                font-size: 44px;
+                color: #999;
+                margin-right: 24px;
+            }
+
+            .icon-right {
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
+
+        .fb {
+            color: #444;
+            height: 60px;
+
+            .right {
+                display: flex;
+                align-items: center;
+            }
+
+            .left {
+                color: #666;
+                font-size: 28px;
+            }
+
+            &:nth-of-type(1) {
+                margin-top: 24px;
+            }
+        }
+
+        .product_item {
+            display: flex;
+            position: relative;
+            margin-bottom: 12px;
+
+            .img {
+                width: 150px;
+                height: 150px;
+                border-radius: 20px;
+                overflow: hidden;
+                margin-right: 24px;
+
+                image {
+                    width: 150px;
+                    height: 150px;
+                }
+            }
+
+            .center {
+                max-width: 62vw;
+                font-size: 28px;
+            }
+
+            .desc {
+                .product_sku {
+                    color: #999;
+                }
+
+                .product_price {
+                    color: rgb(255, 91, 25);
+                    font-style: 32px;
+
+                    .moneny {
+                        font-size: 24px;
+                    }
+                }
+
+            }
+
+            .num {
+                color: #999;
+                position: absolute;
+                right: 0;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            .product_name {
+                @include line();
+                font-size: 32px;
+                color: #444;
+            }
+
+
+        }
+    }
+
+
+    .get_coupon {
+        color: #444;
+        height: 80px;
+        background-color: #fff;
+        margin-top: 24px;
+        box-sizing: border-box;
+        padding: 16px 16px;
+        border-radius: 14px;
+        box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+        font-size: 30px;
+
+        .right {
+            display: flex;
+            align-items: center;
+            color: rgb(250, 115, 36);
+            font-size: 28px;
+
+            .iconfont {
+                color: rgb(250, 115, 36);
+                font-size: 32px;
+            }
+        }
+    }
+
+    .footer {
+        position: fixed;
+        background-color: #fff;
+        width: 100%;
+        height: 140px;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        box-sizing: border-box;
+        padding: 0 16px;
+        justify-content: flex-end;
+
+        .price {
+            font-size: 28px;
+
+            .monent {
+                color: rgb(255, 103, 32);
+                font-size: 30px;
+                vertical-align: text-bottom;
+            }
+
+            .p {
+                color: rgb(255, 103, 32);
+                font-size: 42px;
+                font-weight: bold;
+                vertical-align: baseline;
+            }
+        }
+
+        .btn {
+            padding: 20px 36px;
+            background-color: rgb(255, 103, 32);
+            border-radius: 40px;
+            color: #fff;
+            margin-left: 32px;
+        }
+    }
+
+    .float_bottom {
+        .title {
+            position: sticky;
+            top: 0;
+            height: 100px;
+            border-bottom: 2px solid rgb(248, 248, 248);
+            font-size: 40px;
+            color: #444;
+        }
+    }
+
+
+    // 平台优惠券
+    .coupons_wrap {
+        box-sizing: border-box;
+        padding: 16px;
+
+        .scroll_wrap {
+            height: calc(100% - 32px - 100px);
+            overflow-y: scroll;
+
+            .empty {
+                align-items: center;
+                // background-color: pink;
+                height: 700px;
+                color: #ccc;
+
+                .iconfont {
+                    // color: #ccc;
+                    font-size: 190px;
+                }
+            }
+        }
+    }
+
+}

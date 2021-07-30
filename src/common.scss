@@ -1,5 +1,11 @@
 @import '../common/mixins/index.scss';
 
+.icon-close {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+}
+
 .handle_input {
     display: flex;
     height: 50px;

@@ -5,42 +5,48 @@ export const data = {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 200,
             "stock": 10,
-            'yyt': 'attr',
+            'sku_id': '111',
         },
         // 4.7寸;16G;黄色
         "101;201;303": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg', // sku主图
             "price": 150, // 价格
-            "stock": 6 // 库存
+            "stock": 6,// 库存
+            'sku_id': '222',
         },
         // 5.5寸;16G;红色
         "102;201;302": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 101,
-            "stock": 10
+            "stock": 10,
+            'sku_id': '333',
         },
         // 5.5寸;16G;黑色
         "102;201;301": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 200,
-            "stock": 2
+            "stock": 2,
+            'sku_id': '444',
         },
         // 5.5寸;64G;黄色
         "102;203;303": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 110,
-            "stock": 6
+            "stock": 6,
+            'sku_id': '555',
         },
         // 5.5寸;32G;黑色
         "201;202;301": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 300,
-            "stock": 16
+            "stock": 16,
+            'sku_id': '666',
         },
         "103;202;301": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 300,
-            "stock": 16
+            "stock": 16,
+            'sku_id': '777',
         },
     },
     skuSpec: [ // sku规范

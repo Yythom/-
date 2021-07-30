@@ -30,7 +30,7 @@ const customInterceptor = (chain) => {
       // 网络监控加入stack
       newWorkStackPush('success', 'error', res.data.code, requestParams, res.data);
       return Promise.resolve(false);
-    } else if (code === 'F-000-000-401' || code === 'F-000-000-403') { // 重新登入的code
+    } else if (code === 'xxx' || code === 'xxx') { // 重新登入的code
       let resp;
       // 如果不存在refreshToken，则是第一次使用，默认微信登录获取token
       // if (!getStorageSync('refreshToken')) {

@@ -19,6 +19,8 @@ export default {
         /** 订单 */
         'order/order-detail/index', // 订单详情
         'order/order-list/index', // 订单列表
+        'order-comfirm/index', // 订单列表
+
 
         /** 地址 */
         'address/address-list/index',

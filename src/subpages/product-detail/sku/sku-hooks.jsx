@@ -2,22 +2,22 @@
 import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'react';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
-import { showLoading, showToast } from '@tarojs/taro';
+import { setStorageSync, showLoading, showToast } from '@tarojs/taro';
 // import { data } from './data';
 import SkuUtil from '../../../../components/page/sku/sku_fn';
 // import data_filter from './data_filter';
 import HandleInput from '../../../../components/page/sku/handle-input/HandleInput';
 import useSku from '../../../../hooks/useSku';
 import './sku.scss'
+import { navLinkTo } from '@/common/publicFunc';
 
 const Skuhooks = memo(({
     show = 1, // 1加入购物车 2 购买 3 all
     onChange = Function.prototype,
     product,
-    data,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
-    const [option, load, { sku, desc }, specList, setSku] = useSku(data);
+    const [option, load, { sku, desc }, specList, setSku] = useSku(product);
 
     useEffect(() => {
         console.log(sku, desc);
@@ -32,7 +32,7 @@ const Skuhooks = memo(({
                         "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
                         "price": 200,
                         "stock": 10,
-                        'yyt': 'attr',
+                        'sku_id': '222',
                     },
                     desc: {
                         // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
@@ -42,7 +42,29 @@ const Skuhooks = memo(({
                 })
             }
         }
-    }, [load])
+    }, [load]);
+
+    // 预下单
+    const preOrder = () => {
+        let pre = {
+            pre_order: {
+                product: [
+                    {
+                        product_id: product.product_id,
+                        sku_id: sku.sku_id,
+                        promotion_id: sku?.activity ? '0' : sku.promotion_id,
+                        number: num
+                    },
+                ]
+            },
+        };
+        setStorageSync('pre-data', pre.pre_order);
+        navLinkTo('order-comfirm/index', {});
+    };
+
+    const addCart = () => {
+
+    };
 
     return (
         <>
@@ -109,11 +131,11 @@ const Skuhooks = memo(({
                             }} />
                         </View>
                         <View className='btn_wrap'>
-                            {show == 1 && <View className='btn cart-btn normal' onClick={() => { }}>加入购物车</View>}
-                            {show == 2 && <View className='btn buy-btn normal' onClick={() => { }}>立即购买</View>}
+                            {show == 1 && <View className='btn cart-btn normal' onClick={() => { addCart() }}>加入购物车</View>}
+                            {show == 2 && <View className='btn buy-btn normal' onClick={() => { preOrder() }}>立即购买</View>}
                             {show == 3 && <>
-                                <View className='btn cart-btn' onClick={() => { }}>加入购物车</View>
-                                <View className='btn buy-btn' onClick={() => { }}>立即购买</View>
+                                <View className='btn cart-btn' onClick={() => { addCart() }}>加入购物车</View>
+                                <View className='btn buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
 

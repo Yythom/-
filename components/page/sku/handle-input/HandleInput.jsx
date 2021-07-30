@@ -1,19 +1,31 @@
 /* eslint-disable react/jsx-indent-props */
-import React from 'react'
+import React, { useCallback } from 'react'
 import { View, Text, Input } from '@tarojs/components';
+import { debounce, throttle } from '@/common/utils';
 
 const HandleInput = ({
     num,
     onChange = Function.prototype,
 }) => {
+
+    // const _onChange = useCallback(debounce((number) => {
+    //     onChange(number);
+    // }), []);
+    // const _onChange = useCallback(throttle((number) => {
+    //     onChange(number);
+    // }), []);
+    const _onChange = useCallback((number) => {
+        onChange(number);
+    }, []);
+
     return (
         <View className='handle_input'>
             <View
                 className='minus btn'
                 onClick={(e) => {
                     e.stopPropagation();
-                    if (num > 1) onChange(num - 1)
-                    else onChange(1)
+                    if (num > 1) _onChange(num - 1)
+                    else _onChange(1)
                 }}
             >
                 -
@@ -21,14 +33,14 @@ const HandleInput = ({
             <Input type='number' className={`num ${window && 'fc'}`} placeholderStyle='color:#333' placeholder={num}
                 onInput={(e) => {
                     e.stopPropagation();
-                    onChange(e.detail.value)
+                    _onChange(e.detail.value)
                 }}
             />
             <View
                 className='add btn'
                 onClick={(e) => {
                     e.stopPropagation();
-                    onChange(Number(num) + 1)
+                    _onChange(Number(num) + 1)
                 }}
             >
                 +
