@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, ScrollView } from '@tarojs/components';
 import Taro, { getStorageSync, showModal } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -42,35 +42,50 @@ const Index = () => {
 
     return (
         <View className='product-detail'>
-            {/* 商品图片 */}
-            <Banner
-                list={pageData?.banner}
-                h='50vh'
-                render={
-                    (e) => <BlurImg mode='widthFix' className='img fc' src={e} />
-                }
-            ></Banner>
-            {/* 商品基本信息 */}
-            <ProductInfo className='p-16' product={pageData} />
+            <ScrollView scrollY className='scrollview'>
+                {/* 商品图片 */}
+                <Banner
+                    list={pageData?.banner}
+                    h='50vh'
+                    render={
+                        (e) => <BlurImg mode='widthFix' className='img fc' src={e} />
+                    }
+                ></Banner>
 
-            {/* 打开sku */}
-            <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
-                <View>
-                    选择：<Text className='desc'>{sku?.desc.str}</Text>
+                {/* 商品基本信息 */}
+                <ProductInfo className='p-16' product={pageData} />
+
+                {/* 打开sku */}
+                <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
+                    <View>
+                        选择：<Text className='desc'>{sku?.desc.str}</Text>
+                    </View>
+                    <Text className='iconfont icon-right' />
                 </View>
-                <Text className='iconfont icon-right' />
-            </View>
 
-            {/* 服务详情 */}
-            <View className='service fb p-16' onClick={() => setService(true)}>
-                <View>{pageData?.service?.map(e => <Text key={e} className='item'>{e.text}</Text>)} </View>
-                <Text className='iconfont icon-right' />
-            </View>
+                {/* 服务详情 */}
+                <View className='service fb p-16' onClick={() => setService(true)}>
+                    <View>{pageData?.service?.map(e => <Text key={e} className='item'>{e.text}</Text>)} </View>
+                    <Text className='iconfont icon-right' />
+                </View>
+
+
+                <View className='product-desc'>
+                    <View className='title flex p-16'>
+                        商品描述
+                    </View>
+                    <View className='img fdc'>
+                        <Image mode='widthFix' src='https://img2.baidu.com/it/u=2790689811,54471194&fm=26&fmt=auto&gp=0.jpg' />
+                    </View>
+                    .........
+                </View>
+            </ScrollView>
 
             {/* sku弹框 */}
             <FloatBottom className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
                 <Sku
                     show={show}
+                    setShow={setShow}
                     product={pageData}
                     onChange={(e) => {
                         if (e) setSku(e);
@@ -93,14 +108,6 @@ const Index = () => {
                     </View>
                 </View>
             </FloatBottom>
-
-            <View className='product-desc'>
-                <View className='title flex p-16'>
-                    商品描述
-                </View>
-                <BlurImg src='https://img2.baidu.com/it/u=2790689811,54471194&fm=26&fmt=auto&gp=0.jpg' />
-            </View>
-
             {/* 底部 */}
             <View className='footer fb'>
                 <View className='user'>
@@ -121,7 +128,7 @@ const Index = () => {
                     <View className='buy' onClick={() => setShow(2)}>立即购买</View>
                 </View>
             </View>
-        </View>
+        </View >
     )
 }
 export default Index;

@@ -1,8 +1,12 @@
 .product-detail {
     background-color: rgb(250, 250, 250);
-    min-height: 100vh;
     box-sizing: border-box;
-    padding-bottom: 110px;
+
+    .scrollview {
+        box-sizing: border-box;
+        height: 100vh;
+        padding-bottom: 110px;
+    }
 
     .iconfont {
         color: #ddd

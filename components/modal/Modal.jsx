@@ -72,9 +72,8 @@ const Modal = ({
               }
               {
                 (
-                  <View className='modal-content'>
+                  <View className='modal-content fc'>
                     {content}
-                    <Input />
                   </View>
                 )
               }

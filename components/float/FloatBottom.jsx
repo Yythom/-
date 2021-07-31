@@ -18,7 +18,7 @@ const Float = ({
             hide();
         }
     }
-    const [top, setTop] = useState('');
+    const [top, setTop] = useState(-900);
     // useEffect(() => {
     //     setTop(initTop)
     // }, [])
@@ -40,22 +40,16 @@ const Float = ({
         }
     }, [show]);
 
-    useEffect(() => {
-        if (!show) setTop(-(800));
-    }, [])
-
     return (
         <>
-            {
-                show
-                && <View className='modal-mask' onClick={
-                    () => {
-                        hideFn();
-                        setShow(false);
-                    }
+            {/* { */}
+            <View className='modal-mask' style={!show && { zIndex: '-999', opacity: 0 }} onClick={
+                () => {
+                    hideFn();
+                    setShow(false);
                 }
-                />
-            }
+            } />
+            {/* // } */}
             <View className={`float_bottom  ${className}`} style={{ ...style, bottom: top ? top + 'px' : '-3999rpx' }}>
                 {children}
             </View>

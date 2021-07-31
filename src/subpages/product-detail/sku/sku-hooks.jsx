@@ -3,16 +3,14 @@ import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'rea
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { setStorageSync, showLoading, showToast } from '@tarojs/taro';
-// import { data } from './data';
-import SkuUtil from '../../../../components/page/sku/sku_fn';
-// import data_filter from './data_filter';
+import { navLinkTo } from '@/common/publicFunc';
 import HandleInput from '../../../../components/page/sku/handle-input/HandleInput';
 import useSku from '../../../../hooks/useSku';
 import './sku.scss'
-import { navLinkTo } from '@/common/publicFunc';
 
 const Skuhooks = memo(({
     show = 1, // 1加入购物车 2 购买 3 all
+    setShow,
     onChange = Function.prototype,
     product,
 }) => {
@@ -72,10 +70,9 @@ const Skuhooks = memo(({
                 load
                     ?
                     <View className='sku'>
-                        <View className='iconfont icon-close' onClick={() => { }}></View>
+                        <View className='iconfont icon-close' onClick={() => { setShow(false) }}></View>
                         <View className='title flex'>
                             <BlurImg className='img' src={sku ? sku.img : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
-
                             <View className='content fd'>
                                 <View className='price'>
                                     <Text className='_money'>¥</Text>

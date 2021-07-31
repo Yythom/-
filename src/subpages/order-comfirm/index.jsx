@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useLayoutEffect, useState } from 'react';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Input, Textarea } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
@@ -8,6 +8,11 @@ import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
 import FloatBottom from '@/components/float/FloatBottom';
 import './index.scss'
+import Coupon from './coupon/coupon';
+import Coupon2 from './coupon/coupon2';
+import VipCard from './vip-card/vipCard';
+import Address from './address/coupon';
+import Modal from '@/components/modal/Modal';
 
 
 const Index = () => {
@@ -49,6 +54,14 @@ const Index = () => {
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
     const [couponShow, setCouponShow] = useState(false);
+    const [vpShow, setVpShow] = useState(false);
+
+    const [modal, setModal] = useState(false);
+    const [msg, setMsg] = useState({
+        oldmsg: '',
+        msg: ''
+    });
+    const [msg2, setmsg2] = useState('');
 
     const init = async () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
@@ -74,28 +87,7 @@ const Index = () => {
     return (
         <View className='order_confirm_wrap'>
             {/* <NavBar back title='确认订单' /> */}
-            <View className='address_wrap fb' onClick={() => navLinkTo('address/address-list/index', {})}>
-                <View className='flex'>
-                    <Text className='iconfont icon-dingwei'></Text>
-                    <View className='s_address'>
-                        {
-                            address ? <>
-                                <View>{address.username}<Text className='phone'>{address.mobile}</Text> </View>
-                                <View className='address'>
-                                    <Text >
-                                        {address.address}
-                                    </Text>
-                                </View>
-                            </> : <>
-                                <View>选择收货地址</View>
-                            </>
-                        }
-
-                    </View>
-                </View>
-
-                <View className='iconfont icon-right'></View>
-            </View>
+            <Address address={address} />
 
             <View className='pruduct_wrap'>
                 <View className='shop_name' onClick={() => navLinkTo('/subpages/online_shop_product_list/index', { shop_id: pageData?.shop_id })}><Text className='iconfont icon-shangpu' />{pageData?.shop_name} <Text className='iconfont icon-right' style={{ color: '#999', fontSize: '32rpx' }}></Text></View>
@@ -122,9 +114,6 @@ const Index = () => {
                     <View className='left'>运费</View>
                     <View className='right'>¥{pageData?.freight}</View>
                 </View>
-
-
-
             </View>
 
             <View className='get_coupon fb' onClick={() => setCouponShow(true)}>
@@ -139,6 +128,33 @@ const Index = () => {
                 </View>
             </View>
 
+            <View className='get_coupon fb' onClick={() => setVpShow(true)}>
+                <View className='left' >余额/卡</View>
+                <View className='right'>
+                    {
+                        pageData?.select_coupon?.shop?.activity_coupon_id ? (
+                            pageData?.select_coupon?.shop?.type == 2 ? `-¥${pageData?.select_coupon?.shop?.deduction}` : `-¥${pageData?.select_coupon?.shop?.price}`
+                        ) :
+                            pageData?.shop_coupon.filter(e => e.disable == 0).length + '张可用'
+                    }<Text className='iconfont icon-right' />
+                </View>
+            </View>
+
+            <View className='get_coupon fb' style={{ height: 'auto' }} onClick={() => setModal(true)} >
+                <View className='left' >买家留言</View>
+                <View className='right'>
+                    {msg.oldmsg}
+                </View>
+            </View>
+
+            <View className='get_coupon fb' style={{ height: 'auto' }}>
+                <View className='left' >买家留言</View>
+                <View className='right'>
+                    <Textarea value={msg2} autoHeight style={{ minHeight: '60rpx', color: '#555' }} className='textarea' onInput={(e) => setmsg2(e.detail.value.trim())} placeholder='' />
+                </View>
+            </View>
+
+
             <View className='footer flex'>
                 <Text className='price'> 实付金额 <Text className='price'><Text className='monent'>¥</Text>
                     <Text className='p'>{pageData?.price}</Text></Text></Text>
@@ -150,37 +166,21 @@ const Index = () => {
             </View>
 
             {/* couponList -get */}
-            {
-                // pageData?.coupon[0] &&
-                <FloatBottom
-                    className='coupon-list'
-                    style={{ backgroundColor: '#fff' }}
-                    show={couponShow}
-                    setShow={setCouponShow}
-                    hideFn={() => {
+            {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
+            <Coupon2 show={couponShow} setShow={setCouponShow} />
 
-                    }}
-                >
-                    <View className='coupons_wrap' style={{ height: '900rpx' }}>
-                        <View className='iconfont icon-close' onClick={() => { setCouponShow(false) }}></View>
-                        <View className='title fc'>选择优惠券</View>
-                        <View className='scroll_wrap'>
-                            {
-                                !pageData?.coupon[0]
-                                    ? <View className='empty fd'>
-                                        <Text className='icon-kaquan iconfont'></Text>
-                                        <View className=''>暂无优惠券</View>
-                                    </View>
-                                    : pageData?.coupon.map((e, i) => {
-                                        return <View className='item' key={i + 'coupon'}>
-                                            优惠券
-                                        </View>
-                                    })
-                            }
-                        </View>
-                    </View>
-                </FloatBottom>
-            }
+            {/* vip card -get */}
+            <VipCard show={vpShow} setShow={setVpShow} />
+
+            <Modal
+                title='买家留言'
+                onOk={() => {
+                    setMsg({ ...msg, oldmsg: msg.msg })
+                }}
+                content={
+                    <Textarea autoFocus value={msg.msg} className='textarea' onInput={(e) => setMsg({ ...msg, msg: e.detail.value.trim() })} placeholder='' />
+                } show={modal} setShow={setModal}
+            />
         </View >
     )
 }

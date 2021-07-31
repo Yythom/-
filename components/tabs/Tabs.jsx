@@ -6,13 +6,13 @@ import { debounce } from '@/common/utils';
 import paging, { initing } from '../../utils/paging';
 import './tabs.scss'
 
-const Index = (props) => {
+const Index = (props) => { // 不能有padding父元素
     const {
         // tab相关设置
-        className, // wrap class
+        className, // wrap class // 2个以上tabs必传
         onChange, // change函数
         tag_list, // list=[{title}]  分类列表
-        scalc = 1.5, // nav-line缩小倍率
+        padding = 16, // nav-line缩小
         renderCenter, // 中间可展开筛选区域
         defaultIndex, // 默认选中的index
 
@@ -69,7 +69,8 @@ const Index = (props) => {
                             setNavItemLeft(item.left);
                             setNavItemWidth(item.width);
                         }
-                        navInfosArr.push({ width: item.width / scalc, left: item.left + (item.width - item.width / scalc) / 2 });
+
+                        navInfosArr.push({ width: item.width, left: item.left });
                     });
                     setNavInfos(navInfosArr)
                 }
@@ -81,7 +82,7 @@ const Index = (props) => {
 
     function initContentHeight(current) {
         setTimeout(() => {
-            createSelectorQuery().selectAll(`.autoHeight`).boundingClientRect(function (rect) {
+            createSelectorQuery().selectAll(`.autoHeight${className}`).boundingClientRect(function (rect) {
                 if (rect[current]) {
                     console.log(rect[current].height);
                     setHeight(rect[current].height)
@@ -188,7 +189,7 @@ const Index = (props) => {
                                                 )
                                             })
                                         }
-                                        <View className='nav-line' style={{ width: navItemWidth + 'px', left: (navItemLeft - 1) + 'px' }} ></View>
+                                        <View className='nav-line' style={{ width: `calc(${navItemWidth}px - ${padding}rpx)`, left: `calc(${(navItemLeft - 1)}px + ${padding / 2}rpx)` }} ></View>
                                     </View>
 
                                 </ScrollView>
@@ -203,7 +204,7 @@ const Index = (props) => {
                         {  // 内容区域
                             props.children
                             &&
-                            <View className='swiper' style={{ height: height * 2 + 'rpx', maxHeight: maxHeight }}>
+                            <View className='swiper' style={{ height: height + 'px', maxHeight: maxHeight }}>
                                 <Swiper
                                     current={swiperIndex}
                                     duration={300}
@@ -230,12 +231,12 @@ const Index = (props) => {
                                                                     onScrollToLower={onLower}
                                                                     refresherEnabled={isRefresh}
                                                                 >
-                                                                    <View className='autoHeight'>
+                                                                    <View className={'autoHeight' + className}>
                                                                         {swiperIndex == index ? props.children : null}
                                                                     </View>
                                                                 </ScrollView>
                                                                     : <View className='swiper-scroll _view' >
-                                                                        <View className='autoHeight'>
+                                                                        <View className={'autoHeight' + className}>
                                                                             {swiperIndex == index ? props.children : null}
                                                                         </View>
                                                                     </View>
@@ -253,11 +254,11 @@ const Index = (props) => {
                                                                 onScrollToLower={onLower}
                                                                 refresherEnabled={isRefresh}
                                                             >
-                                                                <View className='autoHeight'>
+                                                                <View className={'autoHeight' + className}>
                                                                     {swiperIndex == index ? props.children : null}
                                                                 </View>
                                                             </ScrollView> : <View className='swiper-scroll _view'>
-                                                                <View className='autoHeight'>
+                                                                <View className={'autoHeight' + className}>
                                                                     {swiperIndex == index ? props.children : null}
                                                                 </View>
                                                             </View>
