@@ -10,6 +10,7 @@ import { navLinkTo } from '@/common/publicFunc';
 
 import Sku from '@/components/page/sku-hook/sku-hooks';
 import { data } from '../../../hooks/sku-utils/data';
+import { data2 } from '../../../hooks/sku-utils/data2';
 import ProductInfo from './product-info/ProductInfo';
 import './index.scss'
 
@@ -44,6 +45,16 @@ const Index = () => {
     return (
         <View className='product-detail'>
             <ScrollView scrollY className='scrollview'>
+                {/* <View className='' onClick={() => {
+                    setPageData({
+                        ...pageData,
+                        ...data2
+                    });
+                    setTimeout(() => {
+                        setShow(3)
+                    }, 100);
+                }}>测试猜你喜欢选择</View> */}
+
                 {/* 商品图片 */}
                 <Banner
                     list={pageData?.banner}
