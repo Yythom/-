@@ -161,7 +161,9 @@ function VtabList({ list, skushow, setskuShow, setSkuData, skuData }) {
         return list.child ?
             <>
                 <View className='child-tab flex' >
-                    <ChildCate list={list} child_cate={child_cate} onClick={selectChild} />
+                    <View className='child-wrap flex'>
+                        <ChildCate list={list} child_cate={child_cate} onClick={selectChild} />
+                    </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
                         ^
                     </View>
