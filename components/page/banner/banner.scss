@@ -28,4 +28,32 @@
         border-radius: 30px;
         font-size: 28px;
     }
+
+    .dots_wrap {
+        position: absolute;
+        z-index: 2;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+        display: flex;
+        align-items: center;
+        // padding: 6px 24px;
+
+
+        .dots {
+            width: 15px;
+            height: 10px;
+            background-color: #fff;
+            margin-right: 8px;
+            border-radius: 5px;
+            transition: 600ms;
+        }
+
+        .act_dots {
+            background-color: #fff;
+            width: 64px;
+            height: 10px;
+            background: #FE7945;
+        }
+    }
 }

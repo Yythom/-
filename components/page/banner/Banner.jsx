@@ -15,10 +15,13 @@ const Banner = ({
     ],
     className,
     style,
+    custom,
     isDig,
     render = (url) => <BlurImg src={url} />,
 }) => {
     const [index, setindex] = useState(0);
+
+
     useLayoutEffect(() => {
         if (!render()) {
             console.error('banner props render is not')
@@ -36,7 +39,7 @@ const Banner = ({
                 indicatorActiveColor='rgb(226, 150, 63)'
                 interval={5000}
                 circular
-                indicatorDots
+                // indicatorDots
                 // autoplay
                 onChange={(e) => {
                     setindex(e.detail.current)
@@ -56,7 +59,21 @@ const Banner = ({
                     <View className='next'>{list.length}</View>
                 </View>
             }
+            {
+                custom && <View className='dots_wrap'>
+                    {
+                        list.length > 0 && Array.from(new Array(list.length).keys()).map((e, i) => {
+                            return (
+                                <View className={(i == index && 'act_dots') + ' dots'} key={className + 'e'} style={{
 
+                                }} />
+
+                            )
+                        })
+                    }
+
+                </View>
+            }
         </View>
 
     )
