@@ -47,6 +47,7 @@ const Index = () => {
                 {/* 商品图片 */}
                 <Banner
                     list={pageData?.banner}
+                    custom
                     h='50vh'
                     render={
                         (e) => <BlurImg mode='widthFix' className='img fc' src={e} />

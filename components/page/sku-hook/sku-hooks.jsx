@@ -10,7 +10,7 @@ import './sku.scss'
 import FloatBottom from '@/components/float/FloatBottom';
 
 const Skuhooks = memo(({
-    bottom = 90,
+    bottom = 86,
     show = 1, // 1加入购物车 2 购买 3 all
     setShow = Function.prototype,
     onChange = Function.prototype,
