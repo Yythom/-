@@ -1,0 +1,72 @@
+@import '../../../../common/mixins/index.scss';
+
+.seconds-kills {
+    display: flex;
+    flex-wrap: wrap;
+
+    .item {
+        width: 360px;
+        padding: 20px;
+        border-right: 2px solid #F3F3F3;
+        box-sizing: border-box;
+
+        .product {
+            width: 132px;
+
+            .img {
+                width: 132px;
+                height: 132px;
+            }
+
+            .price {
+                @include line(1)
+            }
+        }
+
+        .title {
+            font-size: 32px;
+            margin-bottom: 25px;
+
+            .countdouwn {
+                padding: 0 5px;
+                height: 45px;
+                margin-left: 8px;
+                font-size: 20px;
+                background: rgba(239, 95, 0, 0.19);
+                border-radius: 8px;
+                box-sizing: border-box;
+                border: 2px solid #EF5F00;
+            }
+
+            .skew {
+                margin: 0 8px;
+                width: 90px;
+                height: 41px;
+                position: relative;
+
+                .bg {
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translateY(-50%) skew(-12deg);
+                    width: 90px;
+                    height: 41px;
+                    z-index: 0;
+                    background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
+                    border-radius: 8px;
+                }
+
+                .tx {
+                    position: absolute;
+                    left: 50%;
+                    white-space: nowrap;
+                    top: 50%;
+                    transform: translate(-50%, -50%);
+                    z-index: 1;
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+}

@@ -10,6 +10,7 @@ const Float = ({
     hide,
     setShow,
     className,
+    bottom = 0,
     style,
     children
 }) => {
@@ -25,7 +26,7 @@ const Float = ({
     useEffect(() => {
         if (show) {
             // vibrateShort();
-            setTop(-10)
+            setTop(-10 + bottom)
         } else {
             // setTop(-(700));
             if (!isWeapp) {

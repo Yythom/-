@@ -7,9 +7,10 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
 import { callPhone } from '@/common/public';
 import { navLinkTo } from '@/common/publicFunc';
+
+import Sku from '@/components/page/sku-hook/sku-hooks';
 import { data } from '../../../hooks/sku-utils/data';
 import ProductInfo from './product-info/ProductInfo';
-import Sku from './sku/sku-hooks';
 import './index.scss'
 
 

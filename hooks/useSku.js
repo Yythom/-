@@ -19,27 +19,30 @@ const useSku = (data) => {
     const [sku, setSku] = useState({
         sku: false,
         desc: {
-            str: data.skuSpec.map(e => e.specName).join(' ')
+            str: data?.skuSpec.map(e => e.specName).join(' ')
         }
     })
     const [load, setload] = useState(false);
 
     useEffect(() => {
-        if (data) option.init(data)
-    }, [])
+        if (data) {
+            option.clear();
+            option.init(data)
+        }
+    }, [data])
+
 
     const option = useMemo(() => {
         const clear = () => {
-            if (Object.keys(skuResult)[0]) {
-                setskuResult(null);
-                setspecList([]);
-                setFilterStr('');
-                setSpecListData([]);
-                setSku({});
-                setload(false)
-            }
+            setskuResult(null);
+            setspecList([]);
+            setFilterStr('');
+            setSpecListData([]);
+            setSku({});
+            setload(false)
         }
         const init = ({ skuList, skuSpec }) => {
+            setload(false);
             const newskuResult = {}
             const skuKeys = Object.keys(skuList);
             skuKeys.forEach(skuKey => {
@@ -60,7 +63,7 @@ const useSku = (data) => {
             setTimeout(() => {
                 setload(true);
 
-            }, 3000);
+            }, 1000);
         }
 
         function handleSpecAttr(item, index) { // sku选择

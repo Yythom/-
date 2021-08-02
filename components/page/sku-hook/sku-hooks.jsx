@@ -4,13 +4,14 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { setStorageSync, showLoading, showToast } from '@tarojs/taro';
 import { navLinkTo } from '@/common/publicFunc';
-import HandleInput from '../../../../components/page/sku/handle-input/HandleInput';
-import useSku from '../../../../hooks/useSku';
+import HandleInput from '@/components/page/sku/handle-input/HandleInput';
+import useSku from '../../../hooks/useSku';
 import './sku.scss'
+import FloatBottom from '@/components/float/FloatBottom';
 
 const Skuhooks = memo(({
     show = 1, // 1加入购物车 2 购买 3 all
-    setShow,
+    setShow = Function.prototype,
     onChange = Function.prototype,
     product,
 }) => {
@@ -65,7 +66,7 @@ const Skuhooks = memo(({
     };
 
     return (
-        <>
+        <FloatBottom bottom={90} className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
             {
                 load
                     ?
@@ -76,7 +77,7 @@ const Skuhooks = memo(({
                             <View className='content fd'>
                                 <View className='price'>
                                     <Text className='_money'>¥</Text>
-                                    {desc.price ? desc.price : 'min-price - max-price'}
+                                    {desc?.price ? desc?.price : 'min-price - max-price'}
                                 </View>
                                 <View className='select'>
                                     {
@@ -142,7 +143,7 @@ const Skuhooks = memo(({
                         模拟加载中...
                     </View>
             }
-        </>
+        </FloatBottom>
     )
 })
 

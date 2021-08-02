@@ -173,7 +173,7 @@ const Index = (props) => { // 不能有padding父元素
                 && <View className={`tab-wrap  ${className}`}>
                     <View>
                         <View className='sticy'
-                            style={isSticy && { position: 'sticky', top: top ? top : getStorageSync('navHeight') + 'px', zIndex: 90 }}
+                            style={isSticy && { position: 'sticky', top: top ? top : getStorageSync('navHeight') + 'px', zIndex: 2 }}
                         >
                             {
                                 tag_list[0]
