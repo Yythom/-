@@ -105,20 +105,7 @@
             border-radius: 10px;
             padding-bottom: 16px;
             margin-bottom: 16px;
-            position: relative;
             justify-content: flex-start;
-
-            // height: 600px;
-            .show-sku {
-                position: absolute;
-                z-index: 1;
-                right: 15px;
-                bottom: 20px;
-                width: 48px;
-                height: 48px;
-                border-radius: 50%;
-                background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
-            }
 
             .img {
                 width: 352px;
@@ -141,6 +128,21 @@
 
             .p-name {
                 font-size: 28px;
+            }
+
+            .foot {
+                position: relative;
+
+                .show-sku {
+                    position: absolute;
+                    z-index: 1;
+                    right: 16px;
+                    bottom: 0;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 50%;
+                    background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
+                }
             }
 
             .vip-price {

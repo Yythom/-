@@ -205,16 +205,17 @@ function Index() {
                                             <Text className='_money'>¥</Text>7888
                                         </Text>
                                     </View>
-                                    <View className='vip-price fc'>
-                                        会员价格 <Text className='_money'>¥</Text>120
+                                    <View className='foot'>
+                                        <View className='vip-price fc'>
+                                            会员价格 <Text className='_money'>¥</Text>120
+                                        </View>
+                                        <View className='show-sku' onClick={(event) => {
+                                            event.stopPropagation();
+                                            showSku()
+                                        }}
+                                        />
                                     </View>
-                                    <View className='show-sku' onClick={(event) => {
-                                        event.stopPropagation();
-                                        showSku()
-                                    }}
-                                    >
 
-                                    </View>
                                 </View>
                             )
                         })
