@@ -168,8 +168,8 @@ function VtabList({ list, skushow, setskuShow, setSkuData, skuData }) {
                         ^
                     </View>
                 </View>
-                <View className='fd item-box'>
-                    {show && <View className='show-cate flex'><ChildCate list={list} child_cate={child_cate} onClick={selectChild} /></View>}
+                {show && <View className='show-cate flex'><ChildCate list={list} child_cate={child_cate} onClick={selectChild} /></View>}
+                <View className='fd item-box ' style={show && { overflow: 'hidden' }}>
                     {show && <View className='mask' />}
                     <RenderList _list={renderChild.pro[0] ? [renderChild] : list.child} skuOption={
                         { show: skushow, setShow: setskuShow, skuData, setSkuData }

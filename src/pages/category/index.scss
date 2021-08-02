@@ -148,7 +148,7 @@
                 background-color: #fff;
                 padding: 0 20px;
                 padding-right: 0;
-                z-index: 2;
+                z-index: 4;
                 height: 74px;
                 padding-bottom: 24px;
                 // margin-bottom: 24px;
@@ -172,28 +172,21 @@
 
             }
 
-            .item-box {
-                // background-color: pink;
-                width: 100%;
-                flex-shrink: 0;
+            .show-cate {
+                position: sticky;
+                height: auto;
                 flex-wrap: wrap;
-                position: relative;
+                top: 74px;
+                width: 100%;
+                right: 0;
+                z-index: 3;
+                background-color: #fff;
+                padding: 15px 20px;
+                padding-top: 0;
+                box-sizing: border-box;
 
-                .show-cate {
-                    position: absolute;
-                    height: auto;
-                    flex-wrap: wrap;
-                    width: 100%;
-                    right: 0;
-                    top: 0;
-                    z-index: 3;
-                    background-color: #fff;
-                    padding: 15px 20px;
-                    box-sizing: border-box;
-
-                    .child-cate {
-                        margin-bottom: 20px;
-                    }
+                .child-cate {
+                    margin-bottom: 20px;
                 }
 
                 .mask {
@@ -202,9 +195,20 @@
                     top: 0;
                     z-index: 2;
                     width: 100%;
-                    height: 920px;
+                    height: 100%;
                     background: rgba(0, 0, 0, 0.6);
                 }
+
+            }
+
+
+
+            .item-box {
+                // background-color: pink;
+                width: 100%;
+                flex-shrink: 0;
+                flex-wrap: wrap;
+                position: relative;
 
                 .item {
                     justify-content: flex-start;
