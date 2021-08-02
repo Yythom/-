@@ -77,6 +77,12 @@
           "pathName": "subpages/order-comfirm/index",
           "query": "__key_=16275354803121",
           "scene": null
+        },
+        {
+          "name": "商品列表",
+          "pathName": "subpages/product-list/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

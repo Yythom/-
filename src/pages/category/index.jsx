@@ -11,8 +11,8 @@ import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
 import VtabList from './list/list';
 import vtab_data from './tab';
-import './index.scss';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
+import './index.scss';
 
 function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);

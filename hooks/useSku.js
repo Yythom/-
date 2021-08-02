@@ -23,24 +23,25 @@ const useSku = (data) => {
         }
     })
     const [load, setload] = useState(false);
-
+    const [clearStatus, setClearSatus] = useState(false)
     useEffect(() => {
         if (data) {
             option.clear();
             option.init(data)
         }
-    }, [data])
+    }, [data]);
 
 
     const option = useMemo(() => {
         const clear = () => {
             setskuResult(null);
             setspecList([]);
-            setFilterStr('');
+            // setFilterStr('');
             setSpecListData([]);
-            setSku({});
-            setload(false)
-        }
+            // setSku({});
+            // setload(false);
+            setClearSatus(!clearStatus)
+        };
         const init = ({ skuList, skuSpec }) => {
             setload(false);
             const newskuResult = {}
@@ -56,13 +57,11 @@ const useSku = (data) => {
                 // 将原始库存组合也加到结果集里面
                 // this.skuResult[skuKey] = sku;
             });
-
             setskuResult(newskuResult);
             setspecList(skuSpec);
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
             setTimeout(() => {
                 setload(true);
-
             }, 1000);
         }
 

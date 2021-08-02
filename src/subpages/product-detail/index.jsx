@@ -59,7 +59,7 @@ const Index = () => {
                 {/* 打开sku */}
                 <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
                     <View>
-                        选择：<Text className='desc'>{sku?.desc.str}</Text>
+                        选择：<Text className='desc'>{sku?.desc?.str}</Text>
                     </View>
                     <Text className='iconfont icon-right' />
                 </View>
@@ -83,16 +83,15 @@ const Index = () => {
             </ScrollView>
 
             {/* sku弹框 */}
-            <FloatBottom className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
-                <Sku
-                    show={show}
-                    setShow={setShow}
-                    product={pageData}
-                    onChange={(e) => {
-                        if (e) setSku(e);
-                    }}
-                />
-            </FloatBottom>
+            <Sku
+                bottom={0}
+                show={show}
+                setShow={setShow}
+                product={pageData}
+                onChange={(e) => {
+                    if (e) setSku(e);
+                }}
+            />
 
             {/* 服务弹框 */}
             <FloatBottom className='service-float' show={service} setShow={setService} style={{ backgroundColor: '#fff' }}>
