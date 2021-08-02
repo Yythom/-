@@ -81,6 +81,11 @@ const RenderList = memo(({ _list, skuOption, i, setI }) => {
         return (
             e?.pro?.map(product => {
                 return (
+                    /* 迭代样式 */
+                    // <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
+                    //     <BlurImg className='img' src={product.image} />
+                    //     <View className='text'>{product.name}</View>
+                    // </View>
                     <View className='flex item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
                         <Image className='img' mode='aspectFill' src={product.image}></Image>
                         <View className='content fd'>
