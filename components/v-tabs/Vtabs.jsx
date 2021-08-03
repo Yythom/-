@@ -9,7 +9,9 @@ const Vtabs = memo(({
     children, // 右侧渲染的内容
     onChange, // change事件
     height, // vtab高度
+    className,
     windowTabsLength, // 左侧列表显示的tabs数量
+    scrollTo = 0,
 }) => {
     const query = createSelectorQuery();
     const [swiperIndex, setSwiperIndex] = useState(0); // tab index
@@ -79,13 +81,14 @@ const Vtabs = memo(({
     }
 
     return (
-        <View className='vTabs-wrap' style={{ height }}>
+        <View className={'vTabs-wrap ' + className} style={{ height }}>
 
             <ScrollView
                 scrollWithAnimation
                 scrollY
                 className='left_wrap'
-                scrollTop={scrollTop}
+                scrollIntoView={scrollTop}
+            // scrollTop={scrollTop}
             >
                 <View className='parentClass' style={{ position: 'relative', height: '100%' }}>
                     {
@@ -121,17 +124,18 @@ const Vtabs = memo(({
                     list[0] && list.map((e, i) => {
                         return (
                             <SwiperItem className='item_content' key={i + 'item_content'}>
-                                <ScrollView
-                                    scrollWithAnimation
-                                    scrollY
+                                <View
+                                    // scrollWithAnimation
+                                    // scrollY
+                                    // scrollTop={scrollTo}
                                     className='item_scroll'
-                                    style={{ height: '98%' }}
+                                    style={{ height: '98%', overflow: 'hidden' }}
                                 >
 
-                                    <View className='item_box' >
+                                    <View className='item_box' style={{ height: '100%' }} >
                                         {i === swiperIndex && children}
                                     </View>
-                                </ScrollView>
+                                </View>
                             </SwiperItem>
                         )
                     })

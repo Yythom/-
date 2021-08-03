@@ -84,6 +84,7 @@
     // tabs
     .vTabs-wrap {
         .item_scroll {
+            box-sizing: border-box;
             background-color: #fff;
         }
 
@@ -112,12 +113,8 @@
             background-color: rgb(243, 60, 28);
         }
 
-        .item_scroll {
-            padding-top: 15px;
-            box-sizing: border-box;
-        }
-
         .cate-content {
+            height: 100%;
             width: 100%;
 
             .child-cate {
@@ -148,8 +145,9 @@
                 background-color: #fff;
                 padding: 0 20px;
                 padding-right: 0;
+                padding-top: 15px;
                 z-index: 4;
-                height: 74px;
+                // height: 74px;
                 padding-bottom: 24px;
                 // margin-bottom: 24px;
                 box-sizing: border-box;

@@ -7,11 +7,12 @@ import './index.scss'
 import isWeapp from '@/utils/env';
 import ProductItem from './pruduct/ProductItem';
 import FloatRight from '@/components/float/FloatRight';
+import FilterSearch from './filter/filter';
 
 
 const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
     const [pageData, setPageData] = useState([
         {
             product_id: '101',
@@ -60,17 +61,8 @@ const Index = () => {
                     />)
                 }
             </View>
-            <FloatRight
-                width='80vw'
-                className='right-search'
-                show={show}
-                setShow={setShow}
-                style={{ background: '#fff' }}
-            >
-                <View className='' >
 
-                </View>
-            </FloatRight>
+            <FilterSearch show={show} setShow={setShow} />
         </View>
     )
 }
