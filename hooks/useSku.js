@@ -11,11 +11,14 @@ import {
  * @param {*} data { skuList:[], skuSpec:[] }
  * @returns 
  */
+let specListData = [];
+let skuResult = [];
+let specList = [];
 const useSku = (data) => {
-    const [skuResult, setskuResult] = useState(null); // 所有sku组合数组
-    const [specList, setspecList] = useState([]); // 页面渲染列表
+    // const [skuResult, setskuResult] = useState(null); // 所有sku组合数组
+    // const [specList, setspecList] = useState([]); // 页面渲染列表
     const [filterStr, setFilterStr] = useState(''); // 剩余选择的描述文字
-    const [specListData, setSpecListData] = useState([]); // 选中的规格属性数据对象
+    // const [specListData, setSpecListData] = useState([]); // 选中的规格属性数据对象
     const [sku, setSku] = useState({
         sku: false,
         desc: {
@@ -23,9 +26,10 @@ const useSku = (data) => {
         }
     })
     const [load, setload] = useState(false);
-    const [clearStatus, setClearSatus] = useState(false)
+
     useEffect(() => {
         if (data) {
+            console.log('重新初始化');
             option.clear();
             option.init(data)
         }
@@ -34,15 +38,18 @@ const useSku = (data) => {
 
     const option = useMemo(() => {
         const clear = () => {
-            setskuResult(null);
-            setspecList([]);
+            skuResult = [];
             // setFilterStr('');
-            setSpecListData([]);
             // setSku({});
             // setload(false);
-            setClearSatus(!clearStatus)
         };
         const init = ({ skuList, skuSpec }) => {
+            // setskuResult(null);
+            skuResult = null
+            // setspecList([]);
+            specList = [];
+            specListData = [];
+            // setSpecListData([]);
             setload(false);
             const newskuResult = {}
             const skuKeys = Object.keys(skuList);
@@ -57,8 +64,10 @@ const useSku = (data) => {
                 // 将原始库存组合也加到结果集里面
                 // this.skuResult[skuKey] = sku;
             });
-            setskuResult(newskuResult);
-            setspecList(skuSpec);
+            // setskuResult(newskuResult);
+            skuResult = newskuResult
+            // setspecList(skuSpec);
+            specList = skuSpec
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
             setTimeout(() => {
                 setload(true);
@@ -68,6 +77,8 @@ const useSku = (data) => {
         function handleSpecAttr(item, index) { // sku选择
             // clearInterval(timmer);
             const list = getActionSpecList(specListData, item, index);
+            // console.log(specListData, 'specListData');
+
             let str = filterStr;
             str.split(' ').forEach(el => {
                 list.forEach(e => {
@@ -78,7 +89,8 @@ const useSku = (data) => {
                     }
                 })
             })
-            list && setSpecListData(list);
+            // list && setSpecListData(list);
+            specListData = list
             const _sku = getSelectObj(skuResult, list, specList);
             const { price, desc } = transPrice(skuResult, specListData);
             setSku({
@@ -89,7 +101,7 @@ const useSku = (data) => {
                     price: price,
                 },
             })
-            console.log(list, index, '_sku');
+            // console.log(list, index, '_sku');
         }
 
         return {

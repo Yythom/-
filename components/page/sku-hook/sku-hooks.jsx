@@ -31,6 +31,7 @@ const Skuhooks = memo(({
     }, [sku, desc]);
 
     useEffect(() => {
+        console.log(load, 'loadloadloadload');
         if (load && specList) { // 如果sku没有可选择的默认设置
             if (specList.length < 1) {
                 setSku({
@@ -49,19 +50,21 @@ const Skuhooks = memo(({
             }
 
             if (default_sku[0]) {
+                console.log(default_sku, 'default_sku');
                 // 默认选中
                 default_sku.forEach((item, index) => {
+                    console.log(item, index, 'index');
                     if (index == 0) {
                         option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
                     } else if (index == 1) {
                         option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
-                    } else {
+                    } else if (index == 2) {
                         option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
                     }
                 })
             }
         }
-    }, [load, default_sku]);
+    }, [load]);
 
     // 预下单
     const preOrder = () => {

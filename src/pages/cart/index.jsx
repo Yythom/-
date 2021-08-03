@@ -130,8 +130,8 @@ const Index = () => {
                 ...data2
             })
             setDefault_sku([
-                { id: 101, name: '4.7寸', parent_name: '尺寸' },
-                { id: 201, name: '16G', parent_name: '内存' },
+                { id: '101', name: '4.7寸', parent_name: '尺寸' },
+                { id: '201', name: '16G', parent_name: '内存' },
             ])
         } else {
             setSkuData({
@@ -149,7 +149,6 @@ const Index = () => {
             setI(10)
         }, 100);
         setSku_index({ index, shop_id, })
-
     }, [list])
 
     const onOk = async (sku) => {
@@ -263,19 +262,20 @@ const Index = () => {
                     </View>
                 </View>
 
-                {/* sku弹框 */}
-                <Skuhooks
-                    show={skushow}
-                    setShow={setskuShow}
-                    product={skuData}
-                    default_sku={default_sku}
-                    onOk={(e) => {
-                        onOk(e)
-                        console.log(e, 'sku data');
-                        // if (e) setSku(e);
-                    }}
-                />
             </ScrollView>
+
+            {/* sku弹框 */}
+            <Skuhooks
+                show={skushow}
+                setShow={setskuShow}
+                product={skuData}
+                default_sku={default_sku}
+                onOk={(e) => {
+                    onOk(e)
+                    console.log(e, 'sku data');
+                    // if (e) setSku(e);
+                }}
+            />
         </View>
     )
 }

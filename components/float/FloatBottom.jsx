@@ -44,7 +44,7 @@ const Float = ({
     return (
         <>
             {/* { */}
-            <View className='modal-mask' style={!show && { zIndex: '-999', opacity: 0 }} onClick={
+            <View className='modal-mask' style={!show && { zIndex: '-999', opacity: 0, top: '-9999px' }} onClick={
                 () => {
                     hideFn();
                     setShow(false);

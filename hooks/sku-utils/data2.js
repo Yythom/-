@@ -1,7 +1,7 @@
 export const data2 = {
     skuList: {  // 所有可选列表
         // 4.7寸;16G;红色
-        "101;201": {
+        "101;201;": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 200,
             "stock": 10,

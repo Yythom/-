@@ -79,7 +79,7 @@ function skuOptionAttrResult(combArrItem, sku, skuResult) {
  */
 function getActionSpecList(selectSpecList, item, index) {
     // 选中及反选
-    if (selectSpecList[index] && selectSpecList[index].id === item.id) {
+    if (selectSpecList[index] && selectSpecList[index].id == item.id) {
         selectSpecList[index] = null
     } else {
         selectSpecList[index] = item
