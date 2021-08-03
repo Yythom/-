@@ -6,10 +6,12 @@ import Search from '@/components/search/Search';
 import './index.scss'
 import isWeapp from '@/utils/env';
 import ProductItem from './pruduct/ProductItem';
+import FloatRight from '@/components/float/FloatRight';
 
 
 const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
+    const [show, setShow] = useState(false)
     const [pageData, setPageData] = useState([
         {
             product_id: '101',
@@ -42,7 +44,7 @@ const Index = () => {
         <View className='product-list-wrap' style={!isWeapp && { minHeight: window.innerHeight + 'px' }}  >
             <View className='fc search' style={{ width: '100vw' }}>
                 <Search width='84vw' text='搜索商品' />
-                <Text className='iconfont icon-dingdan'></Text>
+                <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />
             </View>
             <View className='fb screen'>
                 <Text className='item'>综合</Text>
@@ -58,6 +60,17 @@ const Index = () => {
                     />)
                 }
             </View>
+            <FloatRight
+                width='80vw'
+                className='right-search'
+                show={show}
+                setShow={setShow}
+                style={{ background: '#fff' }}
+            >
+                <View className='' >
+
+                </View>
+            </FloatRight>
         </View>
     )
 }
