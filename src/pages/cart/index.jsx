@@ -122,23 +122,34 @@ const Index = () => {
         index: '',
         shop_id: '',
     });
+    const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
         if (i == 10) {
             setSkuData({
                 ...product,
                 ...data2
             })
+            setDefault_sku([
+                { id: 101, name: '4.7寸', parent_name: '尺寸' },
+                { id: 201, name: '16G', parent_name: '内存' },
+            ])
         } else {
             setSkuData({
                 ...product,
                 ...data
             })
+            setDefault_sku([
+                { id: 101, name: '4.7寸', parent_name: '尺寸' },
+                { id: 201, name: '16G', parent_name: '内存' },
+                { id: 302, name: '红色', parent_name: '颜色' }
+            ])
         }
         setTimeout(() => {
             setskuShow(4);
             setI(10)
         }, 100);
         setSku_index({ index, shop_id, })
+
     }, [list])
 
     const onOk = async (sku) => {
@@ -257,6 +268,7 @@ const Index = () => {
                     show={skushow}
                     setShow={setskuShow}
                     product={skuData}
+                    default_sku={default_sku}
                     onOk={(e) => {
                         onOk(e)
                         console.log(e, 'sku data');

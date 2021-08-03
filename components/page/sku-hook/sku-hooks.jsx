@@ -15,6 +15,11 @@ const Skuhooks = memo(({
     setShow = Function.prototype,
     onChange = Function.prototype,
     onOk = Function.prototype,
+    default_sku = [
+        // { id: 101, name: '4.7寸', parent_name: '尺寸' },
+        // { id: 201, name: '16G', parent_name: '内存' },
+        // { id: 302, name: '红色', parent_name: '颜色' }
+    ],
     product,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
@@ -43,19 +48,20 @@ const Skuhooks = memo(({
                 })
             }
 
-            // 默认选中
-            specList.forEach((item, index) => {
-                if (index == 0) {
-                    option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
-                } else if (index == 1) {
-                    option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
-                } else {
-                    option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
-                }
-            })
-
+            if (default_sku[0]) {
+                // 默认选中
+                default_sku.forEach((item, index) => {
+                    if (index == 0) {
+                        option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
+                    } else if (index == 1) {
+                        option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
+                    } else {
+                        option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
+                    }
+                })
+            }
         }
-    }, [load]);
+    }, [load, default_sku]);
 
     // 预下单
     const preOrder = () => {

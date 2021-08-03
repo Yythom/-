@@ -118,7 +118,7 @@ function getPrice(skuResult, selectSpecList) {
 function transPrice(skuResult, specListData) {
     let price = getPrice(skuResult, specListData)
     return {
-        price: price.maxPrice === price.minPrice ? `${price.maxPrice}` : `${price.minPrice} - ${price.maxPrice}`,
+        price: price?.maxPrice === price?.minPrice ? `${price?.maxPrice}` : `${price?.minPrice} - ${price?.maxPrice}`,
         desc: specListData.filter(item => item).map(item => item.name).join(' ')
     }
 }
