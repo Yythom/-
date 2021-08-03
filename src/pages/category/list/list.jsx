@@ -156,6 +156,7 @@ function VtabList({
     // const [scrollTo, setScrollTo] = useState(0);
 
     const selectChild = useCallback(async (item, index) => {
+        console.log();
         // setScrollTo(`catetitle${index}`)
         let child_list = list.child.filter(e => e.child_cate === item.child_cate)[0];
         if (child_cate == item) {
@@ -170,7 +171,7 @@ function VtabList({
             setchild_cate(item);
         } else showToast({ title: '该分类暂无商品', icon: 'none', });
 
-    }, [child_cate]);
+    }, [child_cate, list]);
 
     const IsTabsRenderList = () => {
         return list.child ?
