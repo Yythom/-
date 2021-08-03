@@ -2,15 +2,15 @@
 import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'react';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
-import { setStorageSync, showLoading, showToast } from '@tarojs/taro';
+import { getStorageSync, setStorageSync, showLoading, showToast } from '@tarojs/taro';
 import { navLinkTo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/sku/handle-input/HandleInput';
+import FloatBottom from '@/components/float/FloatBottom';
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
-import FloatBottom from '@/components/float/FloatBottom';
 
 const Skuhooks = memo(({
-    bottom = 86,
+    bottom = getStorageSync('bar_height'),
     show = 1, // 1加入购物车 2 购买 3 all
     setShow = Function.prototype,
     onChange = Function.prototype,

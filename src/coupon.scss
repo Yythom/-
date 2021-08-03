@@ -1,0 +1,132 @@
+.coupon-float {
+    padding: 25px;
+    background-color: #F3F3F3 !important;
+    box-sizing: border-box;
+
+    .title-pro {
+        font-size: 34px;
+        color: #333;
+        padding-bottom: 30px;
+    }
+
+    .coupon-wrap {
+        margin-bottom: 40px;
+
+        .title {
+            font-size: 26px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .item {
+            box-sizing: border-box;
+            width: 100%;
+            height: 180px;
+            margin-bottom: 21px;
+
+            .left,
+            .right {
+                height: 100%;
+                background-color: #fff;
+            }
+
+            .right {
+                width: 26%;
+                border-radius: 20px 20px 20px 20px;
+
+                .btn {
+                    width: 134px;
+                    height: 50px;
+                    color: #fff;
+                    background: #EF5F00;
+                    font-size: 26px;
+                    border-radius: 26px;
+                }
+
+                .gray-btn {
+                    background: #999999;
+                }
+            }
+
+            .left {
+                width: 74%;
+                padding-left: 25px;
+                border-radius: 20px 20px 20px 20px;
+
+                .price-box {
+                    margin-right: 76px;
+
+                    .price {
+                        font-size: 50px;
+                    }
+
+                    .scope {
+                        font-size: 24px;
+                        color: #666;
+                    }
+                }
+
+                .desc {
+                    font-size: #333;
+
+                    .name {
+                        font-size: 30px;
+                        font-weight: bold;
+                    }
+
+                    .date {
+                        font-size: 24px;
+                        margin-top: 19px;
+                    }
+                }
+            }
+
+        }
+
+        .vip_item {
+
+            .left,
+            .right {
+                border: 1px solid rgba(239, 95, 0, 0.25);
+                background: #FFE7D7;
+            }
+
+            .right {
+                border-left: none;
+            }
+
+            .left {
+                border-right: none;
+                position: relative;
+                overflow: hidden;
+
+                .scope {
+                    color: #CE5505;
+                }
+
+                .desc {
+                    .name {
+                        color: #813300;
+                    }
+
+                    .date {
+                        color: #CE5505;
+                    }
+                }
+
+                .dig {
+                    position: absolute;
+                    color: #fff;
+                    font-size: 24px;
+                    top: 0;
+                    left: 0;
+                    width: 200px;
+                    height: 40px;
+                    background: linear-gradient(228deg, #F89800 0%, #EF5F00 100%);
+                    border-radius: 20px 0px 100px 0px;
+                }
+            }
+        }
+    }
+
+}

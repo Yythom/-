@@ -5,14 +5,14 @@ import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
-import isWeapp from '@/utils/env';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
+import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import VtabList from './list/list';
 import vtab_data from './tab';
-import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import './index.scss';
+import CouponFloat from './coupon/coupon';
 
 function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -20,6 +20,8 @@ function Index() {
     const [list, setList] = useState(vtab_data[0]);
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
+
+    const [couponshow, setcouponshow] = useState(false);
 
     const [coupon, setCoupon] = useState([
         {
@@ -49,7 +51,7 @@ function Index() {
                 {
                     coupon.map((e, i) => {
                         return (
-                            <View className='item flex' key={e.coupon_id}>
+                            <View className='item flex' key={e.coupon_id} onClick={() => setcouponshow(true)}>
                                 <View className='left flex'>
                                     <View className='square' />
                                     <Text style={{ zIndex: '1', marginRight: '36rpx' }} >优惠</Text>
@@ -69,6 +71,8 @@ function Index() {
                     })
                 }
             </View>
+
+
 
             {/* 分类列表 */}
             <View>
@@ -100,14 +104,21 @@ function Index() {
             </View >
 
             {/* sku弹框 */}
-
             <Skuhooks
                 show={skushow}
                 setShow={setskuShow}
                 product={skuData}
                 onChange={(e) => {
+                    console.log(e, 'sku data');
                     // if (e) setSku(e);
                 }}
+            />
+
+            {/* 优惠券弹框 */}
+            <CouponFloat
+                show={couponshow}
+                //    coupon={}
+                setShow={setcouponshow}
             />
         </View>
     )

@@ -13,6 +13,7 @@ const config = {
     '@/components': path.resolve(__dirname, '..', 'components'),
     '@/common': path.resolve(__dirname, '..', 'common'),
     '@/page': path.resolve(__dirname, '..', 'src/page/'),
+    '@/src': path.resolve(__dirname, '..', 'src/'),
     '@/utils': path.resolve(__dirname, '..', 'utils/'),
     '@/subpages': path.resolve(__dirname, '..', '/src/subpages/'),
     '@/store': path.resolve(__dirname, '..', 'store'),
