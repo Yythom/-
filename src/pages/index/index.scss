@@ -15,9 +15,16 @@
     }
 
     .search {
+        position: sticky;
+        top: 0;
+        z-index: 1;
         padding-top: 24px;
         padding-bottom: 17px;
         background-color: #fff;
+    }
+
+    .sticy {
+        top: 108px !important;
     }
 
     .home-searchv {
@@ -91,13 +98,15 @@
     }
 
     .pro-list {
-        width: 100%;
+        // width: 100%;
         flex-wrap: wrap;
         box-sizing: border-box;
         padding: 0 16px;
         padding-top: 16px;
         padding-bottom: 30px;
 
+        // display: flex;
+        // flex-flow: column wrap;
         .pro-item {
             width: 352px;
             height: 470px;

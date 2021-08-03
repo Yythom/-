@@ -60,6 +60,21 @@ function Index() {
             sku: ['银色', '64G', '套餐一'],
             num: '2',
         },
+        {
+            product_id: '104',
+            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+            price: '7999',
+            sku: ['银色', '64G', '套餐一'],
+            num: '2',
+        },
+
+        {
+            product_id: '105',
+            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+            price: '7999',
+            sku: ['银色', '64G', '套餐一'],
+            num: '2',
+        },
     ]);
     const [types, setTypes] = useState([
         {
@@ -150,7 +165,7 @@ function Index() {
 
     return (
         <View className='index-wrap index' >
-            <NavBar title='首页' />
+            {/* <NavBar title='首页' /> */}
             <View className='fc search'>
                 <Search width='720rpx' isEditor text='搜索更多优惠商品' />
             </View>
@@ -215,7 +230,6 @@ function Index() {
                                         }}
                                         />
                                     </View>
-
                                 </View>
                             )
                         })

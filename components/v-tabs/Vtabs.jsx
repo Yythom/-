@@ -113,7 +113,8 @@ const Vtabs = memo(({
                 onChange={(e) => { _onChange(e.detail.current) }}
                 style={{
                     width: `calc(100% - ${parentWidth}px)`,
-                    height: '100%'
+                    height: '100%',
+                    background: '#fff',
                 }}
             >
                 {
@@ -124,9 +125,10 @@ const Vtabs = memo(({
                                     scrollWithAnimation
                                     scrollY
                                     className='item_scroll'
-                                    style={{ height: '100%' }}
+                                    style={{ height: '98%' }}
                                 >
-                                    <View className='item_box'>
+
+                                    <View className='item_box' >
                                         {i === swiperIndex && children}
                                     </View>
                                 </ScrollView>

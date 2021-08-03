@@ -157,17 +157,19 @@ function VtabList({ list, skushow, setskuShow, setSkuData, skuData }) {
     const IsTabsRenderList = () => {
         return list.child ?
             <>
-                <View className='child-tab flex' >
+                {/* <View className='child-tab flex' >
                     <View className='child-wrap flex'>
                         <ChildCate list={list} child_cate={child_cate} onClick={selectChild} />
                     </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
                         ^
                     </View>
-                </View>
-                {show && <View className='show-cate flex'><ChildCate list={list} child_cate={child_cate} onClick={selectChild} /></View>}
-                <View className='fd item-box ' style={show && { overflow: 'hidden' }}>
-                    {show && <View className='mask' />}
+                </View> */}
+                {/* {show && <View className='show-cate flex'><ChildCate list={list} child_cate={child_cate} onClick={selectChild} /></View>} */}
+                <View className='fd item-box '
+                //  style={show && { overflow: 'hidden' }}
+                >
+                    {/* {show && <View className='mask' />} */}
                     <RenderList _list={renderChild.pro[0] ? [renderChild] : list.child} skuOption={
                         { show: skushow, setShow: setskuShow, skuData, setSkuData }
                     }
