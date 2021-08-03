@@ -11,37 +11,17 @@ import Move from './MoveSquare/move';
 const ProductItem = memo(({
     product,
     list,
+    handle = Function.prototype,
     index,
+    showSku = Function.prototype,
     shop_id,
-    onChange = Function.prototype,
-    onChangeNumber = Function.prototype
 }) => {
-    const handle = useCallback((type, value) => {
-        const newList = JSON.parse(JSON.stringify(list));
-        const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
-        let shop = newList[shopIndex]       // 查找到某个店铺
-        let item = shop.products[index];  // 查找到某个店铺下的该商品
-        switch (type) {
-            case 'delete':
-                shop.products.splice(index, 1);
-                if (!shop.products[0]) newList.splice(shopIndex, 1);
-                break;
-            case 'number':
-                item.num = value; // 修改当前商品选择状态
-                onChangeNumber(newList);
-                break;
-            case 'check':
-                item.checked = !item.checked; // 修改当前商品选择状态
-                console.log('check', newList);
-                break;
-        }
-        type !== 'number' && onChange(newList)
-    }, [list])
+
     return (
-        <Move value={80} padding={16} onClick={() => { handle('delete') }}  >
+        <Move value={80} padding={16} onClick={() => { handle(index, shop_id, 'delete') }}  >
             <View className='card flex' style={{ marginBottom: '0.2rem' }}>
                 <View className='check fc'
-                    onClick={() => { handle('check') }}
+                    onClick={() => { handle(index, shop_id, 'check') }}
                 >
                     <Radio className='radio' color='#eb472b' checked={product.checked} />
                 </View>
@@ -49,12 +29,16 @@ const ProductItem = memo(({
                     <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
                     <View className='desc fd'>
                         <Text className='p-name'>{product?.product_name}</Text>
-                        <View className='p-sku'>
-                            {product?.sku.map(e => {
+                        <View className='p-sku' onClick={(event) => {
+                            showSku(product, index, shop_id);
+                            event.stopPropagation();
+                        }}>
+                            {product?.sku?.toString()}
+                            {/* {product?.sku.map(e => {
                                 return (
                                     <Text key={e} className='p-sku-item'>{e}</Text>
                                 )
-                            })}
+                            })} */}
                         </View>
                         <View className='p-num fb'>
                             <Text className='p-price price-color'><Text className='_money'>¥</Text>{product?.price}</Text>
@@ -70,7 +54,7 @@ const ProductItem = memo(({
 
                                     // }
                                     // onChangeNumber()
-                                    handle('number', value)
+                                    handle(index, shop_id, 'number', value)
                                 }}
                             />
                         </View>

@@ -3,17 +3,18 @@ import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'rea
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { getStorageSync, setStorageSync, showLoading, showToast } from '@tarojs/taro';
-import { navLinkTo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/sku/handle-input/HandleInput';
 import FloatBottom from '@/components/float/FloatBottom';
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
 
 const Skuhooks = memo(({
-    bottom = getStorageSync('bar_height'),
+    bottom = Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2,
     show = 1, // 1加入购物车 2 购买 3 all
     setShow = Function.prototype,
     onChange = Function.prototype,
+    onOk = Function.prototype,
     product,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
@@ -41,11 +42,24 @@ const Skuhooks = memo(({
                     },
                 })
             }
+
+            // 默认选中
+            specList.forEach((item, index) => {
+                if (index == 0) {
+                    option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
+                } else if (index == 1) {
+                    option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
+                } else {
+                    option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
+                }
+            })
+
         }
     }, [load]);
 
     // 预下单
     const preOrder = () => {
+        if (!sku?.sku) return
         let pre = {
             pre_order: {
                 product: [
@@ -63,7 +77,7 @@ const Skuhooks = memo(({
     };
 
     const addCart = () => {
-
+        if (!sku?.sku) return
     };
 
     return (
@@ -137,6 +151,8 @@ const Skuhooks = memo(({
                                 <View className='btn buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
+                            {show == 4 && <View className='btn cart-btn normal' onClick={() => { onOk({ ...sku, ...desc }) }}>确定</View>}
+
 
                         </View>
                     </View>

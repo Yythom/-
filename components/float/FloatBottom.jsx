@@ -1,4 +1,4 @@
-import { RefInfo } from '@/common/publicFunc';
+import { RefInfo, systemInfo } from '@/common/publicFunc';
 import isWeapp from '@/utils/env';
 import { View } from '@tarojs/components';
 import { getStorageSync } from '@tarojs/taro';
@@ -51,7 +51,7 @@ const Float = ({
                 }
             } />
             {/* // } */}
-            <View className={`float_bottom  ${className}`} style={{ ...style, bottom: top ? top + 'px' : '-3999rpx' }}>
+            <View className={`float_bottom  ${className}`} style={{ ...style, bottom: top ? `${top}px` : '-3999rpx' }}>
                 {children}
             </View>
         </>

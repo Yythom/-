@@ -89,6 +89,7 @@ const useSku = (data) => {
                     price: price,
                 },
             })
+            console.log(list, index, '_sku');
         }
 
         return {

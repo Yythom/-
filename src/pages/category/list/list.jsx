@@ -114,9 +114,6 @@ const RenderList = memo(({ _list, skuOption, i, setI }) => {
         )
     })
 });
-// const TabRenderList = memo(({ childList,sku }) => {
-//     return <RenderList _list={childList} />
-// });
 
 const ChildCate = memo(({ list, child_cate, onClick }) => {
     return (
@@ -136,7 +133,7 @@ const ChildCate = memo(({ list, child_cate, onClick }) => {
 
 function VtabList({ list, skushow, setskuShow, setSkuData, skuData }) {
     const [child_cate, setchild_cate] = useState(null);
-    const [i, setI] = useState(1)
+    const [i, setI] = useState(1) // 测试用
 
 
     const [renderChild, setRenderChild] = useState({
