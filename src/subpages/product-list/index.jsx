@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import Search from '@/components/search/Search';
@@ -11,7 +11,7 @@ import './index.scss'
 
 const sortCate = [
     {
-        key: 'uni',
+        key: 'common',
         name: '排序'
     },
     {
@@ -38,7 +38,7 @@ const Index = () => {
 
     })
 
-    const [show, setShow] = useState(true)
+    const [show, setShow] = useState(false)
     const [pageData, setPageData] = useState([
         {
             product_id: '101',
@@ -82,8 +82,12 @@ const Index = () => {
         let newSearch = { ...search };
         newSearch[key] = value;
         setSearch(newSearch);
-        console.log(newSearch, 'newSearch');
     }
+
+    useEffect(() => {
+        console.log(search, 'newSearch requese');
+    }, [search])
+
     usePullDownRefresh(() => {
         ///
         stopPullDownRefresh();
@@ -97,21 +101,13 @@ const Index = () => {
                 }} />
                 <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />
             </View>
-            {/* <View className='fb screen'>
-                {
-                    sortCate.map((cate) => (
-                        <Text key={cate.key} className='item'>{cate.name}<Text className='iconfont icon-unfold' /></Text>
-                    ))
-                }
-            </View> */}
             <Screen
-                index={sort.index}
-                sort={sort.sort}
                 list={sortCate}
-                cbScreen={(obj) => {
-                    changeSearch(sortCate[obj.index].key, obj.sort);
-                    console.log(obj);
+                onShow={(obj) => {
                     setSort({ sort, ...obj })
+                }}
+                onClick={(newObj) => {
+                    setSearch({ ...search, ...newObj })
                 }}
             />
             <ScrollView

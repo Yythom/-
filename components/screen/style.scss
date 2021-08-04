@@ -3,6 +3,7 @@
   background-color: #fff;
   justify-content: space-around;
   border-top: 1px solid #dedede;
+  position: relative;
 
   .item {
     flex: 1;
@@ -19,5 +20,21 @@
 
   .iconfont {
     font-size: 32px;
+  }
+
+  .sort-content {
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    top: 104px;
+    left: 0;
+    z-index: 10;
+    background-color: pink;
+  }
+
+  .modal-mask {
+    position: absolute;
+    top: 104px;
+    left: 0;
   }
 }
