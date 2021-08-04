@@ -10,13 +10,13 @@ import './style.scss'
 
 const Screen = memo(({ list, sort = 1, index = 0, cbScreen }) => {
 
-  const handleScreenClick = useCallback((i) => {
+  const handleScreenClick = (i) => {
     if (i === index) {
       cbScreen({ sort: sort === 1 ? -1 : 1, index: i })
     } else {
       cbScreen({ sort: 1, index: i })
     }
-  }, [index, sort])
+  }
 
   return (
     <View className='fb screen'>
@@ -28,11 +28,11 @@ const Screen = memo(({ list, sort = 1, index = 0, cbScreen }) => {
           >
             {cate.name}
             {
-              index === i && (sort === 1
+              index === i ? (sort === 1
                 ? <Text className='iconfont icon-fold' />
                 : sort === -1
                   ? <Text className='iconfont icon-unfold' />
-                  : null)
+                  : null) : <Text className='iconfont icon-unfold' />
             }
 
           </Text>

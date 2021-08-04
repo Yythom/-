@@ -2,6 +2,7 @@
     height: 100vh;
     background-color: #f3f3f3;
     overflow: hidden;
+
     .search {
         padding-bottom: 17px;
     }
@@ -11,6 +12,11 @@
         background-color: #fff;
         justify-content: space-around;
         border-top: 1px solid #dedede;
+
+        .iconfont {
+            font-size: 24px;
+        }
+
         .item {
             font-size: 30px;
             text-align: center;
@@ -27,6 +33,7 @@
     .result-list {
         height: calc(100% - 188px);
         box-sizing: border-box;
+
         .card {
             box-sizing: border-box;
             border-radius: 0;

@@ -4,18 +4,15 @@ import { View, ScrollView, Text } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import Search from '@/components/search/Search';
 import Screen from '@/components/screen';
-import isWeapp from '@/utils/env';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { actions } from '../../../store';
 import ProductItem from './pruduct/ProductItem';
-import FloatRight from '@/components/float/FloatRight';
 import FilterSearch from './filter/filter';
 import './index.scss'
 
 const sortCate = [
     {
         key: 'uni',
-        name: '综合排序'
+        name: '排序'
     },
     {
         key: 'sale',
@@ -30,15 +27,17 @@ const sortCate = [
 
 const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
-    const dispatch = useDispatch();
 
-    // const {
+    const [sort, setSort] = useState({
+        value: '',
+        index: '',
+        sort: 0,
+    });
 
-    // } = actions;
+    const [search, setSearch] = useState({
 
-    const {
-        // search
-    } = useSelector(e => e.productSlice, shallowEqual);
+    })
+
     const [show, setShow] = useState(true)
     const [pageData, setPageData] = useState([
         {
@@ -77,148 +76,25 @@ const Index = () => {
                 },
             ]
         },
-        {
-            product_id: '103',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 9,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果',
-            price: '7999',
-            member_price: '6999',
-            sale: 12,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 33,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '103',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 9,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果',
-            price: '7999',
-            member_price: '6999',
-            sale: 12,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 33,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '103',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 9,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
     ]);
-    const [search, setSearch] = useState({
-        value: '',
-        index: 0,
-        sort: 1
-    });
 
+    const changeSearch = async (key, value) => {
+        let newSearch = { ...search };
+        newSearch[key] = value;
+        setSearch(newSearch);
+        console.log(newSearch, 'newSearch');
+    }
     usePullDownRefresh(() => {
         ///
         stopPullDownRefresh();
     })
 
     return (
-        <View className='product-list-wrap' style={!isWeapp && { minHeight: window.innerHeight + 'px' }}  >
+        <View className='product-list-wrap' >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search width='84vw' text='搜索商品' />
+                <Search width='84vw' isEditor text='搜索商品' onBlur={(e) => {
+                    console.log(e);
+                }} />
                 <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />
             </View>
             {/* <View className='fb screen'>
@@ -229,12 +105,13 @@ const Index = () => {
                 }
             </View> */}
             <Screen
-                index={search.index}
-                sort={search.sort}
+                index={sort.index}
+                sort={sort.sort}
                 list={sortCate}
                 cbScreen={(obj) => {
-                    console.log(obj)
-                    setSearch({ search, ...obj })
+                    changeSearch(sortCate[obj.index].key, obj.sort);
+                    console.log(obj);
+                    setSort({ sort, ...obj })
                 }}
             />
             <ScrollView
@@ -251,7 +128,7 @@ const Index = () => {
                 }
             </ScrollView>
 
-            <FilterSearch show={show} setShow={setShow} />
+            <FilterSearch show={show} setShow={setShow} search={search} onChange={changeSearch} />
         </View >
     )
 }
