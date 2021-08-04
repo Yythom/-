@@ -13,6 +13,7 @@ import { data } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
 import ProductInfo from './product-info/ProductInfo';
 import './index.scss'
+import CouponList from '@/components/page/coupon/v-coupon';
 
 
 const Index = () => {
@@ -69,18 +70,20 @@ const Index = () => {
                 <ProductInfo className='p-16' product={pageData} />
 
                 {/* 打开sku */}
-                <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
+                {/* <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
                     <View>
                         选择：<Text className='desc'>{sku?.desc?.str}</Text>
                     </View>
                     <Text className='iconfont icon-right' />
-                </View>
+                </View> */}
+
+                <CouponList />
 
                 {/* 服务详情 */}
-                <View className='service fb p-16' onClick={() => setService(true)}>
+                {/* <View className='service fb p-16' onClick={() => setService(true)}>
                     <View>{pageData?.service?.map(e => <Text key={e} className='item'>{e.text}</Text>)} </View>
                     <Text className='iconfont icon-right' />
-                </View>
+                </View> */}
 
 
                 <View className='product-desc'>
@@ -106,7 +109,7 @@ const Index = () => {
             />
 
             {/* 服务弹框 */}
-            <FloatBottom className='service-float' show={service} setShow={setService} style={{ backgroundColor: '#fff' }}>
+            {/* <FloatBottom className='service-float' show={service} setShow={setService} style={{ backgroundColor: '#fff' }}>
                 <View className='service-list'>
                     <View className='title fc' >服务</View>
                     <View>
@@ -119,16 +122,12 @@ const Index = () => {
                         </View>)}
                     </View>
                 </View>
-            </FloatBottom>
+            </FloatBottom> */}
+
+
             {/* 底部 */}
             <View className='footer fb'>
                 <View className='user'>
-                    <View className='item' onClick={(e) => showModal({ title: '提示', content: '确认拨打客服电话', success: (res) => res.confirm && callPhone(e, '213123'), })}  >
-                        <Text className='iconfont icon-kefu' />
-                        <Text
-                            className='QA'
-                        >客服</Text>
-                    </View>
                     <View className='item' style={{ position: 'relative' }} onClick={() => navLinkTo('cart/index', {}, false)}>
                         <Text className='iconfont icon-gouwucheman'></Text>
                         <Text className='cart' >购物车</Text>
@@ -136,8 +135,8 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='handle' >
-                    <View className='add_cart' onClick={() => setShow(1)}>加入购物车</View>
-                    <View className='buy' onClick={() => setShow(2)}>立即购买</View>
+                    <View className='add_cart fc' onClick={() => setShow(1)}>加入购物车</View>
+                    {/* <View className='buy fc' onClick={() => setShow(2)}>立即购买</View> */}
                 </View>
             </View>
         </View >

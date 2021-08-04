@@ -16,6 +16,7 @@ import { systemInfo } from '@/common/publicFunc';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import { data } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
+import CouponFloat from '@/components/page/coupon/coupon';
 
 let fn = Function.prototype
 
@@ -23,6 +24,7 @@ const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
+    const [couponshow, setCouponshow] = useState(false)
     const [i, setI] = useState(0);
     const [pageData, setPageData] = useState([
         {
@@ -44,26 +46,7 @@ const Index = () => {
                     num: '2',
                 },
             ]
-        }, {
-            shop_id: '2',
-            products: [
-                {
-                    product_id: '201',
-                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-                    price: '7999',
-                    sale_price: '888',
-                    sku: ['银色', '64G', '套餐一'],
-                    num: '2',
-                },
-                {
-                    product_id: '202',
-                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-                    price: '7999',
-                    sku: ['银色', '64G', '套餐一'],
-                    num: '2',
-                },
-            ]
-        }
+        },
     ]);
 
     const [edit, setEdit] = useReducer((state) => !state, false);
@@ -174,11 +157,12 @@ const Index = () => {
             <ScrollView scrollY className='scrollview'>
                 <View className='cart-title fb' style={{ top: 0 + 'px' }}>
                     <View className='total'>共2件商品</View>
-                    <View className='header_edit' onClick={() => { setEdit(!edit) }} >
+                    <View className='header_edit' >
+                        <View className='' onClick={() => setCouponshow(true)} >领券</View>
                         {
                             !edit ?
-                                <View className='fc'>
-                                    <Text className='iconfont icon-edit'></Text> 编辑</View>
+                                <View className='fc' onClick={() => { setEdit(!edit) }} >
+                                    <Text className='iconfont icon-edit' ></Text>管理</View>
                                 : '完成'
                         }
                     </View>
@@ -187,9 +171,7 @@ const Index = () => {
                     {
                         pageData?.map((e, i) =>
                             <View className='shop_wrap' key={e.shop_id}>
-                                <View className='shopname flex'
-                                    style={{ height: '80rpx' }}
-                                >
+                                {/* <View className='shopname flex'  style={{ height: '80rpx' }} >
                                     <Radio className='radio' color='#eb472b' checked={summaryShop[e.shop_id]?.checked} onClick={() => {
                                         const newList = JSON.parse(JSON.stringify(pageData));
                                         newList.forEach(shop => {
@@ -201,7 +183,7 @@ const Index = () => {
                                         });
                                         setPageData(newList);
                                     }} />{e.shop_id}
-                                </View>
+                                </View> */}
                                 {
                                     e.products.map((product_item, index) =>
                                         <ProductItem
@@ -275,6 +257,13 @@ const Index = () => {
                     console.log(e, 'sku data');
                     // if (e) setSku(e);
                 }}
+            />
+
+            {/* 优惠券弹框 */}
+            <CouponFloat
+                show={couponshow}
+                //    coupon={}
+                setShow={setCouponshow}
             />
         </View>
     )

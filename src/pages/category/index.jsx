@@ -13,6 +13,7 @@ import CouponFloat from '@/components/page/coupon/coupon';
 import VtabList from './list/list';
 import vtab_data from './tab';
 import './index.scss';
+import CouponList from '@/components/page/coupon/v-coupon';
 
 function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -21,20 +22,7 @@ function Index() {
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
 
-    const [couponshow, setcouponshow] = useState(false);
-
-    const [coupon, setCoupon] = useState([
-        {
-            coupon_id: '101',
-            price: '100',
-            scpoe: '500'
-        },
-        {
-            coupon_id: '102',
-            price: '100',
-            scpoe: '0'
-        }
-    ]);
+    const [coupon, setCoupon] = useState([]);
 
     useDidShow(() => {
         // console.log(userStore);
@@ -47,30 +35,9 @@ function Index() {
                 <Search width='720rpx' text='搜索商品' />
             </View>
             <Banner w='100vw' className='cate-banner' custom />
-            <View className='coupon flex'>
-                {
-                    coupon.map((e, i) => {
-                        return (
-                            <View className='item flex' key={e.coupon_id} onClick={() => setcouponshow(true)}>
-                                <View className='left flex'>
-                                    <View className='square' />
-                                    <Text style={{ zIndex: '1', marginRight: '36rpx' }} >优惠</Text>
-                                    <View style={{ zIndex: '1', fontSize: '28rpx' }} >
-                                        <Text className='_money'>¥</Text>{e.price}
-                                    </View>
-                                    <View className='line'></View>
-                                </View>
-                                <View className='right fc'>
-                                    {e.scpoe == 0
-                                        ? <Text >满{e.scpoe}可用</Text>
-                                        : <Text >可领</Text>
-                                    }
-                                </View>
-                            </View>
-                        )
-                    })
-                }
-            </View>
+
+            {/* 横向优惠券列表 */}
+            <CouponList />
 
 
 
@@ -115,12 +82,7 @@ function Index() {
                 }}
             />
 
-            {/* 优惠券弹框 */}
-            <CouponFloat
-                show={couponshow}
-                //    coupon={}
-                setShow={setcouponshow}
-            />
+
         </View>
     )
 }

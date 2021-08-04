@@ -79,7 +79,7 @@ const Screen = memo(({ list, onShow, onClick }) => {
                             handleScreenClick(i)
                         }}
                     >
-                        {cate.name}
+                        {act[list[i].key]?.text || cate.name}
                         {
                             index === i
                                 ?
@@ -127,6 +127,7 @@ const Screen = memo(({ list, onShow, onClick }) => {
                                             });
                                             setAct(newObj);
                                             onClick(newObj);
+                                            setIndex('');
                                         }}
                                     >
                                         {e.text}
