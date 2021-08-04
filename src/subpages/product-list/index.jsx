@@ -8,9 +8,9 @@ import isWeapp from '@/utils/env';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { actions } from '../../../store';
 import ProductItem from './pruduct/ProductItem';
+import FloatRight from '@/components/float/FloatRight';
+import FilterSearch from './filter/filter';
 import './index.scss'
-
-
 
 const sortCate = [
     {
@@ -39,7 +39,7 @@ const Index = () => {
     const {
         // search
     } = useSelector(e => e.productSlice, shallowEqual);
-
+    const [show, setShow] = useState(true)
     const [pageData, setPageData] = useState([
         {
             product_id: '101',
@@ -218,8 +218,8 @@ const Index = () => {
     return (
         <View className='product-list-wrap' style={!isWeapp && { minHeight: window.innerHeight + 'px' }}  >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search width='96vw' text='搜索商品' />
-                {/* <Text className='iconfont icon-dingdan'></Text> */}
+                <Search width='84vw' text='搜索商品' />
+                <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />
             </View>
             {/* <View className='fb screen'>
                 {
@@ -241,7 +241,6 @@ const Index = () => {
                 className='result-list'
                 scrollY
                 style={{ paddingBottom: `${getStorageSync('safeArea') * 2}rpx` }}
-            // style={{ height: '100%' }}
             >
                 {
                     pageData?.map((e, i) => <ProductItem
@@ -251,7 +250,9 @@ const Index = () => {
                     />)
                 }
             </ScrollView>
-        </View>
+
+            <FilterSearch show={show} setShow={setShow} />
+        </View >
     )
 }
 export default Index;

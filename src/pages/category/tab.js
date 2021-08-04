@@ -50,21 +50,7 @@ const vtab_data = [
             }
         ],
 
-    },
-    {
-        category: '家用电器',
-        pro: [
-            {
-                name: '3',
-                image: 'https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i3/20201002/O1CN01eRPPUV1JGxY3SaC2Y_!!0-saturn_solar.jpg_360x360Q90.jpg_.webp'
-            },
-            {
-                name: '4',
-                image: 'https://g-search2.alicdn.com/img/bao/uploaded/i4/i3/470168984/O1CN01REeKne2GEiwa6mEGf_!!0-item_pic.jpg_360x360Q90.jpg_.webp'
-            }
-        ]
-    },
-    {
+    }, {
         category: '电脑办公',
         pro: [
             {
@@ -83,9 +69,32 @@ const vtab_data = [
             {
                 name: '电脑3',
                 image: 'https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/2200719164073/O1CN013PZ3U41fxTrO3FefG_!!0-item_pic.jpg_360x360Q90.jpg_.webp'
+            },
+            {
+                name: '电脑4',
+                image: 'https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/2200719164073/O1CN013PZ3U41fxTrO3FefG_!!0-item_pic.jpg_360x360Q90.jpg_.webp'
+            },
+
+            {
+                name: '电脑8',
+                image: 'https://g-search1.alicdn.com/img/bao/uploaded/i4/i1/2200719164073/O1CN013PZ3U41fxTrO3FefG_!!0-item_pic.jpg_360x360Q90.jpg_.webp'
             }
         ]
     },
+    {
+        category: '家用电器',
+        pro: [
+            {
+                name: '3',
+                image: 'https://g-search1.alicdn.com/img/bao/uploaded/i4/imgextra/i3/20201002/O1CN01eRPPUV1JGxY3SaC2Y_!!0-saturn_solar.jpg_360x360Q90.jpg_.webp'
+            },
+            {
+                name: '4',
+                image: 'https://g-search2.alicdn.com/img/bao/uploaded/i4/i3/470168984/O1CN01REeKne2GEiwa6mEGf_!!0-item_pic.jpg_360x360Q90.jpg_.webp'
+            }
+        ]
+    },
+
 ]
 
 export default vtab_data;

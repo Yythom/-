@@ -77,6 +77,7 @@ function Index() {
             {/* 分类列表 */}
             <View>
                 <Vtabs
+                    className='cate-vtabs'
                     windowTabsLength={11}
                     height={`calc(${100}vh - ${80}rpx - ${120}rpx - ${220}rpx - ${98}rpx - ${systemInfo.safeArea.top / 2}px)`}
                     list={vtab_data}
