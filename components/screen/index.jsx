@@ -93,16 +93,42 @@ const Screen = memo(({ list, onShow, onClick }) => {
             {
                 typeof index === 'number' && <Fragment>
                     <View className='sort-content' >
+                        <View
+                            className=''
+                            onClick={() => {
+                                const actObj = {}
+                                const key = list[index].key
+                                actObj[key] = '';
+                                const newObj = { ...act, ...actObj };
+                                Object.keys(newObj).forEach((item) => {
+                                    if (item !== key) newObj[item] = ''
+                                });
+                                setAct(newObj);
+                                onClick(newObj);
+                                setIndex('')
+                            }}
+                        >
+                            全部
+                        </View>
                         {
                             sortContent.map((e, i) => {
                                 return (
-                                    <View className='' key={e.text + e.value} style={act[list[index].key]?.value == e.value && { color: 'red' }} onClick={() => {
-                                        const actObj = {}
-                                        actObj[list[index].key] = e;
-                                        const newObj = { ...act, ...actObj }
-                                        setAct(newObj)
-                                        onClick(newObj)
-                                    }}>
+                                    <View
+                                        className=''
+                                        key={e.text + e.value} style={act[list[index].key]?.value == e.value && { color: 'red' }}
+                                        onClick={() => {
+                                            const actObj = {}
+                                            const key = list[index].key
+                                            actObj[key] = e;
+
+                                            const newObj = { ...act, ...actObj };
+                                            Object.keys(newObj).forEach((item) => {
+                                                if (item !== key) newObj[item] = ''
+                                            });
+                                            setAct(newObj);
+                                            onClick(newObj);
+                                        }}
+                                    >
                                         {e.text}
                                     </View>
                                 )
