@@ -12,6 +12,7 @@ const Vtabs = memo(({
     className,
     windowTabsLength, // 左侧列表显示的tabs数量
     scrollTo = 0,
+    isScroll,
 }) => {
     const query = createSelectorQuery();
     const [swiperIndex, setSwiperIndex] = useState(0); // tab index
@@ -124,18 +125,28 @@ const Vtabs = memo(({
                     list[0] && list.map((e, i) => {
                         return (
                             <SwiperItem className='item_content' key={i + 'item_content'}>
-                                <View
-                                    // scrollWithAnimation
-                                    // scrollY
-                                    // scrollTop={scrollTo}
-                                    className='item_scroll'
-                                    style={{ height: '98%', overflow: 'hidden' }}
-                                >
+                                {
+                                    isScroll ? <ScrollView
+                                        scrollWithAnimation
+                                        scrollY
+                                        className='item_scroll'
+                                        style={{ height: '98%', overflow: 'hidden' }}
+                                    >
 
-                                    <View className='item_box' style={{ height: '100%' }} >
-                                        {i === swiperIndex && children}
+                                        <View className='item_box' style={{ height: '100%' }} >
+                                            {i === swiperIndex && children}
+                                        </View>
+                                    </ScrollView> : <View
+                                        className='item_scroll'
+                                        style={{ height: '98%', overflow: 'hidden' }}
+                                    >
+
+                                        <View className='item_box' style={{ height: '100%' }} >
+                                            {i === swiperIndex && children}
+                                        </View>
                                     </View>
-                                </View>
+                                }
+
                             </SwiperItem>
                         )
                     })

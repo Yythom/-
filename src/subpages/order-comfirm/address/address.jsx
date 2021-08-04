@@ -2,6 +2,7 @@
 import React, { memo } from "react";
 import { Text, View } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
+import './address.scss';
 
 const Address = memo(({
     address,

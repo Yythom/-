@@ -3,7 +3,7 @@ import React, { memo } from "react";
 import FloatBottom from "@/components/float/FloatBottom";
 import { Text, View } from "@tarojs/components";
 import Tabs from "@/components/tabs/Tabs";
-
+import './vip.scss'
 const VipCard = memo(({
     coupon_list = [
         {

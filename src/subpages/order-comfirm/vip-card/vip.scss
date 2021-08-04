@@ -1,0 +1,40 @@
+.vp-list {
+
+    .nav {
+        height: 60px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .title {
+        position: sticky;
+        top: 0;
+        background-color: #f3f3f3;
+        z-index: 2;
+        height: 100px;
+        border-bottom: 2px solid rgb(248, 248, 248);
+        // font-size: 40px;
+        // color: #444;
+        margin-bottom: 20px;
+    }
+
+    .scroll_wrap {
+        box-sizing: border-box;
+        padding: 24px 16px;
+        // background-color: #fff;
+        height: calc(900px - 90px - 100px - 32px);
+        overflow-y: scroll;
+
+        .empty {
+            align-items: center;
+            // background-color: pink;
+            height: 700px;
+            color: #ccc;
+
+            .iconfont {
+                // color: #ccc;
+                font-size: 190px;
+            }
+        }
+    }
+}

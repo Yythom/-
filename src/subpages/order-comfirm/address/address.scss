@@ -1,0 +1,35 @@
+@import '../../../../common/mixins/index.scss';
+
+.address_wrap {
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+    // box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+
+    .icon-dingwei {
+        padding: 10px;
+        font-size: 24px;
+        border-radius: 50%;
+        background-color: #ff7214;
+        color: #fff;
+        margin-right: 12px;
+    }
+
+    .s_address {
+        color: #333;
+
+        .phone {
+            color: #999;
+            margin-left: 12px;
+            font-size: 26px;
+        }
+
+        .address {
+            font-size: 24px;
+            max-width: 70vw;
+            @include line(2)
+        }
+    }
+
+}

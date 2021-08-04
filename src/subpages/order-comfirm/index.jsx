@@ -1,22 +1,25 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useLayoutEffect, useState } from 'react';
-import { View, Text, Input, Textarea } from '@tarojs/components';
+import { View, Text, Input, Textarea, Radio } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
-import FloatBottom from '@/components/float/FloatBottom';
-import './index.scss'
-import Coupon from './coupon/coupon';
-import Coupon2 from './coupon/coupon2';
-import VipCard from './vip-card/vipCard';
-import Address from './address/coupon';
 import Modal from '@/components/modal/Modal';
+import Coupon from '@/components/page/coupon/coupon';
+import VipCard from './vip-card/vipCard';
+import Address from './address/address';
+import './index.scss'
+import Date from './date/date';
+import ProductItem from './product-item/product-item';
 
+const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 
 const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
+    const [payType, setPayType] = useState(1) // 1 微信 2 余额
+    // const [otherDat]
     const [pageData, setPageData] = useState(
         {
             "shop_id": "1",
@@ -49,19 +52,27 @@ const Index = () => {
             "select_coupon": [],
         }
     );
-    const [address, setAddress] = useState(null);
     const [pre, setPre] = useState(null);
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
+
+    /* 信息配置 */
+    const [address, setAddress] = useState(null);
     const [couponShow, setCouponShow] = useState(false);
     const [vpShow, setVpShow] = useState(false);
-
+    const [date, setDate] = useState({
+        show: false,
+        value: ''
+    }); // 送达时间
+    const [deliveryMethod, setDeliveryMethod] = useState('')
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState({
         oldmsg: '',
         msg: ''
     });
+
     const [msg2, setmsg2] = useState('');
+
 
     const init = async () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
@@ -81,6 +92,7 @@ const Index = () => {
     }, [])
 
     const pay = async () => {
+        console.log(date.value,);
 
     }
 
@@ -89,34 +101,34 @@ const Index = () => {
             {/* <NavBar back title='确认订单' /> */}
             <Address address={address} />
 
-            <View className='pruduct_wrap'>
-                <View className='shop_name' onClick={() => navLinkTo('/subpages/online_shop_product_list/index', { shop_id: pageData?.shop_id })}><Text className='iconfont icon-shangpu' />{pageData?.shop_name} <Text className='iconfont icon-right' style={{ color: '#999', fontSize: '32rpx' }}></Text></View>
-                {
-                    (pageData && pageData.product.length > 0) && pageData.product.map(e => {
-                        return <View key={e.product_id + '__product'} className='product_item'>
-                            <BlurImg className='img' src={e.image} />
-                            <View className='center fd'>
-                                <View className='product_name'>{e.product_name}</View>
-                                <View className='desc'>
-                                    <View className='product_sku'>{e.spec}</View>
-                                    <View className='product_price'><Text className='moneny'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}</View>
-                                </View>
-                            </View>
-                            <View className='num'>x{e.number}</View>
-                        </View>
-                    })
-                }
-                <View className='fb'>
-                    <View className='left'>商品金额</View>
-                    <View className='right'>¥{pageData?.product_price}</View>
-                </View>
-                <View className='fb'>
-                    <View className='left'>运费</View>
-                    <View className='right'>¥{pageData?.freight}</View>
+            <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
+                <View className='left' >指定时间</View>
+                <View className='right'>
+                    {date?.value}
+                    <Text className='iconfont icon-right'></Text>
                 </View>
             </View>
+            {/* <View className='handle fb' onClick={() => {
+                showActionSheet({
+                    itemList: itemList.map(e => e.text),
+                    success: function (res) {
+                        setDeliveryMethod(itemList[res.tapIndex].text)
+                        console.log(res.tapIndex)
+                    },
+                    fail: function (res) {
+                        console.log(res.errMsg)
+                    }
+                })
+            }}>
+                <View className='left' >送货方式</View>
+                <View className='right'>
+                    {deliveryMethod}
+                    <Text className='iconfont icon-right'></Text>
+                </View>
+            </View> */}
 
-            <View className='get_coupon fb' onClick={() => setCouponShow(true)}>
+            <ProductItem pageData={pageData} />
+            <View className='handle fb' onClick={() => setCouponShow(true)}>
                 <View className='left' >优惠券</View>
                 <View className='right'>
                     {
@@ -128,7 +140,7 @@ const Index = () => {
                 </View>
             </View>
 
-            <View className='get_coupon fb' onClick={() => setVpShow(true)}>
+            <View className='handle fb' onClick={() => setVpShow(true)}>
                 <View className='left' >余额/卡</View>
                 <View className='right'>
                     {
@@ -140,17 +152,28 @@ const Index = () => {
                 </View>
             </View>
 
-            <View className='get_coupon fb' style={{ height: 'auto' }} onClick={() => setModal(true)} >
+            <View className='handle fb' style={{ height: 'auto' }} onClick={() => setModal(true)} >
                 <View className='left' >买家留言</View>
                 <View className='right'>
                     {msg.oldmsg}
                 </View>
             </View>
 
-            <View className='get_coupon fb' style={{ height: 'auto' }}>
+            <View className='handle fb' style={{ height: 'auto' }}>
                 <View className='left' >买家留言</View>
                 <View className='right'>
                     <Textarea value={msg2} autoHeight style={{ minHeight: '60rpx', color: '#555' }} className='textarea' onInput={(e) => setmsg2(e.detail.value.trim())} placeholder='' />
+                </View>
+            </View>
+
+            <View className='handle fd' style={{ height: 'auto' }}>
+                <View className='fb' onClick={() => setPayType(1)}>
+                    <Text className=''>微信支付</Text>
+                    <Radio checked={payType == 1} />
+                </View>
+                <View className='fb' onClick={() => setPayType(2)}>
+                    <Text className=''>余额支付</Text>
+                    <Radio checked={payType == 2} />
                 </View>
             </View>
 
@@ -167,10 +190,13 @@ const Index = () => {
 
             {/* couponList -get */}
             {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
-            <Coupon2 show={couponShow} setShow={setCouponShow} />
+            <Coupon show={couponShow} buttom='0' setShow={setCouponShow} />
 
             {/* vip card -get */}
             <VipCard show={vpShow} setShow={setVpShow} />
+
+            {/* date */}
+            <Date date={date?.value} setDate={(value) => { setDate({ ...date, value }) }} show={date?.show} setShow={() => setDate({ ...date, show: !date?.show })} />
 
             <Modal
                 title='买家留言'
@@ -181,6 +207,8 @@ const Index = () => {
                     <Textarea autoFocus value={msg.msg} className='textarea' onInput={(e) => setMsg({ ...msg, msg: e.detail.value.trim() })} placeholder='' />
                 } show={modal} setShow={setModal}
             />
+
+
         </View >
     )
 }

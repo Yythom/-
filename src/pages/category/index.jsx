@@ -9,10 +9,10 @@ import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
+import CouponFloat from '@/components/page/coupon/coupon';
 import VtabList from './list/list';
 import vtab_data from './tab';
 import './index.scss';
-import CouponFloat from './coupon/coupon';
 
 function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);

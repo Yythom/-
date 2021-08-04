@@ -1,0 +1,109 @@
+@import '../../../../common/mixins/index.scss';
+
+.pruduct_wrap {
+    background-color: #fff;
+    margin-top: 24px;
+    box-sizing: border-box;
+    padding: 16px 16px;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 20px;
+    // box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+    color: #333;
+
+    .shop_name {
+        width: 100%;
+        @include line();
+        font-size: 36px;
+        margin-bottom: 24px;
+        position: relative;
+
+        .icon-shangpu {
+            font-size: 44px;
+            color: #999;
+            margin-right: 24px;
+        }
+
+        .icon-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .fb {
+        color: #444;
+        height: 60px;
+
+        .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .left {
+            color: #666;
+            font-size: 28px;
+        }
+
+        &:nth-of-type(1) {
+            margin-top: 24px;
+        }
+    }
+
+    .product_item {
+        display: flex;
+        position: relative;
+        margin-bottom: 12px;
+
+        .img {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-right: 24px;
+
+            image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        .center {
+            max-width: 62vw;
+            font-size: 28px;
+        }
+
+        .desc {
+            .product_sku {
+                color: #999;
+            }
+
+            .product_price {
+                color: rgb(255, 91, 25);
+                font-style: 32px;
+
+                .moneny {
+                    font-size: 24px;
+                }
+            }
+
+        }
+
+        .num {
+            color: #999;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .product_name {
+            @include line();
+            font-size: 32px;
+            color: #444;
+        }
+
+
+    }
+}
