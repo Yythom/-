@@ -1,0 +1,74 @@
+.product-item {
+  position: relative;
+  width: 718px;
+  min-height: 186px;
+  height: auto!important;
+  margin: 0 auto;
+  border-radius: 16px;
+  margin-top: 20px;
+  padding: 20px 15px!important;
+
+  .p-desc {
+    width: 500px!important;
+    max-width: 500px!important;
+    & .p-name {
+      font-size: 30px!important;
+    }
+  }
+  .p-tag-wrap {
+    box-sizing: border-box;
+    padding: 10px 0;
+  }
+
+  .p-tag {
+    width: auto;
+    height: 36px;
+    line-height: 34px;
+    padding: 0 12px;
+    border: 1px solid #EF5F00;
+    border-radius: 4px;
+    font-size: 24px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #EF5F00;
+  }
+
+  .p-tag + .p-tag {
+    margin-left: 10px;
+  }
+
+  .p-sku {
+    position: absolute;
+    margin: 0!important;
+    right: 15px;
+    bottom: 28px;
+    font-size: 26px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #999999;
+  }
+
+  .p-price {
+    font-size: 26px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #EF5F00;
+  }
+
+  .p-member-price {
+    position: relative;
+    display: inline-block;
+    height: 44px;
+    line-height: 42px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    background: rgba(225, 140, 0, 0.15);
+    border-radius: 8px;
+    font-size: 22px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #CA7E00;
+    margin-left: 15px;
+    top: -5px;
+  }
+}

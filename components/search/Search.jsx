@@ -28,7 +28,8 @@ const Search = ({
                         : <View onClick={() => {
                             if (typeof onClick == 'function') onClick()
                             else navLinkTo('search/index', {})
-                        }} className='home-searchv' >
+                        }} className='home-searchv'
+                        >
                             <Text className='iconfont icon-sousuo' />
                             <View className='home-search'>{text}</View>
                             <View className='search_btn fc'>搜索</View>

@@ -1,0 +1,23 @@
+.screen {
+  height: 104px;
+  background-color: #fff;
+  justify-content: space-around;
+  border-top: 1px solid #dedede;
+
+  .item {
+    flex: 1;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  .item-active {
+    font-size: 30px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #EF5F00;
+  }
+
+  .iconfont {
+    font-size: 32px;
+  }
+}
