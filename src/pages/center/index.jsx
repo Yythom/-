@@ -28,12 +28,12 @@ const Index = () => {
                 }, 1000);
             }}
             scrollY
-            style={{ height: `calc(100vh - ${systemInfo.safeArea.top / 2}px - 120rpx)` }}
-            className='center_wrap index'
+            style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)` }}
+            className='center_wrap'
         >
             <NavBar background='rgb(250,245,235)' />
             <View className='user'>
-                <WithUserVerify onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
+                <WithUserVerify isVerifyPhone onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >
                         <Avatar style={{ background: '#fff', }} />
                         <View className='fb info'>
