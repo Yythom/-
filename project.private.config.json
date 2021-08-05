@@ -83,6 +83,12 @@
           "pathName": "subpages/product-list/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "搜索",
+          "pathName": "subpages/search/index",
+          "query": "__key_=16281564289201",
+          "scene": null
         }
       ]
     }

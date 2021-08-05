@@ -15,16 +15,20 @@ const ProductItem = memo(({ product, onChange = Function.prototype, list, index,
                     <View className='p-tag-wrap flex'>
                         {
                             product?.tags.map((tag) => (
-                                <View className='p-tag' key={tag.id}>{tag.name}</View>
+                                <View className='desc-item ' key={tag.id}>{tag.name}</View>
                             ))
                         }
                     </View>
-                    <View className='p-sku'>
-                        已售{product.sale}件
-                    </View>
-                    <View className='p-num'>
-                        <Text className='p-price price-color'><Text className='_money'>¥</Text>{product?.price}</Text>
-                        <View className='p-member-price'>会员价格 <Text className='_money'>¥</Text>{product?.member_price}</View>
+
+                    <View className='p-num fb'>
+                        <View className='price-box flex'>
+                            <Text className='price'><Text className='_money'>¥</Text>{product?.price}</Text>
+                            <View className='vip-price'>会员价格 <Text className='_money'>¥</Text>{product?.member_price}</View>
+                        </View>
+
+                        <View className='sale'>
+                            已售{product.sale}件
+                        </View>
                     </View>
                 </View>
             </View>

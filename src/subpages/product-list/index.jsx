@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text } from '@tarojs/components';
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
+import Taro, { getStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro';
 import Search from '@/components/search/Search';
 import Screen from '@/components/screen';
 import { actions } from '../../../store';
@@ -82,7 +82,15 @@ const Index = () => {
         let newSearch = { ...search };
         newSearch[key] = value;
         setSearch(newSearch);
-    }
+    };
+
+    const init = async () => {
+        if (query?.search_text) changeSearch('keywords', decodeURIComponent(query.search_text))
+    };
+
+    useDidShow(() => {
+        init()
+    });
 
     useEffect(() => {
         console.log(search, 'newSearch requese');
@@ -96,7 +104,7 @@ const Index = () => {
     return (
         <View className='product-list-wrap' >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search width='84vw' isEditor text='搜索商品' onBlur={(e) => {
+                <Search width='84vw' text='搜索商品' onBlur={(e) => {
                     console.log(e);
                 }} />
                 <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />

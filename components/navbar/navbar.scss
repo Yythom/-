@@ -32,14 +32,14 @@
         display: flex;
         align-items: center;
         border-radius: 16PX;
-        border: 1px solid rgba(204, 204, 204, 0.6);
+        border: 2px solid rgba(204, 204, 204, 0.6);
         position: relative;
         box-sizing: border-box;
 
         &::after {
             position: absolute;
             content: '';
-            width: 1Px;
+            width: 1px;
             height: 18.4PX;
             background: rgba(204, 204, 204, 0.6);
             left: 50%;
@@ -48,7 +48,7 @@
         }
 
         &.android {
-            border: 1px solid rgba(234, 234, 234, 0.6);
+            border: 2px solid rgba(234, 234, 234, 0.6);
 
             &::after {
                 background: rgba(234, 234, 234, 0.6);

@@ -167,7 +167,7 @@ function Index() {
         <View className='index-wrap index' >
             {/* <NavBar title='首页' /> */}
             <View className='fc search'>
-                <Search width='720rpx' isEditor text='搜索更多优惠商品' />
+                <Search width='720rpx' text='搜索更多优惠商品' />
             </View>
             <Banner w='100vw' className='index-banner' custom />
             {/* <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' /> */}
