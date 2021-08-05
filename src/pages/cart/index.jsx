@@ -12,7 +12,7 @@ import isWeapp from '@/utils/env';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
 import useSummary from '../../../hooks/useSummary';
-import { systemInfo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import { data } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
@@ -43,6 +43,7 @@ const Index = () => {
                     product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
                     price: '7999',
                     sku: ['银色', '64G', '套餐一'],
+                    isVip: 1,
                     num: '2',
                 },
             ]
@@ -85,7 +86,7 @@ const Index = () => {
     }
 
     const pay = async () => {
-
+        navLinkTo('order-comfirm/index', {})
     }
 
     const del = async () => {
@@ -156,14 +157,14 @@ const Index = () => {
         <View className='cart-wrap index' >
             <ScrollView scrollY className='scrollview'>
                 <View className='cart-title fb' style={{ top: 0 + 'px' }}>
-                    <View className='total'>共2件商品</View>
-                    <View className='header_edit' >
-                        <View className='' onClick={() => setCouponshow(true)} >领券</View>
+                    <View className='total'>支付成功生成取货码，尺码到店取货</View>
+                    <View className='header_edit flex' >
+                        <View className='price' onClick={() => setCouponshow(true)} >领券</View>
                         {
                             !edit ?
                                 <View className='fc' onClick={() => { setEdit(!edit) }} >
-                                    <Text className='iconfont icon-edit' ></Text>管理</View>
-                                : '完成'
+                                    <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 管理</View>
+                                : <View className='fc' onClick={() => { setEdit(!edit) }} ><Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 完成</View>
                         }
                     </View>
                 </View>
@@ -219,9 +220,9 @@ const Index = () => {
                         </View>
 
                         <View className='p_wrap fc'>
-                            <View className='price' onClick={(event) => { }} >
+                            <View className='price-box' onClick={(event) => { }} >
                                 <View className='fc'>
-                                    合计：<Text className='price-color'><Text className='_money'>¥</Text>{price}</Text>
+                                    合计：<Text className='price'><Text className='_money'>¥</Text>{price}</Text>
                                 </View>
                                 {/* <View style={{ fontSize: '0.5rem', color: 'rgb(255, 91, 41)' }}>
                                 已优惠 ¥{22}
@@ -229,7 +230,7 @@ const Index = () => {
                             </View> */}
                             </View>
                             <View
-                                className='btn'
+                                className='btn  fc'
                                 onClick={(event) => {
                                     event.stopPropagation();
                                     if (Object.keys(summaryShop).length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
@@ -265,7 +266,7 @@ const Index = () => {
                 //    coupon={}
                 setShow={setCouponshow}
             />
-        </View>
+        </View >
     )
 }
 export default Index;

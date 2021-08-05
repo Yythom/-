@@ -3,12 +3,22 @@
     // background-color: pink;
     box-sizing: border-box;
 
+    .radio {
+        // width: 40px;
+        // height: 40px;
+        // color: ;
+    }
+
     .scrollview {
         box-sizing: border-box;
         background-color: #f3f3f3;
-        padding: 0 16px;
+        // padding: 0 16px;
         height: 100vh;
         padding-bottom: 110px;
+    }
+
+    .card {
+        width: 100%;
     }
 
     .cart-title {
@@ -17,10 +27,11 @@
         padding: 0 24px;
         padding-right: 0;
         box-sizing: border-box;
-        margin-bottom: 24px;
+        margin-bottom: 15px;
         position: sticky;
         left: 0;
-        height: 80px;
+        height: 104px;
+        background-color: #fff;
         z-index: 1;
 
         .total {
@@ -41,8 +52,20 @@
         overflow-x: hidden;
     }
 
-    .move_wrap {
-        margin-bottom: 24px;
+    .handle_input {
+        .btn {
+            border: 2px solid #999999;
+            background-color: #fff;
+        }
+
+        .num {
+            border-top: 2px solid #999999;
+            border-bottom: 2px solid #999999;
+            background-color: #fff;
+
+            margin: 0;
+        }
+
     }
 
     .footer {
@@ -67,22 +90,23 @@
             .p_wrap {
                 font-size: 28px;
 
-                .price {
-                    color: #333;
+                .price-box {
+                    margin-right: 20px;
 
-                    .price-color {
-                        font-size: 36px;
+                    .price {
+                        font-size: 32px;
                     }
+
                 }
             }
 
             .btn {
-                padding: 12px 48px;
-                margin-left: 28px;
+                width: 220px;
+                height: 90px;
+                background: #EF5F00;
+                border-radius: 58px;
+                font-size: 36px;
                 color: #fff;
-                border-radius: 50px;
-                background-image: linear-gradient(to left, rgb(247, 137, 86) 0%, rgb(238, 64, 52) 100%);
-                font-size: 28px;
             }
         }
     }

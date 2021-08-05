@@ -133,11 +133,10 @@ function getSalePrice(skuResult, selectSpecList) {
 function transPrice(skuResult, specListData) {
     let price = getPrice(skuResult, specListData);
     let sale_price = getSalePrice(skuResult, specListData);
-    // console.log(sale_price, 'sale_price');
     return {
-        price: price?.maxPrice === price?.minPrice ? `${price?.maxPrice}` : `${price?.minPrice} - ${price?.maxPrice}`,
+        price: price?.maxPrice === price?.minPrice ? price?.maxPrice : price?.minPrice + '-' + price?.maxPrice,
         desc: specListData.filter(item => item).map(item => item.name).join(' '),
-        sale_price: sale_price?.maxPrice === sale_price?.minPrice ? `${sale_price?.maxPrice}` : `${sale_price?.minPrice} - ${sale_price?.maxPrice}`,
+        sale_price: sale_price?.maxPrice === sale_price?.minPrice ? sale_price?.maxPrice : sale_price?.minPrice + '-' + sale_price?.maxPrice,
     }
 }
 

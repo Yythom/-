@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import { View, Text, Radio } from '@tarojs/components';
+import { View, Text, Radio, Image } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
@@ -18,15 +18,16 @@ const ProductItem = memo(({
 }) => {
 
     return (
-        <Move value={80} padding={16} onClick={() => { handle(index, shop_id, 'delete') }}  >
-            <View className='card flex' style={{ marginBottom: '0.2rem' }}>
+        <Move value={80} padding={0} onClick={() => { handle(index, shop_id, 'delete') }}  >
+            <View className='card flex' >
                 <View className='check fc'
                     onClick={() => { handle(index, shop_id, 'check') }}
                 >
                     <Radio className='radio' color='#eb472b' checked={product.checked} />
                 </View>
                 <View className='product flex' onClick={(e) => { navLinkTo('product-detail/index', { product_id: product.product_id }); e.stopPropagation(); }}>
-                    <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
+                    <BlurImg className='img' mode='aspectFill' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
+                    {/* <Image mode='aspectFill' /> */}
                     <View className='desc fd'>
                         <Text className='p-name'>{product?.product_name}</Text>
                         <View className='p-sku' onClick={(event) => {
@@ -39,9 +40,21 @@ const ProductItem = memo(({
                                     <Text key={e} className='p-sku-item'>{e}</Text>
                                 )
                             })} */}
+                            <Text className='iconfont icon-unfold'></Text>
+                        </View>
+                        <View className=' fb'>
+                            <View className='flex'>
+                                <Text className='price'><Text className='_money'>¥</Text>{product?.price}</Text>
+                                <Text className='del'><Text className='_money'>¥</Text>{product?.price}</Text>
+                            </View>
                         </View>
                         <View className='p-num fb'>
-                            <Text className='p-price price-color'><Text className='_money'>¥</Text>{product?.price}</Text>
+                            {
+                                product?.isVip == 1
+                                    ? <View className='vip-price-act'>会员价格</View>
+                                    : <View className='vip-price'>会员价格¥320</View>
+                            }
+
                             <HandleInput
                                 list={list}
                                 num={product.num}

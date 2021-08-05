@@ -1,0 +1,112 @@
+@import '../../../../../common/mixins/index.scss';
+
+.pruduct_wrap {
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 20px;
+    width: 100%;
+    border-radius: 20px;
+    // box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+    color: #333;
+    margin-bottom: 15px;
+
+    .shop_name {
+        width: 100%;
+        @include line();
+        font-size: 36px;
+        margin-bottom: 24px;
+        position: relative;
+
+        .icon-shangpu {
+            font-size: 44px;
+            color: #999;
+            margin-right: 24px;
+        }
+
+        .icon-right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .product_item {
+        width: 100%;
+        display: flex;
+        position: relative;
+        margin-bottom: 70px;
+
+        &:nth-last-child(1) {
+            margin-bottom: 30px;
+        }
+
+        .img {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+
+            image {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .center {
+            width: calc(100% - 180px);
+            font-size: 28px;
+
+            .desc {
+
+                .product_name {
+                    // @include line(2);
+                    font-size: 32px;
+                    color: #444;
+                }
+
+                .product_sku {
+                    font-size: 24px;
+                    margin: 10px 0;
+                    color: #999;
+                }
+
+                .new {
+                    font-size: 32px;
+                    margin-right: 25px;
+                    font-weight: bold;
+                }
+            }
+
+            .num {
+                color: #999;
+                // position: absolute;
+                right: 0;
+                // top: 50%;
+                bottom: 0;
+                // transform: translateY(-50%);
+            }
+        }
+    }
+
+    .fb {
+        color: #444;
+        height: 60px;
+
+        .right {
+            display: flex;
+            align-items: center;
+        }
+
+        .left {
+            color: #666;
+            font-size: 28px;
+        }
+
+        &:nth-of-type(1) {
+            margin-top: 24px;
+        }
+    }
+
+}

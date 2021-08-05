@@ -204,7 +204,7 @@ const Index = (props) => { // 不能有padding父元素
                         {  // 内容区域
                             props.children
                             &&
-                            <View className='swiper' style={{ height: height + 'px', maxHeight: maxHeight }}>
+                            <View className='swiper' style={{ height: height + Number(notChildScroll ? getStorageSync('safeArea') : 0) + 'px', maxHeight: maxHeight }}>
                                 <Swiper
                                     current={swiperIndex}
                                     duration={300}

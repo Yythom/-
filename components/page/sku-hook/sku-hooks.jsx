@@ -86,6 +86,12 @@ const Skuhooks = memo(({
     };
 
     const addCart = () => {
+        if (sku) {
+
+        } else {
+            showToast({ title: `请选择${desc?.str}`, icon: 'none' })
+        }
+        console.log('requser');
         if (!sku?.sku) return
     };
 
@@ -107,11 +113,11 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.sale_price}
+                                            {desc?.sale_price || '请选择'}
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price}
+                                            {desc?.price || '请选择'}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>

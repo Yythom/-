@@ -243,9 +243,6 @@ function Index() {
                 show={show}
                 setShow={setShow}
                 product={skuData}
-                onChange={(e) => {
-                    // if (e) setSku(e);
-                }}
             />
 
         </View>

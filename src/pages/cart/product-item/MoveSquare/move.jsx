@@ -1,9 +1,9 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useEffect, useState } from 'react';
 import { View } from '@tarojs/components';
-import './move.scss'
 import isWeapp from '@/utils/env';
 import { lkGetSystemInfo, systemInfo } from '@/common/publicFunc';
+import './move.scss'
 
 const scalc = (isWeapp ? systemInfo.windowWidth : window.screen.width) / 100;
 
@@ -52,7 +52,7 @@ const Move = memo(({
             }}
             style={{
                 transform: `translateX(-${left / scalc}vw)`,
-                width: `calc(${102 + value / scalc}vw - ${padding * 100 / (isWeapp ? systemInfo.windowWidth : window.screen.width)}vw)`,
+                width: `calc(${100 + value / scalc}vw - ${padding * 100 / (isWeapp ? systemInfo.windowWidth : window.screen.width)}vw)`,
                 ...style
             }}
         >
