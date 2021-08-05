@@ -9,13 +9,13 @@
 
 .handle_input {
     display: flex;
-    height: 50px;
+    height: 56px;
 
     .num {
         font-size: 28px;
         width: 80px;
         height: 100%;
-        margin: 0 8px;
+        margin: 0 2px;
         background-color: rgb(238, 240, 240);
         text-align: center;
 
@@ -31,7 +31,12 @@
         height: 100%;
         background-color: rgb(245, 245, 245);
         font-size: 40px;
-        color: #999;
+        border-radius: 10px 0px 0px 10px;
+        color: #333;
+
+        &:nth-of-type(2) {
+            border-radius: 0 10px 10px 0;
+        }
     }
 }
 
@@ -106,5 +111,4 @@
             }
         }
     }
-
 }

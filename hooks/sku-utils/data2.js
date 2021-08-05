@@ -6,6 +6,7 @@ export const data2 = {
             "price": 200,
             "stock": 10,
             'sku_id': '111',
+            'sale_price': '999'
         },
     },
     skuSpec: [ // sku规范

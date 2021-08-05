@@ -2,7 +2,8 @@
     position: relative;
     box-sizing: border-box;
     overflow-y: scroll;
-    padding: 16px;
+    // padding: 16px;
+    padding: 40px 30px 30px 30px;
     padding-bottom: 40px;
 
     image {
@@ -12,24 +13,26 @@
 
     .icon-close {
         position: absolute;
-        right: 16px;
-        top: 10px;
+        right: 35px;
+        top: 25px;
     }
 
     // 商品信息
     .title {
-        height: 200px;
+        // background-color: yellow;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #dedede;
 
         .img {
-            width: 200px;
-            height: 200px;
-            border-radius: 18px;
+            width: 140px;
+            height: 140px;
             overflow: hidden;
-            margin-right: 24px;
+            border-radius: 8px;
+            margin-right: 15px;
 
             image {
-                width: 200px;
-                height: 200px;
+                width: 100%;
+                height: 100%;
             }
         }
 
@@ -38,52 +41,106 @@
             font-size: 24px;
             color: #666;
 
-            .price {
-                color: rgb(233, 56, 25);
-                font-size: 48px;
-                margin-right: 12px;
-
-            }
-
             .select {
                 margin-top: 8px;
+            }
+        }
+
+        .price-box {
+            .price {
+                .new {
+                    font-size: 46px;
+                    font-weight: bold;
+                    color: #EF5F00;
+
+                    ._moneny {
+                        font-size: 30px;
+                    }
+                }
+
+                .old {
+                    margin-left: 15px;
+                    text-decoration: line-through;
+                    height: 42px;
+                    font-size: 30px;
+                    font-weight: 400;
+                    color: #666666;
+                    line-height: 42px;
+                }
+            }
+
+            .extra-price {
+                margin-top: 10px;
+
+                .price-l {
+                    .p-item2 {
+                        height: 36px;
+                        border-radius: 4px;
+                        border: 1px solid #EF5F00;
+                        padding: 0 10px;
+                        font-size: 24px;
+                        font-weight: 400;
+                        color: #EF5F00;
+                        margin-right: 10px;
+                    }
+                }
+
+                .sale {
+                    font-size: 26px;
+                    font-weight: 400;
+                    color: #999999;
+                    line-height: 37px;
+                }
             }
         }
     }
 
     // sku选择
     .spec-box {
+        // background-color: yellow;
         margin-bottom: 30px;
 
         .select_title {
-            font-size: 32px;
-            color: #999;
-            padding: 24px 0;
+            // background-color: blue;
+            margin-top: 25px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: 400;
+            color: #333333;
         }
 
         .select_list {
             box-sizing: border-box;
             flex-wrap: wrap;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #DEDEDE;
+            // background-color: blueviolet;
 
             .item {
-                margin-right: 24px;
-                padding: 12px 29px;
-                border-radius: 8px;
-                color: #333;
-                border: 2px solid #eee;
-                font-size: 24px;
-                box-sizing: border-box;
+                margin-bottom: 20px;
+                height: 60px;
+                padding: 0 20px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 transition: 300ms;
-                margin-bottom: 12px;
+                background: #EDEDED;
+                border-radius: 10px;
+                margin-right: 20px;
+                font-size: 26px;
+                font-weight: 400;
+                color: #333333;
+                box-sizing: border-box;
             }
 
             .act_item {
-                color: rgb(255, 78, 8);
-                // border: solid 2px rgb(255, 78, 8);
-                background-color: rgb(255, 224, 224);
+                font-size: 26px;
+                font-weight: 600;
+                color: #EF5F00;
+                background: rgba(239, 95, 0, 0.1);
+                border-radius: 10px;
+                border: 1px solid #EF5F00;
+
             }
 
             .disabled {
@@ -95,38 +152,39 @@
 
     // 数量选择
     .buy_number {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 100px;
-        padding-top: 10px;
+        height: 56px;
+        margin-top: 25px;
 
         .number_title {
-            font-size: 32px;
+            font-size: 30px;
             color: #333;
+
+            .stock {
+                font-size: 24px;
+                margin-left: 20px;
+                color: #999;
+            }
         }
     }
 
     .btn_wrap {
-        width: calc(100vw - 48px);
+        width: calc(100vw - 60px);
         display: flex;
         color: #fff;
         font-size: 28px;
+        font-size: 36px;
+        font-weight: 400;
+        margin-top: 143px;
 
         .btn {
             flex: 1;
-            height: 80px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            height: 90px;
             margin: 0 auto;
             background-color: rgb(235, 55, 43);
-            margin-top: 20px;
         }
 
         .normal {
-            border-radius: 40px !important;
+            border-radius: 58px !important;
         }
 
         .buy-btn {
@@ -134,7 +192,7 @@
         }
 
         .cart-btn {
-            background-color: rgb(255, 159, 70);
+            background-color: #EF5F00;
             border-radius: 40px 0 0 40px;
         }
     }

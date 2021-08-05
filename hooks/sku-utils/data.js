@@ -6,6 +6,7 @@ export const data = {
             "price": 200,
             "stock": 10,
             'sku_id': '111',
+            'sale_price': 999
         },
         // 4.7寸;16G;黄色
         "101;201;303": {
@@ -13,6 +14,7 @@ export const data = {
             "price": 150, // 价格
             "stock": 6,// 库存
             'sku_id': '222',
+            'sale_price': 200
         },
         // 5.5寸;16G;红色
         "102;201;302": {
@@ -20,6 +22,7 @@ export const data = {
             "price": 101,
             "stock": 10,
             'sku_id': '333',
+            'sale_price': 100
         },
         // 5.5寸;16G;黑色
         "102;201;301": {
@@ -27,6 +30,7 @@ export const data = {
             "price": 200,
             "stock": 2,
             'sku_id': '444',
+            'sale_price': 130
         },
         // 5.5寸;64G;黄色
         "102;203;303": {
@@ -34,6 +38,7 @@ export const data = {
             "price": 110,
             "stock": 6,
             'sku_id': '555',
+            'sale_price': 140
         },
         // 5.5寸;32G;黑色
         "201;202;301": {
@@ -41,12 +46,14 @@ export const data = {
             "price": 300,
             "stock": 16,
             'sku_id': '666',
+            'sale_price': 340
         },
         "103;202;301": {
             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
             "price": 300,
             "stock": 16,
             'sku_id': '777',
+            'sale_price': 440
         },
     },
     skuSpec: [ // sku规范

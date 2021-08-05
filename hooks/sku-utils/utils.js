@@ -60,14 +60,16 @@ function skuOptionAttrResult(combArrItem, sku, skuResult) {
     if (skuResult[key]) {
         const prevPrice = skuResult[key].price
         const curPrice = [sku.price];
+        const sale_price = [sku.sale_price];
         skuResult[key] = {
             ...sku,
             price: prevPrice.concat(curPrice).sort(), // 上一个价格合并当前的，算出区间价格
+            sale_price: prevPrice.concat(sale_price).sort(), // 上一个价格合并当前的，算出区间价格
             stock: skuResult[key].stock
             // + sku.stock, // 相同可选属性组合的库存累计
         }
     } else {
-        skuResult[key] = { ...sku, price: [sku.price] };
+        skuResult[key] = { ...sku, price: [sku.price], sale_price: [sku.sale_price] };
     }
 }
 
@@ -115,11 +117,27 @@ function getPrice(skuResult, selectSpecList) {
     }
 }
 
+function getSalePrice(skuResult, selectSpecList) {
+    const skukey = filterValidArr(selectSpecList).join(';');
+    const hitSpecObj = skuResult[skukey]
+    if (!hitSpecObj) return null;
+    const priceArr = hitSpecObj.sale_price;
+    const maxPrice = Math.max.apply(Math, priceArr);
+    const minPrice = Math.min.apply(Math, priceArr);
+    return {
+        minPrice,
+        maxPrice
+    }
+}
+
 function transPrice(skuResult, specListData) {
-    let price = getPrice(skuResult, specListData)
+    let price = getPrice(skuResult, specListData);
+    let sale_price = getSalePrice(skuResult, specListData);
+    // console.log(sale_price, 'sale_price');
     return {
         price: price?.maxPrice === price?.minPrice ? `${price?.maxPrice}` : `${price?.minPrice} - ${price?.maxPrice}`,
-        desc: specListData.filter(item => item).map(item => item.name).join(' ')
+        desc: specListData.filter(item => item).map(item => item.name).join(' '),
+        sale_price: sale_price?.maxPrice === sale_price?.minPrice ? `${sale_price?.maxPrice}` : `${sale_price?.minPrice} - ${sale_price?.maxPrice}`,
     }
 }
 

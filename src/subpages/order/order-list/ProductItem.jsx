@@ -2,7 +2,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import { View, Text, Radio, Button } from '@tarojs/components';
 import BlurImg from '@/components/blur-img/BlurImg';
-import HandleInput from '@/components/page/sku/handle-input/HandleInput';
+import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 
 const ProductItem = memo(({ product, }) => {

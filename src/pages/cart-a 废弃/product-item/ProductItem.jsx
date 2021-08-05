@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { View, Text, Radio } from '@tarojs/components';
 import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import BlurImg from '@/components/blur-img/BlurImg';
-import HandleInput from '@/components/page/sku/handle-input/HandleInput';
+import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import Move from './MoveSquare/move';
 import isWeapp from '@/utils/env';

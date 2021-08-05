@@ -52,7 +52,7 @@ const Index = () => {
                         ...data2
                     });
                     setTimeout(() => {
-                        setShow(3)
+                        setShow(1)
                     }, 100);
                 }}>测试猜你喜欢选择</View> */}
 
@@ -70,7 +70,7 @@ const Index = () => {
                 <ProductInfo className='p-16' product={pageData} />
 
                 {/* 打开sku */}
-                {/* <View className='act-sku p-16 fb' onClick={() => setShow(3)}>
+                {/* <View className='act-sku p-16 fb' onClick={() => setShow(1)}>
                     <View>
                         选择：<Text className='desc'>{sku?.desc?.str}</Text>
                     </View>

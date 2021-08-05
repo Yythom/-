@@ -70,7 +70,7 @@ const RenderList = memo(({ _list, skuOption, i, setI }) => {
             })
         }
         setTimeout(() => {
-            setShow(3);
+            setShow(1);
             setI(10)
         }, 100);
     }

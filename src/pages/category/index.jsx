@@ -10,10 +10,10 @@ import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import CouponFloat from '@/components/page/coupon/coupon';
+import CouponList from '@/components/page/coupon/v-coupon';
 import VtabList from './list/list';
 import vtab_data from './tab';
 import './index.scss';
-import CouponList from '@/components/page/coupon/v-coupon';
 
 function Index() {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);

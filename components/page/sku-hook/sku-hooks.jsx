@@ -4,7 +4,7 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
 import { getStorageSync, setStorageSync, showLoading, showToast } from '@tarojs/taro';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
-import HandleInput from '@/components/page/sku/handle-input/HandleInput';
+import HandleInput from '@/components/page/handle-input/HandleInput';
 import FloatBottom from '@/components/float/FloatBottom';
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
@@ -99,26 +99,41 @@ const Skuhooks = memo(({
                         <View className='title flex'>
                             <BlurImg className='img' src={sku ? sku.img : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
                             <View className='content fd'>
-                                <View className='price'>
+                                {/* <View className='price'>
                                     <Text className='_money'>¥</Text>
                                     {desc?.price ? desc?.price : 'min-price - max-price'}
+                                </View> */}
+                                <View className='price-box'>
+                                    <View className='price'>
+                                        <Text className='new price-color'>
+                                            <Text className='_moneny'>¥</Text>
+                                            {desc?.sale_price}
+                                        </Text>
+                                        <Text className='old'>
+                                            <Text className='_moneny'>¥</Text>
+                                            {desc?.price}
+                                        </Text>
+                                    </View>
+                                    <View className='extra-price fb'>
+                                        <View className='flex price-l'>
+                                            <View className='vip-price fc'>会员价格 ￥320元</View>
+                                            {/* <View className='p-item2 fc'>20元券</View> */}
+                                        </View>
+                                        {/* <View className='sale fc'>月售 {product?.sale}</View> */}
+                                    </View>
                                 </View>
-                                <View className='select'>
-                                    {
-                                        sku?.stock && <View className='stock'> 库存： {sku?.stock} </View>
-                                    }
+                                {/*
                                 </View>
                                 {
                                     desc?.filterStr && <View className='select'>已选：{desc?.filterStr}</View>
-                                }
+                                } */}
                             </View>
-
                         </View>
                         <View className='spec-box' >
                             {
                                 specList && specList.map((item, index) => (
                                     <Fragment key={item.id}>
-                                        <View className='select_title'>{item.specName}</View>
+                                        <View className='select_title flex'>{item.specName}</View>
                                         <View className='select_list flex' key={item.id}>
                                             {item.specAttrList.map(attrItem => {
                                                 const { disabled, active } = option.checkSpecAttrDisabled(attrItem.id, index);
@@ -138,29 +153,29 @@ const Skuhooks = memo(({
                             }
                         </View>
 
-                        <View className='buy_number'>
-                            <View className='number_title'>数量</View>
+                        <View className='buy_number fb'>
+                            <View className='number_title flex'>
+                                <View>购买数量</View>
+                                {
+                                    sku?.stock && <View className='stock'> 库存： {sku?.stock} </View>
+                                }
+
+                            </View>
                             <HandleInput num={num} onChange={(value) => {
                                 // if (!skuObj) return showToast({ title: '请选择规格', icon: 'none', })
                                 console.log(num > value, value);
-                                // if (num > value ) { // 减
-                                //     return
-                                // }
-                                // if (num < value) { // 加
-
-                                // }
                                 setNum(value)
                             }} />
                         </View>
-                        <View className='btn_wrap'>
-                            {show == 1 && <View className='btn cart-btn normal' onClick={() => { addCart() }}>加入购物车</View>}
-                            {show == 2 && <View className='btn buy-btn normal' onClick={() => { preOrder() }}>立即购买</View>}
+                        <View className='btn_wrap flex'>
+                            {show == 1 && <View className='btn fc cart-btn normal' onClick={() => { addCart() }}>加入购物车</View>}
+                            {show == 2 && <View className='btn fc buy-btn normal' onClick={() => { preOrder() }}>立即购买</View>}
                             {show == 3 && <>
-                                <View className='btn cart-btn' onClick={() => { addCart() }}>加入购物车</View>
-                                <View className='btn buy-btn' onClick={() => { preOrder() }}>立即购买</View>
+                                <View className='btn fc cart-btn' onClick={() => { addCart() }}>加入购物车</View>
+                                <View className='btn fc buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
-                            {show == 4 && <View className='btn cart-btn normal' onClick={() => { onOk({ ...sku, ...desc }) }}>确定</View>}
+                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc }) }}>确定</View>}
 
 
                         </View>
