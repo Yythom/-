@@ -19,22 +19,31 @@ const ProductItem = memo(({
                             <View className='product_name'>{e.product_name}</View>
                             <View className='desc'>
                                 <View className='product_sku'>{e.spec}</View>
-                                <View className='product_price'><Text className='moneny'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}</View>
+                                <View className='price fb'>
+                                    <View className='flex'>
+                                        <View className='new price'>
+                                            <Text className='_money'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}
+                                        </View>
+                                        <View className='del'>
+                                            <Text className='_money'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}
+                                        </View>
+                                    </View>
+                                    <View className='num'>x{e.number}</View>
+                                </View>
                             </View>
                         </View>
-                        <View className='num'>x{e.number}</View>
                     </View>
                 })
             }
-            <View className='fb'>
+            {/* <View className='fb'>
                 <View className='left'>商品金额</View>
                 <View className='right'>¥{pageData?.product_price}</View>
             </View>
             <View className='fb'>
                 <View className='left'>运费</View>
                 <View className='right'>¥{pageData?.freight}</View>
-            </View>
-        </View>
+            </View> */}
+        </View >
     )
 })
 

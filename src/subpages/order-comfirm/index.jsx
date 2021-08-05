@@ -64,7 +64,7 @@ const Index = () => {
         show: false,
         value: ''
     }); // 送达时间
-    const [deliveryMethod, setDeliveryMethod] = useState('')
+    const [deliveryMethod, setDeliveryMethod] = useState('') // 送货方式
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState({
         oldmsg: '',
@@ -99,15 +99,14 @@ const Index = () => {
     return (
         <View className='order_confirm_wrap'>
             {/* <NavBar back title='确认订单' /> */}
-            <Address address={address} />
-
-            <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
+            {/* <Address address={address} /> */}
+            {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
                 <View className='left' >指定时间</View>
                 <View className='right'>
                     {date?.value}
                     <Text className='iconfont icon-right'></Text>
                 </View>
-            </View>
+            </View> */}
             {/* <View className='handle fb' onClick={() => {
                 showActionSheet({
                     itemList: itemList.map(e => e.text),
@@ -128,7 +127,7 @@ const Index = () => {
             </View> */}
 
             <ProductItem pageData={pageData} />
-            <View className='handle fb' onClick={() => setCouponShow(true)}>
+            {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
                 <View className='left' >优惠券</View>
                 <View className='right'>
                     {
@@ -138,9 +137,9 @@ const Index = () => {
                             pageData?.shop_coupon.filter(e => e.disable == 0).length + '张可用'
                     }<Text className='iconfont icon-right' />
                 </View>
-            </View>
+            </View> */}
 
-            <View className='handle fb' onClick={() => setVpShow(true)}>
+            {/* <View className='handle fb' onClick={() => setVpShow(true)}>
                 <View className='left' >余额/卡</View>
                 <View className='right'>
                     {
@@ -150,23 +149,28 @@ const Index = () => {
                             pageData?.shop_coupon.filter(e => e.disable == 0).length + '张可用'
                     }<Text className='iconfont icon-right' />
                 </View>
+            </View> */}
+            <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
+                <View className='left' >温馨提示</View>
+                <View className='right' style={{ color: '#333' }}>
+                    支付成功生成取货码，尺码到店取货
+                </View>
             </View>
-
-            <View className='handle fb' style={{ height: 'auto' }} onClick={() => setModal(true)} >
+            <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
                 <View className='left' >买家留言</View>
                 <View className='right'>
-                    {msg.oldmsg}
+                    {msg?.oldmsg || <Text style={{ color: '#999' }}>请输入</Text>}
                 </View>
             </View>
 
-            <View className='handle fb' style={{ height: 'auto' }}>
+            {/* <View className='handle fb' style={{ height: 'auto' }}>
                 <View className='left' >买家留言</View>
                 <View className='right'>
                     <Textarea value={msg2} autoHeight style={{ minHeight: '60rpx', color: '#555' }} className='textarea' onInput={(e) => setmsg2(e.detail.value.trim())} placeholder='' />
                 </View>
-            </View>
+            </View> */}
 
-            <View className='handle fd' style={{ height: 'auto' }}>
+            {/* <View className='handle fd' style={{ height: 'auto' }}>
                 <View className='fb' onClick={() => setPayType(1)}>
                     <Text className=''>微信支付</Text>
                     <Radio checked={payType == 1} />
@@ -175,17 +179,21 @@ const Index = () => {
                     <Text className=''>余额支付</Text>
                     <Radio checked={payType == 2} />
                 </View>
-            </View>
+            </View> */}
 
 
             <View className='footer flex'>
-                <Text className='price'> 实付金额 <Text className='price'><Text className='monent'>¥</Text>
-                    <Text className='p'>{pageData?.price}</Text></Text></Text>
-                <View className='btn'
+                <View className='price-box flex'>
+                    <View className='all'>总价：<Text className='price'>¥{pageData?.price}</Text></View>
+                    <View className='dis'>已优惠：<Text>¥900</Text></View>
+                </View>
+                <View className='btn fc'
                     onClick={() => {
                         pay();
                     }}
-                >提交订单</View>
+                >
+                    提交订单
+                </View>
             </View>
 
             {/* couponList -get */}
@@ -199,7 +207,7 @@ const Index = () => {
             <Date date={date?.value} setDate={(value) => { setDate({ ...date, value }) }} show={date?.show} setShow={() => setDate({ ...date, show: !date?.show })} />
 
             <Modal
-                title='买家留言'
+                title='备注'
                 onOk={() => {
                     setMsg({ ...msg, oldmsg: msg.msg })
                 }}

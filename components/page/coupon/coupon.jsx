@@ -48,7 +48,6 @@ const CouponFloat = ({
         }
     ],
 }) => {
-    console.log(bottom, 'bottom');
 
     return (
         <FloatBottom bottom={bottom ? bottom : Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2} className='coupon-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>

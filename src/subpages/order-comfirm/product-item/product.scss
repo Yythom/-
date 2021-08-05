@@ -2,14 +2,13 @@
 
 .pruduct_wrap {
     background-color: #fff;
-    margin-top: 24px;
     box-sizing: border-box;
-    padding: 16px 16px;
+    padding: 20px;
     width: 100%;
-    min-height: 300px;
     border-radius: 20px;
     // box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
     color: #333;
+    margin-bottom: 15px;
 
     .shop_name {
         width: 100%;
@@ -32,6 +31,65 @@
         }
     }
 
+    .product_item {
+        width: 100%;
+        display: flex;
+        position: relative;
+        margin-bottom: 70px;
+
+        &:nth-last-child(1) {
+            margin-bottom: 30px;
+        }
+
+        .img {
+            width: 160px;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 15px;
+
+            image {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        .center {
+            width: calc(100% - 180px);
+            font-size: 28px;
+
+            .desc {
+
+                .product_name {
+                    // @include line(2);
+                    font-size: 32px;
+                    color: #444;
+                }
+
+                .product_sku {
+                    font-size: 24px;
+                    margin: 10px 0;
+                    color: #999;
+                }
+
+                .new {
+                    font-size: 32px;
+                    margin-right: 25px;
+                    font-weight: bold;
+                }
+            }
+
+            .num {
+                color: #999;
+                // position: absolute;
+                right: 0;
+                // top: 50%;
+                bottom: 0;
+                // transform: translateY(-50%);
+            }
+        }
+    }
+
     .fb {
         color: #444;
         height: 60px;
@@ -51,59 +109,4 @@
         }
     }
 
-    .product_item {
-        display: flex;
-        position: relative;
-        margin-bottom: 12px;
-
-        .img {
-            width: 150px;
-            height: 150px;
-            border-radius: 20px;
-            overflow: hidden;
-            margin-right: 24px;
-
-            image {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        .center {
-            max-width: 62vw;
-            font-size: 28px;
-        }
-
-        .desc {
-            .product_sku {
-                color: #999;
-            }
-
-            .product_price {
-                color: rgb(255, 91, 25);
-                font-style: 32px;
-
-                .moneny {
-                    font-size: 24px;
-                }
-            }
-
-        }
-
-        .num {
-            color: #999;
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .product_name {
-            @include line();
-            font-size: 32px;
-            color: #444;
-        }
-
-
-    }
 }
