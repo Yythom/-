@@ -1,5 +1,5 @@
 .product-detail {
-    background-color: rgb(250, 250, 250);
+    background-color: #f3f3f3;
     box-sizing: border-box;
 
     .scrollview {
@@ -12,60 +12,6 @@
         color: #ddd
     }
 
-    .p-info {
-        margin-top: 24px;
-        padding-top: 16px;
-        padding-bottom: 16px;
-        background-color: #fff;
-
-        .iconfont {
-            color: #333
-        }
-
-        .price-box {
-            color: #999;
-            font-size: 42px;
-
-            .new {}
-
-            .old {
-                font-size: 24px;
-                margin-left: 24px;
-                text-decoration: line-through;
-            }
-
-            .sale {
-                font-size: 24px;
-            }
-        }
-
-        .p-name {
-            font-size: 28px;
-
-            .name {
-                max-width: 80%;
-                line-height: 40px;
-
-                word-break: break-all;
-            }
-
-            .iconfont {
-                height: 60px;
-                font-size: 60px;
-                line-height: 60px;
-            }
-
-            .share {
-                padding: 0;
-                margin: 0;
-                background-color: #fff;
-                width: 100px;
-                // height: 80px;
-                line-height: 24px;
-                font-size: 24px;
-            }
-        }
-    }
 
     .act-sku {
         font-size: 30px;
@@ -117,10 +63,23 @@
     }
 
     .product-desc {
+        padding-bottom: 16px;
+        background-color: #fff;
+
         .title {
-            font-size: 30px;
+            font-size: 28px;
             height: 100px;
-            background-color: #fff;
+
+            .text {
+                margin: 0 20px;
+            }
+
+            .v-line {
+                width: 4px;
+                height: 20px;
+                background: linear-gradient(90deg, #F96822 0%, #FFA77E 100%);
+                border-radius: 2px;
+            }
         }
 
         image,
@@ -136,6 +95,7 @@
         width: 100%;
         bottom: 0;
         height: 120px;
+        border-top: 2px solid #DEDEDE;
 
         .user {
             margin-left: 56px;

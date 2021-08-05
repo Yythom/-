@@ -140,6 +140,7 @@
             }
 
             .foot {
+                margin-top: 10px;
                 position: relative;
 
                 .show-sku {
@@ -152,19 +153,10 @@
                     border-radius: 50%;
                     background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
                 }
-            }
 
-            .vip-price {
-                margin-top: 10px;
-                width: max-content;
-                height: 44px;
-                font-size: 22px;
-                background: rgba(225, 140, 0, 0.15);
-                border-radius: 8px;
-                padding: 010px;
-                box-sizing: border-box;
-                margin-left: 16px;
-                color: #CA7E00;
+                .vip-price {
+                    margin-left: 16px;
+                }
             }
 
             .p-name {

@@ -60,7 +60,7 @@ const Index = () => {
                 <Banner
                     list={pageData?.banner}
                     custom
-                    h='50vh'
+                    h='520rpx'
                     render={
                         (e) => <BlurImg mode='widthFix' className='img fc' src={e} />
                     }
@@ -77,7 +77,7 @@ const Index = () => {
                     <Text className='iconfont icon-right' />
                 </View> */}
 
-                <CouponList />
+                <CouponList bottom='0' />
 
                 {/* 服务详情 */}
                 {/* <View className='service fb p-16' onClick={() => setService(true)}>
@@ -87,8 +87,10 @@ const Index = () => {
 
 
                 <View className='product-desc'>
-                    <View className='title flex p-16'>
-                        商品描述
+                    <View className='title fc'>
+                        <View className='v-line' />
+                        <Text className='text'>商品信息</Text>
+                        <View className='v-line' />
                     </View>
                     <View className='img fdc'>
                         <Image mode='widthFix' src='https://img2.baidu.com/it/u=2790689811,54471194&fm=26&fmt=auto&gp=0.jpg' />

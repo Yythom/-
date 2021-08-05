@@ -16,3 +16,45 @@
     box-sizing: border-box;
     padding-bottom: 140px !important;
 }
+
+
+.price {
+    color: #EF5F00;
+}
+
+.del {
+    color: #666;
+    font-size: 26px;
+    text-decoration: line-through
+}
+
+._money {
+    font-size: 24px;
+}
+
+.vip-price {
+    // margin-top: 10px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    font-size: 22px;
+    background: rgba(225, 140, 0, 0.15);
+    border-radius: 8px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    // margin-left: 16px;
+    color: #CA7E00;
+}
+
+.desc-item {
+    // 补贴0.31
+    border-radius: 4px;
+    border: 2px solid #EF5F00;
+    height: 36px;
+    padding: 0 12px;
+    color: #EF5F00;
+    margin-right: 10px;
+    font-size: 24px;
+}

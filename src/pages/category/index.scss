@@ -161,15 +161,6 @@
                     .desc {
                         font-size: 24px;
                         margin-bottom: 10px;
-
-                        .desc-item {
-                            border-radius: 4px;
-                            border: 2px solid #EF5F00;
-                            height: 36px;
-                            padding: 0 12px;
-                            color: #EF5F00;
-                            margin-right: 10px;
-                        }
                     }
 
                     .price-box {
@@ -253,15 +244,8 @@
         background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
     }
 
-    .vip-price {
-        width: max-content;
-        height: 44px;
-        font-size: 22px;
-        background: rgba(225, 140, 0, 0.15);
-        border-radius: 8px;
-        padding: 0 10px;
-        box-sizing: border-box;
-        color: #CA7E00;
-        // margin-bottom: 25px;
-    }
+    // .vip-price {
+    //     margin: 0;
+    //     // margin-bottom: 25px;
+    // }
 }

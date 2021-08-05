@@ -1,0 +1,65 @@
+.p-info {
+    margin-top: 24px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    background-color: #fff;
+
+    .iconfont {
+        color: #333
+    }
+
+
+    .p-name {
+        font-size: 36px;
+        color: #333;
+        font-weight: bold;
+
+        .name {
+            // max-width: 80%;
+            // line-height: 40px;
+            word-break: break-all;
+        }
+
+        .iconfont {
+            height: 60px;
+            font-size: 60px;
+            line-height: 60px;
+        }
+
+        .share {
+            padding: 0;
+            margin: 0;
+            background-color: #fff;
+            width: 100px;
+            // height: 80px;
+            line-height: 24px;
+            font-size: 24px;
+        }
+    }
+
+    .price-box {
+        margin: 20px 0;
+        font-size: 36px;
+
+        .new {
+            font-weight: bold;
+        }
+
+        .old {
+            font-size: 30px;
+            margin-left: 25px;
+            text-decoration: line-through;
+            color: #666;
+        }
+    }
+
+    .other {
+        padding-bottom: 16px;
+
+        .sale {
+            font-size: 26px;
+            color: #999;
+        }
+    }
+}

@@ -1,10 +1,13 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState, Fragment } from 'react';
 import { Text, View } from '@tarojs/components';
-import CouponFloat from './coupon';
+import { getStorageSync } from '@tarojs/taro';
+import { systemInfo } from '@/common/publicFunc';
 import './v-coupon.scss'
+import CouponFloat from './coupon';
 
 const CouponList = ({
+    bottom = Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2,
     list = [
         {
             coupon_id: '101',
@@ -101,6 +104,7 @@ const CouponList = ({
                 show={couponshow}
                 coupon={coupon}
                 setShow={setCouponshow}
+                bottom={bottom}
             />
         </Fragment>
 
