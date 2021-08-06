@@ -5,10 +5,13 @@ import { Provider, useDispatch } from 'react-redux'
 // import { initErrorNet } from '../utils/wx-net_error';
 // import { init, breadcrumb } from '../utils/wx';
 import { actions } from '@/store/commonSlice';
+import dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
 import store from '../store';
 import '../assets/icon.css';
 import './app.scss';
 
+dayjs.locale('zh-cn');
 const InitStore = memo(() => {
     const dispatch = useDispatch();
     console.log('执行store');

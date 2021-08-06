@@ -1,9 +1,41 @@
 .order_confirm_wrap {
-    padding-top: 12px;
-    min-height: 100vh;
+    height: 100vh;
     box-sizing: border-box;
-    padding-bottom: 150px;
+    overflow: hidden;
+    padding-bottom: 140px;
+
     background-color: #f3f3f3;
+
+    .scrollview {
+        box-sizing: border-box;
+        background-color: #f3f3f3;
+        // padding: 0 16px;
+        height: 100%;
+        // padding-bottom: 150px;
+    }
+
+    .deliveryMethod {
+        padding-top: 30px;
+        background: rgba(255, 138, 83, 0.99);
+        align-items: flex-end;
+
+        .tab {
+            font-size: 28px;
+            width: 50%;
+            height: 50px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0px 20px 0px 0px;
+            transition: 400ms;
+        }
+
+        .act-tab {
+            background: #FFFFFF;
+            font-weight: bold;
+            height: 64px;
+            border-radius: 20px 20px 0px 0px;
+        }
+    }
 
     .textarea {
         background-color: rgb(243, 243, 243);

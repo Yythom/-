@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { Image, Text, View } from "@tarojs/components";
-import { makePhoneCall } from '@tarojs/taro';
+import { makePhoneCall, showToast } from '@tarojs/taro';
 
 // 倒计时转化Fn 时间戳
 export function formatSeconds(value) {
@@ -140,7 +140,13 @@ function isEmptyObject(obj) {
    */
 export function isPhoneNumber(tel) {
     var reg = /^0?1[3|4|5|6|7|8|9][0-9]\d{8}$/;
-    return reg.test(tel);
+    if (reg.test(tel)) {
+        return true
+    } else {
+        showToast({ title: '请输入正确的手机号', icon: 'none' })
+        return false
+    }
+
 }
 
 /**

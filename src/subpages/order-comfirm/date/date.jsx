@@ -51,7 +51,9 @@ const Date = memo(({
                                         console.log(date, str);
                                         setDate(str);
                                     }
-                                }} key={e}>{e}</View>
+                                }} key={e}>{
+                                        e
+                                    }</View>
                             )
                         })
                     }

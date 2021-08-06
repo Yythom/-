@@ -3,12 +3,13 @@
 .address_wrap {
     background-color: #fff;
     border-radius: 20px;
-    padding: 14px 16px;
+    padding: 25px 16px 32px 16px;
     box-sizing: border-box;
     // box-shadow: 0px 0px 15px 0px rgba(9, 44, 76, 0.1);
+    margin-bottom: 20px;
 
     .icon-dingwei {
-        padding: 10px;
+        padding: 8px;
         font-size: 24px;
         border-radius: 50%;
         background-color: #ff7214;
@@ -18,17 +19,40 @@
 
     .s_address {
         color: #333;
+        font-size: 28px;
+        width: 100%;
+        position: relative;
 
         .phone {
             color: #999;
-            margin-left: 12px;
-            font-size: 26px;
+            margin-left: 15px;
+            // font-size: 26px;
         }
 
         .address {
-            font-size: 24px;
-            max-width: 70vw;
-            @include line(2)
+            max-width: 75vw;
+            margin-bottom: 15px;
+            font-size: 34px;
+            font-weight: bold;
+            @include line(2);
+        }
+
+        .icon-right {
+            position: absolute;
+            top: 4px;
+            right: 0;
+        }
+    }
+
+
+    .shop-address {
+        color: #333;
+        font-size: 28px;
+
+        .address {
+            font-weight: bold;
+            font-size: 34px;
+            margin-bottom: 25px;
         }
     }
 

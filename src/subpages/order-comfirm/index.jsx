@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useLayoutEffect, useState } from 'react';
-import { View, Text, Input, Textarea, Radio } from '@tarojs/components';
+import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
@@ -64,20 +64,18 @@ const Index = () => {
         show: false,
         value: ''
     }); // 送达时间
-    const [deliveryMethod, setDeliveryMethod] = useState('') // 送货方式
+    const [deliveryMethod, setDeliveryMethod] = useState('2') // 送货方式
     const [modal, setModal] = useState(false);
     const [msg, setMsg] = useState({
         oldmsg: '',
         msg: ''
     });
 
-    const [msg2, setmsg2] = useState('');
-
 
     const init = async () => {
-        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
-        else return
-        console.log(getStorageSync('pre-data'));
+        // if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
+        // else return
+        // console.log(getStorageSync('pre-data'));
         setAddress({
             "user_address_id": "496678785819739136",
             "username": "yy",
@@ -98,36 +96,20 @@ const Index = () => {
 
     return (
         <View className='order_confirm_wrap'>
-            {/* <NavBar back title='确认订单' /> */}
-            {/* <Address address={address} /> */}
-            {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
-                <View className='left' >指定时间</View>
-                <View className='right'>
-                    {date?.value}
-                    <Text className='iconfont icon-right'></Text>
+            <ScrollView className='scrollview' scrollY >
+                <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
+                <View className='deliveryMethod flex'>
+                    <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>配送</View>
+                    <View className={`tab fc ${deliveryMethod == 2 && 'act-tab'}`} onClick={() => setDeliveryMethod(2)}>自提</View>
                 </View>
-            </View> */}
-            {/* <View className='handle fb' onClick={() => {
-                showActionSheet({
-                    itemList: itemList.map(e => e.text),
-                    success: function (res) {
-                        setDeliveryMethod(itemList[res.tapIndex].text)
-                        console.log(res.tapIndex)
-                    },
-                    fail: function (res) {
-                        console.log(res.errMsg)
-                    }
-                })
-            }}>
-                <View className='left' >送货方式</View>
-                <View className='right'>
-                    {deliveryMethod}
-                    <Text className='iconfont icon-right'></Text>
-                </View>
-            </View> */}
+                <Address method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
-            <ProductItem pageData={pageData} />
-            {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
+
+
+                <ProductItem pageData={pageData} />
+                <ProductItem pageData={pageData} />
+
+                {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
                 <View className='left' >优惠券</View>
                 <View className='right'>
                     {
@@ -139,7 +121,7 @@ const Index = () => {
                 </View>
             </View> */}
 
-            {/* <View className='handle fb' onClick={() => setVpShow(true)}>
+                {/* <View className='handle fb' onClick={() => setVpShow(true)}>
                 <View className='left' >余额/卡</View>
                 <View className='right'>
                     {
@@ -150,27 +132,20 @@ const Index = () => {
                     }<Text className='iconfont icon-right' />
                 </View>
             </View> */}
-            <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
-                <View className='left' >温馨提示</View>
-                <View className='right' style={{ color: '#333' }}>
-                    支付成功生成取货码，尺码到店取货
+                <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
+                    <View className='left' >温馨提示</View>
+                    <View className='right' style={{ color: '#333' }}>
+                        支付成功生成取货码，尺码到店取货
+                    </View>
                 </View>
-            </View>
-            <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
-                <View className='left' >买家留言</View>
-                <View className='right'>
-                    {msg?.oldmsg || <Text style={{ color: '#999' }}>请输入</Text>}
+                <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
+                    <View className='left' >买家留言</View>
+                    <View className='right'>
+                        {msg?.oldmsg || <Text style={{ color: '#999' }}>请输入</Text>}
+                    </View>
                 </View>
-            </View>
 
-            {/* <View className='handle fb' style={{ height: 'auto' }}>
-                <View className='left' >买家留言</View>
-                <View className='right'>
-                    <Textarea value={msg2} autoHeight style={{ minHeight: '60rpx', color: '#555' }} className='textarea' onInput={(e) => setmsg2(e.detail.value.trim())} placeholder='' />
-                </View>
-            </View> */}
-
-            {/* <View className='handle fd' style={{ height: 'auto' }}>
+                {/* <View className='handle fd' style={{ height: 'auto' }}>
                 <View className='fb' onClick={() => setPayType(1)}>
                     <Text className=''>微信支付</Text>
                     <Radio checked={payType == 1} />
@@ -182,41 +157,41 @@ const Index = () => {
             </View> */}
 
 
-            <View className='footer flex'>
-                <View className='price-box flex'>
-                    <View className='all'>总价：<Text className='price'>¥{pageData?.price}</Text></View>
-                    <View className='dis'>已优惠：<Text>¥900</Text></View>
+                <View className='footer flex'>
+                    <View className='price-box fd'>
+                        <View className='all'>总价：<Text className='price'>¥{pageData?.price}</Text></View>
+                        <View className='dis'>已优惠：<Text>¥900</Text></View>
+                    </View>
+                    <View className='btn fc'
+                        onClick={() => {
+                            pay();
+                        }}
+                    >
+                        提交订单
+                    </View>
                 </View>
-                <View className='btn fc'
-                    onClick={() => {
-                        pay();
+
+                {/* couponList -get */}
+                {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
+                <Coupon show={couponShow} buttom='0' setShow={setCouponShow} />
+
+                {/* vip card -get */}
+                <VipCard show={vpShow} setShow={setVpShow} />
+
+                {/* date */}
+                <Date date={date?.value} setDate={(value) => { setDate({ ...date, value }) }} show={date?.show} setShow={() => setDate({ ...date, show: !date?.show })} />
+
+                <Modal
+                    title='备注'
+                    onOk={() => {
+                        setMsg({ ...msg, oldmsg: msg.msg })
                     }}
-                >
-                    提交订单
-                </View>
-            </View>
+                    content={
+                        <Textarea autoFocus value={msg.msg} className='textarea' onInput={(e) => setMsg({ ...msg, msg: e.detail.value.trim() })} placeholder='' />
+                    } show={modal} setShow={setModal}
+                />
 
-            {/* couponList -get */}
-            {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
-            <Coupon show={couponShow} buttom='0' setShow={setCouponShow} />
-
-            {/* vip card -get */}
-            <VipCard show={vpShow} setShow={setVpShow} />
-
-            {/* date */}
-            <Date date={date?.value} setDate={(value) => { setDate({ ...date, value }) }} show={date?.show} setShow={() => setDate({ ...date, show: !date?.show })} />
-
-            <Modal
-                title='备注'
-                onOk={() => {
-                    setMsg({ ...msg, oldmsg: msg.msg })
-                }}
-                content={
-                    <Textarea autoFocus value={msg.msg} className='textarea' onInput={(e) => setMsg({ ...msg, msg: e.detail.value.trim() })} placeholder='' />
-                } show={modal} setShow={setModal}
-            />
-
-
+            </ScrollView>
         </View >
     )
 }

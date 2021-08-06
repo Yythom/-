@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 function funDate(aa) {
     var date1 = new Date();
     var date2 = new Date(date1);
@@ -11,7 +13,10 @@ function funDate(aa) {
     else day = date2.getDate();
 
     var time2 = date2.getFullYear() + "-" + month + "-" + day;
-    return time2;
+
+    let today = dayjs(time2).format('dddd') == dayjs(date1).format('dddd') ? '今天' : '';
+    let tomorrow = dayjs(time2).format('dddd') == dayjs(date1.valueOf() + 86400000).format('dddd') ? '明天' : '';
+    return `${(today || tomorrow) || dayjs(time2).format('dddd')}`
 }
 
 export {
