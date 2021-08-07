@@ -67,13 +67,13 @@ const Address = memo(({
                                     {msg?.oldmsg}<Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} />
                                 </View>
                             </View>
-                            {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
+                            <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
                                 <View className='left'>指定时间</View>
                                 <View className='right'>
                                     {date?.value}
                                     <Text className='iconfont icon-right'></Text>
                                 </View>
-                            </View> */}
+                            </View>
                         </View>
                 }
             </View>

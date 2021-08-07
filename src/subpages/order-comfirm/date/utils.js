@@ -16,7 +16,10 @@ function funDate(aa) {
 
     let today = dayjs(time2).format('dddd') == dayjs(date1).format('dddd') ? '今天' : '';
     let tomorrow = dayjs(time2).format('dddd') == dayjs(date1.valueOf() + 86400000).format('dddd') ? '明天' : '';
-    return `${(today || tomorrow) || dayjs(time2).format('dddd')}`
+    return {
+        str: `${(today || tomorrow) || dayjs(time2).format('MM-DD') + ' ' + dayjs(time2).format('dddd').replace('星期', '周')}`,
+        time: time2
+    }
 }
 
 export {
