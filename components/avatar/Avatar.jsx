@@ -8,7 +8,7 @@ import BlurImg from '../blur-img/BlurImg';
 const Avatar = ({ size }) => {
     const userStore = useSelector(e => e.userStore, shallowEqual);
     const userInfo = userStore.userInfo || null;
-    console.log(size);
+
     return (
         <View className='avatar-wrap' style={size && { width: size, height: size }}>
             {

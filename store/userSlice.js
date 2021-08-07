@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 // import * as actionType from './contants'
+import UserService from '@/services/user'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getStorageSync, setStorageSync, login, removeStorageSync, hideLoading } from '@tarojs/taro'
+import { getStorageSync, setStorageSync, login, removeStorageSync, hideLoading, setStorage } from '@tarojs/taro'
 import TestService from '../services/test'
 /**
  * 初始化数据
@@ -39,6 +40,22 @@ const reducers = {
         }, 300);
     }
 }
+// 更新用户信息
+const userUpdata = createAsyncThunk(
+    'user/user_updata',
+    async (data, thunkAPI) => {
+        const userStore_requesut = await UserService.getUserInfoApi();
+        hideLoading();
+        if (userStore_requesut) {
+            userStore_requesut.phone = userStore_requesut.mobile;
+            console.log(userStore_requesut, 'user_updata -- - --- - -- ');
+            setStorage({ key: 'info', data: { ...userStore_requesut } })
+            return { ...userStore_requesut }
+        } else {
+            return {}
+        }
+    }
+)
 
 /**
  * 异步action
@@ -47,10 +64,18 @@ const reducers = {
 const changeTokenActionAsync = createAsyncThunk(
     'user/changeTokenActionAsync',
     async (data, thunkAPI) => {
+        delete data?.gender
         const Tlogin = await login();
-        // const res = await TestService.getTestDataApi(Tlogin.code); // 通过微信登入获取code取接口token
-        // setStorageSync('token',res.token)
-        return data;
+        const res = await UserService.getLogin(Tlogin.code, {
+            ...data,
+            mobile: ''
+        }); // 通过微信登入获取code取接口token
+        setStorageSync('token', res?.token || '');
+        const user_info = await UserService.getUserInfoApi();
+        console.log(user_info, res, 'user_info');
+        const info = { ...data, ...user_info, }
+        console.log({ data, token: res?.token });
+        return { info, token: res?.token };
     }
 )
 /**
@@ -59,10 +84,13 @@ const changeTokenActionAsync = createAsyncThunk(
  */
 const extraReducers = builder => {
     builder.addCase(changeTokenActionAsync.fulfilled, (state, action) => {
-        console.log(action);
-        setStorageSync('info', action.payload)
-        state.userInfo = action.payload
-    })
+        setStorageSync('info', action.payload.info)
+        state.userInfo = action.payload.info
+    }),
+        builder.addCase(userUpdata.fulfilled, (state, action) => {
+            state.userInfo = { ...action.payload }
+            setStorageSync('info', action.payload)
+        })
 }
 
 const userSlice = createSlice({
@@ -76,5 +104,6 @@ const userSlice = createSlice({
 export const actions = {
     ...userSlice.actions,
     changeTokenActionAsync,
+    userUpdata,
 };
 export default userSlice.reducer;

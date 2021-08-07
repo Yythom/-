@@ -1,41 +1,30 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Button, Form, Input, Label, Picker, Radio, Switch, Text, View } from '@tarojs/components';
-import Taro, { getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
+import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
 import { isPhoneNumber } from '@/common/public';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { actions } from '@/store/userSlice'
 import './index.scss'
+import AddressService from '@/services/address';
 
 
 
 const EditAddress = () => {
     const [address, setAddress] = useState(null) // 
     const [is_default, setIs_default] = useState(false);
-    const [selectAddress, setSelectAddress] = useState([]); // 手动修改地址
+    const [init_default, setInitDefault] = useState(false)
+    const [tag, setTag] = useState('')
 
     const init = async () => {
         const initData = getStorageSync('edit-address');
         console.log(initData);
         setAddress(initData);
-
-        // console.log(initData?.area.split(' '));
-        setSelectAddress(initData?.area.split(' '))
+        setTag(initData.remark);
         setIs_default(initData.is_default == 1);
+        setInitDefault(initData.is_default == 1);
     }
-    useDidShow(() => {
+    useLayoutEffect(() => {
         init();
-    });
-
-    const change_address = async (e) => {
-        console.log(e);
-        setSelectAddress(e.value);
-        // setAddress({
-        //     ...address, address: ''
-        // })
-    }
-
-    console.log(address);
+    }, []);
 
     const save = async (sub_obj) => {
         if (!sub_obj.username) { showToast({ title: '收货人不能为空', icon: 'none' }); return }
@@ -45,20 +34,28 @@ const EditAddress = () => {
             return
         }
         if (!sub_obj.address_desc) { showToast({ title: '详细地址不能为空', icon: 'none' }); return }
+
         let obj = {
-            username: sub_obj.username,
-            mobile: sub_obj.mobile,
-            is_default: is_default ? '1' : '2',
-            address: sub_obj.address_desc,
-            area: selectAddress.toString().replace(/,/g, ' ')
+            "contact_name": sub_obj.username,
+            "mobile": sub_obj.mobile,
+            "address": address.address,
+            "number": sub_obj.address_desc,
+            "location": {
+                lat: `${address.location.lat}`,
+                lng: `${address.location.lng}`
+            },
+            "remark": tag,
+            "is_default": is_default ? 1 : 0,
+            // area: selectAddress.toString().replace(/,/g, ' ')
         }
-        console.log(obj);
-        // let res = await AddressService.addressAddApi(obj);
-        // if (res) {
-        navigateBack({
-            delta: 1
-        })
-        // }
+        // console.log(obj);
+        let res = await AddressService.editAddress(address.address_id, obj);
+        console.log(res, 'save');
+        if (res) {
+            navigateBack({
+                delta: 1
+            })
+        }
     }
 
     return (
@@ -67,45 +64,55 @@ const EditAddress = () => {
                 <View className='edit_box'>
                     <View className='name'>
                         <Label> 姓名：</Label>
-                        <Input name='username' value={address?.username} onInput={(e) => setAddress({ ...address, username: e.detail.value })} maxlength={18} type='text' placeholder='请输入收货人姓名' />
+                        <Input name='username' value={address?.contact_name} onInput={(e) => setAddress({ ...address, contact_name: e.detail.value })} maxlength={18} type='text' placeholder='请输入收货人姓名' />
                     </View>
                     <View className='phone'>
                         <Label>手机号：</Label>
                         <Input name='mobile' value={address?.mobile} onInput={(e) => setAddress({ ...address, mobile: e.detail.value })} maxlength={11} type='number' placeholder='请输入收货人手机号' />
                     </View>
-                    <Picker
-                        mode='region'
-                        value={selectAddress}
-                        onChange={((e) => { change_address(e.detail) })}
-                    >
-                        <View className='address' >
-                            <Label>地区</Label>
-                            <View className='picker'>
-                                {
-                                    selectAddress[0]
-                                        ? selectAddress.toString().replace(/,/g, '/')
-                                        : '请选择省/市/区'
-                                }
-                                {/* <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} /> */}
-                            </View>
+                    <View className='tag'>
+                        <Label>标签：</Label>
+                        <View className='flex'>
+                            {
+                                ['家', '公司', '学校'].map(e => {
+                                    return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
+                                        {e}
+                                    </View>
+                                })
+                            }
                         </View>
-                    </Picker>
-                    <View className='address_desc'>
-                        <Label>详细地址：</Label>
-                        <Input name='address_desc'
-                            value={address?.address}
-                            onInput={(e) => setAddress({ ...address, address: e.detail.value })}
-                            disabled={!selectAddress}
-                            onClick={() => {
-                                if (!selectAddress) {
-                                    showToast({ title: '请先选择区域', icon: 'none' });
-                                    return
+                    </View>
+
+                    <View className='address' onClick={() => {
+                        chooseLocation().then(res => {
+                            setAddress({
+                                ...address, address: res.name, location: {
+                                    latitude: res.latitude,
+                                    longitude: res.longitude
                                 }
-                            }} type='text' placeholder='如道路、门牌号、小区、单元号等' />
+                            })
+                            console.log(res);
+                        })
+                    }} >
+                        <Label>地址</Label>
+                        <View className='picker'>
+                            {
+                                address?.address || '请选择地址'
+                            }
+                            <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} />
+                        </View>
+                    </View>
+
+                    <View className='address_desc'>
+                        <Label>门牌号：</Label>
+                        <Input value={address?.number} onInput={(e) => setAddress({ ...address, number: e.detail.value })} name='address_desc' type='text' placeholder='填写详细地址，例：1层1001' />
                     </View>
                     <View className='is_default'>
                         <View >设为默认地址</View>
-                        <Switch name='is_default' checked={is_default} onChange={(e) => { setIs_default(e.detail.value); }} />
+                        <Switch name='is_default' onClick={() => { if (init_default) showToast({ title: '必须有一个默认地址', icon: 'none' }) }} disabled={init_default} checked={is_default} onChange={(e) => {
+                            setIs_default(!!e.detail.value);
+                        }}
+                        />
                     </View>
                 </View>
                 <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存</Button>

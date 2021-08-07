@@ -1,4 +1,4 @@
-import { getStorageSync } from '@tarojs/taro';
+import { getStorageSync, showLoading } from '@tarojs/taro';
 import getBaseUrl from './baseURL';
 import wx from './wxapi';
 import interceptors from './interceptors';
@@ -7,6 +7,7 @@ interceptors.forEach((item) => wx.addInterceptor(item));
 
 class HttpRequest {
   baseOptions(params, method = 'POST') {
+    showLoading();
     const { url, data, contentType = 'application/json' } = params;
     const BASE_URL = getBaseUrl(url);
     const option = {
@@ -15,7 +16,7 @@ class HttpRequest {
       method,
       header: {
         'Content-Type': contentType,
-        // token: getStorageSync('token'),
+        'Authorization': 'Bearer ' + getStorageSync('token'),
       },
     };
     return wx.request(option);

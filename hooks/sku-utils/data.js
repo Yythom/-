@@ -10,7 +10,7 @@ export const data = {
         },
         // 4.7寸;16G;黄色
         "101;201;303": {
-            "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg', // sku主图
+            "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',   // sku主图
             "price": 150, // 价格
             "stock": 6,// 库存
             'sku_id': '222',
@@ -90,4 +90,119 @@ export const data = {
     ]
 }
 
+
+export const onlineData = {
+    "product_id": "282335091152424960",
+    "shop_id": "1",
+    "first_cate_id": "282254847611502592",
+    "sec_cate_id": "282255251321651200",
+    "brand_id": "0",
+    "product_name": "男鞋",
+    "cover": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/https://picsum.photos/id/104/300/300",
+    "market_price": "100.00",
+    "discount_price": "80.00",
+    "member_price": "75.00",
+    "is_member": 0,
+    "status": 1,
+    "audit_status": 1,
+    "create_at": "1628273931",
+    "update_at": "1628281479",
+    "enable": 1,
+    "first_cate": {
+        "category_id": "282254847611502592",
+        "category_name": "百货售卖"
+    },
+    "sec_cate": {
+        "category_id": "282255251321651200",
+        "category_name": "皮鞋专卖"
+    },
+    "images": [{
+        "image_id": "282335091286642690",
+        "product_id": "282335091152424960",
+        "type": 1,
+        "url": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/https://picsum.photos/id/104/300/300"
+    }],
+    "specs": [{
+        "spec_id": "282335091278254080",
+        "product_id": "282335091152424960",
+        "spec_name": "尺码",
+        "status": 1,
+        "spec_values": [{
+            "value_id": "282335091278254081",
+            "spec_id": "282335091278254080",
+            "value": "40"
+        },
+        {
+            "value_id": "282335091278254082",
+            "spec_id": "282335091278254080",
+            "value": "41"
+        }]
+    },
+    {
+        "spec_id": "282335091282448384",
+        "product_id": "282335091152424960",
+        "spec_name": "配色",
+        "status": 1,
+        "spec_values": [{
+            "value_id": "282335091282448385",
+            "spec_id": "282335091282448384",
+            "value": "黑色"
+        },
+        {
+            "value_id": "282335091282448386",
+            "spec_id": "282335091282448384",
+            "value": "白色"
+        }]
+    }],
+    "skus": {
+        "282335091278254081;282335091282448385": {
+            "sku_id": "282335091282448387",
+            "product_id": "282335091152424960",
+            "market_price": 10000,
+            "discount_price": 8000,
+            "member_price": 7500,
+            "stock": "100"
+        },
+        "282335091278254081;282335091282448386": {
+            "sku_id": "282335091282448391",
+            "product_id": "282335091152424960",
+            "market_price": 20000,
+            "discount_price": 18000,
+            "member_price": 17500,
+            "stock": "100"
+        },
+        "282335091278254082;282335091282448385": {
+            "sku_id": "282335091282448395",
+            "product_id": "282335091152424960",
+            "market_price": 30000,
+            "discount_price": 38000,
+            "member_price": 37500,
+            "stock": "100"
+        },
+        "282335091278254082;282335091282448386": {
+            "sku_id": "282335091282448399",
+            "product_id": "282335091152424960",
+            "market_price": 40000,
+            "discount_price": 45000,
+            "member_price": 40000,
+            "stock": "100"
+        }
+    },
+    "other_prices": [{
+        "other_price_id": "282335091286642689",
+        "product_id": "282335091152424960",
+        "type": 1,
+        "price": "10.00"
+    }],
+    "detail": {
+        "product_id": "282335091152424960",
+        "description_image": "https://picsum.photos/id/1010/300/300",
+        "introduction": "123"
+    },
+    "tags": [{
+        "product_id": "282335091152424960",
+        "name": "时尚"
+    }],
+    "status_msg": "待上架"
+}
 

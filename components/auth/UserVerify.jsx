@@ -1,13 +1,14 @@
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
-import Taro, { useDidShow } from '@tarojs/taro'
+import Taro, { login, useDidShow } from '@tarojs/taro'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { View, Button } from '@tarojs/components';
 import { lkGetUserInfo } from '../../common/publicFunc';
 // import { userStore } from '../store';
 import { actions } from '../../store/userSlice';
 import './withAuth.scss';
+import UserService from '@/services/user';
 
 
 const WithUserVerify = ({
@@ -20,6 +21,7 @@ const WithUserVerify = ({
     const userStore = useSelector(e => e.userStore, shallowEqual);
     const userInfo = userStore.userInfo || null;
     const [type, setType] = useState('');
+    const [wxcode, setWxCode] = useState('');
     const dispatch = useDispatch();
     const handleClick = async (e) => {
         e.stopPropagation();
@@ -40,6 +42,9 @@ const WithUserVerify = ({
         }
     }
     const handleGetUserInfo = async () => {
+        const { code } = await login()
+        const res = await UserService.code2session(code)
+        setWxCode(res.session_key)
         if (!type) {
             const userInfoRes = await lkGetUserInfo();
             console.log(userInfoRes, 'userInfoRes');
@@ -65,16 +70,26 @@ const WithUserVerify = ({
          */
         const { detail } = e;
         if (detail.iv) {
+            const res = await UserService.bindPhone(detail.iv, detail.encryptedData, wxcode);
+            console.log(res);
+            if (res) {
+                // 更新本地的UserInfo
 
-            // const res = await UserService.bindPhone(detail.iv, detail.encryptedData);
-            // if (res) {
-            //   // 更新本地的UserInfo
-            // }
-            Taro.showToast({
-                icon: 'none',
-                title: '绑定手机号成功'
-            })
-            dispatch(actions.setPhone('13140909090'));
+                const _res = await UserService.editUserInfoApi({
+                    avatar: userInfo?.avatar,
+                    nickname: userInfo?.nickname,
+                    mobile: res.mobile,
+                });
+                if (_res) {
+                    Taro.showToast({
+                        icon: 'none',
+                        title: '绑定手机号成功'
+                    })
+                    dispatch(actions.setPhone(res.mobile));
+
+                }
+            }
+
             // onClick();
         }
     };

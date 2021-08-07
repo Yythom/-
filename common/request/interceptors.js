@@ -16,9 +16,10 @@ const customInterceptor = (chain) => {
     let prevData = null;
 
     // 当请求成功
-    const { code, result, msg } = res.data;
+    const { code, msg } = res.data;
+    const result = res.data.data
     // TODO:当code为0，表示请求成功
-    if (code !== '0') {
+    if (code != '0') {
       if (msg) {
         console.log(msg);
         showToast({

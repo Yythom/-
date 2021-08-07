@@ -23,7 +23,8 @@
         .phone,
         .address,
         .address_desc,
-        .is_default {
+        .is_default,
+        .tag {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,6 +47,22 @@
 
         .is_default {
             border-bottom: none;
+        }
+
+        .tag {
+            .item {
+                border: 2px #ccc solid;
+                font-size: 24px;
+                padding: 4px 8px;
+                margin-left: 16px;
+                transition: 500ms;
+            }
+
+            .act-item {
+                color: #fff;
+                background-color: rgb(255, 140, 45);
+                border: 2px rgb(255, 140, 45) solid;
+            }
         }
     }
 

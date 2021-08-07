@@ -3,8 +3,8 @@ import React, { Fragment, memo, useCallback, useMemo, useState } from 'react';
 import { View, Button, Text, Image, ScrollView } from '@tarojs/components';
 import { navLinkTo } from '@/common/publicFunc';
 import { getStorageSync, showToast } from '@tarojs/taro';
-import { data } from '../../../../hooks/sku-utils/data';
-import { data2 } from '../../../../hooks/sku-utils/data2';
+import { data, onlineData } from '../../../../hooks/sku-utils/data';
+import filter_data from '../../../../hooks/sku-utils/data_filter';
 
 /**
  * 
@@ -24,51 +24,27 @@ const RenderList = memo(({ _list, skuOption, i, setI }) => {
     const { show, setShow, setSkuData, skuData } = skuOption;
     console.log(skuOption, 'skuOption');
     const showSku = async () => {
-        if (i == 10) {
-            setSkuData({
-                banner: [
-                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Frms.zhubajie.com%2Fresource%2Fredirect%3Fkey%3Dtianpeng%2F2015-11%2F14%2Fproduct%2F5646e9d57392f.jpg&refer=http%3A%2F%2Frms.zhubajie.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=e6cb81b058f3d72d7010bf9807454ca6',
-                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0199a155c4790f32f8755e6604d4d5.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=14fc2c22a65d51c914e0da8788a59445'
-                ],
-                product_id: '101',
-                price: '11',
-                sale_price: '22',
-                sale: '80',
-                product_name: '【6期免息 学生领券至高减300】一加OnePlus 9手机骁龙888旗舰120Hz屏幕游戏智能拍照一加丨哈苏手机影像系统',
-                service: [
-                    {
-                        text: '七天无理由退货',
-                        is_true: 1,
-                    }, {
-                        text: '48小时发货',
-                        is_true: 0,
-                    }
-                ],
-                ...data2
-            })
-        } else {
-            setSkuData({
-                banner: [
-                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Frms.zhubajie.com%2Fresource%2Fredirect%3Fkey%3Dtianpeng%2F2015-11%2F14%2Fproduct%2F5646e9d57392f.jpg&refer=http%3A%2F%2Frms.zhubajie.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=e6cb81b058f3d72d7010bf9807454ca6',
-                    'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0199a155c4790f32f8755e6604d4d5.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=14fc2c22a65d51c914e0da8788a59445'
-                ],
-                product_id: '101',
-                price: '6999',
-                sale_price: '5999',
-                sale: '80',
-                product_name: '【6期免息 学生领券至高减300】一加OnePlus 9手机骁龙888旗舰120Hz屏幕游戏智能拍照一加丨哈苏手机影像系统',
-                service: [
-                    {
-                        text: '七天无理由退货',
-                        is_true: 1,
-                    }, {
-                        text: '48小时发货',
-                        is_true: 0,
-                    }
-                ],
-                ...data
-            })
-        }
+        setSkuData({
+            banner: [
+                'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Frms.zhubajie.com%2Fresource%2Fredirect%3Fkey%3Dtianpeng%2F2015-11%2F14%2Fproduct%2F5646e9d57392f.jpg&refer=http%3A%2F%2Frms.zhubajie.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=e6cb81b058f3d72d7010bf9807454ca6',
+                'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0199a155c4790f32f8755e6604d4d5.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=14fc2c22a65d51c914e0da8788a59445'
+            ],
+            product_id: '101',
+            price: '6999',
+            sale_price: '5999',
+            sale: '80',
+            product_name: '【6期免息 学生领券至高减300】一加OnePlus 9手机骁龙888旗舰120Hz屏幕游戏智能拍照一加丨哈苏手机影像系统',
+            service: [
+                {
+                    text: '七天无理由退货',
+                    is_true: 1,
+                }, {
+                    text: '48小时发货',
+                    is_true: 0,
+                }
+            ],
+            ...filter_data(onlineData)
+        })
         setTimeout(() => {
             setShow(1);
             setI(10)

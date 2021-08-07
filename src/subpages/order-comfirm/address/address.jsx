@@ -1,14 +1,15 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { memo, useState } from "react";
+import React, { Fragment, memo, useEffect, useState } from "react";
 import { Text, Textarea, View } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
-import './address.scss';
-import { Fragment } from "react";
 import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
+import { getStorageSync } from "@tarojs/taro";
+import './address.scss';
 
 const Address = memo(({
     address,
+    setAddress,
     date,
     setDate,
     method = 1,
@@ -18,7 +19,25 @@ const Address = memo(({
         msg: ''
     });
     const [modal, setModal] = useState(false);
-    if (!address) return <View>选择收货地址</View>
+
+    useEffect(() => {
+        if (method == 1) {
+            if (getStorageSync('address_id')) {
+                console.log(getStorageSync('address_id'), 'adderss-id');
+                setAddress(getStorageSync('address_id'))
+            }
+        } else {
+            if (getStorageSync('address_id')) {
+                console.log(getStorageSync('address_id'), 'adderss-id');
+                setAddress(getStorageSync('address_id'))
+            }
+        }
+    }, [method]);
+
+    if (!address) return <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >
+        <View>选择收货地址</View>
+        <View className='iconfont icon-right'></View>
+    </View></View >
     return (
         <Fragment>
             <View className='address_wrap fd' >
@@ -32,7 +51,7 @@ const Address = memo(({
                                 </View>
                             </View>
                             <View className='flex'>
-                                {address.username}<Text className='phone'>{address.mobile}</Text>
+                                {address.contact_name}<Text className='phone'>{address.mobile}</Text>
                             </View>
                             <View className='iconfont icon-right'></View>
                         </View>

@@ -3,7 +3,17 @@
     box-sizing: border-box;
     background-color: rgb(250, 250, 250);
 
-    .select_icon {}
+    .select_icon {
+        .iconfont {
+            font-size: 40px !important;
+        }
+
+        .icon-roundcheck {
+            background-color: red;
+            border-radius: 50%;
+            color: #fff;
+        }
+    }
 
     .user_info,
     .address_info,

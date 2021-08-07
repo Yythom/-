@@ -40,7 +40,6 @@ function combInFlags(skuKeyAttrs) {
     const result = [];
     for (let n = 1; n <= len; n++) {
         const flags = getCombFlags(len, n);
-        // console.log('flags', flags)
         flags.forEach(flag => {
             let comb = [];
             flag.forEach((item, index) => {
@@ -60,16 +59,24 @@ function skuOptionAttrResult(combArrItem, sku, skuResult) {
     if (skuResult[key]) {
         const prevPrice = skuResult[key].price
         const curPrice = [sku.price];
-        const sale_price = [sku.sale_price];
+        const discount_price = [sku.discount_price];
+        const member_price = [sku.member_price];
+
         skuResult[key] = {
             ...sku,
             price: prevPrice.concat(curPrice).sort(), // 上一个价格合并当前的，算出区间价格
-            sale_price: prevPrice.concat(sale_price).sort(), // 上一个价格合并当前的，算出区间价格
+            discount_price: prevPrice.concat(discount_price).sort(), // 上一个价格合并当前的，算出区间价格
+            member_price: prevPrice.concat(member_price).sort(), // 上一个价格合并当前的，算出区间价格
             stock: skuResult[key].stock
             // + sku.stock, // 相同可选属性组合的库存累计
         }
     } else {
-        skuResult[key] = { ...sku, price: [sku.price], sale_price: [sku.sale_price] };
+        skuResult[key] = {
+            ...sku,
+            price: [sku.price],
+            discount_price: [sku.discount_price],
+            member_price: [sku.member_price],
+        };
     }
 }
 
@@ -104,6 +111,18 @@ function getSelectObj(skuResult, selectSpecList, sku_list) {
     }
 }
 
+// function priceFn(selectSpecList, skuResult, priceArr) {
+//     const skukey = filterValidArr(selectSpecList).join(';');
+//     const hitSpecObj = skuResult[skukey]
+//     if (!hitSpecObj) return null;
+//     const maxPrice = Math.max.apply(Math, priceArr);
+//     const minPrice = Math.min.apply(Math, priceArr);
+//     return {
+//         minPrice,
+//         maxPrice
+//     }
+// }
+
 function getPrice(skuResult, selectSpecList) {
     const skukey = filterValidArr(selectSpecList).join(';');
     const hitSpecObj = skuResult[skukey]
@@ -117,11 +136,11 @@ function getPrice(skuResult, selectSpecList) {
     }
 }
 
-function getSalePrice(skuResult, selectSpecList) {
+function getDiscountPrice(skuResult, selectSpecList) {
     const skukey = filterValidArr(selectSpecList).join(';');
     const hitSpecObj = skuResult[skukey]
     if (!hitSpecObj) return null;
-    const priceArr = hitSpecObj.sale_price;
+    const priceArr = hitSpecObj.discount_price;
     const maxPrice = Math.max.apply(Math, priceArr);
     const minPrice = Math.min.apply(Math, priceArr);
     return {
@@ -130,13 +149,29 @@ function getSalePrice(skuResult, selectSpecList) {
     }
 }
 
+function getMemberPrice(skuResult, selectSpecList) {
+    const skukey = filterValidArr(selectSpecList).join(';');
+    const hitSpecObj = skuResult[skukey]
+    if (!hitSpecObj) return null;
+    const priceArr = hitSpecObj.member_price;
+    const maxPrice = Math.max.apply(Math, priceArr);
+    const minPrice = Math.min.apply(Math, priceArr);
+    return {
+        minPrice,
+        maxPrice
+    }
+}
+
+
 function transPrice(skuResult, specListData) {
     let price = getPrice(skuResult, specListData);
-    let sale_price = getSalePrice(skuResult, specListData);
+    let discount_price = getDiscountPrice(skuResult, specListData);
+    let member_price = getMemberPrice(skuResult, specListData);
     return {
         price: price?.maxPrice === price?.minPrice ? price?.maxPrice : price?.minPrice + '-' + price?.maxPrice,
         desc: specListData.filter(item => item).map(item => item.name).join(' '),
-        sale_price: sale_price?.maxPrice === sale_price?.minPrice ? sale_price?.maxPrice : sale_price?.minPrice + '-' + sale_price?.maxPrice,
+        discount_price: discount_price?.maxPrice === discount_price?.minPrice ? discount_price?.maxPrice : discount_price?.minPrice + '-' + discount_price?.maxPrice,
+        member_price: member_price?.maxPrice === member_price?.minPrice ? member_price?.maxPrice : member_price?.minPrice + '-' + member_price?.maxPrice,
     }
 }
 

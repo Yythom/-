@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-    combInFlags, getActionSpecList,
+    combInFlags,
+    getActionSpecList,
     getSelectObj,
     skuOptionAttrResult,
     transPrice,
@@ -92,14 +93,15 @@ const useSku = (data) => {
             // list && setSpecListData(list);
             specListData = list
             const _sku = getSelectObj(skuResult, list, specList);
-            const { price, desc, sale_price } = transPrice(skuResult, specListData);
+            const { price, desc, member_price, discount_price } = transPrice(skuResult, specListData);
             setSku({
                 sku: _sku,
                 desc: {
                     str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
                     filterStr: desc,
                     price: price,
-                    sale_price: sale_price,
+                    member_price,
+                    discount_price,
                 },
             })
             // console.log(list, index, '_sku');

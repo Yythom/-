@@ -1,21 +1,32 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, setBackgroundColor, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setBackgroundColor, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import WithUserVerify from '@/components/auth/UserVerify';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Avatar from '@/components/avatar/Avatar';
 import { hideMobile } from '@/common/public';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { actions as userActions } from '@/store/userSlice'
 import NavBar from '@/components/navbar/NavBar';
 import './index.scss';
 
 const Index = () => {
+    const dispatch = useDispatch();
     const userStore = useSelector(store => store.userStore, shallowEqual);
     const { userInfo } = userStore;
     const [flag, setFLag] = useState(false);
 
     console.log(userInfo);
+    useDidShow(() => {
+        if (getStorageSync('relogin')) {
+            dispatch(userActions.clear());
+            showToast({ title: getStorageSync('relogin'), icon: 'none' });
+            removeStorageSync('relogin')
+        } else if (getStorageSync('token')) {
+            dispatch(userActions.userUpdata());
+        }
+    })
 
     return (
         <ScrollView

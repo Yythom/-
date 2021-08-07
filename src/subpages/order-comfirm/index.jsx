@@ -2,7 +2,7 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -75,17 +75,20 @@ const Index = () => {
     const init = async () => {
         // if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
         // else return
-        // console.log(getStorageSync('pre-data'));
-        setAddress({
-            "user_address_id": "496678785819739136",
-            "username": "yy",
-            "mobile": "13145216024",
-            "address": "江苏省镇江市润州区213",
-            "is_default": 1
-        })
+        if (deliveryMethod == 1) {
+            if (getStorageSync('address_id')) {
+                console.log(getStorageSync('address_id'), 'adderss-id');
+                setAddress(getStorageSync('address_id'))
+            }
+        } else {
+            if (getStorageSync('address_id')) {
+                console.log(getStorageSync('address_id'), 'adderss-id');
+                setAddress(getStorageSync('address_id'))
+            }
+        }
     }
 
-    useLayoutEffect(() => {
+    useDidShow(() => {
         init();
     }, [])
 
@@ -102,7 +105,7 @@ const Index = () => {
                     <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>配送</View>
                     <View className={`tab fc ${deliveryMethod == 2 && 'act-tab'}`} onClick={() => setDeliveryMethod(2)}>自提</View>
                 </View>
-                <Address method={deliveryMethod} address={address} date={date} setDate={setDate} />
+                <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
 
 

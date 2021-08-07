@@ -14,9 +14,10 @@ import './index.scss'
 import useSummary from '../../../hooks/useSummary';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
-import { data } from '../../../hooks/sku-utils/data';
+import { data, onlineData } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
 import CouponFloat from '@/components/page/coupon/coupon';
+import filter_data from '../../../hooks/sku-utils/data_filter';
 
 let fn = Function.prototype
 
@@ -108,26 +109,15 @@ const Index = () => {
     });
     const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
-        if (i == 10) {
-            setSkuData({
-                ...product,
-                ...data2
-            })
-            setDefault_sku([
-                { id: '101', name: '4.7寸', parent_name: '尺寸' },
-                { id: '201', name: '16G', parent_name: '内存' },
-            ])
-        } else {
-            setSkuData({
-                ...product,
-                ...data
-            })
-            setDefault_sku([
-                { id: 101, name: '4.7寸', parent_name: '尺寸' },
-                { id: 201, name: '16G', parent_name: '内存' },
-                { id: 302, name: '红色', parent_name: '颜色' }
-            ])
-        }
+        setSkuData({
+            ...product,
+            ...filter_data(onlineData)
+        })
+        setDefault_sku([
+            { id: 101, name: '4.7寸', parent_name: '尺寸' },
+            { id: 201, name: '16G', parent_name: '内存' },
+            { id: 302, name: '红色', parent_name: '颜色' }
+        ])
         setTimeout(() => {
             setskuShow(4);
             setI(10)

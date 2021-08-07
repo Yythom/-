@@ -7,14 +7,13 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
 import { callPhone } from '@/common/public';
 import { navLinkTo } from '@/common/publicFunc';
-
+import CouponList from '@/components/page/coupon/v-coupon';
 import Sku from '@/components/page/sku-hook/sku-hooks';
-import { data } from '../../../hooks/sku-utils/data';
+import { data, onlineData } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
 import ProductInfo from './product-info/ProductInfo';
+import filter_data from '../../../hooks/sku-utils/data_filter';
 import './index.scss'
-import CouponList from '@/components/page/coupon/v-coupon';
-
 
 const Index = () => {
     // sku相关
@@ -39,7 +38,7 @@ const Index = () => {
                 is_true: 0,
             }
         ],
-        ...data
+        ...filter_data(onlineData),
     });
     const [sku, setSku] = useState(null)
 

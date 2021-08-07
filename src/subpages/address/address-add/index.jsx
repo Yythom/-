@@ -1,35 +1,24 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useState } from 'react';
 import { Button, Form, Input, Label, Picker, Radio, Switch, Text, View } from '@tarojs/components';
-import Taro, { getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
+import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
 import { isPhoneNumber } from '@/common/public';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { actions } from '@/store/userSlice'
 import './index.scss'
+import AddressService from '@/services/address';
 
 
 
 const AddAddress = () => {
-    const [is_default, setIs_default] = useState(false);
+    const [is_default, setIs_default] = useState(true);
     const [address, setAddress] = useState(null) // 定位地址
     const [selectAddress, setSelectAddress] = useState([]); // 手动修改地址
-
+    const [tag, setTag] = useState('')
     const init = async () => {
 
     }
     useDidShow(() => {
         init();
     });
-
-    const change_address = async (e) => {
-        console.log(e);
-        setSelectAddress(e.value);
-        setAddress({
-            ...address, address: ''
-        })
-    }
-
-
 
     const save = async (sub_obj) => {
         if (!sub_obj.username) { showToast({ title: '收货人不能为空', icon: 'none' }); return }
@@ -40,19 +29,26 @@ const AddAddress = () => {
         }
         if (!sub_obj.address_desc) { showToast({ title: '详细地址不能为空', icon: 'none' }); return }
         let obj = {
-            username: sub_obj.username,
-            mobile: sub_obj.mobile,
-            is_default: is_default ? '1' : '2',
-            address: sub_obj.address_desc,
-            area: selectAddress.toString().replace(/,/g, ' ')
+            "contact_name": sub_obj.username,
+            "mobile": sub_obj.mobile,
+            "address": address.name || address.address,
+            "number": sub_obj.address_desc,
+            "location": {
+                lat: `${address.latitude}`,
+                lng: `${address.longitude}`
+            },
+            "remark": tag,
+            "is_default": is_default ? 1 : 0,
+            // area: selectAddress.toString().replace(/,/g, ' ')
         }
-        console.log(obj);
-        // let res = await AddressService.addressAddApi(obj);
-        // if (res) {
-        //     navigateBack({
-        //         delta: 1
-        //     })
-        // }
+        // console.log(obj);
+        let res = await AddressService.createAddress(obj);
+        console.log(res, 'save');
+        if (res) {
+            navigateBack({
+                delta: 1
+            })
+        }
     }
 
     return (
@@ -67,31 +63,37 @@ const AddAddress = () => {
                         <Label>手机号：</Label>
                         <Input name='mobile' maxlength={11} type='number' placeholder='请输入收货人手机号' />
                     </View>
-                    <Picker
-                        mode='region'
-                        value={[address?.province, address?.city, address?.district]}
-                        onChange={((e) => { change_address(e.detail) })}
-                    >
-                        <View className='address' >
-                            <Label>地区</Label>
-                            <View className='picker'>
-                                {
-                                    selectAddress[0]
-                                        ? selectAddress.toString().replace(/,/g, '/')
-                                        : '请选择省/市/区'
-                                }
-                                {/* <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} /> */}
-                            </View>
-                        </View>
-                    </Picker>
-                    <View className='address_desc'>
-                        <Label>详细地址：</Label>
-                        <Input name='address_desc' disabled={!selectAddress} onClick={() => {
-                            if (!selectAddress) {
-                                showToast({ title: '请先选择区域', icon: 'none' });
-                                return
+                    <View className='tag'>
+                        <Label>标签：</Label>
+                        <View className='flex'>
+                            {
+                                ['家', '公司', '学校'].map(e => {
+                                    return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
+                                        {e}
+                                    </View>
+                                })
                             }
-                        }} type='text' placeholder='如道路、门牌号、小区、单元号等' />
+                        </View>
+                    </View>
+
+                    <View className='address' onClick={() => {
+                        chooseLocation().then(res => {
+                            setAddress(res)
+                            console.log(res);
+                        })
+                    }} >
+                        <Label>地址</Label>
+                        <View className='picker'>
+                            {
+                                (address?.name || address?.address) || '请选择地址'
+                            }
+                            <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} />
+                        </View>
+                    </View>
+
+                    <View className='address_desc'>
+                        <Label>门牌号：</Label>
+                        <Input name='address_desc' type='text' placeholder='填写详细地址，例：1层1001' />
                     </View>
                     <View className='is_default'>
                         <View >设为默认地址</View>

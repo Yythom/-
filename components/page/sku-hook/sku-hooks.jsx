@@ -31,7 +31,7 @@ const Skuhooks = memo(({
     }, [sku, desc]);
 
     useEffect(() => {
-        console.log(load, 'loadloadloadload');
+        console.log(load, 'sku---load');
         if (load && specList) { // 如果sku没有可选择的默认设置
             if (specList.length < 1) {
                 setSku({
@@ -56,6 +56,16 @@ const Skuhooks = memo(({
                     console.log(item, index, 'index');
                     if (index == 0) {
                         option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
+                        // option.handleSpecAttr(
+                        //     {
+                        //         "value_id": "282335091278254081",
+                        //         "spec_id": "282335091278254080",
+                        //         "value": "40"
+                        //     } // 选中的item
+                        //     , 0  // 对应第几行的规格 
+                        // )
+
+
                     } else if (index == 1) {
                         option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
                     } else if (index == 2) {
@@ -87,7 +97,7 @@ const Skuhooks = memo(({
 
     const addCart = () => {
         if (sku) {
-
+            console.log(sku, 'addcart');
         } else {
             showToast({ title: `请选择${desc?.str}`, icon: 'none' })
         }
@@ -113,7 +123,7 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.sale_price || '请选择'}
+                                            {desc?.discount_price || '请选择'}
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
@@ -122,7 +132,7 @@ const Skuhooks = memo(({
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            <View className='vip-price fc'>会员价格 ￥320元</View>
+                                            <View className='vip-price fc'>会员价格 ￥{desc?.member_price || '请选择'}</View>
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}
