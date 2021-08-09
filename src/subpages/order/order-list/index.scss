@@ -1,6 +1,33 @@
 .order-list-wrap {
-    min-height: 100vh;
-    background-color: pink;
+    height: 100vh;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+    // background-color: pink;
+
+    .deliveryMethod {
+        padding-top: 30px;
+        background: rgba(255, 138, 83, 0.99);
+        align-items: flex-end;
+
+        .tab {
+            font-size: 28px;
+            width: 50%;
+            height: 50px;
+            color: #333;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 0px 20px 0px 0px;
+            transition: 400ms;
+        }
+
+        .act-tab {
+            background: #FFFFFF;
+            font-weight: bold;
+            height: 64px;
+            border-radius: 20px 20px 0px 0px;
+        }
+    }
+
+    .order_tab {}
 
     .autoHeight {
         padding-top: 20px;
@@ -17,18 +44,26 @@
     }
 
     .nav {
-        height: 70px;
+        height: 104px;
         display: flex;
         justify-content: space-around;
 
         .nav-item {
             // width: 20%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             margin: 0;
+
+            &-act {
+                color: #EF5F00;
+            }
         }
 
         .nav-line {
             height: 8px;
-            margin-bottom: 6px;
+            background-color: #EF5F00;
+            margin-bottom: 12px;
         }
     }
 
@@ -36,22 +71,33 @@
         width: calc(100% - 32px);
         background-color: #fff;
         box-sizing: border-box;
-        padding: 40px 32px;
+        padding: 0 16px 25px 16px;
         border-radius: 12px;
+        position: relative;
 
         .title {
-            color: #999;
-            margin-bottom: 60px;
+            color: #333;
+            height: 92px;
+
+            .status {
+                color: #EF5F00;
+            }
         }
 
 
         .info {
-            margin-top: 60px;
-            justify-content: flex-end;
-            font-size: 30px;
+            padding: 0 16px 0 35px;
+            height: 100px;
+            position: absolute;
+            top: 92px;
+            right: 0;
+            font-size: 28px;
+            background-color: rgba(255, 255, 255, .84);
+            color: #333;
 
             .price {
-                color: rgb(255, 47, 47);
+                font-weight: bold;
+                color: #333;
             }
         }
 
@@ -60,12 +106,22 @@
             justify-content: flex-end;
 
             .btn {
-                height: 60px;
-                font-size: 32px;
-                padding: 0 24px;
-                color: rgb(255, 47, 47);
-                border: 2px rgb(255, 47, 47) solid;
+                margin-left: 15px;
+                width: 150px;
+                height: 58px;
+                font-size: 26px;
+                background: #FFFFFF;
+                border-radius: 29px;
+                border: 2px solid #333333;
             }
+
+            .act-btn {
+                color: #fff;
+                background: #EF5F00;
+                border: 2px solid #EF5F00;
+                border-radius: 29px;
+            }
+
         }
     }
 

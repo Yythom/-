@@ -92,7 +92,8 @@ const Index = (props) => { // 不能有padding父元素
     }
 
     // swiper到底事件
-    const onLower = debounce(() => {
+    const onLower = () => {
+        // setPage(page + 1)
         console.log('到底了');
         paging(request, page, (newList) => {
             if (newList) {
@@ -104,7 +105,7 @@ const Index = (props) => { // 不能有padding父元素
             }
             setRefresh_status(false)
         });
-    }, 200)
+    }
 
     // 下拉刷新事件
     const refresh = () => {
@@ -161,6 +162,7 @@ const Index = (props) => { // 不能有padding父元素
             if (defaultIndex) {
                 taggleNav(defaultIndex);
                 initContentHeight(defaultIndex);
+                setPage(1);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -225,7 +227,7 @@ const Index = (props) => { // 不能有padding父元素
                                                                 !notChildScroll ? <ScrollView
                                                                     className='swiper-scroll'
                                                                     scrollY
-                                                                    lowerThreshold={30}
+                                                                    lowerThreshold={10}
                                                                     refresherTriggered={refresh_status}
                                                                     onRefresherRefresh={refresh}
                                                                     onScrollToLower={onLower}
@@ -248,7 +250,7 @@ const Index = (props) => { // 不能有padding父元素
                                                             !notChildScroll ? <ScrollView
                                                                 className='swiper-scroll'
                                                                 scrollY
-                                                                lowerThreshold={30}
+                                                                lowerThreshold={10}
                                                                 refresherTriggered={refresh_status}
                                                                 onRefresherRefresh={refresh}
                                                                 onScrollToLower={onLower}

@@ -45,11 +45,11 @@ const Date = memo(({
                             let str = vtablist[vtabindex]?.time + ' ' + vtablist[vtabindex]?.pro[index];
                             let didTime = vtablist[vtabindex]?.time + ' ' + str.trim().split('~')[1];
                             let dis_no = dayjs(didTime).unix() < dayjs().unix() + `1` * 3600;
-                            console.log(dis_no, didTime, str, 'dis_no');
+                            // console.log(dis_no, didTime, str, 'dis_no');
                             return (
                                 <View style={dis_no && { color: '#ccc' }} className={date == str ? 'act_item item' : 'item'} onClick={() => {
                                     if (!dis_no) {
-                                        console.log(date, str);
+                                        // console.log(date, str);
                                         setDate(str);
                                     }
                                 }} key={e}>{

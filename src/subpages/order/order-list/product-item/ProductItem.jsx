@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useEffect, useState } from 'react';
-import { View, Text, Radio, Button } from '@tarojs/components';
+import { View, Text, Radio, Button, ScrollView } from '@tarojs/components';
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
@@ -16,12 +16,12 @@ const ProductItem = memo(({ products, }) => {
                 <Text>2021-07-06 10:26:30</Text>
                 <Text className='status'>待支付</Text>
             </View>
-            <View className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
+            <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
                 {products?.map((product, i) => {
                     return (
                         <View className='product_item' key={product.product_id + '-product_id'}>
                             <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
-                            <View className='center fd'>
+                            {/* <View className='center fd'>
                                 <View className='product_name'> {product?.product_name}</View>
                                 <View className='desc'>
                                     <View className='product_sku'>银色；16g</View>
@@ -37,7 +37,7 @@ const ProductItem = memo(({ products, }) => {
                                         <View className='num'>x2</View>
                                     </View>
                                 </View>
-                            </View>
+                            </View> */}
                         </View>
                     )
                 })}
@@ -67,10 +67,14 @@ const ProductItem = memo(({ products, }) => {
                     </View>
 
                 </View> */}
+            </ScrollView>
+            <View className='info fdc' >
+                <Text className='price'><Text className='_money'>&nbsp;¥</Text>7999</Text>
+                <Text style={{ fontSize: '24rpx' }}>共{3}件</Text>
             </View>
-            <View className='info flex' >共{3}件商品，总金额<Text className='price'><Text className='_money'>&nbsp;¥</Text>7999</Text></View>
             <View className='btns flex'>
-                <Button className='btn fc'>去支付</Button>
+                <Button className='btn fc'>取消订单</Button>
+                <Button className='btn act-btn fc'>立即付款</Button>
             </View>
         </View>
 
