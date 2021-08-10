@@ -44,19 +44,25 @@ const Index = () => {
     })
     return (
         <View className='order_detail_wrap fd'  >
-            <NavBar back title='订单详情' background='rgb(255, 199, 116)' color='#fff' iconColor='#fff' />
-            <View className='title-status'>{pageData?.status_message}</View>
+            <NavBar back title='订单详情' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%);' color='#fff' iconColor='#fff' />
 
+            {/* 地址 */}
             <View className='square flex'>
-                <View className='left'><Text className='iconfont icon-dingwei'></Text></View>
                 <View className='right'>
-                    <View className='info'>
-                        <Text className='name'>{pageData?.address.username}</Text>
-                        <Text className='phone'>{pageData?.address.mobile}</Text>
+                    <View className='info flex'>
+                        <View className='flex'>
+                            <Text className='iconfont icon-dingwei' />
+                            <View className='address'>{pageData?.address.address}</View>
+                        </View>
                     </View>
-                    <View className='address'>{pageData?.address.address}</View>
+                    <Text className='name'>{pageData?.address.username}</Text>
+                    <Text className='phone'>{pageData?.address.mobile}</Text>
                 </View>
             </View>
+
+            {/* <View className='title-status'>{pageData?.status_message}</View> */}
+
+
 
             <View className='card'>
                 {

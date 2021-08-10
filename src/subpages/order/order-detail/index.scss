@@ -1,7 +1,7 @@
 @import '../../../../common/mixins/index.scss';
 
 .order_detail_wrap {
-    background-color: rgb(241, 241, 241);
+    background-color: #f3f3f3;
     height: 100vh;
     box-sizing: border-box;
     overflow-y: scroll;
@@ -20,45 +20,26 @@
     }
 
     .square {
-        margin-top: -55px;
-        width: 95%;
-        height: 150px;
+        width: 100vw;
+        height: 160px;
         background-color: #fff;
         box-sizing: border-box;
-        box-shadow: 0px 0px 10px 0px rgba(9, 44, 76, 0.1);
-        border-radius: 20px;
-        padding: 24px;
+        padding: 16px;
+        color: #333;
+        font-size: 28px;
 
-        .right {
-            font-size: 28px;
-
-            .name {
-                color: #444;
-                margin-right: 12px;
-            }
-
-            .phone {
-                color: #666;
-                font-size: 24px;
-            }
-
-            .address {
-                margin-top: 8px;
-                font-size: 24px;
-                color: #999;
-            }
+        .name {
+            margin-right: 15px;
         }
 
-        .left {
-            margin-right: 18px;
+        .phone {}
 
-            .iconfont {
-                font-size: 30px;
-                padding: 12px;
-                border-radius: 50%;
-                background-color: rgb(255, 199, 116);
-                color: #fff;
-            }
+        .info {
+            margin-bottom: 15px;
+        }
+
+        .address {
+            font-size: 32px;
         }
     }
 
