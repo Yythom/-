@@ -102,7 +102,7 @@ const AddressManage = () => {
                                     </View>
 
                                     {
-                                        e.address_id == address_id.address_id
+                                        (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
                                             ? <Text className='iconfont icon-roundcheck' />
                                             : <Text className='iconfont icon-yuancircle46' />
                                     }

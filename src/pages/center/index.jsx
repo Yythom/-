@@ -39,7 +39,7 @@ const Index = () => {
                 }, 1000);
             }}
             scrollY
-            style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)` }}
+            style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)`, }}
             className='center_wrap'
         >
             <NavBar background='rgb(250,245,235)' />
@@ -60,7 +60,7 @@ const Index = () => {
 
             <View className='handle'>
                 {/* 钱包 */}
-                <View className='wallet fb wallet-common ' >
+                {/* <View className='wallet fb wallet-common ' >
                     <View className='fdc'>
                         <Text className='price'>0.00</Text>
                         <View className='text'>账户余额</View>
@@ -77,10 +77,22 @@ const Index = () => {
                         <Text className='iconfont icon-ziyuan'></Text>
                         <View className='text'>我的钱包</View>
                     </View>
+                </View> */}
+
+                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
+                    <View className='flex'>
+                        <Text className='iconfont icon-dingwei' />
+                        <Text className=''>收获地址</Text>
+                    </View>
+                    <View className='flex'>
+                        <Text className=''>查看</Text>
+                        <Text className='iconfont icon-right' />
+                    </View>
                 </View>
 
                 {/* 订单 */}
                 <View className='order-card fb wallet-common ' onClick={() => navLinkTo('order/order-list/index', {})} >
+                    <View className='title flex'>我的服务</View>
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
                         <View className=''>全部订单</View>
@@ -101,10 +113,6 @@ const Index = () => {
                 {/* 服务 */}
                 <View className='fb my-server wallet-common'>
                     <View className='title flex'>我的服务</View>
-                    <View className='fdc' onClick={() => navLinkTo('address/address-list/index', {})}>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>收货地址</View>
-                    </View>
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
                         <View className=''>我的积分</View>
