@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, showModal } from '@tarojs/taro'
+import Taro, { getStorageSync, showModal, useDidShow } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
@@ -9,8 +9,8 @@ import { callPhone } from '@/common/public';
 import { navLinkTo } from '@/common/publicFunc';
 import CouponList from '@/components/page/coupon/v-coupon';
 import Sku from '@/components/page/sku-hook/sku-hooks';
-import { data, onlineData } from '../../../hooks/sku-utils/data';
-import { data2 } from '../../../hooks/sku-utils/data2';
+import ProductService from '@/services/product';
+import np from 'number-precision'
 import ProductInfo from './product-info/ProductInfo';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import './index.scss'
@@ -19,28 +19,19 @@ const Index = () => {
     // sku相关
     const [show, setShow] = useState(false);
     const [service, setService] = useState(false);
-    const [pageData, setPageData] = useState({
-        banner: [
-            'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Frms.zhubajie.com%2Fresource%2Fredirect%3Fkey%3Dtianpeng%2F2015-11%2F14%2Fproduct%2F5646e9d57392f.jpg&refer=http%3A%2F%2Frms.zhubajie.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=e6cb81b058f3d72d7010bf9807454ca6',
-            'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F0199a155c4790f32f8755e6604d4d5.jpg%402o.jpg&refer=http%3A%2F%2Fimg.zcool.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1627814294&t=14fc2c22a65d51c914e0da8788a59445'
-        ],
-        product_id: '101',
-        price: '6999',
-        sale_price: '5999',
-        sale: '80',
-        product_name: '【6期免息 学生领券至高减300】一加OnePlus 9手机骁龙888旗舰120Hz屏幕游戏智能拍照一加丨哈苏手机影像系统',
-        service: [
-            {
-                text: '七天无理由退货',
-                is_true: 1,
-            }, {
-                text: '48小时发货',
-                is_true: 0,
-            }
-        ],
-        ...filter_data(onlineData),
-    });
+    const [pageData, setPageData] = useState(null);
     const [sku, setSku] = useState(null)
+    const query = Taro.getCurrentInstance().router.params;
+
+    const init = async () => {
+        console.log(query.product_id, 'product_id');
+        const res = await ProductService.getProductDataApi();
+        setPageData({ ...filter_data(res) })
+    }
+
+    useEffect(() => {
+        init()
+    }, [])
 
     return (
         <View className='product-detail'>
@@ -57,11 +48,11 @@ const Index = () => {
 
                 {/* 商品图片 */}
                 <Banner
-                    list={pageData?.banner}
+                    list={pageData?.product_images}
                     custom
                     h='520rpx'
                     render={
-                        (e) => <BlurImg mode='widthFix' className='img fc' src={e} />
+                        (e) => <BlurImg mode='widthFix' className='img fc' src={e?.url} />
                     }
                 ></Banner>
 
@@ -76,7 +67,7 @@ const Index = () => {
                     <Text className='iconfont icon-right' />
                 </View> */}
 
-                <CouponList bottom='0' />
+                {/* <CouponList bottom='0' /> */}
 
                 {/* 服务详情 */}
                 {/* <View className='service fb p-16' onClick={() => setService(true)}>
@@ -92,9 +83,8 @@ const Index = () => {
                         <View className='v-line' />
                     </View>
                     <View className='img fdc'>
-                        <Image mode='widthFix' src='https://img2.baidu.com/it/u=2790689811,54471194&fm=26&fmt=auto&gp=0.jpg' />
+                        <Image mode='widthFix' src={pageData?.product_description?.description_image} />
                     </View>
-                    .........
                 </View>
             </ScrollView>
 

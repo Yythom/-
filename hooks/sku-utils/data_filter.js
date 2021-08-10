@@ -1,12 +1,12 @@
 export default (obj) => {
     let copy = JSON.parse(JSON.stringify(obj));
     if (!copy.skuSpec) {
-        copy.skuSpec = copy.specs; // 大规格列表
-        delete copy.specs
+        copy.skuSpec = copy.product_specs; // 大规格列表
+        delete copy.product_specs
     }
     if (!copy.skuList) {
-        copy.skuList = copy.skus; // 可选规格列表
-        delete copy.skus
+        copy.skuList = copy.product_skus; // 可选规格列表
+        delete copy.product_skus
     }
     let str = '';
     copy.skuSpec.forEach(e => {

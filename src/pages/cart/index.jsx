@@ -18,6 +18,7 @@ import { data, onlineData } from '../../../hooks/sku-utils/data';
 import { data2 } from '../../../hooks/sku-utils/data2';
 import CouponFloat from '@/components/page/coupon/coupon';
 import filter_data from '../../../hooks/sku-utils/data_filter';
+import ProductService from '@/services/product';
 
 let fn = Function.prototype
 
@@ -109,15 +110,17 @@ const Index = () => {
     });
     const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
-        setSkuData({
-            ...product,
-            ...filter_data(onlineData)
-        })
-        setDefault_sku([
-            { id: 101, name: '4.7寸', parent_name: '尺寸' },
-            { id: 201, name: '16G', parent_name: '内存' },
-            { id: 302, name: '红色', parent_name: '颜色' }
-        ])
+        const res = await ProductService.getProductDataApi();
+        setSkuData({ ...filter_data(res) })
+
+        setDefault_sku(
+            [
+                {
+                    id: "283038145040498689",
+                },
+            ]
+        )
+
         setTimeout(() => {
             setskuShow(4);
             setI(10)

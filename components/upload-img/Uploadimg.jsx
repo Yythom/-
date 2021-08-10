@@ -61,7 +61,7 @@ function Index(props) {
             <View className='hiddenCanvas' style={canvas_style || { position: 'fixed', top: '-99999px' }}>
                 <Canvas className='canvas' canvasId='firstCanvas' />
             </View> */}
-            <Button className={className} style={style} onClick={selectImg}>{btn_text || '按钮：'}</Button>
+            <Button className={className} style={style} onClick={selectImg}>{btn_text || ''}</Button>
         </View>
     )
 }

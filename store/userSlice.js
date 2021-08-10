@@ -43,9 +43,10 @@ const reducers = {
 // 更新用户信息
 const userUpdata = createAsyncThunk(
     'user/user_updata',
-    async (data, thunkAPI) => {
+    async (setFLag, thunkAPI) => {
         const userStore_requesut = await UserService.getUserInfoApi();
         hideLoading();
+        setFLag(false)
         if (userStore_requesut) {
             userStore_requesut.phone = userStore_requesut.mobile;
             console.log(userStore_requesut, 'user_updata -- - --- - -- ');
@@ -54,6 +55,7 @@ const userUpdata = createAsyncThunk(
         } else {
             return {}
         }
+
     }
 )
 

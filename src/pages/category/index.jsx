@@ -12,7 +12,7 @@ import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import CouponFloat from '@/components/page/coupon/coupon';
 import CouponList from '@/components/page/coupon/v-coupon';
 import VtabList from './list/list';
-import vtab_data from './tab';
+import vtab_data, { vtab_data22 } from './tab';
 import './index.scss';
 
 function Index() {
@@ -39,15 +39,13 @@ function Index() {
             {/* 横向优惠券列表 */}
             <CouponList />
 
-
-
             {/* 分类列表 */}
             <View>
                 <Vtabs
                     className='cate-vtabs'
                     windowTabsLength={11}
                     height={`calc(${100}vh - ${80}rpx - ${120}rpx - ${220}rpx - ${98}rpx - ${systemInfo.safeArea.top / 2}px)`}
-                    list={vtab_data}
+                    list={vtab_data22}
                     onChange={(i) => {
                         console.log(vtab_data[i]);
                         showLoading();

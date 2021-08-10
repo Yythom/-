@@ -92,117 +92,50 @@ export const data = {
 
 
 export const onlineData = {
-    "product_id": "282335091152424960",
-    "shop_id": "1",
-    "first_cate_id": "282254847611502592",
-    "sec_cate_id": "282255251321651200",
-    "brand_id": "0",
-    "product_name": "男鞋",
-    "cover": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/https://picsum.photos/id/104/300/300",
-    "market_price": "100.00",
-    "discount_price": "80.00",
-    "member_price": "75.00",
-    "is_member": 0,
-    "status": 1,
-    "audit_status": 1,
-    "create_at": "1628273931",
-    "update_at": "1628281479",
-    "enable": 1,
-    "first_cate": {
-        "category_id": "282254847611502592",
-        "category_name": "百货售卖"
-    },
-    "sec_cate": {
-        "category_id": "282255251321651200",
-        "category_name": "皮鞋专卖"
-    },
-    "images": [{
-        "image_id": "282335091286642690",
-        "product_id": "282335091152424960",
-        "type": 1,
-        "url": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/https://picsum.photos/id/104/300/300"
-    }],
-    "specs": [{
-        "spec_id": "282335091278254080",
-        "product_id": "282335091152424960",
-        "spec_name": "尺码",
-        "status": 1,
+    "product_specs": [{
+        "spec_name": "造型",
+        "spec_id": "283038145040498688",
         "spec_values": [{
-            "value_id": "282335091278254081",
-            "spec_id": "282335091278254080",
-            "value": "40"
-        },
-        {
-            "value_id": "282335091278254082",
-            "spec_id": "282335091278254080",
-            "value": "41"
+            "value_id": "101",
+            "spec_id": "283038145040498688",
+            "value": "原造型"
+        }, {
+            "value_id": "102",
+            "spec_id": "283038145040498688",
+            "value": "加雪花"
         }]
-    },
-    {
-        "spec_id": "282335091282448384",
-        "product_id": "282335091152424960",
-        "spec_name": "配色",
-        "status": 1,
+    }, {
+        "spec_name": "尺寸",
+        "spec_id": "283038145040498686",
         "spec_values": [{
-            "value_id": "282335091282448385",
-            "spec_id": "282335091282448384",
-            "value": "黑色"
-        },
-        {
-            "value_id": "282335091282448386",
-            "spec_id": "282335091282448384",
-            "value": "白色"
+            "value_id": "201",
+            "spec_id": "283038145040498686",
+            "value": "12"
+        }, {
+            "value_id": "202",
+            "spec_id": "283038145040498686",
+            "value": "32"
         }]
     }],
-    "skus": {
-        "282335091278254081;282335091282448385": {
-            "sku_id": "282335091282448387",
-            "product_id": "282335091152424960",
-            "market_price": 10000,
-            "discount_price": 8000,
-            "member_price": 7500,
-            "stock": "100"
+    "product_skus": {
+        "101;201": {
+            "sku_id": "001",
+            "number": "000001",
+            "cover": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/product/covers/timehash.png",
+            "market_price": 15900,
+            "discount_price": 9900,
+            "member_price": 8900,
+            "stock": 50
         },
-        "282335091278254081;282335091282448386": {
-            "sku_id": "282335091282448391",
-            "product_id": "282335091152424960",
-            "market_price": 20000,
-            "discount_price": 18000,
-            "member_price": 17500,
-            "stock": "100"
-        },
-        "282335091278254082;282335091282448385": {
-            "sku_id": "282335091282448395",
-            "product_id": "282335091152424960",
-            "market_price": 30000,
-            "discount_price": 38000,
-            "member_price": 37500,
-            "stock": "100"
-        },
-        "282335091278254082;282335091282448386": {
-            "sku_id": "282335091282448399",
-            "product_id": "282335091152424960",
-            "market_price": 40000,
-            "discount_price": 45000,
-            "member_price": 40000,
-            "stock": "100"
+        "102;202": {
+            "sku_id": "002",
+            "number": "000002",
+            "cover": "https://fish-pay.oss-cn-chengdu.aliyuncs.com/product/covers/timehash.png",
+            "market_price": 16900,
+            "discount_price": 10900,
+            "member_price": 9900,
+            "stock": 50
         }
     },
-    "other_prices": [{
-        "other_price_id": "282335091286642689",
-        "product_id": "282335091152424960",
-        "type": 1,
-        "price": "10.00"
-    }],
-    "detail": {
-        "product_id": "282335091152424960",
-        "description_image": "https://picsum.photos/id/1010/300/300",
-        "introduction": "123"
-    },
-    "tags": [{
-        "product_id": "282335091152424960",
-        "name": "时尚"
-    }],
-    "status_msg": "待上架"
 }
 
