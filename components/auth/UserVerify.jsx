@@ -42,13 +42,13 @@ const WithUserVerify = ({
         }
     }
     const handleGetUserInfo = async () => {
-        const { code } = await login()
-        const res = await UserService.code2session(code)
-        setWxCode(res.session_key)
         if (!type) {
             const userInfoRes = await lkGetUserInfo();
             console.log(userInfoRes, 'userInfoRes');
             if (userInfoRes !== 'openSetting' && userInfoRes !== 'deny') {
+                const { code } = await login()
+                const res = await UserService.code2session(code)
+                setWxCode(res.session_key)
                 dispatch(actions.changeTokenActionAsync(userInfoRes));
                 setType('');
                 // if (!isVerifyPhone) onClick();

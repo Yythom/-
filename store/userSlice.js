@@ -67,10 +67,10 @@ const changeTokenActionAsync = createAsyncThunk(
         delete data?.gender
         const Tlogin = await login();
         const res = await UserService.getLogin(Tlogin.code, {
-            avatar: '',
-            nickname: '',
+            // avatar: '',
+            // nickname: '',
             ...data,
-            mobile: ''
+            // mobile: ''
         }); // 通过微信登入获取code取接口token
         setStorageSync('token', res?.token || '');
         const user_info = await UserService.getUserInfoApi();
