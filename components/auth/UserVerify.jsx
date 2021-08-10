@@ -29,7 +29,13 @@ const WithUserVerify = ({
             onClick();
         }
     };
+    const getWxcode = async () => {
+        const { code } = await login()
+        const res = await UserService.code2session(code)
+        setWxCode(res.session_key)
+    }
     useDidShow(() => {
+        getWxcode()
         getSettingFn();
     })
     async function getSettingFn() {
@@ -46,9 +52,6 @@ const WithUserVerify = ({
             const userInfoRes = await lkGetUserInfo();
             console.log(userInfoRes, 'userInfoRes');
             if (userInfoRes !== 'openSetting' && userInfoRes !== 'deny') {
-                const { code } = await login()
-                const res = await UserService.code2session(code)
-                setWxCode(res.session_key)
                 dispatch(actions.changeTokenActionAsync(userInfoRes));
                 setType('');
                 // if (!isVerifyPhone) onClick();
