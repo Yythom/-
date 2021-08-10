@@ -9,18 +9,17 @@ import './index.scss'
 const AddressManage = () => {
     // const localStore = useSelector(e => e.userStore.localtion, shallowEqual);
     const [list, setList] = useState([
-        // {
-        //     "contact_name": "yyt",
-        //     "mobile": "13273982729",
-        //     "address": "江苏省镇江市润州区政泰路",
-        //     "number": "```11",
-        //     "location": {
-        //         "lat": 32.19523,
-        //         "lng": 119.41134
-        //     },
-        //     "remark": "公司",
-        //     "is_default": 0
-        // }
+        //  {
+        //     address: "武侯区人民政府(武侯祠大街南)"
+        //     address_id: "283562606491791360"
+        //     contact_name: "wangyueyue"
+        //     is_default: 1
+        //     location: {lat: "30.64242", lng: "104.04311"}
+        //     mobile: "13315161819"
+        //     number: "2层2001"
+        //     remark: "公司"
+        //     user_id: "1"
+        //  }
     ]);
     const [address_id, setAddressid] = useState(null)
 

@@ -6,6 +6,7 @@ import { getStorageSync, hideLoading, setStorageSync, showLoading, showToast } f
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import FloatBottom from '@/components/float/FloatBottom';
+import np from 'number-precision'
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
 
@@ -54,23 +55,23 @@ const Skuhooks = memo(({
                 // 默认选中
                 default_sku.forEach((item, index) => {
                     console.log(item, index, 'index');
-                    if (index == 0) {
-                        option.handleSpecAttr({ id: 101, name: '4.7寸', parent_name: '尺寸' }, 0)
-                        // option.handleSpecAttr(
-                        //     {
-                        //         "value_id": "282335091278254081",
-                        //         "spec_id": "282335091278254080",
-                        //         "value": "40"
-                        //     } // 选中的item
-                        //     , 0  // 对应第几行的规格 
-                        // )
+                    // if (index == 0) {
+                    option.handleSpecAttr(item, index)
+                    // option.handleSpecAttr(
+                    //     {
+                    //         "value_id": "282335091278254081",
+                    //         "spec_id": "282335091278254080",
+                    //         "value": "40"
+                    //     } // 选中的item
+                    //     , 0  // 对应第几行的规格 
+                    // )
 
 
-                    } else if (index == 1) {
-                        option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
-                    } else if (index == 2) {
-                        option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
-                    }
+                    // } else if (index == 1) {
+                    //     option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
+                    // } else if (index == 2) {
+                    //     option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
+                    // }
                 })
             }
             hideLoading();
@@ -117,7 +118,7 @@ const Skuhooks = memo(({
                     <View className='sku'>
                         <View className='iconfont icon-close' onClick={() => { setShow(false) }}></View>
                         <View className='title flex'>
-                            <BlurImg className='img' src={sku ? sku.img : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
+                            <BlurImg className='img' src={sku ? sku.cover : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
                             <View className='content fd'>
                                 {/* <View className='price'>
                                     <Text className='_money'>¥</Text>
@@ -127,16 +128,17 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.discount_price || '请选择'}
+                                            {desc?.price ? np.times(desc?.discount_price, 0.01) : '请选择'}
+
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price || '请选择'}
+                                            {desc?.price ? np.times(desc?.price, 0.01) : '请选择'}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            <View className='vip-price fc'>会员价格 ￥{desc?.member_price || '请选择'}</View>
+                                            <View className='vip-price fc'>￥{desc?.price ? np.times(desc?.member_price, 0.01) : '请选择'}</View>
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}
@@ -182,8 +184,11 @@ const Skuhooks = memo(({
 
                             </View>
                             <HandleInput num={num} onChange={(value) => {
-                                // if (!skuObj) return showToast({ title: '请选择规格', icon: 'none', })
-                                console.log(num > value, value);
+                                if (!sku) return showToast({ title: '请选择规格', icon: 'none', })
+                                if (value > sku?.stock) {
+                                    setNum(50)
+                                    return showToast({ title: '超过库存上限', icon: 'none' })
+                                }
                                 setNum(value)
                             }} />
                         </View>

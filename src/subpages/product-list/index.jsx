@@ -115,7 +115,8 @@ const Index = () => {
                     setSort({ sort, ...obj })
                 }}
                 onClick={(newObj) => {
-                    setSearch({ ...search, ...newObj })
+                    changeSearch('sort', { ...newObj })
+                    // setSearch({ ...search, ...newObj })
                 }}
             />
             <ScrollView

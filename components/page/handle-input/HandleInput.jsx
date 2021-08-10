@@ -15,9 +15,9 @@ const HandleInput = ({
     // const _onChange = useCallback(throttle((number) => {
     //     onChange(number);
     // }), [list]);
-    const _onChange = useCallback((number) => {
+    const _onChange = (number) => {
         onChange(number);
-    }, [list]);
+    };
 
     return (
         <View className='handle_input' onClick={(e) => {
@@ -33,7 +33,7 @@ const HandleInput = ({
             >
                 -
             </View>
-            <Input type='number' className={`num ${window && 'fc'}`} placeholderStyle='color:#333' placeholder={num}
+            <Input type='number' className={`num ${window && 'fc'}`} placeholderStyle='color:#333'
                 value={num}
                 onInput={(e) => {
                     e.stopPropagation();

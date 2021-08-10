@@ -3,7 +3,7 @@ const vtab_data = [
         category: '手机数码',
         child: [
             {
-                child_cate: '分类1',
+                child_cate: '分类1', // tag
                 pro: [
                     {
                         name: 'iphone 12 测试长度',
@@ -97,4 +97,19 @@ const vtab_data = [
 
 ]
 
+const vtab_data22 = [
+    {
+        category: '手机数码',
+    }, {
+        category: '电脑办公',
+    },
+    {
+        category: '家用电器',
+    },
+
+]
+
+export {
+    vtab_data22
+}
 export default vtab_data;

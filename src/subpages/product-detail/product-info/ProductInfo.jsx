@@ -57,21 +57,29 @@ function ProductInfo({
                 <View className='price flex'>
                     <Text className='new'>
                         <Text className='_moneny'>¥</Text>
-                        {product?.sale_price}
+                        {product?.discount_price}
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
-                        {product?.price}
+                        {product?.market_price}
                     </Text>
                 </View>
             </View>
             <View className='other fb'>
                 <View className='flex'>
-                    <View className='vip-price' style={{ marginRight: '10rpx' }}>会员价格</View>
+                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥{product?.member_price}</View>
+
+
                     <View className='desc flex'>
-                        <View className='desc-item fc'>20元券</View>
-                        <View className='desc-item fc'>补贴¥0.31</View>
+                        {product?.product_tags?.map((e, i) => {
+                            return (
+                                <View key={e.name} className='desc-item fc'>{e.name}</View>
+                            )
+                        })}
                     </View>
+
+
+
                 </View>
                 <View className='sale'>月售{product?.sale}</View>
             </View>

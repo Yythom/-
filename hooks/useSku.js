@@ -70,9 +70,9 @@ const useSku = (data) => {
             // setspecList(skuSpec);
             specList = skuSpec
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
-            setTimeout(() => {
-                setload(true);
-            }, 1000);
+            // setTimeout(() => {
+            setload(true);
+            // }, 1000);
         }
 
         function handleSpecAttr(item, index) { // sku选择
