@@ -145,14 +145,16 @@ function Index() {
             <View className='fc search'>
                 <Search width='720rpx' text='搜索更多优惠商品' />
             </View>
-            <Banner w='100vw' className='index-banner' custom />
-            {/* <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' /> */}
-            <Types list={types} />
 
-            <Banner w='720rpx' className='recommended' custom />
+
+            <Banner list={[]} w='100vw' className='index-banner' custom />
+            {/* <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' /> */}
+            {/* <Types list={types} /> */}
+
+            {/* <Banner w='720rpx' className='recommended' custom /> */}
 
             {/* 秒杀 */}
-            <Seconds data={{}} />
+            {/* <Seconds data={{}} /> */}
 
             <Tabs
                 tag_list={[
@@ -204,7 +206,7 @@ function Index() {
                                             event.stopPropagation();
                                             showSku()
                                         }}
-                                        />
+                                        >+</View>
                                     </View>
                                 </View>
                             )

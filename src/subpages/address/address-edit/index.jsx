@@ -5,6 +5,7 @@ import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLo
 import { isPhoneNumber } from '@/common/public';
 import './index.scss'
 import AddressService from '@/services/address';
+import Maps from '@/components/page/maps/maps';
 
 
 
@@ -60,6 +61,7 @@ const EditAddress = () => {
 
     return (
         <View className='edit_address_wrap'>
+            <Maps location={[address?.location.lat, address?.location.lng]} text={(address?.address)} />
             <Form onSubmit={(e) => save(e.detail.value)} className='fdc'>
                 <View className='edit_box'>
                     <View className='name'>
@@ -86,9 +88,9 @@ const EditAddress = () => {
                     <View className='address' onClick={() => {
                         chooseLocation().then(res => {
                             setAddress({
-                                ...address, address: res.name, location: {
-                                    latitude: res.latitude,
-                                    longitude: res.longitude
+                                ...address, address: (address?.name || address?.address), location: {
+                                    lat: res.latitude,
+                                    lng: res.longitude
                                 }
                             })
                             console.log(res);

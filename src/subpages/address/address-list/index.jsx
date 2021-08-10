@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { Text, View, Radio } from '@tarojs/components';
 import Taro, { getStorageSync, hideLoading, navigateBack, setStorageSync, showLoading, showModal, showToast, useDidShow } from '@tarojs/taro'
 import { navLinkTo } from '@/common/publicFunc';
-import './index.scss'
 import AddressService from '@/services/address';
+import './index.scss'
 
 const AddressManage = () => {
     // const localStore = useSelector(e => e.userStore.localtion, shallowEqual);
@@ -33,6 +33,9 @@ const AddressManage = () => {
     };
 
     useDidShow(() => {
+        if (getStorageSync('address_id')) {
+            setAddressid(getStorageSync('address_id'))
+        }
         init();
     })
     const use_address = async (e) => {
@@ -63,45 +66,54 @@ const AddressManage = () => {
                 {
                     list && list[0] && list.map((e) => {
                         return (
-                            <View className='item' key={e.user_address_id} onClick={() => { use_address(e) }}>
+                            <View className='item' key={e.address_id} onClick={() => { use_address(e) }}>
                                 <View className='user_info fb'>
-                                    <View className='name'>{e.contact_name}</View>
-                                    <View className='phone'>{e.mobile}</View>
+                                    <View className='fb' >
+                                        <View className='name flex'>
+                                            {
+                                                e.is_default != 0 && <View
+                                                    className='select_icon fc'
+                                                    style={{ marginRight: '10rpx' }}
+                                                    onClick={async (event) => {
+                                                        event.stopPropagation();
+                                                        let obj = {
+                                                            "contact_name": e.contact_name,
+                                                            "mobile": e.mobile,
+                                                            "address": e.address,
+                                                            "number": e.number,
+                                                            "location": {
+                                                                lat: `${e.location.lat}`,
+                                                                lng: `${e.location.lng}`
+                                                            },
+                                                            "remark": e.remark,
+                                                            "is_default": Number(!e.is_default),
+                                                            // area: selectAddress.toString().replace(/,/g, ' ')
+                                                        }
+                                                        // console.log(obj);
+                                                        let res = await AddressService.editAddress(e.address_id, obj);
+                                                        if (res) init()
+                                                    }} >
+                                                    默认
+                                                </View>
+                                            }
+                                            <Text className=''>{e.contact_name}</Text>
+                                        </View>
+                                        <View className='phone'>{e.mobile}</View>
+                                    </View>
+
+                                    {
+                                        e.address_id == address_id.address_id
+                                            ? <Text className='iconfont icon-roundcheck' />
+                                            : <Text className='iconfont icon-yuancircle46' />
+                                    }
                                 </View>
-                                <View className='address_info'>
+
+                                <View className='address_info' >
                                     {e.address}
                                 </View>
-                                <View className='footer fb'>
-                                    <View className='select_icon flex' onClick={async (event) => {
-                                        event.stopPropagation();
-                                        let obj = {
-                                            "contact_name": e.contact_name,
-                                            "mobile": e.mobile,
-                                            "address": e.address,
-                                            "number": e.number,
-                                            "location": {
-                                                lat: `${e.location.lat}`,
-                                                lng: `${e.location.lng}`
-                                            },
-                                            "remark": e.remark,
-                                            "is_default": Number(!e.is_default),
-                                            // area: selectAddress.toString().replace(/,/g, ' ')
-                                        }
-                                        // console.log(obj);
-                                        let res = await AddressService.editAddress(e.address_id, obj);
-                                        if (res) init()
-                                    }} >
-                                        {
 
-                                        }
-                                        {
-                                            e.is_default != 0
-                                                ? <Text className='iconfont icon-roundcheck' />
-                                                : <Text className='iconfont icon-yuancircle46' />
-                                        }
-                                        {/* <Radio checked={e.is_default != 0} color='#eb472b' /> */}
-                                        默认
-                                    </View>
+
+                                <View className='footer fb'>
                                     <View className='handle flex'>
                                         <View
                                             className='edit'

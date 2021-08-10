@@ -26,6 +26,10 @@ export default {
         'address/address-list/index',
         'address/address-add/index',
         'address/address-edit/index',
+
+        // 迭代地图
+        // 'mapbg/index',
+
       ],
     },
   ],

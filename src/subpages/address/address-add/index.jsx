@@ -1,12 +1,11 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useState } from 'react';
-import { Button, Form, Input, Label, Picker, Radio, Switch, Text, View } from '@tarojs/components';
+import { Button, Form, Input, Label, Map, Picker, Radio, Switch, Text, View } from '@tarojs/components';
 import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
 import { isPhoneNumber } from '@/common/public';
 import './index.scss'
 import AddressService from '@/services/address';
-
-
+import Maps from '@/components/page/maps/maps';
 
 const AddAddress = () => {
     const [is_default, setIs_default] = useState(true);
@@ -53,6 +52,7 @@ const AddAddress = () => {
 
     return (
         <View className='edit_address_wrap'>
+            <Maps location={[address?.latitude, address?.longitude]} text={(address?.name || address?.address)} />
             <Form onSubmit={(e) => save(e.detail.value)} className='fdc'>
                 <View className='edit_box'>
                     <View className='name'>

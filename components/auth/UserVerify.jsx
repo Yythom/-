@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import Taro, { login, useDidShow } from '@tarojs/taro'
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { View, Button } from '@tarojs/components';
+import UserService from '@/services/user';
 import { lkGetUserInfo } from '../../common/publicFunc';
 // import { userStore } from '../store';
 import { actions } from '../../store/userSlice';
 import './withAuth.scss';
-import UserService from '@/services/user';
 
 
 const WithUserVerify = ({

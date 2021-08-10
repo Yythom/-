@@ -15,7 +15,23 @@ import Date from './date/date';
 import ProductItem from './product-item/product-item';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
-
+const params = {  // 预下单数据结构
+    "config": {
+        "shop_id": "string",
+        "delivery_type": "integer",
+        "pay_type": "integer",
+        "pay_method": "integer",
+        "pay_channel": "integer",
+        "user_addressId": "string"
+    },
+    "sku_items": [
+        {
+            "sku_id": "string",
+            "count": "integer"
+        }
+    ]
+}
+// 
 const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
     const [payType, setPayType] = useState(1) // 1 微信 2 余额
@@ -73,7 +89,7 @@ const Index = () => {
 
 
     const init = async () => {
-        // if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
+        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
         // else return
         if (deliveryMethod == 1) {
             if (getStorageSync('address_id')) {

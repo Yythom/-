@@ -2,7 +2,7 @@
 import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'react';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input } from '@tarojs/components';
-import { getStorageSync, setStorageSync, showLoading, showToast } from '@tarojs/taro';
+import { getStorageSync, hideLoading, setStorageSync, showLoading, showToast } from '@tarojs/taro';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import FloatBottom from '@/components/float/FloatBottom';
@@ -73,8 +73,12 @@ const Skuhooks = memo(({
                     }
                 })
             }
+            hideLoading();
         }
     }, [load]);
+    useEffect(() => {
+        if (show && !load) showLoading();
+    }, [show])
 
     // 预下单
     const preOrder = () => {
@@ -196,8 +200,8 @@ const Skuhooks = memo(({
 
                         </View>
                     </View>
-                    : <View className='fc' style={{ height: '100vh', background: 'rgba(9, 44, 76, 0.1)' }}>
-                        模拟加载中...
+                    : <View className='fc' style={{ height: '60vh', }}>
+                        加载中...
                     </View>
             }
         </FloatBottom>

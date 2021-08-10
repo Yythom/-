@@ -17,11 +17,11 @@ const FilterSearch = memo(({
         {
             service: [
                 {
-                    name: '服务名称',
+                    name: '服务名称 单选',
                     id: 101,
                 },
                 {
-                    name: '服务名称',
+                    name: '服务名称 单选',
                     id: 102,
                 },
             ],
@@ -29,6 +29,9 @@ const FilterSearch = memo(({
                 {
                     name: '商品标签',
                     id: 101,
+                }, {
+                    name: '商品标签2',
+                    id: 102,
                 }
             ],
             cate: [
@@ -89,6 +92,14 @@ const FilterSearch = memo(({
                                                                 onChange(e, value)
                                                                 console.log(value);
                                                             } else {
+
+                                                                if (e == 'service') {
+                                                                    onChange(
+                                                                        e,  // key 
+                                                                        [_item.id] //value
+                                                                    )
+                                                                    return
+                                                                }
                                                                 onChange(
                                                                     e,
                                                                     search[e]?.length > 0 ? [...search[e], _item.id] : [_item.id]

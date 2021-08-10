@@ -83,7 +83,7 @@ const RenderList = memo(({ _list, skuOption, i, setI }) => {
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
                                             showSku()
-                                        }}></View>
+                                        }}>+</View>
                                     </View>
                                 </View>
                             </View>
