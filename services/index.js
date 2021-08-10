@@ -1,12 +1,12 @@
 import http from '../common/request';
 
-class TestService {
+class HomeService {
 
-    static async getTestList(params) {
-        const res = await http.post('/hb/v1/home/online', { ...params });
+    static async getHomeApi() {
+        const res = await http.post('/home', {});
         return res;
     }
 
 }
 
-export default TestService;
+export default HomeService;

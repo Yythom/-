@@ -2,29 +2,28 @@ import http from '../common/request';
 
 class ProductService {
 
-    // {
-    //     "condition": {
-    //       "with_month_sale": "integer",
-    //       "with_tag": "integer"
-    //     },
-    //     "search": {
-    //       "category_id": "string",
-    //       "search": "string"
-    //     },
-    //     "sort": {
-    //       "create_at": "string",
-    //       "discount_price": "string",
-    //       "sale": "string"
-    //     },
-    //     "page": {
-    //       "all": "integer",
-    //       "total": "integer",
-    //       "page": "integer",
-    //       "page_size": "integer"
-    //     }
-    //}
-    static async getProductListApi(product_id = '') {
-        const res = await http.post('/product/list', { product_id });
+    static async getProductListApi(data) {
+        const res = await http.post('/product/list', {
+            condition: {
+                with_month_sale: 0,
+                with_tag: 0
+            },
+            search: {
+                category_id: data.category_id,
+                search: ''
+            },
+            sort: {
+                create_at: '',
+                discount_price: '',
+                sale: ''
+            },
+            page: {
+                all: 0,
+                total: 1,
+                page: data.page || 1,
+                page_size: 10
+            }
+        });
         return res;
     }
 

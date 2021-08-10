@@ -22,7 +22,7 @@ import ProductService from '@/services/product';
         }], 
  * @returns 
  */
-const RenderList = memo(({ _list, skuOption }) => {
+const RenderList = memo(({ twoCate, _list, skuOption }) => {
     const { show, setShow, setSkuData, skuData } = skuOption;
     const showSku = async () => {
         const res = await ProductService.getProductDataApi();
@@ -32,21 +32,18 @@ const RenderList = memo(({ _list, skuOption }) => {
         }, 100);
     }
 
-
-    return _list?.map((e, i) => {
+    return twoCate?.map((cate, i) => {
         return (
-            <Fragment key={e?.child_cate + 'cate-title' + i}>
+            <Fragment key={cate?.category_id + 'cate-title' + i}>
                 {/* 迭代 */}
+                <View
+                    style={{ position: 'sticky', top: '0', zIndex: '1', background: 'pink' }}
+                    className='nodes' id={`catetitle${i}`}
+                >
+                    {cate.category_name}
+                </View>
                 {
-                    e?.child_cate && <View
-                        style={{ position: 'sticky', top: '0', zIndex: '1', background: 'pink' }}
-                        className='nodes' id={`catetitle${i}`}
-                    >
-                        {e.child_cate}
-                    </View>
-                }
-                {
-                    e?.pro?.map(product => {
+                    cate?.product?.map(product => {
                         return (
                             /* 迭代样式 */
                             // <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
@@ -85,16 +82,16 @@ const RenderList = memo(({ _list, skuOption }) => {
 });
 
 // 二级分类渲染数组
-const ChildCate = memo(({ list, child_cate, onClick }) => {
+const ChildCate = memo(({ twoCate, child_cate, onClick }) => {
     return (
         <>
             {
-                list?.child.map((el, index) => <View
-                    key={el.child_cate + '_cate_name'}
+                twoCate.map((el, index) => <View
+                    key={el.category_id + '_cate_name'}
                     className={`child-cate  ${child_cate === el && ' act_child-cate  price'}`}
                     onClick={() => { onClick(el, index) }}
                 >
-                    {el.child_cate}
+                    {el.category_name}
                 </View>)
             }
         </>
@@ -102,6 +99,7 @@ const ChildCate = memo(({ list, child_cate, onClick }) => {
 })
 
 function VtabList({
+    twoCate,
     list,
     skushow,
     setskuShow,
@@ -109,12 +107,6 @@ function VtabList({
     skuData,
 }) {
     const [child_cate, setchild_cate] = useState(null);
-
-    const [renderChild, setRenderChild] = useState({
-        cate: false,
-        pro: [],
-    });
-
     const [arr, setArr] = useState([])
 
     function autoInfos() {
@@ -159,7 +151,9 @@ function VtabList({
     const [scrollTo, setScrollTo] = useState('');
 
     const selectChild = async (item, index) => {
-        setScrollTo(arr[index] - arr[0] > 0 ? arr[index] - arr[0] : 0)
+        console.log(scrollTo, 'scrollTo');
+        console.log(arr, 'arr');
+        setScrollTo(arr[index] - arr[0] > 0 ? arr[index] - arr[0] + 0.0001 : scrollTo - 0.00001)
         setchild_cate(item);
     };
 
@@ -169,7 +163,7 @@ function VtabList({
                 {show && <View className='mask' />}
                 <View className='child-tab flex' >
                     <View className='child-wrap flex'>
-                        <ChildCate list={list} child_cate={child_cate} onClick={selectChild} />
+                        <ChildCate twoCate={twoCate} list={list} child_cate={child_cate} onClick={selectChild} />
                     </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
                         ^
@@ -188,19 +182,23 @@ function VtabList({
                 >
                     <View style={{ position: 'relative' }}>
                         <RenderList
-                            _list={renderChild?.pro[0] ? [renderChild] : list.child}
+                            twoCate={twoCate}
                             skuOption={
                                 { show: skushow, setShow: setskuShow, skuData, setSkuData }
                             }
                         />
+                        <View className='' style={{ position: 'sticky', top: '0', zIndex: '1', height: '1200rpx', width: '100%', background: '#ccc' }}>测试滚动的</View>
+
                     </View>
                 </ScrollView>
 
             </> :
             <View className='flex item-box'>
-                <RenderList _list={[list]} skuOption={
-                    { show: skushow, setShow: setskuShow, skuData, setSkuData }
-                }
+                <RenderList
+                    twoCate={twoCate}
+                    skuOption={
+                        { show: skushow, setShow: setskuShow, skuData, setSkuData }
+                    }
                 />
             </View>
         </>

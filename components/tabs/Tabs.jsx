@@ -51,7 +51,8 @@ const Index = (props) => { // 不能有padding父元素
 
     const [page, setPage] = useState(1);
     const [refresh_status, setRefresh_status] = useState(false);
-    const [tabIndex, settabIndex] = useState('')
+    const [tabIndex, settabIndex] = useState('');
+
     function initTabsFn() {
         setTimeout(() => {
             query.select(`.${parentClass}`).fields({ rect: true, size: true }, res => {
@@ -77,7 +78,7 @@ const Index = (props) => { // 不能有padding父元素
             });
             query.exec();
             initContentHeight(defaultIndex);
-        }, 200);
+        }, 400);
     }
 
     function initContentHeight(current) {

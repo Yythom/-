@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import Taro, { getStorageSync, useDidShow, useReachBottom } from '@tarojs/taro';
+import Taro, { getStorageSync, setTabBarStyle, showToast, useDidShow, useReachBottom } from '@tarojs/taro';
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
 import Banner from '@/components/page/banner/Banner';
 import NavBar from '@/components/navbar/NavBar';
@@ -21,6 +21,7 @@ import Types from './types/types';
 import Seconds from './seconds-kill/Seconds';
 import './index.scss';
 import ProductService from '@/services/product';
+import HomeService from '@/services/index';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);
@@ -37,7 +38,7 @@ function Index() {
     // const { days, hours, minutes, seconds, milliseconds } = formattedRes;
 
     // console.log(formattedRes);
-
+    const [pageData, setPageData] = useState(null);
     const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState([
         {
@@ -99,17 +100,49 @@ function Index() {
             name: '唯',
         },
     ]);
+
+    const init = async () => {
+        const res = await HomeService.getHomeApi();
+        setPageData(res)
+        tabChange(0);
+    }
     useDidShow(() => {
         Taro.showShareMenu();
+        init();
         console.log(commonConfig);
     })
+    const [page, setPage] = useState(1)
+
     useReachBottom(() => {
-        console.log('doiddd');
+        tabChange(index, page + 1)
     });
 
-    const tabChange = async () => {
+    const [index, setIndex] = useState(0);
+    const [noMore, setNoMore] = useState(false);
 
+    const tabChange = async (i, _page) => {
+        if (!_page) setList([])
+        console.log(list, 'listlistlist');
+        if (_page && noMore && !list[0]) return
+        console.log(_page || 1);
+        const res = await ProductService.getProductListApi({ category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id, page: _page || 1 });
+        index !== i && setIndex(i);
+        if (_page) {
+            if (!res.list[0]) {
+                setPage(_page + 1);
+                setNoMore(true);
+                showToast({ title: '没有更多了', icon: 'none' })
+            }
+            setList([...list, ...res.list])
+        } else {
+            if (!res.list[0]) setNoMore(true);
+            else setNoMore(false);
+            setList(res.list)
+            setPage(1);
+        }
+        // setList
     }
+
     const showSku = async () => {
         const res = await ProductService.getProductDataApi();
         setSkuData({ ...filter_data(res) })
@@ -127,7 +160,11 @@ function Index() {
             </View>
 
 
-            <Banner list={[]} w='100vw' className='index-banner' custom />
+            <Banner list={pageData?.top_banner?.list} w='100vw' className='index-banner' custom
+                render={
+                    (e) => <BlurImg mode='widthFix' className='img fc' src={e?.image} />
+                }
+            />
             {/* <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' /> */}
             {/* <Types list={types} /> */}
 
@@ -135,65 +172,57 @@ function Index() {
 
             {/* 秒杀 */}
             {/* <Seconds data={{}} /> */}
+            {
 
-            <Tabs
-                tag_list={[
-                    { title: '鲜花' },
-                    { title: '蛋糕' },
-                    { title: '咖啡' },
-                    { title: '奶茶' },
-                    { title: '果汁' },
-                    { title: '可乐' },
-                    { title: '香饽饽' },
-                ]}
-                onChange={tabChange}
-                defaultIndex='2'
-                padding='60'
-                isSticy
-                notChildScroll
-                request={{
-                    // params: {
-                    //     page: 1,
-                    //     // brand: tabsList[index]
-                    //     brand: '',
-                    // },
-                    // http: TestService.getTestList
-                }}
-                init={(_newList) => {
-                    // setContent(_newList?.list)
-                }}
-            >
-                <View className='pro-list fb'>
-                    {
-                        list.map((e, i) => {
-                            return (
-                                <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {})}>
-                                    <BlurImg className='img' mode='heightFix' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
-                                    {/* <Image mode='heightFix' /> */}
-                                    <View className='p-name'>
-                                        {e.product_name}
-                                    </View>
-                                    <View className='price'>
-                                        <Text style={{ fontWeight: 'bold' }}>
-                                            <Text className='_money'>¥</Text>7888
-                                        </Text>
-                                    </View>
-                                    <View className='foot'>
-                                        <View className='vip-price fc'>
-                                            会员价格 <Text className='_money'>¥</Text>120
+                <Tabs
+                    tag_list={pageData?.category?.list ? [{ title: '全部' }, ...pageData?.category?.list?.map(e => { return { title: e.category_name } })] : [{ title: '全部' },]}
+                    onChange={tabChange}
+                    defaultIndex='0'
+                    padding='60'
+                    isSticy
+                    notChildScroll
+                // request={}
+                // init={(_newList) => {
+                //     // setContent(_newList?.list)
+                // }}
+                >
+                    <View className='pro-list fb'>
+                        {
+                            list[0] ? list.map((e, i) => {
+                                return (
+                                    <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {})}>
+                                        <BlurImg className='img' mode='heightFix' src={e.cover} />
+                                        {/* <Image mode='heightFix' /> */}
+                                        <View className='p-name'>
+                                            {e.product_name}
                                         </View>
-                                        <View className='show-sku' onClick={(event) => {
-                                            event.stopPropagation();
-                                            showSku()
-                                        }}
-                                        >+</View>
+                                        <View className='price'>
+                                            <Text style={{ fontWeight: 'bold' }}>
+                                                <Text className='_money'>¥</Text>{e.discount_price}
+                                            </Text>
+                                            <Text className='del'>
+                                                <Text className='_money'>¥</Text>{e.market_price}
+                                            </Text>
+                                        </View>
+                                        <View className='foot'>
+                                            <View className='vip-price fc'>
+                                                <Text className='_money'>¥</Text>{e.member_price}
+                                            </View>
+                                            <View className='show-sku' onClick={(event) => {
+                                                event.stopPropagation();
+                                                showSku()
+                                            }}
+                                            >+</View>
+                                        </View>
                                     </View>
-                                </View>
-                            )
-                        })
-                    }
-                </View>
-            </Tabs>
+                                )
+                            }) : <View className='fc'>
+                                暂无数据
+                            </View>
+                        }
+                    </View>
+                </Tabs>
+            }
 
             {/* sku弹框 */}
 
