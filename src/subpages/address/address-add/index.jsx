@@ -65,7 +65,7 @@ const AddAddress = () => {
                     </View>
                     <View className='tag'>
                         <Label>标签：</Label>
-                        <View className='flex'>
+                        <View className='flex tag_content'>
                             {
                                 ['家', '公司', '学校'].map(e => {
                                     return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
@@ -82,7 +82,7 @@ const AddAddress = () => {
                             console.log(res);
                         })
                     }} >
-                        <Label>地址</Label>
+                        <Label>地址：</Label>
                         <View className='picker'>
                             {
                                 (address?.name || address?.address) || '请选择地址'
@@ -100,7 +100,9 @@ const AddAddress = () => {
                         <Switch name='is_default' is_default={is_default} onChange={(e) => { setIs_default(e.detail.value); }} />
                     </View>
                 </View>
-                <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存</Button>
+                <View className='foot_btn'>
+                    <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存地址</Button>        
+                </View>
             </Form>
         </View>
     )

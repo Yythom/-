@@ -34,6 +34,7 @@ const AddressManage = () => {
 
     useDidShow(() => {
         if (getStorageSync('address_id')) {
+        console.log('address_id', getStorageSync('address_id'))
             setAddressid(getStorageSync('address_id'))
         }
         init();
@@ -96,7 +97,7 @@ const AddressManage = () => {
                                                     默认
                                                 </View>
                                             }
-                                            <Text className=''>{e.contact_name}</Text>
+                                            <Text className='name'>{e.contact_name}</Text>
                                         </View>
                                         <View className='phone'>{e.mobile}</View>
                                     </View>
@@ -127,7 +128,7 @@ const AddressManage = () => {
                                             编辑
                                         </View>
 
-                                        <View className='del'
+                                        <View className='del1'
                                             onClick={async (event) => {
                                                 event.stopPropagation();
                                                 showModal({
@@ -151,8 +152,11 @@ const AddressManage = () => {
                     })
                 }
             </View>
-            <View className='foot_btn' style={{ height: ` 100rpx` }} onClick={(event) => { event.stopPropagation(); navLinkTo('address/address-add/index') }}>
-                <View className='add'>添加新地址</View>
+            <View className='foot_btn' style={{ height: `110rpx` }} onClick={(event) => { event.stopPropagation(); navLinkTo('address/address-add/index') }}>
+                <View className='foot_content'>
+                    <View className='add_icon'>+</View>
+                    <View className='add'>添加新地址</View>
+                </View>
             </View>
         </View>
     )
