@@ -3,20 +3,24 @@
 .order_detail_wrap {
     background-color: #f3f3f3;
     height: 100vh;
+    width: 100vw;
     box-sizing: border-box;
     overflow-y: scroll;
+    overflow-x: hidden;
     align-items: center;
     justify-content: flex-start;
 
     .title-status {
         width: 100%;
-        height: 200px;
-        background-color: rgb(255, 199, 116);
-        box-sizing: border-box;
-        color: #fff;
-        font-size: 40px;
-        display: flex;
-        padding: 40px 20px 0 100px;
+        height: 103px;
+        font-size: 34px;
+        color: #333;
+
+        .msg {}
+
+        .desc {
+            font-size: 30px;
+        }
     }
 
     .square {
@@ -43,74 +47,101 @@
         }
     }
 
+    .line {
+        margin-top: -22px;
+        width: 734px;
+        height: 2px;
+        background: #DEDEDE;
+    }
+
     .card {
         height: auto;
-        margin-top: 34px;
-        width: 95%;
+        margin-top: 20px;
+        width: 100vw;
         box-sizing: border-box;
-        box-shadow: 0px 0px 10px 0px rgba(9, 44, 76, 0.1);
-        padding: 12px 16px;
-        border-radius: 20px;
+        padding: 25px 16px 25px 20px;
+        padding-top: 0;
         color: #444;
         background-color: #fff;
-        margin-bottom: 18px;
+        margin-bottom: 20px;
 
         .product_item {
             width: 100%;
-            height: 150px;
+            // height: 150px;
             display: flex;
             flex-shrink: 0;
             position: relative;
             font-size: 28px;
-            margin-top: 20px;
+            margin-bottom: 52px;
 
             .left {
                 border-radius: 20px;
-                width: 150px;
-                height: 150px;
-                margin-right: 20px;
+                width: 160px;
+                height: 160px;
+                margin-right: 15px;
                 overflow: hidden;
             }
 
             .right {
                 width: calc(100% - 170px);
-                height: 100%;
+                // height: 100%;
 
                 .desc {
-                    height: 100%;
-                    justify-content: space-around;
+                    // height: 100%;
+                    justify-content: flex-start;
                     margin-top: 0;
 
                     .product_name {
-                        color: #444;
-                        @include line(2)
+                        color: #333;
                     }
 
-                    .sku {
+                    ._sku {
+                        margin-top: 10px;
+                        margin-bottom: 13px;
                         font-size: 24px;
-                        color: rgb(155, 155, 155);
+                        color: #999;
                     }
                 }
 
                 .price-box {
                     align-items: flex-end;
-                    color: #999;
+                    color: #333;
+
+                    .number {
+                        font-size: 28px;
+                        margin-left: 35px;
+                    }
 
                     .price {
-                        font-size: 36px;
-
+                        font-weight: bold;
+                        font-size: 32px;
+                        color: #333;
                     }
                 }
             }
         }
 
         .order-desc {
-            margin-top: 30px;
-            font-size: 24px;
-            color: #888;
+            margin-top: 20px;
+            color: #333;
+
+            .line {
+                margin: 20px 0;
+            }
 
             .item {
-                height: 48px;
+                font-size: 28px;
+                height: 55px;
+
+                .price {
+                    font-weight: bold;
+                }
+
+                .right {
+                    .price {
+                        font-size: 36px;
+                    }
+                }
 
                 .copy {
                     color: rgb(39, 38, 36);
@@ -123,7 +154,9 @@
     }
 
     .summary {
-        margin-top: 12px;
+        box-sizing: border-box;
+        padding: 25px 16px;
+        margin-top: 0;
 
         ._title {
             font-size: 32px;
@@ -131,9 +164,14 @@
         }
 
         .item {
-            height: 40px;
-            color: #999;
-            font-size: 24px;
+            // height: 40px;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 28px;
+
+            &:nth-last-of-type(1) {
+                margin-bottom: 0 !important;
+            }
         }
     }
 
@@ -150,14 +188,23 @@
 
         .btns {
             justify-content: flex-end;
+            color: #333;
 
             .btn {
-                padding: 0 30px;
-                height: 60px;
-                border-radius: 40px;
-                margin-left: 10px;
+                margin-left: 15px;
+                width: 150px;
+                height: 58px;
                 font-size: 26px;
-                border: #eee 2px solid;
+                background: #FFFFFF;
+                border-radius: 29px;
+                border: 2px solid #333333;
+            }
+
+            .act-btn {
+                color: #fff;
+                background: #EF5F00;
+                border: 2px solid #EF5F00;
+                border-radius: 29px;
             }
         }
     }

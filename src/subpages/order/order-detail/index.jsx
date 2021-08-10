@@ -25,7 +25,7 @@ const Index = () => {
         },
         products: [
             {
-                product_name: '商品1',
+                product_name: '特色油门小龙虾-武汉飞飞下庄联名款名款名',
                 sale_price: '7999',
                 number: '2',
                 spec: '黑色；m；64G',
@@ -60,11 +60,14 @@ const Index = () => {
                 </View>
             </View>
 
-            {/* <View className='title-status'>{pageData?.status_message}</View> */}
 
 
 
             <View className='card'>
+                <View className='title-status fb'>
+                    <Text className='msg'>{pageData?.status_message}</Text>
+                    <Text className='desc'>商家配送</Text>
+                </View>
                 {
                     pageData?.products.map(product => {
                         return (
@@ -79,36 +82,47 @@ const Index = () => {
                                         <View className='product_name'>
                                             {product.product_name}
                                         </View>
-                                        <View className='sku'>{product.spec}</View>
-                                    </View>
-                                    <View className='price-box fd'>
-                                        <View className='number'>  x{product.number}</View>
-                                        <View className='price'><Text className='_money'>¥</Text>{product.sale_price}</View>
+                                        <View className='_sku'>{product.spec}</View>
+
+                                        <View className='price-box fb'>
+                                            <View className='flex'>
+                                                <View className='price'><Text className='_money'>¥</Text>{product.sale_price}</View>
+                                                <Text className='number'> x{product.number}</Text>
+                                            </View>
+                                            <View className='price'><Text className='_money'>¥</Text>{product.sale_price}</View>
+                                        </View>
+                                        <View className='del'><Text className='_money'>¥</Text>{product.sale_price}</View>
                                     </View>
                                 </View>
-
                             </View>
                         )
                     })
                 }
+                <View className='line' />
                 <View className='order-desc'>
-                    <View className='item fb'>
-                        订单编号：{pageData?.order_id}
-                        <View className='copy' onClick={() => { setClipboardData({ data: pageData?.order_id, }) }}>
-                            复制
-                        </View>
+                    <View className='item fb'>包装费：<Text className='price'>¥{111}</Text> </View>
+                    <View className='item fb'>配送费：<Text className='price'>¥{222}</Text> </View>
+                    <View className='item fb'>备注：<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
+                    <View className='line' />
+                    <View className='item fb'>订单合计<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
+                    <View className='item fb' style={{ marginTop: '10rpx' }}>
+                        <View className='left'></View>
+                        <View className='right'>实付金额
+                            &nbsp;<Text className='price'><Text className='_money'>¥</Text>{pageData?.price}</Text></View>
                     </View>
-                    <View className='item fb'>下单时间：{pageData?.pay_at} </View>
-                    <View className='item fb'>配送时间：{pageData?.delivery_at} </View>
                 </View>
             </View>
 
             <View className='summary card'>
-                <View className='_title'>订单合计</View>
+
                 <View className='item fb'>
-                    <View className='right'>商品总价</View>
-                    <View className='left'><Text className='_money'>¥</Text>{pageData?.price}</View>
+                    订单编号：
+                    <View className='copy' onClick={() => { setClipboardData({ data: pageData?.order_id, }) }}>
+                        {pageData?.order_id} &nbsp;复制
+                    </View>
                 </View>
+                <View className='item fb'>下单时间： <Text >{pageData?.pay_at}</Text></View>
+                <View className='item fb'>配送时间： <Text >{pageData?.delivery_at}</Text> </View>
             </View>
 
             <View className='footer'>
@@ -119,7 +133,7 @@ const Index = () => {
                     }}
                     >确认收货</View>}
                     <View className='btn fc'>取消订单</View>
-                    <View className='btn fc'>去付款</View>
+                    <View className='btn act-btn fc'>去付款</View>
                 </View>
             </View>
         </View>
