@@ -10,6 +10,7 @@ import { actions } from '@/store/userSlice';
 import UpImg from '@/components/upload-img/Uploadimg';
 import { isPhoneNumber } from '@/common/public';
 import './index.scss'
+import UserService from '@/services/user';
 
 const Index = () => {
     const dispath = useDispatch();
@@ -29,6 +30,12 @@ const Index = () => {
             default:
                 break;
         }
+        const _res = await UserService.editUserInfoApi({
+            avatar: _info?.avatar,
+            nickname: _info?.nickname,
+            mobile: _info.mobile,
+        });
+
         dispath(actions.userUpdata(_info))
     }
 
@@ -44,11 +51,10 @@ const Index = () => {
                 <Avatar style={{ background: '#fff' }} size={200} />
                 <UpImg
                     onOk={(url) => {
-                        dispath(actions.setAvatar(url))
+                        // dispath(actions.setAvatar(url))
                     }}
                     className='theme-color'
                     style={{ background: '#fff', fontSize: '28rpx' }}
-                    btn_text='更换头像'
                 />
             </View>
 
