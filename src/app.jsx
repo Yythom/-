@@ -10,6 +10,7 @@ import 'dayjs/locale/zh-cn';
 import store from '../store';
 import '../assets/icon.css';
 import './app.scss';
+import { setEnableDebug } from '@tarojs/taro';
 
 dayjs.locale('zh-cn');
 const InitStore = memo(() => {
@@ -35,6 +36,10 @@ class App extends Component {
         //     maxBreadcrumbs: 30
         // });
         // initErrorNet(breadcrumb);
+
+        if (process.env.NODE_ENV === 'development') setEnableDebug({
+            enableDebug: true
+        })
 
     }
     componentDidShow() {

@@ -15,17 +15,21 @@ const Index = () => {
     const dispatch = useDispatch();
     const userStore = useSelector(store => store.userStore, shallowEqual);
     const { userInfo } = userStore;
-    const [flag, setFLag] = useState(false);
+    const [flag, setFLag] = useState(true);
 
-    console.log(userInfo);
-    useDidShow(() => {
+    const init = async (refresh) => {
+        if (refresh) setFLag(true)
         if (getStorageSync('relogin')) {
             dispatch(userActions.clear());
             showToast({ title: getStorageSync('relogin'), icon: 'none' });
             removeStorageSync('relogin')
         } else if (getStorageSync('token')) {
-            dispatch(userActions.userUpdata());
+            dispatch(userActions.userUpdata(setFLag));
         }
+    }
+
+    useDidShow(() => {
+        init()
     })
 
     return (
@@ -33,10 +37,11 @@ const Index = () => {
             refresherEnabled
             refresherTriggered={flag}
             onRefresherRefresh={() => {
-                setFLag(true)
-                setTimeout(() => {
-                    setFLag(false)
-                }, 1000);
+                // setFLag(true)
+                init('1');
+                // setTimeout(() => {
+                //     setFLag(false)
+                // }, 1000);
             }}
             scrollY
             style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)`, }}
