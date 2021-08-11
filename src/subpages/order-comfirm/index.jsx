@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
@@ -16,8 +16,8 @@ import ProductItem from './product-item/product-item';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
+    "shop_id": "string",
     "config": {
-        "shop_id": "string",
         "delivery_type": "integer",
         "pay_type": "integer",
         "pay_method": "integer",
@@ -34,7 +34,6 @@ const params = {  // 预下单数据结构
 // 
 const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
-    const [payType, setPayType] = useState(1) // 1 微信 2 余额
     // const [otherDat]
     const [pageData, setPageData] = useState(
         {
@@ -68,25 +67,49 @@ const Index = () => {
             "select_coupon": [],
         }
     );
-    const [pre, setPre] = useState(null);
+    const [pre, setPre] = useState(null); // 预下单商品
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
 
     /* 信息配置 */
-    const [address, setAddress] = useState(null);
-    const [couponShow, setCouponShow] = useState(false);
-    const [vpShow, setVpShow] = useState(false);
-    const [date, setDate] = useState({
+    const [address, setAddress] = useState(null); // 收货地址
+    const [payType, setPayType] = useState(1) // 1 微信 2 余额
+
+    const [date, setDate] = useState({ // 指定时间
         show: false,
         value: ''
     }); // 送达时间
-    const [deliveryMethod, setDeliveryMethod] = useState('2') // 送货方式
-    const [modal, setModal] = useState(false);
-    const [msg, setMsg] = useState({
+    const [deliveryMethod, setDeliveryMethod] = useState(0) // 送货方式
+    const [msg, setMsg] = useState({  // 留言
         oldmsg: '',
         msg: ''
     });
 
+    // 预下单数据结构
+    const params = useMemo(() => {
+        return {
+            ...pre,
+            // "shop_id": "1",
+            "config": {
+                "delivery_type": deliveryMethod,
+                "pay_type": "integer",
+                "pay_method": "integer",
+                "pay_channel": "integer",
+                "user_addressId": address?.address_id,
+            },
+            // "sku_items": [
+            //     {
+            //         "sku_id": "string",
+            //         "count": "integer"
+            //     }
+            // ]
+        }
+
+    }, [address, payType, date, deliveryMethod, msg]);
+
+    const [modal, setModal] = useState(false);
+    const [couponShow, setCouponShow] = useState(false);
+    const [vpShow, setVpShow] = useState(false);
 
     const init = async () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
@@ -118,8 +141,8 @@ const Index = () => {
             <ScrollView className='scrollview' scrollY >
                 <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
                 <View className='deliveryMethod flex'>
-                    <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>配送</View>
-                    <View className={`tab fc ${deliveryMethod == 2 && 'act-tab'}`} onClick={() => setDeliveryMethod(2)}>自提</View>
+                    <View className={`tab fc ${deliveryMethod == 0 && 'act-tab'}`} onClick={() => setDeliveryMethod(0)}>配送</View>
+                    <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>自提</View>
                 </View>
                 <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
