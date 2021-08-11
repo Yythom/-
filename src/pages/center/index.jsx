@@ -1,15 +1,17 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, removeStorageSync, setBackgroundColor, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, reLaunch, removeStorageSync, setBackgroundColor, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import WithUserVerify from '@/components/auth/UserVerify';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Avatar from '@/components/avatar/Avatar';
 import { hideMobile } from '@/common/public';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { actions as userActions } from '@/store/userSlice'
+import { actions as userActions } from '@/store/userSlice';
+import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import NavBar from '@/components/navbar/NavBar';
 import './index.scss';
+import OrderType from './compont/order';
 
 const Index = () => {
     const dispatch = useDispatch();
@@ -18,6 +20,7 @@ const Index = () => {
     const [flag, setFLag] = useState(true);
 
     const init = async (refresh) => {
+        dispatch(tabActions.changetab(3));
         if (refresh) setFLag(true)
         if (getStorageSync('relogin')) {
             dispatch(userActions.clear());
@@ -67,7 +70,7 @@ const Index = () => {
                     </View>
                 </WithUserVerify>
             </View>
-
+            {/* <View className='' onClick={() => reLaunch({ url: '/pages/center/index' })} >重载入页面</View> */}
             <View className='handle'>
                 {/* 钱包 */}
                 {/* <View className='wallet fb wallet-common ' >
@@ -90,29 +93,7 @@ const Index = () => {
                 </View> */}
 
                 {/* 订单 */}
-                <View className='order-card fb wallet-common ' style={{ marginTop: '0' }} onClick={() => navLinkTo('order/order-list/index', {})} >
-                    {/* <View className='title flex'>我的服务</View> */}
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>待付款</View>
-                    </View>
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>待发货</View>
-                    </View>
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>已收货</View>
-                    </View>
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>待取货</View>
-                    </View>
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>已完成</View>
-                    </View>
-                </View>
+                <OrderType />
 
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
                     <View className='flex'>

@@ -1,5 +1,5 @@
 import {
-  setStorageSync, showToast, login, getStorageSync, getCurrentPages,
+  setStorageSync, showToast, login, getStorageSync, getCurrentPages, reLaunch,
 } from '@tarojs/taro';
 import { logInterceptor, timeoutInterceptor } from './interceptor/interceptors';
 import http from './index';
@@ -21,6 +21,10 @@ const customInterceptor = (chain) => {
     // TODO:当code为0，表示请求成功
     if (code != '0') {
       if (msg) {
+        if (msg.indexOf('登入')) {
+          reLaunch({ url: '/pages/center/index' });
+          setStorageSync('relogin', true)
+        }
         console.log(msg);
         showToast({
           title: msg,

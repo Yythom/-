@@ -59,7 +59,6 @@ const Index = (props) => { // 不能有padding父元素
                 if (res) {
                     setParentLeft(res.left);
                     setComponentWidth(res.width);
-                    console.log('tab__res==>', res);
                 }
             });
             query.selectAll(`.${childrenClass}`).fields({ rect: true, size: true }, data => {
@@ -155,13 +154,20 @@ const Index = (props) => { // 不能有padding父元素
     }
 
     useEffect(() => {
-        initTabsFn()
-    }, [])
+        if (tag_list[0]) {
+            console.log(' ----- tag_list 改变重新设置tab', tag_list);
+            initTabsFn()
+        }
+    }, [tag_list])
+
+    // useEffect(() => {
+    //     setNavInfos([]);
+    // }, [initTabs])
 
     useEffect(() => {
-        if (navInfos[0]) {
+        if (navInfos[0] && tag_list[0]) {
             if (defaultIndex) {
-                taggleNav(defaultIndex);
+                taggleNav(defaultIndex, navInfos);
                 initContentHeight(defaultIndex);
                 setPage(1);
             }

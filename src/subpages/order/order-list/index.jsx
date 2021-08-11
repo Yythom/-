@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import Tabs from '@/components/tabs/Tabs';
 import './index.scss'
@@ -12,10 +12,16 @@ import { systemInfo } from '@/common/publicFunc';
 
 const tabsList = [
     { title: '全部', status: '' },
-    { title: '待支付', status: '1' },
+    { title: '待付款', status: '1' },
     { title: '待发货', status: '2' },
-    { title: '待收货', status: '3' },
-    { title: '待评价', status: '4' },
+    { title: '已发货', status: '3' },
+    { title: '已完成', status: '4' },
+]
+const tabs_use = [
+    { title: '全部', status: '' },
+    { title: '待付款', status: '1' },
+    { title: '待取货', status: '2' },
+    { title: '已完成', status: '4' },
 ]
 
 const Index = () => {
@@ -103,17 +109,23 @@ const Index = () => {
             ]
         }
     ]);
-    const [deliveryMethod, setDeliveryMethod] = useState(2); // 送货方式
     const [flag, setFLag] = useState(false);
 
     const [params, setParams] = useState({
         // page: 1,
-        deliveryMethod: '1',
+        delivery_type: query.delivery_type || 0, // 送货方式
         status: '1'
     })
+    const [defaultIndex, setDefaultIndex] = useState(query.defaultIndex || '0')
+    const [load, setload] = useState(false)
+
+    useEffect(() => {
+        tabChange(query.defaultIndex);
+    }, [])
 
     const tabChange = (i) => {
-        setParams({ ...params, status: tabsList[i].status })
+        if (params?.delivery_type != 1) setParams({ ...params, status: tabsList[i].status })
+        else setParams({ ...params, status: tabs_use[i].status });
     };
 
     useEffect(() => {
@@ -137,14 +149,24 @@ const Index = () => {
         >
             <NavBar back title='订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
             <View className='deliveryMethod flex'>
-                <View className={`tab fc ${params.deliveryMethod == 1 && 'act-tab'}`} onClick={() => { setParams({ ...params, deliveryMethod: 1 }); setTabInit(!tabinit) }}>配送</View>
-                <View className={`tab fc ${params.deliveryMethod == 2 && 'act-tab'}`} onClick={() => { setParams({ ...params, deliveryMethod: 2 }); setTabInit(!tabinit) }}>自提</View>
+                <View className={`tab fc ${params.delivery_type == 0 && 'act-tab'}`}
+                    onClick={() => {
+                        setParams({ ...params, delivery_type: 0 }); setTabInit(!tabinit); setDefaultIndex('0')
+                    }}
+                >
+                    配送</View>
+                <View className={`tab fc ${params.delivery_type == 1 && 'act-tab'}`}
+                    onClick={() => {
+                        setParams({ ...params, delivery_type: 1 }); setTabInit(!tabinit); setDefaultIndex('0')
+                    }}
+                >
+                    自提</View>
             </View>
             <Tabs
                 className='order_tab'
-                tag_list={tabsList}
+                tag_list={params?.delivery_type != 1 ? tabsList : tabs_use}
                 onChange={tabChange}
-                defaultIndex='0'
+                defaultIndex={defaultIndex}
                 // maxHeight={'300rpx'}
                 maxHeight={`calc(100vh - ${getStorageSync('navHeight') * 2}rpx - 204rpx - ${systemInfo.safeArea.top / 2}px)`}
                 // scalc='1.5'

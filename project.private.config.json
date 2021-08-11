@@ -89,6 +89,12 @@
           "pathName": "subpages/search/index",
           "query": "__key_=16281564289201",
           "scene": null
+        },
+        {
+          "name": "subpages/order/order-list/index",
+          "pathName": "subpages/order/order-list/index",
+          "query": "defaultIndex=3&delivery_type=1",
+          "scene": null
         }
       ]
     }
