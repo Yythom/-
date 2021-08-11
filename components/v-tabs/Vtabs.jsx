@@ -11,7 +11,7 @@ const Vtabs = memo(({
     height, // vtab高度
     className,
     windowTabsLength, // 左侧列表显示的tabs数量
-    scrollTo = 0,
+    // scrollTo = 0,
     isScroll,
 }) => {
     const query = createSelectorQuery();
@@ -75,10 +75,10 @@ const Vtabs = memo(({
         setScrollTop(scrollToTop);
     }
 
-    const _onChange = (i) => {
+    const _onChange = (i, is_btn) => {
         move(i);
         setSwiperIndex(i);
-        onChange(i)
+        !is_btn && onChange(i)
     }
 
     return (
@@ -88,7 +88,7 @@ const Vtabs = memo(({
                 scrollWithAnimation
                 scrollY
                 className='left_wrap'
-                scrollIntoView={scrollTop}
+            // scrollIntoView={scrollTop}
             // scrollTop={scrollTop}
             >
                 <View className='parentClass' style={{ position: 'relative', height: '100%' }}>
@@ -96,7 +96,7 @@ const Vtabs = memo(({
                         list[0] && list.map((e, i) => {
                             return (
                                 <View
-                                    onClick={() => { _onChange(i) }}
+                                    onClick={() => { _onChange(i, true) }}
                                     className={`tabs_item childrenClass ${i == swiperIndex && 'tabs_act_item theme-color '}`}
                                     key={'tab' + i}
                                     style={{ height: (100 / windowTabsLength) + '%' }}>

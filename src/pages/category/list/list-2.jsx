@@ -31,41 +31,45 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
             setShow(1);
         }, 100);
     }
-
     return twoCate?.map((cate, i) => {
         return (
             <Fragment key={cate?.category_id + 'cate-title' + i}>
                 {/* 迭代 */}
                 <View
-                    style={{ position: 'sticky', top: '0', zIndex: '1', background: 'pink' }}
-                    className='nodes' id={`catetitle${i}`}
+                    style={{ position: 'sticky', top: '0', height: '100rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '16rpx' }}
+                    className='nodes flex' id={`catetitle${i}`}
                 >
                     {cate.category_name}
                 </View>
                 {
-                    cate?.product?.map(product => {
+                    cate?.products?.map(product => {
                         return (
                             /* 迭代样式 */
                             // <View className='fd item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
                             //     <BlurImg className='img' src={product.image} />
                             //     <View className='text'>{product.name}</View>
                             // </View>
-                            <View className='flex item' onClick={() => navLinkTo('product-list/index', {})} key={e.child_cate + product.name + '_product'}>
-                                <Image className='img' mode='aspectFill' src={product.image}></Image>
+                            <View className='flex item' onClick={() => navLinkTo('product-list/index', {})} key={cate.category_id + product.product_name + '_product'}>
+                                <Image className='img' mode='aspectFill' src={product.cover}></Image>
                                 <View className='content fd'>
-                                    <View className='name'>{product.name}</View>
-                                    <View className='desc flex'>
-                                        <View className='desc-item fc'>20元券</View>
-                                        <View className='desc-item fc'>补贴¥0.31</View>
-                                    </View>
+                                    <View className='name'>{product.product_name}</View>
+
+                                    {product.tag && <View className='desc flex'>
+                                        {
+                                            product.tag.map(tag => {
+                                                return (<View className='desc-item fc' key={tag}>20元券</View>)
+                                            })
+                                        }
+                                    </View>}
                                     <View className='price-box fb'>
                                         <View className='price'>
-                                            <Text className='_money'>¥</Text>59.90
+                                            <View className=''> <Text className='_money'>¥</Text>{product.discount_price}</View>
+                                            <View className='del'> <Text className='_money'>¥</Text>{product.market_price}</View>
                                         </View>
-                                        <View className='sale'>月售{12877}</View>
+                                        <View className='sale'>月售{'TODO:'}</View>
                                     </View>
                                     <View className='foot fb'>
-                                        <View className='vip-price fc'>会员价格 ¥1239</View>
+                                        <View className='vip-price fc'>¥{product.member_price}</View>
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
                                             showSku()
@@ -100,7 +104,7 @@ const ChildCate = memo(({ twoCate, child_cate, onClick }) => {
 
 function VtabList({
     twoCate,
-    list,
+    // list,
     skushow,
     setskuShow,
     setSkuData,
@@ -109,8 +113,9 @@ function VtabList({
     const [child_cate, setchild_cate] = useState(null);
     const [arr, setArr] = useState([])
 
-    function autoInfos() {
-        let heightArray = []
+    function autoInfos(delay = 600) {
+        let heightArray = [];
+        setScrollTo(0);
         setTimeout(() => {
             let query = createSelectorQuery()//创建节点查询器
             query.selectAll('.nodes').boundingClientRect(function (rect) {
@@ -119,13 +124,18 @@ function VtabList({
                 })
                 setArr(heightArray);
             }).exec()
-        }, 1000);
+        }, delay);
     }
 
     useEffect(() => {
-        autoInfos();
-    }, [list])
-
+        if (twoCate) {
+            if (twoCate[0]) {
+                autoInfos(400);
+            } else {
+                autoInfos();
+            }
+        }
+    }, [twoCate])
 
     const scroll = (e) => {
         if (arr[0]) {
@@ -134,13 +144,14 @@ function VtabList({
             let scrollTop = e.detail.scrollTop;
             arr.forEach((el, index) => {
                 let top = el - initTop
-                if (top - scrollTop < 60) {
+                if (top - scrollTop < 40) {
                     // console.log(index, 'index');
                     // if(i>index)
                     indexArr.push(index)
                 }
             })
-            setchild_cate(list?.child[indexArr[indexArr.length - 1]]);
+            // selectChild(twoCate[indexArr[indexArr.length - 1]], indexArr.length - 1)
+            setchild_cate(twoCate[indexArr[indexArr.length - 1]]);
         }
 
         // console.log(;
@@ -148,12 +159,15 @@ function VtabList({
 
     // 展开子分类
     const [show, setShow] = useState(false);
-    const [scrollTo, setScrollTo] = useState('');
+    const [scrollTo, setScrollTo] = useState(0);
+    const [i, setI] = useState(2);
 
     const selectChild = async (item, index) => {
-        console.log(scrollTo, 'scrollTo');
-        console.log(arr, 'arr');
-        setScrollTo(arr[index] - arr[0] > 0 ? arr[index] - arr[0] + 0.0001 : scrollTo - 0.00001)
+        console.log(arr[index] - arr[0], scrollTo, 'scrollTo');
+        setI(i - 1);
+        let top = arr[index] - arr[0] + 0.0001
+        if (scrollTo == top) top = scrollTo + 0.0001
+        setScrollTo(top);
         setchild_cate(item);
     };
 
@@ -163,19 +177,20 @@ function VtabList({
                 {show && <View className='mask' />}
                 <View className='child-tab flex' >
                     <View className='child-wrap flex'>
-                        <ChildCate twoCate={twoCate} list={list} child_cate={child_cate} onClick={selectChild} />
+                        <ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} />
                     </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
                         ^
                     </View>
                 </View>
-                {show && <View className='show-cate flex'><ChildCate list={list} child_cate={child_cate} onClick={selectChild} /></View>}
+                {show && <View className='show-cate flex'><ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} /></View>}
                 <ScrollView
                     scrollWithAnimation
                     scrollAnchoring
                     scrollY
                     scrollTop={scrollTo}
                     onScroll={scroll}
+                    i={i}
                     // scrollIntoView={scrollTo}
                     className='fd item-box '
                     style={{ height: `calc(100% - 88rpx)` }}

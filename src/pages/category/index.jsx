@@ -9,7 +9,7 @@ import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
-import CouponFloat from '@/components/page/coupon/coupon';
+// import CouponFloat from '@/components/page/coupon/coupon';
 import CouponList from '@/components/page/coupon/v-coupon';
 import VtabList from './list/list-2';
 import vtab_data from './tab';
@@ -57,9 +57,13 @@ function Index() {
                     height={`calc(${100}vh - ${80}rpx - ${120}rpx - ${220}rpx - ${98}rpx - ${systemInfo.safeArea.top / 2}px)`}
                     list={oneCate?.map(e => { return { category: e.category_name } })}
                     onChange={async (i) => {
+                        setTwoCate([]);
+                        if (oneCate[0]) {
+                            const tow_cate = await CateService.getChildrenList(oneCate[i].category_id);
+                            setTwoCate(tow_cate.list);
+                            console.log(tow_cate, 'tow_cate');
+                        }
 
-                        const tow_cate = await CateService.getChildrenList(oneCate[i].category_id);
-                        console.log(tow_cate, 'tow_cate');
 
                         // setList([]);
                         // setTimeout(() => {
@@ -76,7 +80,7 @@ function Index() {
                                 skushow={skushow}
                                 skuData={skuData}
                                 setSkuData={setSkuData}
-                                list={list}
+                            // list={list}
                             />
                         }
                     </View>
