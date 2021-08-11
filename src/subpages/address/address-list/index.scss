@@ -22,6 +22,7 @@
 
     .list_scroll {
         box-sizing: border-box;
+        border-top:  2px rgb(246, 246, 246) solid;
         // padding: 0 16px;
         // padding-top: 24px;
 
@@ -37,35 +38,46 @@
         .item {
             // border-radius: 20px;
             box-sizing: border-box;
-            padding: 24px 18px;
+            padding: 24px 16px;
             background-color: #fff;
             width: 100%;
             // margin-bottom: 20px;
             position: relative;
             border-bottom:  2px rgb(246, 246, 246) solid;
+
+            .iconfont-vertical {
+                position: absolute;
+                right: 16px;
+                top:50%;
+                transform: translateY(-50%);
+            }
+            
             .user_info {
                 margin-bottom: 24px;
 
-                .phone {
-                    font-size: 32px;
-                    font-weight: 600;
-                    height: 45px;
-                    line-height: 45px;
-                }
-
                 .name {
                     font-size: 32px;
-                    font-weight: 600;
-                    height: 45px;
-                    line-height: 45px;
+                    font-weight: bold;
                     margin-right: 20px;
                 }
-            }
+                .number {
 
-            .address_info {
-                font-size: 28px;
-                color: rgba(102, 102, 102, 1);
-                margin-top: 12px;
+                }
+             
+            }
+            .adress-content {
+                .address_info {
+                    font-size: 28px;
+                    color: rgba(102, 102, 102, 1);
+                    margin-top: 12px;
+                }
+    
+                .phone {
+                    font-size: 28px;
+                    color: rgba(102, 102, 102, 1);
+                    margin-top: 12px;
+                    margin-left: 28px;
+                }
             }
 
             .footer {

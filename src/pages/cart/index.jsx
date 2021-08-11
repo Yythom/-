@@ -94,6 +94,16 @@ const Index = () => {
     }
 
     const pay = async () => {
+        // {
+        //     "shop_id":"string",
+        //     "sku_items":[
+        //         {
+        //             "sku_id":"string",
+        //             "count":"integer"
+        //         }
+        //     ]
+        // }
+        // setStorageSync('pre-data',{})
         navLinkTo('order-comfirm/index', {})
     }
 

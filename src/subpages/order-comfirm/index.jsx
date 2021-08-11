@@ -120,10 +120,11 @@ const Index = () => {
                 setAddress(getStorageSync('address_id'))
             }
         } else {
-            if (getStorageSync('address_id')) {
-                console.log(getStorageSync('address_id'), 'adderss-id');
-                setAddress(getStorageSync('address_id'))
-            }
+            // req 地址
+            // if (getStorageSync('address_id')) {
+            //     console.log(getStorageSync('address_id'), 'adderss-id');
+            //     setAddress(getStorageSync('address_id'))
+            // }
         }
     }
 

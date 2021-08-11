@@ -21,16 +21,17 @@ const Address = memo(({
     const [modal, setModal] = useState(false);
 
     useEffect(() => {
-        if (method == 1) {
+        if (method == 0) {
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
                 setAddress(getStorageSync('address_id'))
             }
         } else {
-            if (getStorageSync('address_id')) {
-                console.log(getStorageSync('address_id'), 'adderss-id');
-                setAddress(getStorageSync('address_id'))
-            }
+            // req 地址
+            // if (getStorageSync('address_id')) {
+            //     console.log(getStorageSync('address_id'), 'adderss-id');
+            //     setAddress(getStorageSync('address_id'))
+            // }
         }
     }, [method]);
 
@@ -42,7 +43,7 @@ const Address = memo(({
         <Fragment>
             <View className='address_wrap fd' >
                 {
-                    method == 1
+                    method == 0
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
                                 <View className='flex'>
@@ -67,13 +68,13 @@ const Address = memo(({
                                     {msg?.oldmsg}<Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} />
                                 </View>
                             </View>
-                            <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
+                            {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
                                 <View className='left'>指定时间</View>
                                 <View className='right'>
                                     {date?.value}
                                     <Text className='iconfont icon-right'></Text>
                                 </View>
-                            </View>
+                            </View> */}
                         </View>
                 }
             </View>
