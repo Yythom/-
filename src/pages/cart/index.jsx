@@ -5,7 +5,7 @@ import { View, Text, Radio, ScrollView } from '@tarojs/components';
 
 // import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
 import isWeapp from '@/utils/env';
@@ -19,10 +19,14 @@ import { data2 } from '../../../hooks/sku-utils/data2';
 import CouponFloat from '@/components/page/coupon/coupon';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
+import { actions } from '@/store/userSlice';
 import CartService from '@/services/cart';
+import CateService from '@/services/cate';
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
+    const cartPrice = useSelector(e => e.userStore.cart_price, shallowEqual);
+    const dispatch = useDispatch();
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
     const [couponshow, setCouponshow] = useState(false)
@@ -56,68 +60,102 @@ const Index = () => {
 
     console.log(list, summaryShop);
 
+    const success = async (item, shop_id, cb) => {
+        const res = await CartService.change(
+            shop_id,
+            item.user_cart_id,
+            item.product_id,
+            item.sku.sku_id,
+            item.product_count
+        )
+        const detail_item = await CartService.detail(item.user_cart_id);
+        if (res && detail_item) {
+            cb(detail_item);
+        }
+    }
+
     const handle = async (index, shop_id, type, value) => {
         const newList = JSON.parse(JSON.stringify(list));
         const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
         let shop = newList[shopIndex]       // 查找到某个店铺
         let item = shop.products[index];  // 查找到某个店铺下的该商品
-
-        const res = await ProductService.getProductDataApi()
-
         switch (type) {
             case 'delete':
-                shop.products.splice(index, 1);
-                if (!shop.products[0]) newList.splice(shopIndex, 1);
+                const res = await CartService.delete([item.user_cart_id]);
+                if (res) {
+                    shop.products.splice(index, 1);
+                    if (!shop.products[0]) newList.splice(shopIndex, 1);
+                    onChange(newList);
+                }
                 break;
             case 'number':
-                item.product_count = value; // 修改当前商品选择状态
-                onChangeNumber(newList);
+                item.product_count = value; // 修改当前商品数量
+                success(item, shop_id, (newItem) => {
+                    item = newItem;
+                    onChange(newList);
+                })
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
-                console.log('check', newList);
+                onChange(newList);
                 break;
             case 'sku':
-
-                // item.product_count = value.product_count; // 修改当前商品选择状态
-                // item.sku = value; // 修改当前商品选择状态
-                // console.log('sku', newList);
+                item.product_count = value.product_count;  // 修改当前商品sku
+                item.sku.sku_id = value.sku_id;
+                success(item, shop_id, (newItem) => {
+                    item.sku = newItem.sku;
+                    item.product_count = newItem.product_count;
+                    setskuShow(false);
+                    onChange(newList)
+                })
                 break;
         }
-        type !== 'number' && onChange(newList)
     }
 
     const init = async () => {
         const res = await CartService.list();
-        if (res.list) setPageData([{ shop_id: '1', products: res.list }])
+        if (res.list[0]) setPageData([{ shop_id: '1', products: res.list }])
+        stopPullDownRefresh();
         console.log(res, 'res');
     }
 
     const pay = async () => {
-        // {
-        //     "shop_id":"string",
-        //     "sku_items":[
-        //         {
-        //             "sku_id":"string",
-        //             "count":"integer"
-        //         }
-        //     ]
-        // }
-        // setStorageSync('pre-data',{})
-        navLinkTo('order-comfirm/index', {})
+        if (!selectArr[0]) {
+            showToast({ title: '请选择商品', icon: 'none' });
+            return;
+        }
+        const pre_data = {
+            "shop_id": pageData[0].shop_id,
+            "sku_items": summaryShop[pageData[0].shop_id].products.map(e => {
+                return {
+                    "sku_id": `${e.sku_id}`,
+                    "count": e.product_count,
+                }
+            })
+            // [
+            //     {
+            //         "sku_id":"string",
+            //         "count":"integer"
+            //     }
+            // ]
+        }
+        console.log(pre_data, 'pre_data');
+        setStorageSync('pre-data', pre_data)
+        setTimeout(() => {
+            navLinkTo('order-comfirm/index', {})
+        }, 200);
     }
 
     const del = async () => {
-        console.log('11321');
-        console.log(selectArr);
+        const res = await CartService.delete(selectArr.map(e => e.user_cart_id));
+        if (res) {
+            init();
+        }
     }
 
     const onChange = useCallback(async (newList) => {
-        setPageData(newList)
-    }, [list])
-
-    const onChangeNumber = useCallback(async (newList) => {
-        setPageData(newList)
+        setPageData(newList);
+        dispatch(actions.upcart_price());
     }, [list])
 
     const [sku_index, setSku_index] = useState({
@@ -156,14 +194,33 @@ const Index = () => {
     usePullDownRefresh(() => {
         console.log('刷新');
         init();
-        ///
-        setTimeout(() => {
-            stopPullDownRefresh();
-        }, 1000);
     });
-    useEffect(() => {
-        init();
-    }, [])
+
+    useDidShow(() => {
+        if (pageData[0]) {
+            let length = 0;
+            let length_res = 0; // 服务器条目
+
+            const length_arr = list.map(e => e.products.length);
+            length_arr.forEach(e => length += e);
+
+            CartService.list().then(res => {
+                if (res.list[0]) {
+                    length_res = res.list.length
+                    // const length_arr = list.map(e => e.products.length);
+                    // length_arr.forEach(e => length += e);
+                }
+                console.log(length, length_res);
+                if (length !== length_res) init();
+            })
+        } else {
+            init();
+        }
+    })
+
+    // useEffect(() => {
+    //     init();
+    // }, [])
 
 
     return (
@@ -172,18 +229,20 @@ const Index = () => {
                 <View className='cart-title fb' style={{ top: 0 + 'px' }}>
                     <View className='total'>支付成功生成取货码，尺码到店取货</View>
                     <View className='header_edit flex' >
-                        <View className='price' onClick={() => setCouponshow(true)} >领券</View>
+                        {/* <View className='price' onClick={() => setCouponshow(true)} >领券</View> */}
                         {
                             !edit ?
                                 <View className='fc' onClick={() => { setEdit(!edit) }} >
-                                    <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 管理</View>
+                                    {/* <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> */}
+                                    管理
+                                </View>
                                 : <View className='fc' onClick={() => { setEdit(!edit) }} ><Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 完成</View>
                         }
                     </View>
                 </View>
                 <View className='list' >
-                    {
-                        pageData?.map((e, i) =>
+                    {pageData[0] ?
+                        pageData.map((e, i) =>
                             <View className='shop_wrap' key={e.shop_id}>
                                 {/* <View className='shopname flex'  style={{ height: '80rpx' }} >
                                     <Radio className='radio' color='#eb472b' checked={summaryShop[e.shop_id]?.checked} onClick={() => {
@@ -212,7 +271,9 @@ const Index = () => {
                                     )
                                 }
                             </View>
-                        )
+                        ) : <View className='fc'>
+                            暂无购物车
+                        </View>
 
                     }
                 </View>
@@ -228,8 +289,8 @@ const Index = () => {
                             });
                             setPageData(newList);
                         }}>
-                            <Radio className='radio' color='#eb472b' checked={isAll} />
-                            {!isAll ? "全选" : "全不选"}
+                            <Radio className='radio' color='#eb472b' checked={pageData[0] ? isAll : false} />
+                            {!isAll ? "全选" : (pageData[0] ? "全不选" : '全选')}
                         </View>
 
                         <View className='p_wrap fc'>

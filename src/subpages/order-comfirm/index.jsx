@@ -86,7 +86,7 @@ const Index = () => {
     });
 
     // 预下单数据结构
-    const params = useMemo(() => {
+    const PreData = useMemo(() => {
         return {
             ...pre,
             // "shop_id": "1",
@@ -105,7 +105,9 @@ const Index = () => {
             // ]
         }
 
-    }, [address, payType, date, deliveryMethod, msg]);
+    }, [address, payType, date, deliveryMethod, msg, pre]);
+
+    console.log(PreData, 'params 下单数据');
 
     const [modal, setModal] = useState(false);
     const [couponShow, setCouponShow] = useState(false);
@@ -113,19 +115,6 @@ const Index = () => {
 
     const init = async () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
-        // else return
-        if (deliveryMethod == 0) {
-            if (getStorageSync('address_id')) {
-                console.log(getStorageSync('address_id'), 'adderss-id');
-                setAddress(getStorageSync('address_id'))
-            }
-        } else {
-            // req 地址
-            // if (getStorageSync('address_id')) {
-            //     console.log(getStorageSync('address_id'), 'adderss-id');
-            //     setAddress(getStorageSync('address_id'))
-            // }
-        }
     }
 
     useDidShow(() => {

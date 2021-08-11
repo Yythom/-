@@ -4,7 +4,7 @@ import { Text, Textarea, View } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
 import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
-import { getStorageSync } from "@tarojs/taro";
+import { getStorageSync, useDidShow } from "@tarojs/taro";
 import './address.scss';
 
 const Address = memo(({
@@ -20,7 +20,7 @@ const Address = memo(({
     });
     const [modal, setModal] = useState(false);
 
-    useEffect(() => {
+    const init = async () => {
         if (method == 0) {
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
@@ -33,6 +33,14 @@ const Address = memo(({
             //     setAddress(getStorageSync('address_id'))
             // }
         }
+    }
+
+    useDidShow(() => {
+        init()
+    })
+
+    useEffect(() => {
+        if (address) init()
     }, [method]);
 
     if (!address) return <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >

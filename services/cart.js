@@ -35,9 +35,16 @@ class CartService {
         return res;
     }
 
+    // 详情
+    static async detail(user_cart_id = '') {
+        const res = await http.post('/user/cart/detail', { user_cart_id });
+        return res;
+    }
+
+
     // 删除
-    static async delete(cart_id = []) {
-        const res = await http.post('/hb/v1/shop/cart/remove', { cart_id });
+    static async delete(user_cart_id = []) {
+        const res = await http.post('/user/cart/remove', { user_cart_id });
         return res;
     }
 

@@ -29,8 +29,6 @@ export default memo(() => {
         return cartSlice.cart_price
     }, [cartSlice])
 
-    console.log(price, 'pricepricepriceprice');
-
     const [tabBars] = useState([
         {
             pagePath: '/pages/index/index',

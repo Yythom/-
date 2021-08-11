@@ -80,18 +80,23 @@ const Skuhooks = memo(({
     };
 
     const addCart = async () => {
+        // console.log(sku, 'sku');
+        // return
         if (sku) {
             const res = await CartService.add('1', product.product_id, `${sku.sku_id}`, num);
             if (res) {
                 console.log(res);
-                setShow(false)
+
+                setTimeout(() => {
+                    setShow(false)
+                    showToast({ title: `加入成功`, icon: 'none' })
+                }, 200);
             }
             dispatch(actions.upcart_price())
             console.log(sku, 'addcart');
         } else {
-            showToast({ title: `请选择${desc?.str}`, icon: 'none' })
+            showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
         }
-        if (!sku?.sku) return
     };
 
     return (
@@ -184,7 +189,13 @@ const Skuhooks = memo(({
                                 <View className='btn fc buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
-                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc, product_count: num, specListData }) }}>确定</View>}
+                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => {
+                                if (sku) {
+                                    onOk({ ...sku, ...desc, product_count: num, specListData })
+                                } else {
+                                    showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
+                                }
+                            }}>确定</View>}
 
 
                         </View>

@@ -5,6 +5,7 @@ import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
+import np from 'number-precision'
 import Move from './MoveSquare/move';
 
 
@@ -16,7 +17,6 @@ const ProductItem = memo(({
     showSku = Function.prototype,
     shop_id,
 }) => {
-    console.log(product);
     return (
         <Move value={80} padding={0} onClick={() => { handle(index, shop_id, 'delete') }}  >
             <View className='card flex' >
@@ -44,15 +44,15 @@ const ProductItem = memo(({
                         </View>
                         <View className=' fb'>
                             <View className='flex'>
-                                <Text className='price'><Text className='_money'>¥</Text>{product?.sku.discount_price}</Text>
-                                <Text className='del'><Text className='_money'>¥</Text>{product?.sku.market_price}</Text>
+                                <Text className='price'><Text className='_money'>¥</Text>{np.times(product?.sku.discount_price, 0.01)}</Text>
+                                <Text className='del'><Text className='_money'>¥</Text>{np.times(product?.sku.market_price, 0.01)}</Text>
                             </View>
                         </View>
                         <View className='p-num fb'>
                             {
                                 product?.isVip == 1
-                                    ? <View className='vip-price-act'>{product?.sku.market_price}</View>
-                                    : <View className='vip-price'>¥{product?.sku.market_price}</View>
+                                    ? <View className='vip-price-act'>{np.times(product?.sku.market_price, 0.01)}</View>
+                                    : <View className='vip-price'>¥{np.times(product?.sku.market_price, 0.01)}</View>
                             }
 
                             <HandleInput
