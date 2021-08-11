@@ -1,3 +1,4 @@
+import { hideLoading } from "@tarojs/taro";
 import { useEffect, useMemo, useState } from "react";
 import {
     combInFlags,
@@ -15,7 +16,7 @@ import {
 let specListData = [];
 let skuResult = [];
 let specList = [];
-const useSku = (data) => {
+const useSku = (data, show, default_sku = []) => {
     // const [skuResult, setskuResult] = useState(null); // 所有sku组合数组
     // const [specList, setspecList] = useState([]); // 页面渲染列表
     const [filterStr, setFilterStr] = useState(''); // 剩余选择的描述文字
@@ -30,12 +31,24 @@ const useSku = (data) => {
 
     useEffect(() => {
         if (data) {
+            setload(false)
             console.log('重新初始化');
             option.clear();
             option.init(data)
         }
     }, [data]);
 
+    useEffect(() => {
+        if (load) {
+            if (default_sku[0]) {
+                // 默认选中
+                default_sku.forEach((item, index) => {
+                    option.handleSpecAttr(item, index);
+                })
+            }
+            console.log('挂载完成');
+        }
+    }, [load])
 
     const option = useMemo(() => {
         const clear = () => {
@@ -51,7 +64,7 @@ const useSku = (data) => {
             specList = [];
             specListData = [];
             // setSpecListData([]);
-            setload(false);
+            // setload(false);
             const newskuResult = {}
             const skuKeys = Object.keys(skuList);
             skuKeys.forEach(skuKey => {
@@ -70,9 +83,9 @@ const useSku = (data) => {
             // setspecList(skuSpec);
             specList = skuSpec
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
-            // setTimeout(() => {
-            setload(true);
-            // }, 1000);
+            setTimeout(() => {
+                setload(true);
+            }, 200);
         }
 
         function handleSpecAttr(item, index) { // sku选择
@@ -93,6 +106,7 @@ const useSku = (data) => {
             // list && setSpecListData(list);
             specListData = list
             const _sku = getSelectObj(skuResult, list, specList);
+            // console.log(_sku, '_sku_sku_sku_sku');
             const { price, desc, member_price, discount_price } = transPrice(skuResult, specListData);
             setSku({
                 sku: _sku,

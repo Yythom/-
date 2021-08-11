@@ -9,6 +9,7 @@ import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
+import CartService from '@/services/cart';
 
 const Skuhooks = memo(({
     bottom = Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2,
@@ -24,10 +25,10 @@ const Skuhooks = memo(({
     product,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
-    const [option, load, { sku, desc }, specList, setSku] = useSku(product);
+    const [option, load, { sku, desc }, specList, setSku] = useSku(product, show, default_sku);
 
     useEffect(() => {
-        console.log(sku, desc);
+        // console.log(sku, desc);
         onChange({ sku, desc })
     }, [sku, desc]);
 
@@ -49,64 +50,43 @@ const Skuhooks = memo(({
                     },
                 })
             }
-
-            if (default_sku[0]) {
-                console.log(default_sku, 'default_sku');
-                // 默认选中
-                default_sku.forEach((item, index) => {
-                    console.log(item, index, 'index');
-                    // if (index == 0) {
-                    option.handleSpecAttr(item, index)
-                    // option.handleSpecAttr(
-                    //     {
-                    //         "value_id": "282335091278254081",
-                    //         "spec_id": "282335091278254080",
-                    //         "value": "40"
-                    //     } // 选中的item
-                    //     , 0  // 对应第几行的规格 
-                    // )
-
-
-                    // } else if (index == 1) {
-                    //     option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
-                    // } else if (index == 2) {
-                    //     option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
-                    // }
-                })
-            }
             hideLoading();
         }
     }, [load]);
-    useEffect(() => {
-        if (show && !load) showLoading();
-    }, [show])
+
+    // useEffect(() => {
+    //     if (show && !load) showLoading();
+    // }, [show])
 
     // 预下单
     const preOrder = () => {
         if (!sku?.sku) return
         let pre = {
-            pre_order: {
-                product: [
-                    {
-                        product_id: product.product_id,
-                        sku_id: sku.sku_id,
-                        promotion_id: sku?.activity ? '0' : sku.promotion_id,
-                        number: num
-                    },
-                ]
-            },
+            "shop_id": "string",
+            "sku_items": [
+                {
+                    "sku_id": "string",
+                    "count": "integer"
+                }
+            ]
         };
-        setStorageSync('pre-data', pre.pre_order);
+        setStorageSync('pre-data', pre);
         navLinkTo('order-comfirm/index', {});
     };
 
-    const addCart = () => {
+    const addCart = async () => {
         if (sku) {
-            console.log(sku, 'addcart');
+            const add = {
+                product_id: product.product_id,
+                sku_id: sku.sku_id,
+                product_count: num
+            }
+            // const res = await CartService.add(add)
+            setShow(false)
+            console.log(sku, add, 'addcart');
         } else {
             showToast({ title: `请选择${desc?.str}`, icon: 'none' })
         }
-        console.log('requser');
         if (!sku?.sku) return
     };
 
@@ -200,7 +180,7 @@ const Skuhooks = memo(({
                                 <View className='btn fc buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
-                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc }) }}>确定</View>}
+                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc, product_count: num }) }}>确定</View>}
 
 
                         </View>

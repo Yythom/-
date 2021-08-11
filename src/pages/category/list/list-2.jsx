@@ -24,7 +24,7 @@ import ProductService from '@/services/product';
  */
 const RenderList = memo(({ twoCate, _list, skuOption }) => {
     const { show, setShow, setSkuData, skuData } = skuOption;
-    const showSku = async () => {
+    const showSku = async (product_id) => {
         const res = await ProductService.getProductDataApi();
         setSkuData({ ...filter_data(res) })
         setTimeout(() => {
@@ -72,7 +72,7 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                         <View className='vip-price fc'>¥{product.member_price}</View>
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
-                                            showSku()
+                                            showSku(product.product_id)
                                         }}>+</View>
                                     </View>
                                 </View>
@@ -180,7 +180,7 @@ function VtabList({
                         <ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} />
                     </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
-                        ^
+                        {show ? <Text className='iconfont icon-fold'></Text> : <Text className='iconfont icon-unfold'></Text>}
                     </View>
                 </View>
                 {show && <View className='show-cate flex'><ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} /></View>}

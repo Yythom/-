@@ -130,36 +130,47 @@ function VtabList({
         }, 1000);
     }
 
-    useEffect(() => {
-        autoInfos();
-    }, [list])
 
-
-    const scroll = (e) => {
-        if (arr[0]) {
-            let indexArr = []
-            let initTop = arr[0];
-            let scrollTop = e.detail.scrollTop;
-            arr.forEach((el, index) => {
-                let top = el - initTop
-                if (top - scrollTop < 60) {
-                    // console.log(index, 'index');
-                    // if(i>index)
-                    indexArr.push(index)
-                }
-            })
-            setchild_cate(list?.child[indexArr[indexArr.length - 1]]);
-        }
-
-        // console.log(;
+    function autoInfos(delay = 600) {
+        let heightArray = [];
+        setScrollTo(0);
+        setTimeout(() => {
+            let query = createSelectorQuery()//创建节点查询器
+            query.selectAll('.nodes').boundingClientRect(function (rect) {
+                rect.forEach(function (value) {
+                    heightArray.push(value.top)
+                })
+                setArr(heightArray);
+            }).exec()
+        }, delay);
     }
+
+    useEffect(() => {
+        if (list) {
+            if (list[0]) {
+                autoInfos(400);
+            } else {
+                autoInfos();
+            }
+        }
+    }, [list])
 
     // 展开子分类
     const [show, setShow] = useState(false);
     const [scrollTo, setScrollTo] = useState('');
 
+    // const selectChild = async (item, index) => {
+    //     setScrollTo(arr[index] - arr[0] > 0 ? arr[index] - arr[0] : 0)
+    //     setchild_cate(item);
+    // };
+
+    const [i, setI] = useState(2);
     const selectChild = async (item, index) => {
-        setScrollTo(arr[index] - arr[0] > 0 ? arr[index] - arr[0] : 0)
+        console.log(arr[index] - arr[0], scrollTo, 'scrollTo');
+        setI(i - 1);
+        let top = arr[index] - arr[0] + 0.0001
+        if (scrollTo == top) top = scrollTo + 0.0001
+        setScrollTo(top);
         setchild_cate(item);
     };
 

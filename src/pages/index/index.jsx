@@ -143,8 +143,8 @@ function Index() {
         // setList
     }
 
-    const showSku = async () => {
-        const res = await ProductService.getProductDataApi();
+    const showSku = async (product_id) => {
+        const res = await ProductService.getProductDataApi(product_id);
         setSkuData({ ...filter_data(res) })
         // setSkuData({ ...filter_data(onlineData) }) // 测试数据
         setTimeout(() => {
@@ -210,13 +210,13 @@ function Index() {
                                             </View>
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
-                                                showSku()
+                                                showSku(e.product_id)
                                             }}
                                             >+</View>
                                         </View>
                                     </View>
                                 )
-                            }) : <View className='fc'>
+                            }) : <View className='fc' style={{ width: '100%' }}>
                                 暂无数据
                             </View>
                         }

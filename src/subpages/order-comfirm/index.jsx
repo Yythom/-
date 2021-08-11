@@ -73,7 +73,7 @@ const Index = () => {
 
     /* 信息配置 */
     const [address, setAddress] = useState(null); // 收货地址
-    const [payType, setPayType] = useState(1) // 1 微信 2 余额
+    const [payType, setPayType] = useState(1) // 1 余额 2 wx 3zfb
 
     const [date, setDate] = useState({ // 指定时间
         show: false,
@@ -92,9 +92,9 @@ const Index = () => {
             // "shop_id": "1",
             "config": {
                 "delivery_type": deliveryMethod,
-                "pay_type": "integer",
-                "pay_method": "integer",
-                "pay_channel": "integer",
+                "pay_type": payType != 1 ? 1 : 0,
+                "pay_method": payType == 1 ? payType : 2,
+                "pay_channel": "1", // 1 wx 2 zfb
                 "user_addressId": address?.address_id,
             },
             // "sku_items": [
@@ -188,13 +188,13 @@ const Index = () => {
                 </View>
 
                 {/* <View className='handle fd' style={{ height: 'auto' }}>
-                <View className='fb' onClick={() => setPayType(1)}>
-                    <Text className=''>微信支付</Text>
-                    <Radio checked={payType == 1} />
-                </View>
                 <View className='fb' onClick={() => setPayType(2)}>
-                    <Text className=''>余额支付</Text>
+                    <Text className=''>微信支付</Text>
                     <Radio checked={payType == 2} />
+                </View>
+                <View className='fb' onClick={() => setPayType(1)}>
+                    <Text className=''>余额支付</Text>
+                    <Radio checked={payType == 1} />
                 </View>
             </View> */}
 
