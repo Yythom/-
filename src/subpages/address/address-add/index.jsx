@@ -55,13 +55,24 @@ const AddAddress = () => {
             <Maps location={[address?.latitude, address?.longitude]} text={(address?.name || address?.address)} />
             <Form onSubmit={(e) => save(e.detail.value)} className='fdc'>
                 <View className='edit_box'>
-                    <View className='name'>
-                        <Label> 姓名：</Label>
-                        <Input name='username' maxlength={18} type='text' placeholder='请输入收货人姓名' />
+                    <View className='address' onClick={() => {
+                        chooseLocation().then(res => {
+                            setAddress(res)
+                            console.log(res);
+                        })
+                    }} >
+                        <Label>收货地址：</Label>
+                        <View className='picker'>
+                            {
+                                (address?.name || address?.address) || '请选择地址'
+                            }
+                            <Text className='iconfont icon-right' style={{ color: '#999', marginLeft: '6px' }} />
+                        </View>
                     </View>
-                    <View className='phone'>
-                        <Label>手机号：</Label>
-                        <Input name='mobile' maxlength={11} type='number' placeholder='请输入收货人手机号' />
+
+                    <View className='address_desc'>
+                        <Label>门牌号：</Label>
+                        <Input name='address_desc' type='text' placeholder='填写详细地址，例：1层1001' />
                     </View>
                     <View className='tag'>
                         <Label>标签：</Label>
@@ -75,25 +86,13 @@ const AddAddress = () => {
                             }
                         </View>
                     </View>
-
-                    <View className='address' onClick={() => {
-                        chooseLocation().then(res => {
-                            setAddress(res)
-                            console.log(res);
-                        })
-                    }} >
-                        <Label>地址：</Label>
-                        <View className='picker'>
-                            {
-                                (address?.name || address?.address) || '请选择地址'
-                            }
-                            <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} />
-                        </View>
+                    <View className='name'>
+                        <Label>联系人：</Label>
+                        <Input name='username' maxlength={18} type='text' placeholder='请输入收货人姓名' />
                     </View>
-
-                    <View className='address_desc'>
-                        <Label>门牌号：</Label>
-                        <Input name='address_desc' type='text' placeholder='填写详细地址，例：1层1001' />
+                    <View className='phone'>
+                        <Label>手机号：</Label>
+                        <Input name='mobile' maxlength={11} type='number' placeholder='请输入收货人手机号' />
                     </View>
                     <View className='is_default'>
                         <View >设为默认地址</View>

@@ -57,6 +57,11 @@ const Index = () => {
 
     console.log(list, summaryShop);
 
+    const success = async (http, callback) => {
+        let res = await http.req(http.params)
+        if (res) callback()
+    }
+
     const handle = (index, shop_id, type, value) => {
         const newList = JSON.parse(JSON.stringify(list));
         const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
@@ -88,6 +93,16 @@ const Index = () => {
     }
 
     const pay = async () => {
+        // {
+        //     "shop_id":"string",
+        //     "sku_items":[
+        //         {
+        //             "sku_id":"string",
+        //             "count":"integer"
+        //         }
+        //     ]
+        // }
+        // setStorageSync('pre-data',{})
         navLinkTo('order-comfirm/index', {})
     }
 

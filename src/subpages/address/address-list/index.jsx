@@ -33,14 +33,16 @@ const AddressManage = () => {
 
     useDidShow(() => {
         if (getStorageSync('address_id')) {
-        console.log('address_id', getStorageSync('address_id'))
+            console.log('address_id', getStorageSync('address_id'))
             setAddressid(getStorageSync('address_id'))
         }
         init();
     })
     const use_address = async (e) => {
         setStorageSync('address_id', e);
+        setStorageSync('edit-address', e)
         setAddressid(e);
+        // 
         setTimeout(() => {
             navigateBack({
                 delta: 1
@@ -66,7 +68,15 @@ const AddressManage = () => {
                 {
                     list && list[0] && list.map((e) => {
                         return (
-                            <View className='item' key={e.address_id} onClick={() => { use_address(e) }}>
+                            <View className='item' key={e.address_id} onClick={(event) => { navLinkTo('address/address-edit/index', {}); }}>
+                                   {/* 选择使用地址 */}
+                                   <View className='iconfont-vertical fc' style={{ width: '80rpx', height: '100%',justifyContent:'flex-end' }} onClick={(event) => { event.stopPropagation(); use_address(e) }} >
+                                        {
+                                            (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
+                                                ? <Text className='iconfont icon-roundcheck ' />
+                                                : <Text className='iconfont icon-yuancircle46 ' />
+                                        }
+                                    </View>
                                 <View className='user_info fb'>
                                     <View className='fb' >
                                         <View className='name flex'>
@@ -96,24 +106,24 @@ const AddressManage = () => {
                                                     默认
                                                 </View>
                                             }
-                                            <Text className='name'>{e.contact_name}</Text>
+                                            <Text className='name'>{e.address} &nbsp;{e.number}</Text>
                                         </View>
-                                        <View className='phone'>{e.mobile}</View>
+
                                     </View>
+                                
 
-                                    {
-                                        (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
-                                            ? <Text className='iconfont icon-roundcheck' />
-                                            : <Text className='iconfont icon-yuancircle46' />
-                                    }
                                 </View>
 
-                                <View className='address_info' >
-                                    {e.address}
+                                <View className='flex adress-content'>
+                                    <View className='address_info' >
+                                        {e.contact_name}
+                                    </View>
+                                    <View className='phone'>
+                                        {e.mobile}
+                                    </View>
                                 </View>
 
-
-                                <View className='footer fb'>
+                                {/* <View className='footer fb'>
                                     <View className='handle flex'>
                                         <View
                                             className='edit'
@@ -145,7 +155,7 @@ const AddressManage = () => {
                                             删除
                                         </View>
                                     </View>
-                                </View>
+                                </View> */}
                             </View>
                         )
                     })

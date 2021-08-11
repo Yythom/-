@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Button, Form, Input, Label, Picker, Radio, Switch, Text, View } from '@tarojs/components';
-import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow } from '@tarojs/taro'
+import Taro, { chooseLocation, getStorageSync, hideLoading, navigateBack, openLocation, showLoading, showToast, useDidShow, showModal } from '@tarojs/taro'
 import { isPhoneNumber } from '@/common/public';
 import './index.scss'
+import { navLinkTo } from '@/common/publicFunc';
 import AddressService from '@/services/address';
 import Maps from '@/components/page/maps/maps';
 
@@ -59,32 +60,22 @@ const EditAddress = () => {
         }
     }
 
+    const del = async (e) => {
+        const res = await AddressService.removeAddress(e.address_id)
+        console.log(res);;
+        navLinkTo('address/address-list/index', {})
+        if (res) {
+            setTimeout(() => {
+                showToast({ title: '删除成功', icon: 'none' })
+            }, 200);
+        }
+    }
+
     return (
         <View className='edit_address_wrap'>
             <Maps location={[address?.location.lat, address?.location.lng]} text={(address?.address)} />
             <Form onSubmit={(e) => save(e.detail.value)} className='fdc'>
                 <View className='edit_box'>
-                    <View className='name'>
-                        <Label> 姓名：</Label>
-                        <Input name='username' value={address?.contact_name} onInput={(e) => setAddress({ ...address, contact_name: e.detail.value })} maxlength={18} type='text' placeholder='请输入收货人姓名' />
-                    </View>
-                    <View className='phone'>
-                        <Label>手机号：</Label>
-                        <Input name='mobile' value={address?.mobile} onInput={(e) => setAddress({ ...address, mobile: e.detail.value })} maxlength={11} type='number' placeholder='请输入收货人手机号' />
-                    </View>
-                    <View className='tag'>
-                        <Label>标签：</Label>
-                        <View className='flex'>
-                            {
-                                ['家', '公司', '学校'].map(e => {
-                                    return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
-                                        {e}
-                                    </View>
-                                })
-                            }
-                        </View>
-                    </View>
-
                     <View className='address' onClick={() => {
                         console.log('address', address);
                         chooseLocation().then(res => {
@@ -99,18 +90,38 @@ const EditAddress = () => {
                             // console.log(res);
                         })
                     }} >
-                        <Label>地址</Label>
+                        <Label>收货地址：</Label>
                         <View className='picker'>
                             {
                                 address?.address || '请选择地址'
                             }
-                            <Text className='iconfont icon-dingwei' style={{ color: '#999', marginLeft: '6px' }} />
+                            <Text className='iconfont icon-right' style={{ color: '#999', marginLeft: '6px' }} />
                         </View>
                     </View>
 
                     <View className='address_desc'>
                         <Label>门牌号：</Label>
                         <Input value={address?.number} onInput={(e) => setAddress({ ...address, number: e.detail.value })} name='address_desc' type='text' placeholder='填写详细地址，例：1层1001' />
+                    </View>
+                    <View className='tag'>
+                        <Label>标签：</Label>
+                        <View className='flex tag_info'>
+                            {
+                                ['家', '公司', '学校'].map(e => {
+                                    return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
+                                        {e}
+                                    </View>
+                                })
+                            }
+                        </View>
+                    </View>
+                    <View className='name'>
+                        <Label> 联系人：</Label>
+                        <Input name='username' value={address?.contact_name} onInput={(e) => setAddress({ ...address, contact_name: e.detail.value })} maxlength={18} type='text' placeholder='请输入收货人姓名' />
+                    </View>
+                    <View className='phone'>
+                        <Label>手机号：</Label>
+                        <Input name='mobile' value={address?.mobile} onInput={(e) => setAddress({ ...address, mobile: e.detail.value })} maxlength={11} type='number' placeholder='请输入收货人手机号' />
                     </View>
                     <View className='is_default'>
                         <View >设为默认地址</View>
@@ -121,7 +132,20 @@ const EditAddress = () => {
                     </View>
                 </View>
                 <View className='foot_btn'>
-                    <Button formType='submit' className='foot_address_del_btn fc' style={{ bottom: `12rpx` }} onClick={() => { }}>删除地址</Button>
+                    <Button className='foot_address_del_btn fc' style={{ bottom: `12rpx` }} 
+                        onClick={async (event) => {
+                            event.stopPropagation();
+                            showModal({
+                                title: '警告',
+                                content: '确认删除该地址',
+                                success: function (res) {
+                                    if (res.confirm) {
+                                        del(address)
+                                    }
+                                }
+                            })
+                        }}
+                    >删除地址</Button>
                     <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存地址</Button>
                 </View>
             </Form>
