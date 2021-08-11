@@ -27,7 +27,6 @@ const Index = () => {
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
     const [couponshow, setCouponshow] = useState(false)
-    const [i, setI] = useState(0);
     const [pageData, setPageData] = useState([
         {
             shop_id: '1',
@@ -38,7 +37,7 @@ const Index = () => {
                     price: '7999',
                     sale_price: '888',
                     sku: ['银色', '64G', '套餐一'],
-                    num: '2',
+                    product_count: '2',
                 },
                 {
                     product_id: '102',
@@ -46,7 +45,7 @@ const Index = () => {
                     price: '7999',
                     sku: ['银色', '64G', '套餐一'],
                     isVip: 1,
-                    num: '2',
+                    product_count: '2',
                 },
             ]
         },
@@ -68,7 +67,7 @@ const Index = () => {
                 if (!shop.products[0]) newList.splice(shopIndex, 1);
                 break;
             case 'number':
-                item.num = value; // 修改当前商品选择状态
+                item.product_count = value; // 修改当前商品选择状态
                 onChangeNumber(newList);
                 break;
             case 'check':
@@ -76,6 +75,7 @@ const Index = () => {
                 console.log('check', newList);
                 break;
             case 'sku':
+                item.product_count = value.product_count; // 修改当前商品选择状态
                 item.sku = value; // 修改当前商品选择状态
                 console.log('sku', newList);
                 break;
@@ -123,7 +123,6 @@ const Index = () => {
 
         setTimeout(() => {
             setskuShow(4);
-            setI(10)
         }, 100);
         setSku_index({ index, shop_id, })
     }, [list])
@@ -132,7 +131,7 @@ const Index = () => {
         if (!sku) return showToast({ title: 'x', icon: 'none' })
         if (sku) {
             console.log(sku, 'on ok');
-            handle(sku_index.index, sku_index.shop_id, 'sku', sku.str)
+            handle(sku_index.index, sku_index.shop_id, 'sku', sku)
         }
     }
 
@@ -248,7 +247,6 @@ const Index = () => {
                 default_sku={default_sku}
                 onOk={(e) => {
                     onOk(e)
-                    console.log(e, 'sku data');
                     // if (e) setSku(e);
                 }}
             />

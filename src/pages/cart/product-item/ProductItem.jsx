@@ -57,7 +57,7 @@ const ProductItem = memo(({
 
                             <HandleInput
                                 list={list}
-                                num={product.num}
+                                num={product.product_count}
                                 onChange={(value) => {
                                     // console.log(value);
                                     // if (num > value ) { // 减

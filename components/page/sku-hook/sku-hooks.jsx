@@ -25,10 +25,10 @@ const Skuhooks = memo(({
     product,
 }) => {
     const [num, setNum] = useState(1); // 商品数量
-    const [option, load, { sku, desc }, specList, setSku] = useSku(product);
+    const [option, load, { sku, desc }, specList, setSku] = useSku(product, show, default_sku);
 
     useEffect(() => {
-        console.log(sku, desc);
+        // console.log(sku, desc);
         onChange({ sku, desc })
     }, [sku, desc]);
 
@@ -50,37 +50,13 @@ const Skuhooks = memo(({
                     },
                 })
             }
-
-            if (default_sku[0]) {
-                console.log(default_sku, 'default_sku');
-                // 默认选中
-                default_sku.forEach((item, index) => {
-                    console.log(item, index, 'index');
-                    // if (index == 0) {
-                    option.handleSpecAttr(item, index)
-                    // option.handleSpecAttr(
-                    //     {
-                    //         "value_id": "282335091278254081",
-                    //         "spec_id": "282335091278254080",
-                    //         "value": "40"
-                    //     } // 选中的item
-                    //     , 0  // 对应第几行的规格 
-                    // )
-
-
-                    // } else if (index == 1) {
-                    //     option.handleSpecAttr({ id: 201, name: '16G', parent_name: '内存' }, 1)
-                    // } else if (index == 2) {
-                    //     option.handleSpecAttr({ id: 302, name: '红色', parent_name: '颜色' }, 2)
-                    // }
-                })
-            }
             hideLoading();
         }
     }, [load]);
-    useEffect(() => {
-        if (show && !load) showLoading();
-    }, [show])
+
+    // useEffect(() => {
+    //     if (show && !load) showLoading();
+    // }, [show])
 
     // 预下单
     const preOrder = () => {
@@ -204,7 +180,7 @@ const Skuhooks = memo(({
                                 <View className='btn fc buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
-                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc }) }}>确定</View>}
+                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc, product_count: num }) }}>确定</View>}
 
 
                         </View>
