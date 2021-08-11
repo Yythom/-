@@ -3,6 +3,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, Button } from '@tarojs/components';
 import { getClipboardData, setClipboardData, showShareMenu, showToast, useDidShow, useShareAppMessage } from '@tarojs/taro';
 import isWeapp from '@/utils/env';
+import np from 'number-precision'
 import './product.scss'
 
 function ProductInfo({
@@ -57,17 +58,17 @@ function ProductInfo({
                 <View className='price flex'>
                     <Text className='new'>
                         <Text className='_moneny'>¥</Text>
-                        {product?.discount_price}
+                        {np.times(product?.discount_price, 0.01)}
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
-                        {product?.market_price}
+                        {np.times(product?.market_price, 0.01)}
                     </Text>
                 </View>
             </View>
             <View className='other fb'>
                 <View className='flex'>
-                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥{product?.member_price}</View>
+                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {np.times(product?.member_price, 0.01)}</View>
 
 
                     <View className='desc flex'>
