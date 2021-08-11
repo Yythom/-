@@ -9,8 +9,8 @@ class ProductService {
                 with_tag: 0
             },
             search: {
-                category_id: data.category_id,
-                search: ''
+                category_id: data.category_id || '',
+                search: data.keywords || '',
             },
             sort: {
                 create_at: '',

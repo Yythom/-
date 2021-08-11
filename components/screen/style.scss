@@ -13,7 +13,6 @@
 
   .item-active {
     font-size: 30px;
-    font-family: PingFangSC-Semibold, PingFang SC;
     font-weight: 600;
     color: #EF5F00;
   }
@@ -29,7 +28,14 @@
     top: 104px;
     left: 0;
     z-index: 10;
-    background-color: pink;
+    background-color: #fff;
+    box-sizing: border-box;
+    padding: 0 16px;
+    color: #333;
+
+    .item_sort {
+      height: 60px;
+    }
   }
 
   .modal-mask {

@@ -81,7 +81,7 @@
         {
           "name": "商品列表",
           "pathName": "subpages/product-list/index",
-          "query": "",
+          "query": "search_text=小",
           "scene": null
         },
         {

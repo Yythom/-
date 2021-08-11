@@ -8,19 +8,22 @@ import { actions } from '../../../store';
 import ProductItem from './pruduct/ProductItem';
 import FilterSearch from './filter/filter';
 import './index.scss'
+import ProductService from '@/services/product';
 
 const sortCate = [
     {
-        key: 'common',
-        name: '排序'
+        key: 'create_at',
+        name: '时间'
+    },
+    {
+        key: 'discount_price',
+        noMore: true,
+        name: '价格'
     },
     {
         key: 'sale',
+        noMore: true,
         name: '销量'
-    },
-    {
-        key: 'price',
-        name: '价格'
     },
 ]
 
@@ -39,44 +42,7 @@ const Index = () => {
     })
 
     const [show, setShow] = useState(false)
-    const [pageData, setPageData] = useState([
-        {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果',
-            price: '7999',
-            member_price: '6999',
-            sale: 12,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 33,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-    ]);
+    const [pageData, setPageData] = useState(null);
 
     const changeSearch = async (key, value) => {
         let newSearch = { ...search };
@@ -85,15 +51,27 @@ const Index = () => {
     };
 
     const init = async () => {
-        if (query?.search_text) changeSearch('keywords', decodeURIComponent(query.search_text))
+        // TODO:
+        if (query?.search_text) changeSearch('keywords', decodeURIComponent(query.search_text && ''))
     };
 
     useDidShow(() => {
         init()
     });
 
+    const findSearch = async () => {
+        const res = await ProductService.getProductListApi({
+            keywords: search.keywords,
+        })
+        setPageData(res);
+        console.log(res);
+    }
+
     useEffect(() => {
         console.log(search, 'newSearch requese');
+        if (search) {
+            findSearch(search);
+        }
     }, [search])
 
     usePullDownRefresh(() => {
@@ -104,10 +82,10 @@ const Index = () => {
     return (
         <View className='product-list-wrap' >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search width='84vw' text='搜索商品' onBlur={(e) => {
+                <Search width='720rpx' text='搜索商品' onBlur={(e) => {
                     console.log(e);
                 }} />
-                <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} />
+                {/* <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} /> */}
             </View>
             <Screen
                 list={sortCate}
@@ -125,8 +103,7 @@ const Index = () => {
                 style={{ paddingBottom: `${getStorageSync('safeArea') * 2}rpx` }}
             >
                 {
-                    pageData?.map((e, i) => <ProductItem
-                        list={pageData}
+                    pageData?.list.map((e, i) => <ProductItem
                         key={e.product_id}
                         product={e}
                     />)
