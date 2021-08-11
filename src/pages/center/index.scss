@@ -8,16 +8,15 @@
     .user {
         // height: 200px;
         background-color: #f3f3f3;
-        margin-bottom: 20px;
 
         .userinfo {
-            background: rgb(250, 245, 235);
+            // background: transparent;
             // box-sizing: border-box;
-            padding: 0 24px;
-            height: 120px;
-            color: rgb(182, 136, 50);
+            padding: 0 16px;
+            // height: 120px;
+            color: #fff;
             border-radius: 0 0 80px 80px;
-            padding-bottom: 100px;
+            padding-bottom: 40px;
 
             .avatar-wrap {
                 width: 120px;
@@ -26,12 +25,13 @@
 
             .info {
                 height: 100%;
-                width: calc(100% - 16vw);
+                // width: calc(100% - 32px);
+                width: 100%;
                 box-sizing: border-box;
-                padding: 0 16px;
-                padding-left: 32px;
+                padding-left: 20px;
 
                 .left {
+                    width: 100%;
                     height: 100%;
                     justify-content: space-around;
                 }
@@ -40,7 +40,14 @@
                     font-size: 36px;
                 }
 
-                .mobile {}
+                .mobile {
+                    width: 100%;
+                    font-size: 28px;
+
+                    .iconfont {
+                        font-size: 36px;
+                    }
+                }
             }
         }
 
@@ -54,12 +61,15 @@
         .flex-handle {
             background-color: #fff;
             width: 100%;
-            height: 60px;
-            margin-bottom: 20px;
+            height: 100px;
+            box-sizing: border-box;
+            padding: 0 16px;
 
             .iconfont {
-                font-size: 24px;
+                color: #999;
+                font-size: 36px;
             }
+
         }
 
         .wallet-common {
@@ -71,7 +81,7 @@
             font-size: 28px;
             padding: 0 34px 0 40px;
             padding-bottom: 60px;
-            color: #777;
+            color: #333;
             flex-wrap: wrap;
             flex-shrink: 0;
 
@@ -98,6 +108,13 @@
 
         .order-card {
             color: #777;
+            flex-wrap: nowrap;
+            padding: 25px 16px;
+
+            .fdc {
+                flex: 1;
+            }
+
             // height: 160px;
         }
 

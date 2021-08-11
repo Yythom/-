@@ -47,15 +47,20 @@ const Index = () => {
             style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)`, }}
             className='center_wrap'
         >
-            <NavBar background='rgb(250,245,235)' />
-            <View className='user'>
+            <View className='user' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
+                <NavBar title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
                 <WithUserVerify isVerifyPhone onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >
-                        <Avatar style={{ background: '#fff', }} />
+                        <Avatar style={{ background: '#fff', borderRadius: '10px' }} size='110rpx' />
                         <View className='fb info'>
                             <View className='left fd'>
                                 <View className='nickname'>{userInfo?.nickname || '请登入'}</View>
-                                {userInfo?.nickname && <View className='mobile'>{hideMobile(userInfo?.mobile) || (userInfo?.nickname && '请绑定手机号')}</View>}
+                                {userInfo?.nickname &&
+                                    <View className='mobile fb'>
+                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.nickname && '请绑定手机号')}</Text>
+                                        <Text className='iconfont icon-right'></Text>
+                                    </View>
+                                }
                             </View>
                             {/* <Text className='iconfont icon-right' /> */}
                         </View>
@@ -84,27 +89,12 @@ const Index = () => {
                     </View>
                 </View> */}
 
-                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
-                    <View className='flex'>
-                        <Text className='iconfont icon-dingwei' />
-                        <Text className=''>收获地址</Text>
-                    </View>
-                    <View className='flex'>
-                        <Text className=''>查看</Text>
-                        <Text className='iconfont icon-right' />
-                    </View>
-                </View>
-
                 {/* 订单 */}
-                <View className='order-card fb wallet-common ' onClick={() => navLinkTo('order/order-list/index', {})} >
-                    <View className='title flex'>我的服务</View>
+                <View className='order-card fb wallet-common ' style={{ marginTop: '0' }} onClick={() => navLinkTo('order/order-list/index', {})} >
+                    {/* <View className='title flex'>我的服务</View> */}
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>全部订单</View>
-                    </View>
-                    <View className='fdc'>
-                        <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>待支付</View>
+                        <View className=''>待付款</View>
                     </View>
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
@@ -112,11 +102,42 @@ const Index = () => {
                     </View>
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
-                        <View className=''>待收货</View>
+                        <View className=''>已收货</View>
+                    </View>
+                    <View className='fdc'>
+                        <Text className='iconfont icon-ziyuan'></Text>
+                        <View className=''>待取货</View>
+                    </View>
+                    <View className='fdc'>
+                        <Text className='iconfont icon-ziyuan'></Text>
+                        <View className=''>已完成</View>
                     </View>
                 </View>
+
+                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
+                    <View className='flex'>
+                        <Text className='iconfont icon-dingwei' />
+                        <Text className=''>收获地址</Text>
+                    </View>
+                    <View className='flex'>
+                        {/* <Text className=''>查看</Text> */}
+                        <Text className='iconfont icon-right' />
+                    </View>
+                </View>
+                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
+                    <View className='flex'>
+                        <Text className='iconfont icon-dingwei' />
+                        <Text className=''>联系商家</Text>
+                    </View>
+                    <View className='flex'>
+                        {/* <Text className=''>查看</Text> */}
+                        <Text className='iconfont icon-right' />
+                    </View>
+                </View>
+
+
                 {/* 服务 */}
-                <View className='fb my-server wallet-common'>
+                {/* <View className='fb my-server wallet-common'>
                     <View className='title flex'>我的服务</View>
                     <View className='fdc'>
                         <Text className='iconfont icon-ziyuan'></Text>
@@ -134,7 +155,7 @@ const Index = () => {
                         <Text className='iconfont icon-ziyuan'></Text>
                         <View className=''>在线客服</View>
                     </View>
-                </View>
+                </View> */}
             </View>
 
         </ScrollView>
