@@ -6,6 +6,7 @@ import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
 import { getStorageSync, useDidShow } from "@tarojs/taro";
 import './address.scss';
+import AddressService from "@/services/address";
 
 const Address = memo(({
     address,
@@ -25,6 +26,13 @@ const Address = memo(({
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
                 setAddress(getStorageSync('address_id'))
+            } else {
+                AddressService.defaultAddress().then(res => {
+                    console.log(res, 'addressaddressaddressaddress');
+                    if (res) {
+                        setAddress(res)
+                    }
+                })
             }
         } else {
             // req 地址

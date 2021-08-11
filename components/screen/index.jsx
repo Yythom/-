@@ -11,7 +11,7 @@ import './style.scss'
 
 const Screen = memo(({ list, onShow, onClick }) => {
     const [index, setIndex] = useState('');
-    const [act, setAct] = useState({});
+    const [act, setAct] = useState({});  // sort的对象 { key:{} }
     const [sortContent, setSortContent] = useState([])
 
     const init = () => {
@@ -47,7 +47,7 @@ const Screen = memo(({ list, onShow, onClick }) => {
     }, [index])
 
     const handleScreenClick = (cate, i) => {
-        if (cate.noMore) {
+        if (cate.noMore) { // b不需要展开项直接赋值
             setSortContent([])
             // const newObj = { ...act, };
             const newObj = init();
@@ -65,7 +65,6 @@ const Screen = memo(({ list, onShow, onClick }) => {
 
         if (i === index) {
             setIndex('');
-
         }
     }
 

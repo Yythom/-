@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useLayoutEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -13,6 +13,8 @@ import Address from './address/address';
 import './index.scss'
 import Date from './date/date';
 import ProductItem from './product-item/product-item';
+import OrderService from '@/services/order';
+import AddressService from '@/services/address';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
@@ -42,19 +44,14 @@ const Index = () => {
             "product": [
                 {
                     "product_id": "4",
-                    "sku_id": "496659177565979648",
-                    "promotion_id": "0",
-                    "number": 1,
-                    "stock": "350",
-                    "original_price": 16,
-                    "promotion_price": "0.00",
-                    "activity_promotion_product_id": 0,
+                    "product_count": 1,
                     "shop_name": "海底捞八佰伴店",
                     "product_name": "美味金枕榴莲",
                     "spec": "精美盒装;2KG",
+                    market_price: '98000',
+                    discount_price: '88000',
+                    member_price: '68000',
                     "sale_rice": 16,
-                    "image": "https://haoshengri-produce.oss-cn-shanghai.aliyuncs.com/admin/2021-07-27/4d06190a529e9075c054a1336b596223.png",
-                    "total_price": "16.00"
                 }
             ],
             "product_price": "16.00",
@@ -91,11 +88,11 @@ const Index = () => {
             ...pre,
             // "shop_id": "1",
             "config": {
-                "delivery_type": deliveryMethod,
+                "delivery_type": deliveryMethod, // deliveryMethod
                 "pay_type": payType != 1 ? 1 : 0,
                 "pay_method": payType == 1 ? payType : 2,
-                "pay_channel": "1", // 1 wx 2 zfb
-                "user_addressId": address?.address_id,
+                "pay_channel": 1, // 1 wx 2 zfb
+                "user_addressId": address?.address_id || '',
             },
             // "sku_items": [
             //     {
@@ -107,33 +104,58 @@ const Index = () => {
 
     }, [address, payType, date, deliveryMethod, msg, pre]);
 
-    console.log(PreData, 'params 下单数据');
+
+    const preRequest = async (preData) => {
+        const res = await OrderService.preOrder(preData);
+        // if(res){
+        //     setPageData()
+
+        // }
+    }
+
+    useEffect(() => {
+        console.log(PreData, 'params 下单数据改变');
+        if (pre) {
+            preRequest(PreData)
+        }
+    }, [PreData])
 
     const [modal, setModal] = useState(false);
     const [couponShow, setCouponShow] = useState(false);
     const [vpShow, setVpShow] = useState(false);
 
     const init = async () => {
-        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
+
     }
 
     useDidShow(() => {
-        init();
+        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
     }, [])
 
-    const pay = async () => {
-        console.log(date.value,);
 
+    const pay = async () => {
+        const res = await OrderService.makeOrder(PreData);
+        if (res) {
+            // removeStorageSync('pre-data')
+            // removeStorageSync('address_id')
+
+            // navLinkTo('order/order-detail',{
+            //     order_id:''
+            // })
+        }
     }
 
     return (
         <View className='order_confirm_wrap'>
             <ScrollView className='scrollview' scrollY >
-                <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
-                <View className='deliveryMethod flex'>
-                    <View className={`tab fc ${deliveryMethod == 0 && 'act-tab'}`} onClick={() => setDeliveryMethod(0)}>配送</View>
-                    <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>自提</View>
+                <View className='' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
+                    <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
+                    <View className='deliveryMethod flex'>
+                        <View className={`tab fc ${deliveryMethod == 0 && 'act-tab'}`} onClick={() => setDeliveryMethod(0)}>配送</View>
+                        <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>自提</View>
+                    </View>
                 </View>
+
                 <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
 

@@ -11,27 +11,14 @@ class OrderService {
         return res;
     }
 
-    // {
-    //     "config": {
-    //       "shop_id": "string",
-    //       "delivery_type": "integer",
-    //       "pay_type": "integer",
-    //       "pay_method": "integer",
-    //       "pay_channel": "integer",
-    //       "user_addressId": "string"
-    //     },
-    //     "sku_items": [
-    //       {
-    //         "sku_id": "string",
-    //         "count": "integer"
-    //       }
-    //     ]
-    // }
     static async makeOrder(data) {
-        const res = await http.post('/trade/make', { data });
+        const res = await http.post('/trade/make', { ...data });
         return res;
     }
-
+    static async preOrder(data) {
+        const res = await http.post('/trade/preview', { ...data });
+        return res;
+    }
 }
 
 export default OrderService;

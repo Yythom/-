@@ -68,15 +68,15 @@ const AddressManage = () => {
                 {
                     list && list[0] && list.map((e) => {
                         return (
-                            <View className='item' key={e.address_id} onClick={(event) => { navLinkTo('address/address-edit/index', {}); }}>
-                                   {/* 选择使用地址 */}
-                                   <View className='iconfont-vertical fc' style={{ width: '80rpx', height: '100%',justifyContent:'flex-end' }} onClick={(event) => { event.stopPropagation(); use_address(e) }} >
-                                        {
-                                            (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
-                                                ? <Text className='iconfont icon-roundcheck ' />
-                                                : <Text className='iconfont icon-yuancircle46 ' />
-                                        }
-                                    </View>
+                            <View className='item' key={e.address_id} onClick={(event) => { setStorageSync('edit-address', e); navLinkTo('address/address-edit/index', {}); }}>
+                                {/* 选择使用地址 */}
+                                <View className='iconfont-vertical fc' style={{ width: '80rpx', height: '100%', justifyContent: 'flex-end' }} onClick={(event) => { event.stopPropagation(); use_address(e) }} >
+                                    {
+                                        (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
+                                            ? <Text className='iconfont icon-roundcheck ' />
+                                            : <Text className='iconfont icon-yuancircle46 ' />
+                                    }
+                                </View>
                                 <View className='user_info fb'>
                                     <View className='fb' >
                                         <View className='name flex'>
@@ -110,7 +110,7 @@ const AddressManage = () => {
                                         </View>
 
                                     </View>
-                                
+
 
                                 </View>
 

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, showModal, useDidShow } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, showModal, useDidShow } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
@@ -10,7 +10,6 @@ import { navLinkTo } from '@/common/publicFunc';
 import CouponList from '@/components/page/coupon/v-coupon';
 import Sku from '@/components/page/sku-hook/sku-hooks';
 import ProductService from '@/services/product';
-import np from 'number-precision'
 import ProductInfo from './product-info/ProductInfo';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import './index.scss'
@@ -24,6 +23,7 @@ const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
 
     const init = async () => {
+        removeStorageSync('address_id')
         console.log(query.product_id, 'product_id');
         const res = await ProductService.getProductDataApi();
         setPageData({ ...filter_data(res) })

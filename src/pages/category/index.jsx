@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
-import Taro, { getStorageSync, hideLoading, showLoading, useDidShow } from '@tarojs/taro';
+import Taro, { getStorageSync, hideLoading, removeStorageSync, showLoading, useDidShow } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -35,6 +35,7 @@ function Index() {
     }
 
     useDidShow(() => {
+        removeStorageSync('address_id')
         // console.log(userStore);
     })
 

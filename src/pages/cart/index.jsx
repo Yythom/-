@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { View, Text, Radio, ScrollView } from '@tarojs/components';
 
 // import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
@@ -197,6 +197,7 @@ const Index = () => {
     });
 
     useDidShow(() => {
+        removeStorageSync('address_id')
         if (pageData[0]) {
             let length = 0;
             let length_res = 0; // 服务器条目

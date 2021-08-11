@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import { Text, View } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
 import BlurImg from "@/components/blur-img/BlurImg";
+import np from 'number-precision'
 import './product.scss'
 
 const ProductItem = memo(({
@@ -22,13 +23,16 @@ const ProductItem = memo(({
                                 <View className='price fb'>
                                     <View className='flex'>
                                         <View className='new price'>
-                                            <Text className='_money'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}
+                                            <Text className='_money'>¥</Text>{
+                                                e.member_price ? np.times(e?.member_price, 0.01)
+                                                    : np.times(e?.discount_price, 0.01)
+                                            }
                                         </View>
                                         <View className='del'>
-                                            <Text className='_money'>¥</Text>{e.activity_promotion_product_id != 0 ? e.promotion_price : e.sale_rice}
+                                            <Text className='_money'>¥</Text>{np.times(e?.market_price, 0.01)}
                                         </View>
                                     </View>
-                                    <View className='num'>x{e.number}</View>
+                                    <View className='num'>x{e.product_count}</View>
                                 </View>
                             </View>
                         </View>

@@ -197,7 +197,7 @@ function Index() {
                                             {e.product_name}
                                         </View>
                                         <View className='price'>
-                                            <Text style={{ fontWeight: 'bold' }}>
+                                            <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
                                                 <Text className='_money'>¥</Text>{e.discount_price}
                                             </Text>
                                             <Text className='del'>

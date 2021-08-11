@@ -73,7 +73,7 @@ const EditAddress = () => {
 
     return (
         <View className='edit_address_wrap'>
-            <Maps location={[address?.location.lat, address?.location.lng]} text={(address?.address)} />
+            <Maps location={[address?.location?.lat, address?.location?.lng]} text={(address?.address)} />
             <Form onSubmit={(e) => save(e.detail.value)} className='fdc'>
                 <View className='edit_box'>
                     <View className='address' onClick={() => {
@@ -132,7 +132,7 @@ const EditAddress = () => {
                     </View>
                 </View>
                 <View className='foot_btn'>
-                    <Button className='foot_address_del_btn fc' style={{ bottom: `12rpx` }} 
+                    <Button className='foot_address_del_btn fc' style={{ bottom: `12rpx` }}
                         onClick={async (event) => {
                             event.stopPropagation();
                             showModal({

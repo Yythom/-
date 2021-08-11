@@ -36,7 +36,7 @@ const Index = () => {
 
 
     const init = async () => {
-
+        console.log(query);
     }
 
     useDidShow(() => {
