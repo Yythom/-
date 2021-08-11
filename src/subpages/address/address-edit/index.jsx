@@ -89,12 +89,14 @@ const EditAddress = () => {
                         console.log('address', address);
                         chooseLocation().then(res => {
                             setAddress({
-                                ...address, address: (address?.name || address?.address), location: {
+                                ...address,
+                                address: (res?.name || res?.address),
+                                location: {
                                     lat: res.latitude,
                                     lng: res.longitude
                                 }
                             })
-                            console.log(res);
+                            // console.log(res);
                         })
                     }} >
                         <Label>地址</Label>
@@ -119,7 +121,7 @@ const EditAddress = () => {
                     </View>
                 </View>
                 <View className='foot_btn'>
-                    <Button formType='submit' className='foot_address_del_btn fc' style={{ bottom: `12rpx` }} onClick={() => {}}>删除地址</Button>
+                    <Button formType='submit' className='foot_address_del_btn fc' style={{ bottom: `12rpx` }} onClick={() => { }}>删除地址</Button>
                     <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存地址</Button>
                 </View>
             </Form>
