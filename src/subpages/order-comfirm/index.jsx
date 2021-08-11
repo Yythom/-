@@ -114,7 +114,7 @@ const Index = () => {
     const init = async () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
         // else return
-        if (deliveryMethod == 1) {
+        if (deliveryMethod == 0) {
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
                 setAddress(getStorageSync('address_id'))

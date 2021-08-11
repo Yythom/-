@@ -7,6 +7,15 @@
     position: relative;
     z-index: 2;
 
+    .dig {
+        position: absolute;
+        left: 68%;
+        top: 20px;
+        color: #fff;
+        padding: 0 16px;
+        background-color: red;
+        border-radius: 20px;
+    }
 
     view {
         display: flex;

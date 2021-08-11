@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useEffect, useMemo, useState } from 'react'
 import { setStorageSync, switchTab } from '@tarojs/taro';
 import { View, Text } from '@tarojs/components'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
@@ -11,6 +11,7 @@ const bar_height = '60';
 export default memo(() => {
     const dispatch = useDispatch();
     const tabbarState = useSelector(state => state.tabbar, shallowEqual);
+    const cartSlice = useSelector(state => state.userStore, shallowEqual);
     //去除底部安全区
     useEffect(() => {
         console.log(systemInfo, 'systemInfo');
@@ -22,6 +23,14 @@ export default memo(() => {
         setStorageSync('bar_height', bar_height);
 
     }, [])
+
+    const price = useMemo(() => {
+        // console.log(cartSlice);
+        return cartSlice.cart_price
+    }, [cartSlice])
+
+    console.log(price, 'pricepricepriceprice');
+
     const [tabBars] = useState([
         {
             pagePath: '/pages/index/index',
@@ -86,8 +95,7 @@ export default memo(() => {
     }
 
     return (
-        <View className='tabbar-wrap' style={{ height: bar_height * 2 + 'rpx', paddingBottom: `calc(${systemInfo.safeArea.top / 2}px)` }}
-        >
+        <View className='tabbar-wrap' style={{ height: bar_height * 2 + 'rpx', paddingBottom: `calc(${systemInfo.safeArea.top / 2}px)` }}>
             {
                 tabBars[0] && tabBars.map((item, index) => {
                     return (
@@ -98,15 +106,14 @@ export default memo(() => {
                                         index === tabbarState.active && item.activeIcon ? item.activeIcon : item.icon
                                     }
                                 </View>
-
                             </View>
                             <Text style={index === tabbarState.active && item.activeIcon ? { color: item.activeIconColor } : { color: item.iconColor }}>{item.text}</Text>
                         </View>
                     )
                 })
             }
-
-        </ View>
+            <View className='dig'>¥{price}</View>
+        </View>
     )
 })
 

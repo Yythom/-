@@ -14,7 +14,7 @@ const initialState = {
 const reducers = {
     changetab: (state, action) => {
         state.active = action.payload
-    }
+    },
 }
 
 

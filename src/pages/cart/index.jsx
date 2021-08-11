@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { View, Text, Radio, ScrollView } from '@tarojs/components';
 
 // import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
@@ -19,8 +19,7 @@ import { data2 } from '../../../hooks/sku-utils/data2';
 import CouponFloat from '@/components/page/coupon/coupon';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
-
-let fn = Function.prototype
+import CartService from '@/services/cart';
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -28,27 +27,28 @@ const Index = () => {
     const [skuData, setSkuData] = useState(null);
     const [couponshow, setCouponshow] = useState(false)
     const [pageData, setPageData] = useState([
-        {
-            shop_id: '1',
-            products: [
-                {
-                    product_id: '101',
-                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-                    price: '7999',
-                    sale_price: '888',
-                    sku: ['银色', '64G', '套餐一'],
-                    product_count: '2',
-                },
-                {
-                    product_id: '102',
-                    product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-                    price: '7999',
-                    sku: ['银色', '64G', '套餐一'],
-                    isVip: 1,
-                    product_count: '2',
-                },
-            ]
-        },
+
+        // {
+        //     shop_id: '1',
+        //     products: [
+        //         {
+        //             product_id: '101',
+        //             product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+        //             price: '7999',
+        //             sale_price: '888',
+        //             sku: ['银色', '64G', '套餐一'],
+        //             product_count: '2',
+        //         },
+        //         {
+        //             product_id: '102',
+        //             product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+        //             price: '7999',
+        //             sku: ['银色', '64G', '套餐一'],
+        //             isVip: 1,
+        //             product_count: '2',
+        //         },
+        //     ]
+        // },
     ]);
 
     const [edit, setEdit] = useReducer((state) => !state, false);
@@ -56,11 +56,14 @@ const Index = () => {
 
     console.log(list, summaryShop);
 
-    const handle = (index, shop_id, type, value) => {
+    const handle = async (index, shop_id, type, value) => {
         const newList = JSON.parse(JSON.stringify(list));
         const shopIndex = newList.findIndex(e => e.shop_id == shop_id);
         let shop = newList[shopIndex]       // 查找到某个店铺
         let item = shop.products[index];  // 查找到某个店铺下的该商品
+
+        const res = await ProductService.getProductDataApi()
+
         switch (type) {
             case 'delete':
                 shop.products.splice(index, 1);
@@ -75,16 +78,19 @@ const Index = () => {
                 console.log('check', newList);
                 break;
             case 'sku':
-                item.product_count = value.product_count; // 修改当前商品选择状态
-                item.sku = value; // 修改当前商品选择状态
-                console.log('sku', newList);
+
+                // item.product_count = value.product_count; // 修改当前商品选择状态
+                // item.sku = value; // 修改当前商品选择状态
+                // console.log('sku', newList);
                 break;
         }
         type !== 'number' && onChange(newList)
     }
 
     const init = async () => {
-
+        const res = await CartService.list();
+        if (res.list) setPageData([{ shop_id: '1', products: res.list }])
+        console.log(res, 'res');
     }
 
     const pay = async () => {
@@ -112,14 +118,16 @@ const Index = () => {
     const showSku = useCallback(async (product, index, shop_id) => {
         const res = await ProductService.getProductDataApi();
         setSkuData({ ...filter_data(res) })
+        const default_sku_list = product?.sku?.sku_default_value?.map(e => { return { id: e.value_id, name: e.value } });
+        if (default_sku_list[0])
+            setDefault_sku(default_sku_list)
+        // [
+        //     {
+        //         id: "283038145040498689",
+        //         name: '原道型'
+        //     },
+        // ]
 
-        setDefault_sku(
-            [
-                {
-                    id: "283038145040498689",
-                },
-            ]
-        )
 
         setTimeout(() => {
             setskuShow(4);
@@ -143,6 +151,9 @@ const Index = () => {
             stopPullDownRefresh();
         }, 1000);
     });
+    useEffect(() => {
+        init();
+    }, [])
 
 
     return (

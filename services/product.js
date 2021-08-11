@@ -27,8 +27,16 @@ class ProductService {
         return res;
     }
 
-    static async getProductDataApi(product_id = '283038144755286018') {
-        const res = await http.post('/product/detail', { product_id });
+    static async getProductDataApi(product_id = '283038144755286018',) {
+        const res = await http.post('/product/detail', {
+            product_id, "condition": {
+                "product_detail": 1,
+                "product_images": 1,
+                "product_tags": 1,
+                "product_specs": 1,
+                "product_skus": 1
+            }
+        });
         return res;
     }
 }

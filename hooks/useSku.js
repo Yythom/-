@@ -33,7 +33,6 @@ const useSku = (data, show, default_sku = []) => {
         if (data) {
             setload(false)
             console.log('重新初始化');
-            option.clear();
             option.init(data)
         }
     }, [data]);
@@ -51,18 +50,13 @@ const useSku = (data, show, default_sku = []) => {
     }, [load])
 
     const option = useMemo(() => {
-        const clear = () => {
-            skuResult = [];
-            // setFilterStr('');
-            // setSku({});
-            // setload(false);
-        };
         const init = ({ skuList, skuSpec }) => {
             // setskuResult(null);
             skuResult = null
             // setspecList([]);
             specList = [];
             specListData = [];
+            skuResult = [];
             // setSpecListData([]);
             // setload(false);
             const newskuResult = {}
@@ -79,9 +73,9 @@ const useSku = (data, show, default_sku = []) => {
                 // this.skuResult[skuKey] = sku;
             });
             // setskuResult(newskuResult);
-            skuResult = newskuResult
+            skuResult = newskuResult;
             // setspecList(skuSpec);
-            specList = skuSpec
+            specList = skuSpec;
             setFilterStr(skuSpec.map(e => e.specName).join(' '));
             setTimeout(() => {
                 setload(true);
@@ -104,9 +98,8 @@ const useSku = (data, show, default_sku = []) => {
                 })
             });
             // list && setSpecListData(list);
-            specListData = list
+            specListData = list;
             const _sku = getSelectObj(skuResult, list, specList);
-            // console.log(_sku, '_sku_sku_sku_sku');
             const { price, desc, member_price, discount_price } = transPrice(skuResult, specListData);
             setSku({
                 sku: _sku,
@@ -122,14 +115,13 @@ const useSku = (data, show, default_sku = []) => {
         }
 
         return {
-            clear,
             init,
             handleSpecAttr,
             checkSpecAttrDisabled: (id, index) => checkSpecAttrDisabled(specListData, id, index, skuResult),
         }
     }, [skuResult, specList]);
 
-    return [option, load, sku, specList, setSku];
+    return [option, load, sku, specList, setSku, specListData];
 }
 
 export default useSku;

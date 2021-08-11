@@ -6,10 +6,13 @@ import { getStorageSync, hideLoading, setStorageSync, showLoading, showToast } f
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import FloatBottom from '@/components/float/FloatBottom';
+import CartService from '@/services/cart';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { actions } from '@/store/userSlice';
 import np from 'number-precision'
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
-import CartService from '@/services/cart';
+
 
 const Skuhooks = memo(({
     bottom = Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2,
@@ -24,8 +27,10 @@ const Skuhooks = memo(({
     ],
     product,
 }) => {
+    const dispatch = useDispatch();
+    const cartSlice = useSelector(state => state.userStore, shallowEqual);
     const [num, setNum] = useState(1); // 商品数量
-    const [option, load, { sku, desc }, specList, setSku] = useSku(product, show, default_sku);
+    const [option, load, { sku, desc }, specList, setSku, specListData] = useSku(product, show, default_sku);
 
     useEffect(() => {
         // console.log(sku, desc);
@@ -36,19 +41,19 @@ const Skuhooks = memo(({
         console.log(load, 'sku---load');
         if (load && specList) { // 如果sku没有可选择的默认设置
             if (specList.length < 1) {
-                setSku({
-                    sku: {
-                        "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
-                        "price": 200,
-                        "stock": 10,
-                        'sku_id': '222',
-                    },
-                    desc: {
-                        // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
-                        // filterStr: desc,
-                        price: 200,
-                    },
-                })
+                // setSku({
+                //     sku: {
+                //         "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
+                //         "price": 200,
+                //         "stock": 10,
+                //         'sku_id': '222',
+                //     },
+                //     desc: {
+                //         // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
+                //         // filterStr: desc,
+                //         price: 200,
+                //     },
+                // })
             }
             hideLoading();
         }
@@ -76,14 +81,13 @@ const Skuhooks = memo(({
 
     const addCart = async () => {
         if (sku) {
-            const add = {
-                product_id: product.product_id,
-                sku_id: sku.sku_id,
-                product_count: num
+            const res = await CartService.add('1', product.product_id, `${sku.sku_id}`, num);
+            if (res) {
+                console.log(res);
+                setShow(false)
             }
-            // const res = await CartService.add(add)
-            setShow(false)
-            console.log(sku, add, 'addcart');
+            dispatch(actions.upcart_price())
+            console.log(sku, 'addcart');
         } else {
             showToast({ title: `请选择${desc?.str}`, icon: 'none' })
         }
@@ -180,7 +184,7 @@ const Skuhooks = memo(({
                                 <View className='btn fc buy-btn' onClick={() => { preOrder() }}>立即购买</View>
                             </>
                             }
-                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc, product_count: num }) }}>确定</View>}
+                            {show == 4 && <View className='btn fc cart-btn normal' onClick={() => { onOk({ ...sku, ...desc, product_count: num, specListData }) }}>确定</View>}
 
 
                         </View>

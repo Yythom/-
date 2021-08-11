@@ -11,6 +11,7 @@ const initialState = {
     token: getStorageSync('token') || null,
     userInfo: getStorageSync('info') || null,
     localtion: null,
+    cart_price: 0
 }
 /**
  * reducers
@@ -59,6 +60,17 @@ const userUpdata = createAsyncThunk(
     }
 )
 
+// 更新购物车价格
+const upcart_price = createAsyncThunk(
+    'user/upcart_price',
+    async (data, thunkAPI) => {
+        const userStore_requesut = await 19;
+        return userStore_requesut
+
+    }
+)
+
+
 /**
  * 异步action
  * 应返回包含一些异步逻辑结果的promise 通过extraReducers空间处理
@@ -88,12 +100,15 @@ const changeTokenActionAsync = createAsyncThunk(
  */
 const extraReducers = builder => {
     builder.addCase(changeTokenActionAsync.fulfilled, (state, action) => {
-        setStorageSync('info', action.payload.info)
-        state.userInfo = action.payload.info
+        setStorageSync('info', action.payload.info);
+        state.userInfo = action.payload.info;
     }),
         builder.addCase(userUpdata.fulfilled, (state, action) => {
-            state.userInfo = { ...action.payload }
-            setStorageSync('info', action.payload)
+            state.userInfo = { ...action.payload };
+            setStorageSync('info', action.payload);
+        }),
+        builder.addCase(upcart_price.fulfilled, (state, action) => {
+            state.cart_price = action.payload;
         })
 }
 
@@ -109,5 +124,6 @@ export const actions = {
     ...userSlice.actions,
     changeTokenActionAsync,
     userUpdata,
+    upcart_price,
 };
 export default userSlice.reducer;

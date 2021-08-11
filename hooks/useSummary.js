@@ -5,7 +5,7 @@ const useSummary = (list) => {
     const summaryShop = {}; // 每个店铺 汇总数据
     let isAll = false;
     let price = 0;
-    let selectArr = []
+    let selectArr = [];
     newList.forEach(shop => {  // 过滤汇总数据
         const shopData = {  // 单个店铺数据 临时初始化
             checked: false,
@@ -17,7 +17,7 @@ const useSummary = (list) => {
         selectArr = [...selectArr, ...select]
         shopData.price = select.reduce((prev, next) => np.plus( // 总价
             prev, np.times(
-                next.sale_price || next.price, next.num
+                next.sale_price || next.price, next.product_count
             ),
         ), 0);
 

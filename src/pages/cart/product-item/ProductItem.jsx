@@ -16,7 +16,7 @@ const ProductItem = memo(({
     showSku = Function.prototype,
     shop_id,
 }) => {
-
+    console.log(product);
     return (
         <Move value={80} padding={0} onClick={() => { handle(index, shop_id, 'delete') }}  >
             <View className='card flex' >
@@ -26,15 +26,15 @@ const ProductItem = memo(({
                     <Radio className='radio' color='#eb472b' checked={product.checked} />
                 </View>
                 <View className='product flex' onClick={(e) => { navLinkTo('product-detail/index', { product_id: product.product_id }); e.stopPropagation(); }}>
-                    <BlurImg className='img' mode='aspectFill' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
+                    <BlurImg className='img' mode='aspectFill' src={product?.sku.cover} />
                     {/* <Image mode='aspectFill' /> */}
                     <View className='desc fd'>
-                        <Text className='p-name'>{product?.product_name}</Text>
+                        <Text className='p-name'>{product?.product.product_name || '空'}</Text>
                         <View className='p-sku' onClick={(event) => {
                             showSku(product, index, shop_id);
                             event.stopPropagation();
                         }}>
-                            {product?.sku?.toString()}
+                            {product?.sku?.sku_default_value.map(e => e.value + ' ').toString()}
                             {/* {product?.sku.map(e => {
                                 return (
                                     <Text key={e} className='p-sku-item'>{e}</Text>
@@ -44,15 +44,15 @@ const ProductItem = memo(({
                         </View>
                         <View className=' fb'>
                             <View className='flex'>
-                                <Text className='price'><Text className='_money'>¥</Text>{product?.price}</Text>
-                                <Text className='del'><Text className='_money'>¥</Text>{product?.price}</Text>
+                                <Text className='price'><Text className='_money'>¥</Text>{product?.sku.discount_price}</Text>
+                                <Text className='del'><Text className='_money'>¥</Text>{product?.sku.market_price}</Text>
                             </View>
                         </View>
                         <View className='p-num fb'>
                             {
                                 product?.isVip == 1
-                                    ? <View className='vip-price-act'>会员价格</View>
-                                    : <View className='vip-price'>会员价格¥320</View>
+                                    ? <View className='vip-price-act'>{product?.sku.market_price}</View>
+                                    : <View className='vip-price'>¥{product?.sku.market_price}</View>
                             }
 
                             <HandleInput

@@ -18,7 +18,16 @@
     }
 
     .card {
-        width: 100%;
+        width: 100vw;
+
+        .product {
+            width: calc(100vw - 10% - 10px);
+
+            .desc {
+                width: calc(100% - 190px);
+            }
+        }
+
     }
 
     .cart-title {
