@@ -24,7 +24,7 @@ import ProductService from '@/services/product';
  */
 const RenderList = memo(({ twoCate, _list, skuOption }) => {
     const { show, setShow, setSkuData, skuData } = skuOption;
-    const showSku = async () => {
+    const showSku = async (product_id) => {
         const res = await ProductService.getProductDataApi();
         setSkuData({ ...filter_data(res) })
         setTimeout(() => {
@@ -72,7 +72,7 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                         <View className='vip-price fc'>¥{product.member_price}</View>
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
-                                            showSku()
+                                            showSku(product.product_id)
                                         }}>+</View>
                                     </View>
                                 </View>

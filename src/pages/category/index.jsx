@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import Taro, { getStorageSync, hideLoading, showLoading, useDidShow } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
@@ -36,9 +36,14 @@ function Index() {
     }
 
     useDidShow(() => {
-        init()
         // console.log(userStore);
     })
+
+    useEffect(() => {
+        init()
+
+    }, [])
+
     return (
         <View className='cate-wrap index' >
             <View className='fc search' style={{ width: '100vw' }}>
