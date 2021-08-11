@@ -3,7 +3,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import Taro, { getStorageSync, hideLoading, showLoading, useDidShow } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
-import BlurImg from '@/components/blur-img/BlurImg';
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
@@ -11,9 +10,9 @@ import Banner from '@/components/page/banner/Banner';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 // import CouponFloat from '@/components/page/coupon/coupon';
 import CouponList from '@/components/page/coupon/v-coupon';
+import CateService from '@/services/cate';
 import VtabList from './list/list-2';
 import vtab_data from './tab';
-import CateService from '@/services/cate';
 import './index.scss';
 
 function Index() {
@@ -52,7 +51,7 @@ function Index() {
             <Banner w='100vw' className='cate-banner' custom />
 
             {/* 横向优惠券列表 */}
-            <CouponList />
+            {/* <CouponList /> */}
 
             {/* 分类列表 */}
             <View>

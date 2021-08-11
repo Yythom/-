@@ -180,7 +180,7 @@ function VtabList({
                         <ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} />
                     </View>
                     <View className='square fc' onClick={() => setShow(!show)}>
-                        ^
+                        {show ? <Text className='iconfont icon-fold'></Text> : <Text className='iconfont icon-unfold'></Text>}
                     </View>
                 </View>
                 {show && <View className='show-cate flex'><ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} /></View>}

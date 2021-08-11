@@ -9,6 +9,7 @@ import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
+import CartService from '@/services/cart';
 
 const Skuhooks = memo(({
     bottom = Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2,
@@ -85,28 +86,31 @@ const Skuhooks = memo(({
     const preOrder = () => {
         if (!sku?.sku) return
         let pre = {
-            pre_order: {
-                product: [
-                    {
-                        product_id: product.product_id,
-                        sku_id: sku.sku_id,
-                        promotion_id: sku?.activity ? '0' : sku.promotion_id,
-                        number: num
-                    },
-                ]
-            },
+            "shop_id": "string",
+            "sku_items": [
+                {
+                    "sku_id": "string",
+                    "count": "integer"
+                }
+            ]
         };
-        setStorageSync('pre-data', pre.pre_order);
+        setStorageSync('pre-data', pre);
         navLinkTo('order-comfirm/index', {});
     };
 
-    const addCart = () => {
+    const addCart = async () => {
         if (sku) {
-            console.log(sku, 'addcart');
+            const add = {
+                product_id: product.product_id,
+                sku_id: sku.sku_id,
+                product_count: num
+            }
+            // const res = await CartService.add(add)
+            setShow(false)
+            console.log(sku, add, 'addcart');
         } else {
             showToast({ title: `请选择${desc?.str}`, icon: 'none' })
         }
-        console.log('requser');
         if (!sku?.sku) return
     };
 

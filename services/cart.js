@@ -3,14 +3,8 @@ import http from '../common/request';
 class CartService {
 
     // 加入购物车
-    static async add(shop_id, product_id, sku_id, number, promotion_id) {
-        const res = await http.post('/hb/v1/shop/cart/add', {
-            shop_id,
-            product_id,
-            sku_id,
-            number,
-            promotion_id: promotion_id,
-        });
+    static async add(data) {
+        const res = await http.post('/hb/v1/shop/cart/add', { ...data });
         return res;
     }
 
