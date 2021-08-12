@@ -131,6 +131,7 @@ function VtabList({
         if (twoCate) {
             if (twoCate[0]) {
                 autoInfos(400);
+                setchild_cate(twoCate[0])
             } else {
                 autoInfos();
             }

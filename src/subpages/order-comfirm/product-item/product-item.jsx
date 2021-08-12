@@ -29,7 +29,7 @@ const ProductItem = memo(({
                                             }
                                         </View>
                                         <View className='del'>
-                                            <Text className='_money'>¥</Text>{np.times(e?.market_price, 0.01)}
+                                            <Text className='_money'>¥</Text>{np.times(e?.market_price || 0, 0.01)}
                                         </View>
                                     </View>
                                     <View className='num'>x{e.product_count}</View>

@@ -16,44 +16,44 @@ const HistorySearch = ({
     // list, // 嵌套时可由外层控制
     // setList,
 }) => {
-    const [list, setList] = useState([
-        {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果',
-            price: '7999',
-            member_price: '6999',
-            sale: 12,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            member_price: '6999',
-            sale: 33,
-            num: '2',
-            tags: [
-                {
-                    id: 1,
-                    name: '20元券',
-                },
-                {
-                    id: 1,
-                    name: '补贴￥3元',
-                },
-            ]
-        },
-    ]);
+    // const [list, setList] = useState([
+    //     {
+    //         product_id: '101',
+    //         product_name: '官方直降Apple/苹果 Apple/苹果',
+    //         price: '7999',
+    //         member_price: '6999',
+    //         sale: 12,
+    //         num: '2',
+    //         tags: [
+    //             {
+    //                 id: 1,
+    //                 name: '20元券',
+    //             },
+    //             {
+    //                 id: 1,
+    //                 name: '补贴￥3元',
+    //             },
+    //         ]
+    //     },
+    //     {
+    //         product_id: '102',
+    //         product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
+    //         price: '7999',
+    //         member_price: '6999',
+    //         sale: 33,
+    //         num: '2',
+    //         tags: [
+    //             {
+    //                 id: 1,
+    //                 name: '20元券',
+    //             },
+    //             {
+    //                 id: 1,
+    //                 name: '补贴￥3元',
+    //             },
+    //         ]
+    //     },
+    // ]);
     const [log, setLog] = useState([]); // 历史记录
     const [item, setItem] = useState('')
 
@@ -69,19 +69,21 @@ const HistorySearch = ({
 
     const searchFn = async (_text) => {
         if (!_text) {
-            setList([]);
+            // setList([]);
             setItem('')
             return;
         }
         if (!log.includes(_text)) { // 并且 历史不存在当前 输入框的值
-            const $log = [...log, _text];
+            const $log = [_text, ...log];
+            console.log($log, '$log');
             setStorageSync(storage_logkey, JSON.stringify($log)); // 添加新的历史
             setLog($log);
         }
 
 
-        // showLoading({ title: '加载中', })
-        navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) })
+
+        // navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) });
+
         // let _list = await api.api({ ...api.params });
         // console.log(api.params);
         // if (_list) {
@@ -129,7 +131,7 @@ const HistorySearch = ({
     // })
     const clear = () => {
         setLog('');
-        setList([]);
+        // setList([]);
         removeStorageSync(storage_logkey);
     }
 
@@ -138,9 +140,9 @@ const HistorySearch = ({
             <View className='fc search'>
                 <Search isEditor width='720rpx' value={item} text='搜索更多优惠商品' onBlur={searchFn} height='34px' style={{ top: getStorageSync('navHeight') + 'px' }} />
             </View>
-            {
+            {/* {
                 list[0] && renderCenter
-            }
+            } */}
 
             {
                 isShowHot && <View className='hot_box'>

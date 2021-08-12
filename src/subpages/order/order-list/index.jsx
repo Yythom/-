@@ -8,7 +8,7 @@ import './index.scss'
 import TestService from '@/services/test';
 import ProductItem from './product-item/ProductItem';
 import NavBar from '@/components/navbar/NavBar';
-import { systemInfo } from '@/common/publicFunc';
+import { navLinkTo, systemInfo } from '@/common/publicFunc';
 
 const tabsList = [
     { title: '全部', status: '' },
@@ -130,6 +130,28 @@ const Index = () => {
 
     useEffect(() => {
         if (params) {
+            // const newObj = {
+            //     "condition": {
+            //         "with_order_detail": 1,
+            //         "with_order_address": 1,
+            //         "with_order_discount": 1,
+            //         "with_order_code": 1,
+            //         "with_order_fee": 1
+            //     },
+            //     "search": {
+            //         "shop_id": '1',
+            //         "user_status": "integer"
+            //     },
+            //     "sort": {
+            //         "create_at": "string"
+            //     },
+            //     "page": {
+            //         "all": "integer",
+            //         "total": "integer",
+            //         "page": "integer",
+            //         "page_size": "integer"
+            //     }
+            // }
             console.log(params, '。。。。。。数据改变重新请求列表');
         }
     }, [params])
@@ -192,6 +214,7 @@ const Index = () => {
                             <View
                                 className='fc bg'
                                 key={e.order_id + e.shop_name}
+                                onClick={() => { navLinkTo('order/order-detail/index', { order_id: e.order_id }); }}
                             >
                                 <ProductItem products={e.products} />
                             </View>

@@ -10,7 +10,7 @@ const ProductItem = memo(({ products, }) => {
     return (
         <View
             className='order-item'
-            onClick={(e) => { navLinkTo('order/order-detail/index', {}); e.stopPropagation(); }}
+
         >
             <View className='title fb'>
                 <Text>2021-07-06 10:26:30</Text>

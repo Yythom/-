@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useState } from 'react';
-import Taro, { getStorageSync, setTabBarStyle, showToast, useDidShow, useReachBottom } from '@tarojs/taro';
+import React, { useEffect, useMemo, useState } from 'react';
+import Taro, { getStorageSync, setTabBarStyle, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro';
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
 import Banner from '@/components/page/banner/Banner';
 import NavBar from '@/components/navbar/NavBar';
@@ -19,9 +19,9 @@ import filter_data from '../../../hooks/sku-utils/data_filter';
 // import useCountdown from '../../../hooks/useCountDown';
 import Types from './types/types';
 import Seconds from './seconds-kill/Seconds';
-import './index.scss';
 import ProductService from '@/services/product';
 import HomeService from '@/services/index';
+import './index.scss';
 
 function Index() {
     const store = useSelector(_store => _store, shallowEqual);
@@ -39,7 +39,6 @@ function Index() {
 
     // console.log(formattedRes);
     const [pageData, setPageData] = useState(null);
-    const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState([
         {
             product_id: '101',
@@ -100,29 +99,44 @@ function Index() {
             name: '唯',
         },
     ]);
+    const tag_list = useMemo(() => {
+        if (pageData) {
+            return [{ title: '全部' }, ...pageData?.category?.list?.map(e => { return { title: e.category_name } })]
+        } else {
+            return [{ title: '全部' },]
+        }
+    }, [pageData]);
 
     const init = async () => {
         const res = await HomeService.getHomeApi();
         setPageData(res)
         tabChange(0);
+        stopPullDownRefresh()
     }
-    useDidShow(() => {
+
+    useEffect(() => {
         Taro.showShareMenu();
         init();
         console.log(commonConfig);
-    })
+    }, [])
+
     const [page, setPage] = useState(1)
 
     useReachBottom(() => {
-        tabChange(index, page + 1)
+        tabChange(index, page + 1);
     });
+
+    usePullDownRefresh(() => {
+        init();
+        setInit(!initTabs);
+    })
 
     const [index, setIndex] = useState(0);
     const [noMore, setNoMore] = useState(false);
 
     const tabChange = async (i, _page) => {
         if (!_page) setList([])
-        console.log(list, 'listlistlist');
+        // console.log(list, 'listlistlist');
         if (_page && noMore && !list[0]) return
         console.log(_page || 1);
         const res = await ProductService.getProductListApi({ category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id, page: _page || 1 });
@@ -151,6 +165,7 @@ function Index() {
             setShow(1);
         }, 100);
     }
+    const [initTabs, setInit] = useState(false)
 
     return (
         <View className='index-wrap index' >
@@ -175,10 +190,11 @@ function Index() {
             {
 
                 <Tabs
-                    tag_list={pageData?.category?.list ? [{ title: '全部' }, ...pageData?.category?.list?.map(e => { return { title: e.category_name } })] : [{ title: '全部' },]}
+                    tag_list={tag_list}
                     onChange={tabChange}
                     defaultIndex='0'
                     padding='60'
+                    initTabs={initTabs}
                     isSticy
                     notChildScroll
                 // request={}

@@ -84,7 +84,7 @@ const Index = (props) => { // 不能有padding父元素
         setTimeout(() => {
             createSelectorQuery().selectAll(`.autoHeight${className}`).boundingClientRect(function (rect) {
                 if (rect[current]) {
-                    console.log(rect[current].height);
+                    // console.log(rect[current].height);
                     setHeight(rect[current].height)
                 }
             }).exec()
@@ -154,10 +154,8 @@ const Index = (props) => { // 不能有padding父元素
     }
 
     useEffect(() => {
-        if (tag_list[0]) {
-            console.log(' ----- tag_list 改变重新设置tab', tag_list);
-            initTabsFn()
-        }
+        initTabsFn();
+        console.log('tag_list 改变 tab重载入');
     }, [tag_list])
 
     // useEffect(() => {
@@ -198,7 +196,7 @@ const Index = (props) => { // 不能有padding父元素
                                                 )
                                             })
                                         }
-                                        <View className='nav-line' style={{ width: `calc(${navItemWidth}px - ${padding}rpx)`, left: `calc(${(navItemLeft - 1)}px + ${padding / 2}rpx)` }} ></View>
+                                        <View className='nav-line' style={{ width: navItemWidth ? `calc(${navItemWidth}px - ${padding}rpx)` : '0px', left: `calc(${(navItemLeft - 1)}px + ${padding / 2}rpx)` }} ></View>
                                     </View>
 
                                 </ScrollView>

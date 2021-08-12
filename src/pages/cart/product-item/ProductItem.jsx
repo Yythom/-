@@ -44,15 +44,15 @@ const ProductItem = memo(({
                         </View>
                         <View className=' fb'>
                             <View className='flex'>
-                                <Text className='price'><Text className='_money'>¥</Text>{np.times(product?.sku.discount_price, 0.01)}</Text>
-                                <Text className='del'><Text className='_money'>¥</Text>{np.times(product?.sku.market_price, 0.01)}</Text>
+                                <Text className='price'><Text className='_money'>¥</Text>{np.times(product?.sku.discount_price || 0, 0.01)}</Text>
+                                <Text className='del'><Text className='_money'>¥</Text>{np.times(product?.sku.market_price || 0, 0.01)}</Text>
                             </View>
                         </View>
                         <View className='p-num fb'>
                             {
                                 product?.isVip == 1
-                                    ? <View className='vip-price-act'>{np.times(product?.sku.market_price, 0.01)}</View>
-                                    : <View className='vip-price'>¥{np.times(product?.sku.market_price, 0.01)}</View>
+                                    ? <View className='vip-price-act'>{np.times(product?.sku.member_price || 0, 0.01)}</View>
+                                    : <View className='vip-price'>¥{np.times(product?.sku.member_price || 0, 0.01)}</View>
                             }
 
                             <HandleInput

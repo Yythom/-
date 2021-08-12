@@ -21,11 +21,13 @@ const customInterceptor = (chain) => {
     // TODO:当code为0，表示请求成功
     if (code != '0') {
       if (msg) {
-        if (msg.indexOf('登入')) {
-          reLaunch({ url: '/pages/center/index' });
+        if (msg.indexOf('登录') !== -1) {
+          setTimeout(() => {
+            reLaunch({ url: '/pages/center/index' });
+          }, 1000);
           setStorageSync('relogin', true)
         }
-        console.log(msg);
+        console.log(msg, 'error');
         showToast({
           title: msg,
           icon: 'none',

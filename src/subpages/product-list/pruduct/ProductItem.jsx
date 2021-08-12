@@ -23,9 +23,9 @@ const ProductItem = memo(({ product, }) => {
 
                     <View className='p-num fb'>
                         <View className='price-box flex'>
-                            <Text className='price'><Text className='_money'>¥</Text>{np.times(product?.discount_price, 0.01)}</Text>
+                            <Text className='price'><Text className='_money'>¥</Text>{np.times(product?.discount_price || 0, 0.01)}</Text>
                             {/* <Text className='del'><Text className='_money'>¥</Text>{np.times(product?.market_price, 0.01)}</Text> */}
-                            <View className='vip-price' ><Text className='_money'>¥</Text>{np.times(product?.member_price, 0.01)}</View>
+                            <View className='vip-price' ><Text className='_money'>¥</Text>{np.times(product?.member_price || 0, 0.01)}</View>
                         </View>
 
                         <View className='sale'>

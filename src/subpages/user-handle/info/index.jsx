@@ -9,13 +9,13 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { actions } from '@/store/userSlice';
 import UpImg from '@/components/upload-img/Uploadimg';
 import { isPhoneNumber } from '@/common/public';
-import './index.scss'
 import UserService from '@/services/user';
+import './index.scss'
 
 const Index = () => {
     const dispath = useDispatch();
     const userStore = useSelector(e => e.userStore, shallowEqual);
-    const userInfo = userStore.userInfo || null;
+    const userInfo = userStore.userInfo || {};
 
     const changeInfo = async (type, value) => {
         const _info = JSON.parse(JSON.stringify(userInfo));
@@ -48,7 +48,7 @@ const Index = () => {
         <View className='info_wrap' style={{ paddingBottom: `${getStorageSync('safeArea') * 2 + getStorageSync('bar_height') * 2}rpx` }} >
             <NavBar back title='个人中心' background='#fff' color='#fff' />
             <View className='fd' style={{ background: '#fff', alignItems: 'center' }} >
-                <Avatar style={{ background: '#fff' }} size={200} />
+                <Avatar style={{ background: '#fff' }} size={100} />
                 <UpImg
                     onOk={(url) => {
                         // dispath(actions.setAvatar(url))

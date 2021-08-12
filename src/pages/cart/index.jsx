@@ -114,8 +114,10 @@ const Index = () => {
 
     const init = async () => {
         const res = await CartService.list();
-        if (res.list[0]) setPageData([{ shop_id: '1', products: res.list }])
         stopPullDownRefresh();
+
+        if (!res) return
+        if (res.list[0]) setPageData([{ shop_id: '1', products: res.list }])
         console.log(res, 'res');
     }
 
@@ -206,6 +208,7 @@ const Index = () => {
             length_arr.forEach(e => length += e);
 
             CartService.list().then(res => {
+                if (!res) return
                 if (res.list[0]) {
                     length_res = res.list.length
                     // const length_arr = list.map(e => e.products.length);
