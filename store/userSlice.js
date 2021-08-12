@@ -110,7 +110,7 @@ const extraReducers = builder => {
             setStorageSync('info', action.payload);
         }),
         builder.addCase(upcart_price.fulfilled, (state, action) => {
-            state.cart_price += action.payload;
+            state.cart_price = action.payload;
         })
 }
 
