@@ -2,7 +2,11 @@
     height: 100vh;
     box-sizing: border-box;
     background-color: #f3f3f3;
+
     // background-color: pink;
+    .swiper {
+        min-height: 60vh;
+    }
 
     .deliveryMethod {
         padding-top: 30px;
