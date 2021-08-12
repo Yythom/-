@@ -221,7 +221,7 @@ const Index = () => {
                 <View className='footer flex'>
                     <View className='price-box fd'>
                         <View className='all'>总价：<Text className='price'>¥{pageData?.order_amount}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥TODO:</Text></View>
+                        <View className='dis'>已优惠：<Text>¥{pageData?.order_discount_amount}</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {
