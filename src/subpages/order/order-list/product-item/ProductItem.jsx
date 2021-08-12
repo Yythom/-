@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useCallback, useEffect, useState } from 'react';
-import { View, Text, Radio, Button, ScrollView } from '@tarojs/components';
+import { View, Text, Radio, Button, ScrollView, Image } from '@tarojs/components';
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
@@ -71,13 +71,21 @@ const ProductItem = memo(({ order, getList }) => {
                 <Text className='status'>待支付</Text>
             </View>
             <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
-                {order?.order_detail?.map((product, i) => {
-                    return (
-                        <View className='product_item' key={product.product_id + '-product_id'}>
-                            <BlurImg className='img' src={product.cover} />
-                        </View>
-                    )
-                })}
+                <View className='pruduct_wrap ' style={{ paddingRight: '170rpx' }}  >
+                    {order?.order_detail?.map((product, i) => {
+                        return (
+                            <>
+                                <View className='product_item' key={product.product_id + '-product_id'}>
+                                    <View className='img'>
+                                        <Image mode='aspectFill' src={product.cover} />
+                                    </View>
+                                </View>
+                            </>
+
+                        )
+                    })}
+                </View>
+
             </ScrollView>
             <View className='info fdc' >
                 <Text className='price'><Text className='_money'>&nbsp;¥</Text>{order.order_amount}</Text>
