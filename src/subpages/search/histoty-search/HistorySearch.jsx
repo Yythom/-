@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from '@tarojs/components';
 import { lkHideLoading, lkShowLoading, navLinkTo } from '@/common/publicFunc';
-import { getStorageSync, removeStorageSync, setStorageSync, } from '@tarojs/taro';
+import { getStorageSync, removeStorageSync, setStorageSync, useDidShow, } from '@tarojs/taro';
 import Search from '@/components/search/Search';
 import './history_search.scss'
 
@@ -57,11 +57,11 @@ const HistorySearch = ({
     const [log, setLog] = useState([]); // 历史记录
     const [item, setItem] = useState('')
 
-    useEffect(() => {
+    useDidShow(() => {
         if (getStorageSync(storage_logkey)) {
-            setLog(JSON.parse(getStorageSync(storage_logkey)))
+            setLog(getStorageSync(storage_logkey))
         }
-    }, [])
+    })
 
     // useEffect(() => {
     //     searchFn(item) // 筛选内容改变重搜索
@@ -76,13 +76,13 @@ const HistorySearch = ({
         if (!log.includes(_text)) { // 并且 历史不存在当前 输入框的值
             const $log = [_text, ...log];
             console.log($log, '$log');
-            setStorageSync(storage_logkey, JSON.stringify($log)); // 添加新的历史
+            setStorageSync(storage_logkey, $log); // 添加新的历史
             setLog($log);
         }
 
 
 
-        // navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) });
+        navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) });
 
         // let _list = await api.api({ ...api.params });
         // console.log(api.params);

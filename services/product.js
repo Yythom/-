@@ -13,9 +13,9 @@ class ProductService {
                 search: data.keywords || '',
             },
             sort: {
-                create_at: '',
-                discount_price: '',
-                sale: ''
+                create_at: data?.sort?.create_at || '',
+                discount_price: data?.sort?.discount_price || '',
+                sale: data?.sort?.sale || ''
             },
             page: {
                 all: 0,

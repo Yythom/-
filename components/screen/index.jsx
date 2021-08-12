@@ -28,36 +28,26 @@ const Screen = memo(({ list, onShow, onClick }) => {
     }, [])
 
     useEffect(() => {
-        if (index === 0) {
-            setSortContent([
-                {
-                    text: '全部',
-                    value: ''
-                },
-                {
-                    text: '升序',
-                    value: 1
-                },
-                {
-                    text: '降序',
-                    value: 2
-                }
-            ]);
-        }
+        // if (index === 0) {
+        //     setSortContent([
+        //         {
+        //             text: '全部',
+        //             value: ''
+        //         },
+        //     ]);
+        // }
     }, [index])
 
     const handleScreenClick = (cate, i) => {
         if (cate.noMore) { // b不需要展开项直接赋值
             setSortContent([])
             // const newObj = { ...act, };
-            const newObj = init();
+            const newObj = JSON.parse(JSON.stringify(act));
             if (newObj[cate.key]) {
                 newObj[cate.key] = ''
             } else {
-                newObj[cate.key] = '自定义的'
+                newObj[cate.key] = 'desc'
             }
-            // console.log(newObj);
-
             setAct(newObj);
             onClick(newObj);
         }
