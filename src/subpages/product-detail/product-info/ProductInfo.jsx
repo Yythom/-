@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, Button } from '@tarojs/components';
-import { getClipboardData, setClipboardData, showShareMenu, showToast, useDidShow, useShareAppMessage } from '@tarojs/taro';
-import isWeapp from '@/utils/env';
+
 import np from 'number-precision'
 import './product.scss'
 
@@ -10,25 +9,9 @@ function ProductInfo({
     className,
     product,
 }) {
-    useDidShow(() => {
-        isWeapp && showShareMenu();
-    })
-
-    useShareAppMessage(res => {
-        console.log(res, 'res');
-        if (res.from === 'button') {
-            // 来自页面内转发按钮
-            console.log(res.target)
-        }
-        return {
-            title: product.product_name,
-            path: `/subpages/product-detail/index?id=${product.product_id}`,
-        }
-    });
 
     return (
         <View className={'p-info ' + className}>
-
             <View className='p-name fb'>
                 <View className='name'>
                     {product?.product_name}

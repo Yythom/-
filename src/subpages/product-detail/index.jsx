@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, removeStorageSync, showModal, useDidShow } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, showModal, showShareMenu, useDidShow, useShareAppMessage } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
@@ -25,9 +25,13 @@ const Index = () => {
     const init = async () => {
         removeStorageSync('address_id')
         console.log(query.product_id, 'product_id');
-        const res = await ProductService.getProductDataApi();
+        const res = await ProductService.getProductDataApi(query.product_id);
         setPageData({ ...filter_data(res) })
     }
+
+    useDidShow(() => {
+        showShareMenu();
+    })
 
     useEffect(() => {
         init()

@@ -50,6 +50,17 @@ class OrderService {
         const res = await http.post('/trade/preview', { ...data });
         return res;
     }
+    static async offOrder(order_id) {
+        const res = await http.post('/order/cancel', { order_id });
+        return res;
+    }
+
+    static async okOrder(order_id) {
+        const res = await http.post('/order/complete', { order_id });
+        return res;
+    }
+
+
 }
 
 export default OrderService;

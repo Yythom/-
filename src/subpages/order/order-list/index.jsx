@@ -67,7 +67,7 @@ const Index = () => {
         }
     };
 
-    const getList = async (data) => {
+    const getList = useCallback(async (data) => {
         const res = await OrderService.getOrderList({ ...data })
         if (res) {
             setPageData(res);
@@ -77,12 +77,12 @@ const Index = () => {
                 removeStorageSync('top');
             }, 200);
         }
-    }
+    }, []) // 不需要依赖更新
 
     const [load, setLoad] = useState(false)
 
     useLayoutEffect(() => {
-        changeParams('status', tabList[query.defaultIndex].status)
+        tabChange(query.defaultIndex)
     }, [])
 
 
@@ -180,7 +180,7 @@ const Index = () => {
                                         navLinkTo('order/order-detail/index', {});
                                     }}
                                 >
-                                    <ProductItem order={e} />
+                                    <ProductItem order={e} getList={getList} />
                                 </View>
                             )
                         }) : <View className='empty fc'>
