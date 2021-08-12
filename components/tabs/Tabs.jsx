@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState, useEffect, memo } from 'react';
 import { View, ScrollView, Swiper, SwiperItem } from '@tarojs/components';
-import Taro, { createSelectorQuery, getStorageSync } from '@tarojs/taro'
+import Taro, { createSelectorQuery, getStorageSync, showToast } from '@tarojs/taro'
 import { debounce } from '@/common/utils';
 import paging, { initing } from '../../utils/paging';
 import './tabs.scss'
@@ -91,16 +91,30 @@ const Index = (props) => { // 不能有padding父元素
         }, 200);
     }
 
+
+    const [flag, setFlag] = useState(false); // 
+    const [loading, setLoading] = useState(false); // 
+    function showInto() {
+        setTimeout(() => {
+            showToast({ title: '没有更多了', icon: 'none' })
+        }, 300);
+    }
     // swiper到底事件
     const onLower = () => {
         // setPage(page + 1)
         console.log('到底了');
+        if (flag || loading) return showInto()
+        setLoading(true)
         paging(request, page, (newList) => {
             if (newList) {
+                setLoading(false)
                 if (newList.list[0]) {
                     onScrollBottom(newList);
                     setPage(page + 1)
                     initContentHeight(tabIndex)
+                } else {
+                    showInto()
+                    setFlag(true);
                 }
             }
             setRefresh_status(false)
@@ -149,7 +163,8 @@ const Index = (props) => { // 不能有padding父元素
         setScrollLeft(scrollToLeft);
         setNavItemLeft(info.left);
         setTimeout(() => {
-            setNavItemWidth(info.width)
+            setNavItemWidth(info.width);
+            !notChildScroll && setFlag(false)
         }, 50);
     }
 
@@ -232,7 +247,7 @@ const Index = (props) => { // 不能有padding父元素
                                                                 !notChildScroll ? <ScrollView
                                                                     className='swiper-scroll'
                                                                     scrollY
-                                                                    lowerThreshold={10}
+                                                                    lowerThreshold={30}
                                                                     refresherTriggered={refresh_status}
                                                                     onRefresherRefresh={refresh}
                                                                     onScrollToLower={onLower}
@@ -255,7 +270,7 @@ const Index = (props) => { // 不能有padding父元素
                                                             !notChildScroll ? <ScrollView
                                                                 className='swiper-scroll'
                                                                 scrollY
-                                                                lowerThreshold={10}
+                                                                lowerThreshold={30}
                                                                 refresherTriggered={refresh_status}
                                                                 onRefresherRefresh={refresh}
                                                                 onScrollToLower={onLower}

@@ -49,7 +49,7 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                             //     <BlurImg className='img' src={product.image} />
                             //     <View className='text'>{product.name}</View>
                             // </View>
-                            <View className='flex item' onClick={() => navLinkTo('product-list/index', {})} key={cate.category_id + product.product_name + '_product'}>
+                            <View className='flex item' onClick={() => navLinkTo('product-detail/index', { product_id: product.product_id })} key={cate.category_id + product.product_name + '_product'}>
                                 <Image className='img' mode='aspectFill' src={product.cover}></Image>
                                 <View className='content fd'>
                                     <View className='name'>{product.product_name}</View>

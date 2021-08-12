@@ -36,7 +36,7 @@ class OrderService {
                 "all": 0,
                 "total": 1,
                 "page": data.page || 1,
-                "page_size": 10
+                "page_size": 5
             }
         });
         return res;

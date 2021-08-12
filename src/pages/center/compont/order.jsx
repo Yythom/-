@@ -3,6 +3,7 @@ import { navLinkTo } from '@/common/publicFunc';
 import order_type from '@/src/subpages/order/orderType';
 import make_type from '@/src/subpages/order/type';
 import { Text, View } from '@tarojs/components';
+import { navigateTo } from '@tarojs/taro';
 import React, { Fragment, memo } from 'react';
 
 const tabsList = [
@@ -16,7 +17,7 @@ const tabsList = [
 const OrderType = memo(() => {
     return (
         <Fragment>
-            <View className='order-card fb wallet-common ' style={{ marginTop: '0' }} onClick={() => navLinkTo('order/order-list/index', {})} >
+            <View className='order-card fb wallet-common ' style={{ marginTop: '0' }}  >
                 {/* <View className='title flex'>我的服务</View> */}
                 {
                     tabsList.map((e, i) => {
@@ -24,10 +25,14 @@ const OrderType = memo(() => {
                             <Fragment key={e.title}>
                                 <View
                                     className='fdc'
-                                    onClick={() => navLinkTo('order/order-list/index', {
-                                        delivery_type: make_type.DeliveryType.SELF_MENTION,
-                                        defaultIndex: i
-                                    })}
+                                    onClick={() => {
+                                        navLinkTo('order/order-list/index', {
+                                            delivery_type: make_type.DeliveryType.SELF_MENTION,
+                                            defaultIndex: i
+                                        })
+                                    }}
+
+
                                 >
                                     <Text className='iconfont icon-ziyuan'></Text>
                                     <View className=''>{e.title}</View>

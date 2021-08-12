@@ -5,15 +5,16 @@ import { navLinkTo } from "@/common/publicFunc";
 import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
 import { getStorageSync, useDidShow } from "@tarojs/taro";
-import './address.scss';
 import AddressService from "@/services/address";
+import make_type from "../../order/type";
+import './address.scss';
 
 const Address = memo(({
     address,
     setAddress,
     date,
     setDate,
-    method = 1,
+    method = make_type.DeliveryType.DELIVERY,
 }) => {
     const [msg, setMsg] = useState({
         oldmsg: '13145216024',
@@ -22,7 +23,7 @@ const Address = memo(({
     const [modal, setModal] = useState(false);
 
     const init = async () => {
-        if (method == 1) {
+        if (method == make_type.DeliveryType.DELIVERY) {
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
                 setAddress(getStorageSync('address_id'))
@@ -51,10 +52,11 @@ const Address = memo(({
         if (address) init()
     }, [method]);
 
-    if (!address) return <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >
+    if (!address) return method == make_type.DeliveryType.DELIVERY && <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >
         <View>选择收货地址</View>
         <View className='iconfont icon-right'></View>
-    </View></View >
+    </View>
+    </View >
     return (
         <Fragment>
             <View className='address_wrap fd' >

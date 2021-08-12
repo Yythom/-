@@ -2,7 +2,7 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, removeStorageSync, setStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, navigateBack, removeStorageSync, setStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -133,12 +133,22 @@ const Index = () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
     }, [])
 
+    useLayoutEffect(() => {
+        if (getStorageSync('back')) {
+            navigateBack({
+                delta: 1,
+                success: () => {
+                    removeStorageSync('back');
+                }
+            })
+        }
+    })
 
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
         if (res) {
-            // removeStorageSync('pre-data')
-            // removeStorageSync('address_id')
+            removeStorageSync('pre-data')
+            removeStorageSync('address_id')
             setStorageSync('order_id_detail', res.order_id)
             setStorageSync('back', 2)
             navLinkTo('order/order-detail/index', {});

@@ -4,8 +4,8 @@
     background-color: #f3f3f3;
 
     // background-color: pink;
-    .swiper {
-        min-height: 60vh;
+    .swiper_ex {
+        min-height: calc(100vh - 180px - 100px - 125px);
     }
 
     .deliveryMethod {

@@ -2,26 +2,25 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { View, Text, Radio, ScrollView } from '@tarojs/components';
-
 // import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, removeStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import FloatBottom from '@/components/float/FloatBottom';
 import np from 'number-precision'
 import isWeapp from '@/utils/env';
-import ProductItem from './product-item/ProductItem';
-import './index.scss'
-import useSummary from '../../../hooks/useSummary';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
-import { data, onlineData } from '../../../hooks/sku-utils/data';
-import { data2 } from '../../../hooks/sku-utils/data2';
 import CouponFloat from '@/components/page/coupon/coupon';
-import filter_data from '../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
 import { actions } from '@/store/userSlice';
+import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import CartService from '@/services/cart';
-import CateService from '@/services/cate';
+import filter_data from '../../../hooks/sku-utils/data_filter';
+import useSummary from '../../../hooks/useSummary';
+import ProductItem from './product-item/ProductItem';
+import './index.scss'
+
+// import { data, onlineData } from '../../../hooks/sku-utils/data';
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -92,11 +91,15 @@ const Index = () => {
                 }
                 break;
             case 'number':
-                item.product_count = value; // 修改当前商品数量
-                success(item, shop_id, (newItem) => {
-                    item = newItem;
-                    onChange(newList);
-                })
+                item.product_count = value || (value?.length == 0 ? 1 : item.sku.stock); // 修改当前商品数量
+                if (value || value?.length == 0) {
+                    success(item, shop_id, (newItem) => {
+                        item = newItem;
+                        onChange(newList);
+                    })
+                } else {
+                    setPageData(newList);
+                }
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
@@ -202,6 +205,7 @@ const Index = () => {
     });
 
     useDidShow(() => {
+        dispatch(tabActions.changetab(2))
         removeStorageSync('address_id')
         if (pageData[0]) {
             let length = 0;

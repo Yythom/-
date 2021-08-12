@@ -21,8 +21,8 @@ function ProductInfo({
             console.log(res.target)
         }
         return {
-            title: '自定义转发标题',
-            path: `/subpages/product-detail?id=123`,
+            title: product.product_name,
+            path: `/subpages/product-detail?id=${product.product_id}`,
         }
     });
 

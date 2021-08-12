@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { View, Text, Radio, Image } from '@tarojs/components';
-import Taro, { getStorageSync, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
+import Taro, { getStorageSync, showToast, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro';
 import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
@@ -59,15 +59,12 @@ const ProductItem = memo(({
                                 list={list}
                                 num={product.product_count}
                                 onChange={(value) => {
-                                    // console.log(value);
-                                    // if (num > value ) { // 减
-                                    //     return
-                                    // }
-                                    // if (num < value) { // 加
-
-                                    // }
-                                    // onChangeNumber()
+                                    if (value > product?.sku?.stock) {
+                                        handle(index, shop_id, 'number', false)
+                                        return showToast({ title: '最大库存:' + product?.sku?.stock, icon: 'none' })
+                                    }
                                     handle(index, shop_id, 'number', value)
+
                                 }}
                             />
                         </View>

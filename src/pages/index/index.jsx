@@ -7,23 +7,25 @@ import NavBar from '@/components/navbar/NavBar';
 import Search from '@/components/search/Search';
 import Notice from '@/components/notice/Notice';
 import BlurImg from '@/components/blur-img/BlurImg';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 
 import Tabs from '@/components/tabs/Tabs';
 import FloatBottom from '@/components/float/FloatBottom';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
+import ProductService from '@/services/product';
+import HomeService from '@/services/index';
+import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import { data, onlineData } from '../../../hooks/sku-utils/data';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 
 // import useCountdown from '../../../hooks/useCountDown';
 import Types from './types/types';
 import Seconds from './seconds-kill/Seconds';
-import ProductService from '@/services/product';
-import HomeService from '@/services/index';
 import './index.scss';
 
 function Index() {
+    const dispatch = useDispatch();
     const store = useSelector(_store => _store, shallowEqual);
     const commonConfig = store.commonStore.themeConfig;
     const [show, setShow] = useState(false);
@@ -167,6 +169,7 @@ function Index() {
     }
     const [initTabs, setInit] = useState(false)
 
+    useDidShow(() => dispatch(tabActions.changetab(0)))
     return (
         <View className='index-wrap index' >
             {/* <NavBar title='首页' /> */}

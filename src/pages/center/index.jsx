@@ -107,7 +107,7 @@ const Index = () => {
                 </View>
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
                     <View className='flex'>
-                        <Text className='iconfont icon-dingwei' />
+                        <Text className='iconfont icon-dianhua' />
                         <Text className=''>联系商家</Text>
                     </View>
                     <View className='flex'>

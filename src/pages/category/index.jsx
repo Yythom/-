@@ -3,19 +3,21 @@ import React, { Fragment, useEffect, useState } from 'react';
 import Taro, { getStorageSync, hideLoading, removeStorageSync, showLoading, useDidShow } from '@tarojs/taro';
 import { View, Button, Text } from '@tarojs/components';
 import Vtabs from '@/components/v-tabs/Vtabs';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Search from '@/components/search/Search';
 import Banner from '@/components/page/banner/Banner';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 // import CouponFloat from '@/components/page/coupon/coupon';
 import CouponList from '@/components/page/coupon/v-coupon';
+import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import CateService from '@/services/cate';
 import VtabList from './list/list-2';
 import vtab_data from './tab';
 import './index.scss';
 
 function Index() {
+    const dispatch = useDispatch()
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
     const [tabIndex, setTabIndex] = useState(0);
     const [list, setList] = useState(vtab_data[0]);
@@ -35,6 +37,7 @@ function Index() {
     }
 
     useDidShow(() => {
+        dispatch(tabActions.changetab(1))
         removeStorageSync('address_id')
         // console.log(userStore);
     })

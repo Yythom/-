@@ -57,11 +57,13 @@ const Index = () => {
     const changeParams = async (key, value) => {
         let newParams = { ...params };
         newParams[key] = value;
+        // console.log(newParams, 'newParamsnewParamsnewParams');
         setParams(newParams);
     };
 
     const tabChange = (i) => {
-        if (i) {
+        if (!isNaN(i)) {
+            setPageData(null)
             changeParams('status', tabList[i].status)
         }
     };
@@ -106,9 +108,12 @@ const Index = () => {
             refresherTriggered={flag}
             onRefresherRefresh={() => {
                 setFLag(true)
-                setTimeout(() => {
+                OrderService.getOrderList({
+                    ...params
+                }).then(res => {
+                    setPageData(res)
                     setFLag(false)
-                }, 1000);
+                })
             }}
             scrollY
             className='order-list-wrap'
@@ -157,6 +162,9 @@ const Index = () => {
                     http: OrderService.getOrderList
                 }}
                 onScrollBottom={(_newList) => {
+                    if (_newList) {
+                        setPageData({ ...pageData, list: [...pageData.list, ..._newList.list] })
+                    }
                     // setParams()
                     // setContent([...content, ..._newList?.list])
                 }}
@@ -165,20 +173,24 @@ const Index = () => {
             // }}
             >
                 {
-                    pageData && pageData.list.map(e => {
-                        return (
-                            <View
-                                className='fc bg'
-                                key={e.order_id + e.shop_name}
-                                onClick={() => {
-                                    setStorageSync('order_id_detail', e.order_id)
-                                    navLinkTo('order/order-detail/index', {});
-                                }}
-                            >
-                                <ProductItem order={e} />
-                            </View>
-                        )
-                    })
+                    pageData && (
+                        pageData.list[0] ? pageData.list.map(e => {
+                            return (
+                                <View
+                                    className='fc bg'
+                                    key={e.order_id + e.shop_name}
+                                    onClick={() => {
+                                        setStorageSync('order_id_detail', e.order_id)
+                                        navLinkTo('order/order-detail/index', {});
+                                    }}
+                                >
+                                    <ProductItem order={e} />
+                                </View>
+                            )
+                        }) : <View className='empty fc'>
+                            暂无数据
+                        </View>
+                    )
                 }
             </Tabs>
         </ScrollView >
