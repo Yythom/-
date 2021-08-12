@@ -38,13 +38,16 @@ const Index = () => {
 
     const init = async () => {
         const order_id = getStorageSync('order_id_detail')
-        const res = OrderService.getOrderDetailApi(order_id)
+        const res = await OrderService.getOrderDetailApi(order_id)
+        console.log('res', res)
+        setPageData(res)
         console.log(query);
     }
 
     useDidShow(() => {
         init();
     })
+    
     return (
         <View className='order_detail_wrap fd'  >
             <NavBar back title='订单详情' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%);' color='#fff' iconColor='#fff' />
@@ -55,11 +58,11 @@ const Index = () => {
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
-                            <View className='address'>{pageData?.address.address}</View>
+                            <View className='address'>{pageData?.order_address?.address}</View>
                         </View>
                     </View>
-                    <Text className='name'>{pageData?.address.username}</Text>
-                    <Text className='phone'>{pageData?.address.mobile}</Text>
+                    <Text className='name'>{pageData?.order_address?.contact_name}</Text>
+                    <Text className='phone'>{pageData?.order_address?.mobile}</Text>
                 </View>
             </View>
 
@@ -68,33 +71,33 @@ const Index = () => {
 
             <View className='card'>
                 <View className='title-status fb'>
-                    <Text className='msg'>{pageData?.status_message}</Text>
+                    <Text className='msg'>{pageData?.user_status_msg}</Text>
                     <Text className='desc'>商家配送</Text>
                 </View>
                 {
-                    pageData?.products.map(product => {
+                    pageData?.order_detail?.map(product => {
                         return (
-                            <View className='product_item flex' key={product.image}
+                            <View className='product_item flex' key={product.cover}
                                 onClick={() => {
                                     navLinkTo('product-detail/index', {})
                                 }}
                             >
-                                <BlurImg className='left' src={product.image} />
+                                <BlurImg className='left' src={product.cover} />
                                 <View className='right fb'>
-                                    <View className='desc fd'>
+                                    <View className='desc fd' style={{width: '100%'}}>
                                         <View className='product_name'>
                                             {product.product_name}
                                         </View>
-                                        <View className='_sku'>{product.spec}</View>
+                                        <View className='_sku'>{product.spec_detail}</View>
 
                                         <View className='price-box fb'>
                                             <View className='flex'>
-                                                <View className='price'><Text className='_money'>¥</Text>{product.sale_price}</View>
-                                                <Text className='number'> x{product.number}</Text>
+                                                <View className='price'><Text className='_money'>¥</Text>{product.sku_price}</View>
+                                                <Text className='number'> x{product.sku_count}</Text>
                                             </View>
-                                            <View className='price'><Text className='_money'>¥</Text>{product.sale_price}</View>
+                                            <View className='price'><Text className='_money'>¥</Text>{product.amount}</View>
                                         </View>
-                                        <View className='del'><Text className='_money'>¥</Text>{product.sale_price}</View>
+                                        <View className='del'><Text className='_money'>¥</Text>{product.market_price}</View>
                                     </View>
                                 </View>
                             </View>
@@ -103,15 +106,19 @@ const Index = () => {
                 }
                 <View className='line' />
                 <View className='order-desc'>
-                    <View className='item fb'>包装费：<Text className='price'>¥{111}</Text> </View>
-                    <View className='item fb'>配送费：<Text className='price'>¥{222}</Text> </View>
+                    {pageData?.order_fee?.map((item)=>{
+                        return <View className='item fb'>{item.fee_type_msg}：<Text className='price'>¥{item.fee}</Text> </View>
+                    })}
+                    {pageData?.order_discount?.map((etem)=>{
+                        return   <View className='item fb'>{etem.detail}：<Text className='price'>¥{etem.amount}</Text> </View>
+                    })}
                     <View className='item fb'>备注：<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
                     <View className='line' />
-                    <View className='item fb'>订单合计<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
+                    <View className='item fb'>订单合计<Text>¥{pageData?.order_amount || '暂无备注'}</Text> </View>
                     <View className='item fb' style={{ marginTop: '10rpx' }}>
                         <View className='left'></View>
                         <View className='right'>实付金额
-                            &nbsp;<Text className='price'><Text className='_money'>¥</Text>{pageData?.price}</Text></View>
+                            &nbsp;<Text className='price'><Text className='_money'>¥</Text>{pageData?.order_amount}</Text></View>
                     </View>
                 </View>
             </View>
@@ -124,8 +131,8 @@ const Index = () => {
                         {pageData?.order_id} &nbsp;复制
                     </View>
                 </View>
-                <View className='item fb'>下单时间： <Text >{pageData?.pay_at}</Text></View>
-                <View className='item fb'>配送时间： <Text >{pageData?.delivery_at}</Text> </View>
+                <View className='item fb'>下单时间： <Text >{pageData?.create_at}</Text></View>
+                <View className='item fb'>配送时间： <Text >{pageData?.delivery_at || '暂未设置'}</Text> </View>
             </View>
 
             <View className='footer'>
