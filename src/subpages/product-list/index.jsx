@@ -107,10 +107,12 @@ const Index = () => {
                 style={{ paddingBottom: `${getStorageSync('safeArea') * 2}rpx` }}
             >
                 {
-                    pageData?.list.map((e, i) => <ProductItem
+                    pageData?.list[0] ? pageData?.list.map((e, i) => <ProductItem
                         key={e.product_id}
                         product={e}
-                    />)
+                    />) : <View className='empty fc' style={{ marginTop: '20rpx', color: '#666' }}>
+                        暂无数据
+                    </View>
                 }
             </ScrollView>
 
