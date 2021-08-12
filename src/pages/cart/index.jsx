@@ -123,7 +123,7 @@ const Index = () => {
         stopPullDownRefresh();
 
         if (!res) return
-        if (res.list[0]) setPageData([{ shop_id: '1', products: res.list }])
+        if (res.list) setPageData([{ shop_id: '1', products: res.list }])
         console.log(res, 'res');
     }
 
@@ -159,6 +159,7 @@ const Index = () => {
         if (res) {
             init();
         }
+        setEdit(false)
     }
 
     const onChange = useCallback(async (newList) => {
