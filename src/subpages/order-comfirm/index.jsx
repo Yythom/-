@@ -15,6 +15,7 @@ import Date from './date/date';
 import ProductItem from './product-item/product-item';
 import OrderService from '@/services/order';
 import AddressService from '@/services/address';
+import np from 'number-precision'
 import make_type from '../order/type';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
@@ -130,10 +131,6 @@ const Index = () => {
     }
 
     useDidShow(() => {
-        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
-    }, [])
-
-    useLayoutEffect(() => {
         if (getStorageSync('back')) {
             navigateBack({
                 delta: 1,
@@ -142,7 +139,8 @@ const Index = () => {
                 }
             })
         }
-    })
+        if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
+    }, [])
 
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
@@ -220,8 +218,8 @@ const Index = () => {
 
                 <View className='footer flex'>
                     <View className='price-box fd'>
-                        <View className='all'>总价：<Text className='price'>¥{pageData?.order_amount}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥{pageData?.order_discount_amount}</Text></View>
+                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 0.01)}</Text></View>
+                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 0.01)}</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {
