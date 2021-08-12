@@ -83,11 +83,11 @@ const Index = () => {
     return (
         <View className='product-list-wrap' >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search isEditor width='720rpx' value={search?.keywords} text='搜索商品' onBlur={(value) => {
-                    changeSearch('keywords', value);
-                    let log = getStorageSync('search-log') || []
-                    const $log = [value, ...log];
-                    setStorageSync('search-log', $log); // 添加新的历史
+                <Search width='720rpx' value={search?.keywords} text='搜索商品' onBlur={(value) => {
+                    // changeSearch('keywords', value);
+                    // let log = getStorageSync('search-log') || []
+                    // const $log = [value, ...log];
+                    // setStorageSync('search-log', $log); // 添加新的历史
                 }} />
                 {/* <Text className='iconfont icon-dingdan' onClick={() => setShow(true)} /> */}
             </View>
