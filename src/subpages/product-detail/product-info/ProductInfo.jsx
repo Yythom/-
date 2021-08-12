@@ -22,7 +22,7 @@ function ProductInfo({
         }
         return {
             title: product.product_name,
-            path: `/subpages/product-detail?id=${product.product_id}`,
+            path: `/subpages/product-detail/index?id=${product.product_id}`,
         }
     });
 
