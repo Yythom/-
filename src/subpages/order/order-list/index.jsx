@@ -12,9 +12,6 @@ import ProductItem from './product-item/ProductItem';
 import make_type from '../type';
 import order_type from '../orderType';
 import './index.scss'
-import { debounce } from '@/common/utils';
-
-
 
 const Index = () => {
     const userStore = useSelector(store => store, shallowEqual);
@@ -22,7 +19,6 @@ const Index = () => {
 
     const [tabinit, setTabInit] = useState(false);
     const [pageData, setPageData] = useState(null);
-    const [flag, setFLag] = useState(false);
 
     const [params, setParams] = useState({
         // page: 1,
@@ -100,17 +96,6 @@ const Index = () => {
 
     return (
         <ScrollView
-            refresherEnabled
-            refresherTriggered={flag}
-            onRefresherRefresh={() => {
-                setFLag(true)
-                OrderService.getOrderList({
-                    ...params
-                }).then(res => {
-                    setPageData(res)
-                    setFLag(false)
-                })
-            }}
             scrollY
             className='order-list-wrap'
         >
@@ -148,8 +133,8 @@ const Index = () => {
                 defaultIndex={defaultIndex}
                 // maxHeight={'300rpx'}
                 maxHeight={`calc(100vh - ${getStorageSync('navHeight') * 2}rpx - 204rpx - ${systemInfo.safeArea.top / 2}px)`}
-                // scalc='1.5'
                 initTabs={tabinit}
+                isRefresh
                 isSticy
                 top='0'
                 // notChildScroll
@@ -161,12 +146,12 @@ const Index = () => {
                     if (_newList) {
                         setPageData({ ...pageData, list: [...pageData.list, ..._newList.list] })
                     }
-                    // setParams()
-                    // setContent([...content, ..._newList?.list])
                 }}
-            // init={(_newList) => {
-            //     setContent(_newList?.list)
-            // }}
+                init={(_newList) => {
+                    if (_newList) {
+                        setPageData({ ...pageData, list: _newList.list })
+                    }
+                }}
             >
                 {
                     pageData && (

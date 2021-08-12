@@ -123,15 +123,17 @@ const Index = (props) => { // 不能有padding父元素
 
     // 下拉刷新事件
     const refresh = () => {
+        // console.log('刷新');
         if (refresh_status) return
         console.log('刷新');
+        console.log(request, 'request -- -- -- --');
         setRefresh_status(true);
         initing(request, (newList) => {
             console.log(newList, 'init--list------');
             if (newList) {
-                setPage(1)
+                setPage(1);
                 if (newList.list[0]) {
-                    init(newList)
+                    init(newList);
                 }
             }
             setRefresh_status(false);
