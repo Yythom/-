@@ -3,7 +3,7 @@ import { navLinkTo } from '@/common/publicFunc';
 import order_type from '@/src/subpages/order/orderType';
 import make_type from '@/src/subpages/order/type';
 import { Text, View } from '@tarojs/components';
-import { navigateTo } from '@tarojs/taro';
+import { navigateTo, setStorageSync } from '@tarojs/taro';
 import React, { Fragment, memo } from 'react';
 
 const tabsList = [
@@ -26,10 +26,13 @@ const OrderType = memo(() => {
                                 <View
                                     className='fdc'
                                     onClick={() => {
-                                        navLinkTo('order/order-list/index', {
-                                            delivery_type: make_type.DeliveryType.SELF_MENTION,
-                                            defaultIndex: i
-                                        })
+                                        setStorageSync('order-status-index', i)
+                                        setTimeout(() => {
+                                            navLinkTo('order/order-list/index', {
+                                                delivery_type: make_type.DeliveryType.SELF_MENTION,
+                                                defaultIndex: i
+                                            })
+                                        }, 200);
                                     }}
 
 

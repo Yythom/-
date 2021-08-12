@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, setStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import Tabs from '@/components/tabs/Tabs';
 import TestService from '@/services/test';
@@ -12,6 +12,7 @@ import ProductItem from './product-item/ProductItem';
 import make_type from '../type';
 import order_type from '../orderType';
 import './index.scss'
+import { debounce } from '@/common/utils';
 
 
 
@@ -25,9 +26,10 @@ const Index = () => {
 
     const [params, setParams] = useState({
         // page: 1,
-        delivery_type: query.delivery_type ? Number(query.delivery_type) : 1, // 送货方式
+        delivery_type: query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY, // 送货方式
         status: '',
     })
+
     const [defaultIndex, setDefaultIndex] = useState(query.defaultIndex || '0')
 
     const tabList = useMemo(() => {
@@ -50,9 +52,6 @@ const Index = () => {
         }
     }, [params?.delivery_type])
 
-    useEffect(() => {
-        tabChange(query.defaultIndex);
-    }, [])
 
     const changeParams = async (key, value) => {
         let newParams = { ...params };
@@ -68,39 +67,36 @@ const Index = () => {
         }
     };
 
+    const getList = async (data) => {
+        const res = await OrderService.getOrderList({ ...data })
+        if (res) {
+            setPageData(res);
+            setLoad(true)
+            setTimeout(() => {
+                removeStorageSync('order-status-index')
+                removeStorageSync('top');
+            }, 200);
+        }
+    }
+
+    const [load, setLoad] = useState(false)
+
+    useLayoutEffect(() => {
+        changeParams('status', tabList[query.defaultIndex].status)
+    }, [])
+
+
+    useDidShow(() => {
+        load && getList(params)
+    })
+
     useEffect(() => {
         if (params) {
-            OrderService.getOrderList({
-                ...params
-            }).then(res => {
-                setPageData(res)
-                console.log(res);
-            })
-            // const newObj = {
-            //     "condition": {
-            //         "with_order_detail": 1,
-            //         "with_order_address": 1,
-            //         "with_order_discount": 1,
-            //         "with_order_code": 1,
-            //         "with_order_fee": 1
-            //     },
-            //     "search": {
-            //         "shop_id": '1',
-            //         "user_status": "integer"
-            //     },
-            //     "sort": {
-            //         "create_at": "string"
-            //     },
-            //     "page": {
-            //         "all": "integer",
-            //         "total": "integer",
-            //         "page": "integer",
-            //         "page_size": "integer"
-            //     }
-            // }
-            console.log(params, '。。。。。。数据改变重新请求列表');
+            getList(params);
         }
+        console.log(params, '。。。。。。数据改变重新请求列表');
     }, [params])
+
 
     return (
         <ScrollView

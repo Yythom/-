@@ -140,9 +140,11 @@ const Index = () => {
             })
         }
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
-    }, [])
+    })
 
     const pay = async () => {
+        // 防止再来一单滚动没有置顶
+        setStorageSync('top', typeof getStorageSync('top') === 'number' ? getStorageSync('top') - 0.0001 : 0.0001)
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
         if (res) {
             removeStorageSync('pre-data')

@@ -14,8 +14,9 @@
         align-items: flex-end;
 
         .tab {
+            flex: 1;
             font-size: 28px;
-            width: 50%;
+            // width: 50%;
             height: 50px;
             color: #333;
             background: rgba(255, 255, 255, 0.5);

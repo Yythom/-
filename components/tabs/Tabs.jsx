@@ -248,6 +248,7 @@ const Index = (props) => { // 不能有padding父元素
                                                                     className='swiper-scroll'
                                                                     scrollY
                                                                     lowerThreshold={30}
+                                                                    scrollTop={getStorageSync('top') || null}
                                                                     refresherTriggered={refresh_status}
                                                                     onRefresherRefresh={refresh}
                                                                     onScrollToLower={onLower}
@@ -271,6 +272,7 @@ const Index = (props) => { // 不能有padding父元素
                                                                 className='swiper-scroll'
                                                                 scrollY
                                                                 lowerThreshold={30}
+                                                                scrollTop={getStorageSync('top') || null}
                                                                 refresherTriggered={refresh_status}
                                                                 onRefresherRefresh={refresh}
                                                                 onScrollToLower={onLower}
