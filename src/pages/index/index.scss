@@ -2,7 +2,7 @@
 
 .index-wrap {
     background-color: #F3F3F3;
-    // min-height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     // padding-bottom: 24px;
 
@@ -55,7 +55,7 @@
         min-width: 100vw;
         width: max-content;
         flex-shrink: 0;
-        justify-content: center;
+        // justify-content: space-;
 
         .nav-item {
             flex: 1;

@@ -203,7 +203,7 @@ function VtabList({
                                 { show: skushow, setShow: setskuShow, skuData, setSkuData }
                             }
                         />
-                        <View className='' style={{ position: 'sticky', top: '0', zIndex: '1', height: '1200rpx', width: '100%', background: '#ccc' }}>测试滚动的</View>
+                        {/* <View className='' style={{ position: 'sticky', top: '0', zIndex: '1', height: '1200rpx', width: '100%', background: '#ccc' }}>测试滚动的</View> */}
 
                     </View>
                 </ScrollView>

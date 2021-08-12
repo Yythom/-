@@ -49,7 +49,7 @@ const Address = memo(({
     })
 
     useEffect(() => {
-        if (address) init()
+        init()
     }, [method]);
 
     if (!address) return method == make_type.DeliveryType.DELIVERY && <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >

@@ -92,7 +92,7 @@ const Index = () => {
             // "shop_id": "1",
             "config": {
                 "delivery_type": deliveryMethod, // deliveryMethod
-                "pay_type": make_type.OrderPayType.OFFLINE,
+                "pay_type": make_type.DeliveryType.DELIVERY == deliveryMethod ? make_type.OrderPayType.ONLINE : make_type.OrderPayType.OFFLINE,
                 "pay_method": make_type.OrderPayMethod.UNKNOWN,
                 "pay_channel": make_type.OrderPayChannel.UNKNOWN, // 1 wx 2 zfb
                 "user_address_id": address?.address_id || '',
@@ -118,7 +118,11 @@ const Index = () => {
     useEffect(() => {
         console.log(PreData, 'params 下单数据改变');
         if (pre) {
-            preRequest(PreData)
+            if (deliveryMethod == make_type.DeliveryType.DELIVERY) {
+                if (address) preRequest(PreData);
+            } else {
+                preRequest(PreData)
+            }
         }
     }, [PreData])
 

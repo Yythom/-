@@ -7,6 +7,7 @@ import AddressService from '@/services/address';
 import './index.scss'
 
 const AddressManage = () => {
+    const query = Taro.getCurrentInstance().router.params;
     // const localStore = useSelector(e => e.userStore.localtion, shallowEqual);
     const [list, setList] = useState([
         //  {
@@ -68,15 +69,24 @@ const AddressManage = () => {
                 {
                     list && list[0] && list.map((e) => {
                         return (
-                            <View className='item' key={e.address_id} onClick={(event) => { setStorageSync('edit-address', e); navLinkTo('address/address-edit/index', {}); }}>
+                            <View className='item'
+                                key={e.address_id}
+                                onClick={() => {
+                                    setStorageSync('edit-address', e);
+                                    navLinkTo('address/address-edit/index', {});
+                                }}
+                            >
                                 {/* 选择使用地址 */}
-                                <View className='iconfont-vertical fc' style={{ width: '80rpx', height: '100%', justifyContent: 'flex-end' }} onClick={(event) => { event.stopPropagation(); use_address(e) }} >
+                                {!query?.is_center && <View className='iconfont-vertical fc'
+                                    style={{ width: '80rpx', height: '100%', justifyContent: 'flex-end' }}
+                                    onClick={(event) => { event.stopPropagation(); use_address(e) }}
+                                >
                                     {
                                         (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
                                             ? <Text className='iconfont icon-roundcheck ' />
                                             : <Text className='iconfont icon-yuancircle46 ' />
                                     }
-                                </View>
+                                </View>}
                                 <View className='user_info fb'>
                                     <View className='fb' >
                                         <View className='name flex'>

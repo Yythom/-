@@ -41,44 +41,7 @@ function Index() {
 
     // console.log(formattedRes);
     const [pageData, setPageData] = useState(null);
-    const [list, setList] = useState([
-        {
-            product_id: '101',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-        {
-            product_id: '102',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-        {
-            product_id: '103',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-        {
-            product_id: '104',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-
-        {
-            product_id: '105',
-            product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-            price: '7999',
-            sku: ['银色', '64G', '套餐一'],
-            num: '2',
-        },
-    ]);
+    const [list, setList] = useState([]);
     const [types, setTypes] = useState([
         {
             type: '9.9包邮',
@@ -178,11 +141,14 @@ function Index() {
             </View>
 
 
-            <Banner list={pageData?.top_banner?.list} w='100vw' className='index-banner' custom
-                render={
-                    (e) => <BlurImg mode='widthFix' className='img fc' src={e?.image} />
-                }
-            />
+            {
+                pageData?.top_banner?.list[0] && <Banner list={pageData?.top_banner?.list} w='100vw' className='index-banner' custom
+                    render={
+                        (e) => <BlurImg mode='widthFix' className='img fc' src={e?.image} />
+                    }
+                />
+            }
+
             {/* <Notice isShow content='当前为演示商城,当前为演示商城,当前为演示商城,当前为演示商城' background='rgb(255, 240, 217)' color='rgb(226, 150, 63)' /> */}
             {/* <Types list={types} /> */}
 
@@ -192,7 +158,7 @@ function Index() {
             {/* <Seconds data={{}} /> */}
             {
 
-                <Tabs
+                pageData?.category && <Tabs
                     tag_list={tag_list}
                     onChange={tabChange}
                     defaultIndex='0'

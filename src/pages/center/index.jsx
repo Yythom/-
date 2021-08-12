@@ -5,7 +5,7 @@ import Taro, { getStorageSync, reLaunch, removeStorageSync, setBackgroundColor, 
 import WithUserVerify from '@/components/auth/UserVerify';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Avatar from '@/components/avatar/Avatar';
-import { hideMobile } from '@/common/public';
+import { callPhone, hideMobile } from '@/common/public';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { actions as userActions } from '@/store/userSlice';
 import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
@@ -95,7 +95,7 @@ const Index = () => {
                 {/* 订单 */}
                 <OrderType />
 
-                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
+                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', { is_center: true })}>
                     <View className='flex'>
                         <Text className='iconfont icon-dingwei' />
                         <Text className=''>收获地址</Text>
@@ -105,7 +105,7 @@ const Index = () => {
                         <Text className='iconfont icon-right' />
                     </View>
                 </View>
-                <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', {})}>
+                <View className='flex-handle fb' onClick={(e) => callPhone(e, '888888888')}>
                     <View className='flex'>
                         <Text className='iconfont icon-dianhua' />
                         <Text className=''>联系商家</Text>
