@@ -5,22 +5,24 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import './product.scss';
+import dayjs from 'dayjs';
 
-const ProductItem = memo(({ products, }) => {
+const ProductItem = memo(({ order }) => {
+    if (!order) return null
     return (
         <View
             className='order-item'
 
         >
             <View className='title fb'>
-                <Text>2021-07-06 10:26:30</Text>
+                <Text>{dayjs(order.create_at).format('YYYY-MM-DD HH:mm:ss')}</Text>
                 <Text className='status'>待支付</Text>
             </View>
             <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
-                {products?.map((product, i) => {
+                {order?.order_detail?.map((product, i) => {
                     return (
                         <View className='product_item' key={product.product_id + '-product_id'}>
-                            <BlurImg className='img' src='https://img2.baidu.com/it/u=1336119765,2231343437&fm=26&fmt=auto&gp=0.jpg' />
+                            <BlurImg className='img' src={product.cover} />
                             {/* <View className='center fd'>
                                 <View className='product_name'> {product?.product_name}</View>
                                 <View className='desc'>
@@ -69,8 +71,8 @@ const ProductItem = memo(({ products, }) => {
                 </View> */}
             </ScrollView>
             <View className='info fdc' >
-                <Text className='price'><Text className='_money'>&nbsp;¥</Text>7999</Text>
-                <Text style={{ fontSize: '24rpx' }}>共{3}件</Text>
+                <Text className='price'><Text className='_money'>&nbsp;¥</Text>{order.order_amount}</Text>
+                <Text style={{ fontSize: '24rpx' }}>共{order.sku_count}件</Text>
             </View>
             <View className='btns flex'>
                 <Button className='btn fc'>取消订单</Button>

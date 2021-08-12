@@ -22,7 +22,7 @@ const Address = memo(({
     const [modal, setModal] = useState(false);
 
     const init = async () => {
-        if (method == 0) {
+        if (method == 1) {
             if (getStorageSync('address_id')) {
                 console.log(getStorageSync('address_id'), 'adderss-id');
                 setAddress(getStorageSync('address_id'))
@@ -59,7 +59,7 @@ const Address = memo(({
         <Fragment>
             <View className='address_wrap fd' >
                 {
-                    method == 0
+                    method == 1
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
                                 <View className='flex'>

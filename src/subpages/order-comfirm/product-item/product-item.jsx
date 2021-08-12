@@ -13,13 +13,13 @@ const ProductItem = memo(({
         <View className='pruduct_wrap'>
             {/* <View className='shop_name' onClick={() => navLinkTo('/subpages/online_shop_product_list/index', { shop_id: pageData?.shop_id })}><Text className='iconfont icon-shangpu' />{pageData?.shop_name} <Text className='iconfont icon-right' style={{ color: '#999', fontSize: '32rpx' }}></Text></View> */}
             {
-                (pageData && pageData.product.length > 0) && pageData.product.map(e => {
+                (pageData && pageData?.order_detail?.length > 0) && pageData.order_detail.map(e => {
                     return <View key={e.product_id + '__product'} className='product_item'>
-                        <BlurImg className='img' src={e.image} />
+                        <BlurImg className='img' src={e.cover} />
                         <View className='center fd'>
                             <View className='product_name'>{e.product_name}</View>
                             <View className='desc'>
-                                <View className='product_sku'>{e.spec}</View>
+                                <View className='product_sku'>{e.spec_detail}</View>
                                 <View className='price fb'>
                                     <View className='flex'>
                                         <View className='new price'>
@@ -32,7 +32,7 @@ const ProductItem = memo(({
                                             <Text className='_money'>¥</Text>{np.times(e?.market_price || 0, 0.01)}
                                         </View>
                                     </View>
-                                    <View className='num'>x{e.product_count}</View>
+                                    <View className='num'>x{e.sku_count}</View>
                                 </View>
                             </View>
                         </View>

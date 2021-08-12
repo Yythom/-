@@ -15,6 +15,7 @@ import Date from './date/date';
 import ProductItem from './product-item/product-item';
 import OrderService from '@/services/order';
 import AddressService from '@/services/address';
+import make_type from '../order/type';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
@@ -38,31 +39,32 @@ const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
     // const [otherDat]
     const [pageData, setPageData] = useState(
-        {
-            "shop_id": "1",
-            "shop_name": "海底捞八佰伴店",
-            "product": [
-                {
-                    "product_id": "4",
-                    "product_count": 1,
-                    "shop_name": "海底捞八佰伴店",
-                    "product_name": "美味金枕榴莲",
-                    "spec": "精美盒装;2KG",
-                    market_price: '98000',
-                    discount_price: '88000',
-                    member_price: '68000',
-                    "sale_rice": 16,
-                }
-            ],
-            "product_price": "16.00",
-            "price": "16.00",
-            "freight": "0.00",
-            "shop_coupon": [],
-            "coupon": [],
-            "address_id": "",
-            "coupon_price": "0.00",
-            "select_coupon": [],
-        }
+        null
+        // {
+        //     "shop_id": "1",
+        //     "shop_name": "海底捞八佰伴店",
+        //     "product": [
+        //         {
+        //             "product_id": "4",
+        //             "product_count": 1,
+        //             "shop_name": "海底捞八佰伴店",
+        //             "product_name": "美味金枕榴莲",
+        //             "spec": "精美盒装;2KG",
+        //             market_price: '98000',
+        //             discount_price: '88000',
+        //             member_price: '68000',
+        //             "sale_rice": 16,
+        //         }
+        //     ],
+        //     "product_price": "16.00",
+        //     "price": "16.00",
+        //     "freight": "0.00",
+        //     "shop_coupon": [],
+        //     "coupon": [],
+        //     "address_id": "",
+        //     "coupon_price": "0.00",
+        //     "select_coupon": [],
+        // }
     );
     const [pre, setPre] = useState(null); // 预下单商品
     const commonConfig = store.commonStore.themeConfig;
@@ -76,7 +78,7 @@ const Index = () => {
         show: false,
         value: ''
     }); // 送达时间
-    const [deliveryMethod, setDeliveryMethod] = useState(0) // 送货方式
+    const [deliveryMethod, setDeliveryMethod] = useState(1) // 送货方式
     const [msg, setMsg] = useState({  // 留言
         oldmsg: '',
         msg: ''
@@ -89,10 +91,10 @@ const Index = () => {
             // "shop_id": "1",
             "config": {
                 "delivery_type": deliveryMethod, // deliveryMethod
-                "pay_type": payType != 1 ? 1 : 0,
-                "pay_method": payType == 1 ? payType : 2,
-                "pay_channel": 1, // 1 wx 2 zfb
-                "user_addressId": address?.address_id || '',
+                "pay_type": make_type.OrderPayType.OFFLINE,
+                "pay_method": make_type.OrderPayMethod.UNKNOWN,
+                "pay_channel": make_type.OrderPayChannel.UNKNOWN, // 1 wx 2 zfb
+                "user_address_id": address?.address_id || '',
             },
             // "sku_items": [
             //     {
@@ -107,10 +109,9 @@ const Index = () => {
 
     const preRequest = async (preData) => {
         const res = await OrderService.preOrder(preData);
-        // if(res){
-        //     setPageData()
-
-        // }
+        if (res) {
+            setPageData(res);
+        }
     }
 
     useEffect(() => {
@@ -151,16 +152,13 @@ const Index = () => {
                 <View className='' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
                     <View className='deliveryMethod flex'>
-                        <View className={`tab fc ${deliveryMethod == 0 && 'act-tab'}`} onClick={() => setDeliveryMethod(0)}>配送</View>
-                        <View className={`tab fc ${deliveryMethod == 1 && 'act-tab'}`} onClick={() => setDeliveryMethod(1)}>自提</View>
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>配送</View>
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>自提</View>
                     </View>
                 </View>
 
                 <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
-
-
-                <ProductItem pageData={pageData} />
                 <ProductItem pageData={pageData} />
 
                 {/* <View className='handle fb' onClick={() => setCouponShow(true)}>

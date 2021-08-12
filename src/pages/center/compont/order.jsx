@@ -1,48 +1,49 @@
 /* eslint-disable react/jsx-indent-props */
 import { navLinkTo } from '@/common/publicFunc';
+import order_type from '@/src/subpages/order/orderType';
+import make_type from '@/src/subpages/order/type';
 import { Text, View } from '@tarojs/components';
 import React, { Fragment, memo } from 'react';
+
+const tabsList = [
+    { title: '全部', status: '' },
+    { title: '备货中', status: order_type.UserOrderStatus.READY },
+    { title: '配送中', status: order_type.UserOrderStatus.DELIVERING },
+    { title: '已完成', status: order_type.UserOrderStatus.FINISH },
+    // { title: '退款', status: order_type.UserOrderStatus },
+]
 
 const OrderType = memo(() => {
     return (
         <Fragment>
             <View className='order-card fb wallet-common ' style={{ marginTop: '0' }} onClick={() => navLinkTo('order/order-list/index', {})} >
                 {/* <View className='title flex'>我的服务</View> */}
-                <View
-                    className='fdc'
-                    onClick={() => navLinkTo('order/order-list/index', { defaultIndex: 1 })}
-                >
-                    <Text className='iconfont icon-ziyuan'></Text>
-                    <View className=''>待付款</View>
-                </View>
-                <View
-                    className='fdc'
-                    onClick={() => navLinkTo('order/order-list/index', { defaultIndex: 2 })}
-                >
-                    <Text className='iconfont icon-ziyuan'></Text>
-                    <View className=''>待发货</View>
-                </View>
-                <View
-                    className='fdc'
-                    onClick={() => navLinkTo('order/order-list/index', { defaultIndex: 3 })}
-                >
-                    <Text className='iconfont icon-ziyuan'></Text>
-                    <View className=''>已发货</View>
-                </View>
-                <View
-                    className='fdc'
-                    onClick={() => navLinkTo('order/order-list/index', { defaultIndex: 2, delivery_type: 1 })}
-                >
-                    <Text className='iconfont icon-ziyuan'></Text>
-                    <View className=''>待取货</View>
-                </View>
-                <View
+                {
+                    tabsList.map((e, i) => {
+                        return (
+                            <Fragment key={e.title}>
+                                <View
+                                    className='fdc'
+                                    onClick={() => navLinkTo('order/order-list/index', {
+                                        delivery_type: make_type.DeliveryType.DELIVERY,
+                                        defaultIndex: i
+                                    })}
+                                >
+                                    <Text className='iconfont icon-ziyuan'></Text>
+                                    <View className=''>{e.title}</View>
+                                </View>
+                            </Fragment>
+                        )
+                    })
+                }
+
+                {/* <View
                     className='fdc'
                     onClick={() => navLinkTo('order/order-list/index', { defaultIndex: 4 })}
                 >
                     <Text className='iconfont icon-ziyuan'></Text>
                     <View className=''>已完成</View>
-                </View>
+                </View> */}
             </View>
 
         </Fragment>

@@ -7,6 +7,7 @@ import { callPhone } from '@/common/public';
 import './index.scss'
 import BlurImg from '@/components/blur-img/BlurImg';
 import { navLinkTo } from '@/common/publicFunc';
+import OrderService from '@/services/order';
 
 
 const Index = () => {
@@ -36,6 +37,8 @@ const Index = () => {
 
 
     const init = async () => {
+        const order_id = getStorageSync('order_id_detail')
+        const res = OrderService.getOrderDetailApi(order_id)
         console.log(query);
     }
 

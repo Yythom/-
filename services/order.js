@@ -15,32 +15,29 @@ class OrderService {
         return res;
     }
 
-
-
-
     static async getOrderList(data) {
         const res = await http.post('/order/list', {
-            ...data,
             "condition": {
                 "with_order_detail": 0,
-                "with_order_discount": 0,
+                "with_order_discount": 1,
                 "with_order_fee": 0,
                 "with_order_address": 0,
                 "with_order_code": 0,
-                "search": {
-                    "shop_id": "string",
-                    "user_status": "integer"
-                },
-                "sort": {
-                    "create_at": "desc"
-                },
-                "page": {
-                    "all": 0,
-                    "total": 1,
-                    "page": data.page || 1,
-                    "page_size": 10
-                }
             },
+            "search": {
+                "shop_id": "1",
+                "user_status": data?.status || '',
+                "delivery_type": data.delivery_type || 1
+            },
+            "sort": {
+                "create_at": "desc"
+            },
+            "page": {
+                "all": 0,
+                "total": 1,
+                "page": data.page || 1,
+                "page_size": 10
+            }
         });
         return res;
     }

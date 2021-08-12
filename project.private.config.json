@@ -93,7 +93,7 @@
         {
           "name": "subpages/order/order-list/index",
           "pathName": "subpages/order/order-list/index",
-          "query": "defaultIndex=3&delivery_type=1",
+          "query": "defaultIndex=1&delivery_type=2",
           "scene": null
         }
       ]
