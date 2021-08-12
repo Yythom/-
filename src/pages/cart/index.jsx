@@ -218,14 +218,13 @@ const Index = () => {
             CartService.list().then(res => {
                 if (!res) return
                 if (res.list[0]) {
-                    length_res = res.list.length
-                    // const length_arr = list.map(e => e.products.length);
-                    // length_arr.forEach(e => length += e);
+                    length_res = res.list.length;
                 }
                 console.log(length, length_res);
                 if (length !== length_res) init();
             })
         } else {
+            setEdit(false);
             init();
         }
     })
@@ -253,7 +252,7 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='list' >
-                    {pageData[0] ?
+                    {pageData[0]?.products[0] ?
                         pageData.map((e, i) =>
                             <View className='shop_wrap' key={e.shop_id}>
                                 {/* <View className='shopname flex'  style={{ height: '80rpx' }} >
