@@ -68,9 +68,12 @@ const Index = () => {
             item.sku.sku_id,
             item.product_count
         )
-        const detail_item = await CartService.detail(item.user_cart_id);
-        if (res && detail_item) {
-            cb(detail_item);
+
+        if (res) {
+            const detail_item = await CartService.detail(item.user_cart_id);
+            if (detail_item) {
+                cb(detail_item);
+            }
         }
     }
 

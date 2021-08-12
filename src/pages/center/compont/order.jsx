@@ -25,7 +25,7 @@ const OrderType = memo(() => {
                                 <View
                                     className='fdc'
                                     onClick={() => navLinkTo('order/order-list/index', {
-                                        delivery_type: make_type.DeliveryType.DELIVERY,
+                                        delivery_type: make_type.DeliveryType.SELF_MENTION,
                                         defaultIndex: i
                                     })}
                                 >

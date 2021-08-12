@@ -2,7 +2,7 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, removeStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -104,7 +104,7 @@ const Index = () => {
             // ]
         }
 
-    }, [address, payType, date, deliveryMethod, msg, pre]);
+    }, [address, payType, date, deliveryMethod, pre]);
 
 
     const preRequest = async (preData) => {
@@ -135,14 +135,13 @@ const Index = () => {
 
 
     const pay = async () => {
-        const res = await OrderService.makeOrder(PreData);
+        const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
         if (res) {
             // removeStorageSync('pre-data')
             // removeStorageSync('address_id')
-
-            // navLinkTo('order/order-detail',{
-            //     order_id:''
-            // })
+            setStorageSync('order_id_detail', res.order_id)
+            setStorageSync('back', 2)
+            navLinkTo('order/order-detail/index', {});
         }
     }
 
@@ -152,8 +151,8 @@ const Index = () => {
                 <View className='' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
                     <View className='deliveryMethod flex'>
-                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>配送</View>
-                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>自提</View>
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View>
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
                     </View>
                 </View>
 
@@ -211,8 +210,8 @@ const Index = () => {
 
                 <View className='footer flex'>
                     <View className='price-box fd'>
-                        <View className='all'>总价：<Text className='price'>¥{pageData?.price}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥900</Text></View>
+                        <View className='all'>总价：<Text className='price'>¥{pageData?.order_amount}</Text></View>
+                        <View className='dis'>已优惠：<Text>¥TODO:</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {

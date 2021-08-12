@@ -26,12 +26,12 @@ const Index = () => {
     const [params, setParams] = useState({
         // page: 1,
         delivery_type: query.delivery_type ? Number(query.delivery_type) : 1, // 送货方式
-        status: '1',
+        status: '',
     })
     const [defaultIndex, setDefaultIndex] = useState(query.defaultIndex || '0')
 
     const tabList = useMemo(() => {
-        if (params.delivery_type == make_type.DeliveryType.DELIVERY) {
+        if (params.delivery_type == make_type.DeliveryType.SELF_MENTION) {
             return [
                 { title: '全部', status: '' },
                 { title: '备货中', status: order_type.UserOrderStatus.READY },
@@ -115,17 +115,25 @@ const Index = () => {
         >
             <NavBar back title='订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
             <View className='deliveryMethod flex'>
-                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
+                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
                     onClick={() => {
-                        changeParams('delivery_type', make_type.DeliveryType.SELF_MENTION);
+                        setParams({
+                            ...params,
+                            delivery_type: make_type.DeliveryType.DELIVERY,
+                            status: ''
+                        })
                         setTabInit(!tabinit);
                         setDefaultIndex('0');
                     }}
                 >
                     配送</View>
-                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
+                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
                     onClick={() => {
-                        changeParams('delivery_type', make_type.DeliveryType.DELIVERY);
+                        setParams({
+                            ...params,
+                            delivery_type: make_type.DeliveryType.SELF_MENTION,
+                            status: ''
+                        })
                         setTabInit(!tabinit);
                         setDefaultIndex('0');
                     }}

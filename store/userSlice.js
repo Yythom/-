@@ -2,7 +2,7 @@
 // import * as actionType from './contants'
 import UserService from '@/services/user'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { getStorageSync, setStorageSync, login, removeStorageSync, hideLoading, setStorage } from '@tarojs/taro'
+import { getStorageSync, setStorageSync, login, removeStorageSync, hideLoading, setStorage, showLoading } from '@tarojs/taro'
 import TestService from '../services/test'
 /**
  * 初始化数据
@@ -87,6 +87,8 @@ const changeTokenActionAsync = createAsyncThunk(
             // mobile: ''
         }); // 通过微信登入获取code取接口token
         setStorageSync('token', res?.token || '');
+        showLoading();
+        await new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, 300); });
         const user_info = await UserService.getUserInfoApi();
         const info = { ...data, ...user_info, }
         console.log(info, res, data, 'user_info');

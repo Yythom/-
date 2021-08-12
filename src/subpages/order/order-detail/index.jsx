@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { View, Text, Image } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, hideLoading, navigateTo, setClipboardData, setStorageSync, showLoading, showModal, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
+import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStorageSync, setClipboardData, setStorageSync, showLoading, showModal, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
 import { callPhone } from '@/common/public';
 import './index.scss'
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -50,7 +50,15 @@ const Index = () => {
     
     return (
         <View className='order_detail_wrap fd'  >
-            <NavBar back title='订单详情' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%);' color='#fff' iconColor='#fff' />
+            <NavBar back onBack={() => {
+                const back = getStorageSync('back');
+                navigateBack({
+                    delta: back || 1,
+                    success: () => {
+                        removeStorageSync('back')
+                    }
+                })
+            }} title='订单详情' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%);' color='#fff' iconColor='#fff' />
 
             {/* 地址 */}
             <View className='square flex'>

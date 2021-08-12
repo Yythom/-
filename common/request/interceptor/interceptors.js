@@ -22,8 +22,8 @@ export function timeoutInterceptor(chain) {
 
 export function logInterceptor(chain) {
   const { requestParams } = chain;
-  const { method, data, url } = requestParams;
-  console.log(`%c http ${method || 'GET'} --> ${url} data: %O`, 'font-weight:bold;color:#6190E8;', data);
+  const { method, data, url, header } = requestParams;
+  console.log(`%c http ${method || 'GET'} --> ${url} data: %O`, 'font-weight:bold;color:#6190E8;', data, header);
   const p = chain.proceed(requestParams);
   const res = p.then((res2) => {
     console.log(`%c http <-- ${url} result: %O`, 'font-weight:bold;color:#13CE66;', res2);
