@@ -71,7 +71,7 @@ const ProductItem = memo(({ order, getList }) => {
                 <Text className='status'>待支付</Text>
             </View>
             <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
-                <View className='pruduct_wrap ' style={{ paddingRight: '170rpx' }}  >
+                <View className='pruduct_wrap ' style={{ paddingRight: '170rpx', width: 'max-content' }}  >
                     {order?.order_detail?.map((product, i) => {
                         return (
                             <>

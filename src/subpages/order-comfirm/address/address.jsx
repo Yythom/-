@@ -29,7 +29,6 @@ const Address = memo(({
                 setAddress(getStorageSync('address_id'))
             } else {
                 AddressService.defaultAddress().then(res => {
-                    console.log(res, 'addressaddressaddressaddress');
                     if (res) {
                         setAddress(res)
                     }
@@ -49,6 +48,7 @@ const Address = memo(({
     })
 
     useEffect(() => {
+        console.log(method, 'methodmethodmethod');
         init()
     }, [method]);
 
@@ -61,7 +61,7 @@ const Address = memo(({
         <Fragment>
             <View className='address_wrap fd' >
                 {
-                    method == 1
+                    method == make_type.DeliveryType.DELIVERY
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
                                 <View className='flex'>
