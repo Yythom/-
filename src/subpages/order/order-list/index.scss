@@ -7,6 +7,11 @@
     // background-color: pink;
     .swiper_ex {
         min-height: calc(100vh - 180px - 100px - 125px);
+
+        .autoHeightorder_tab {
+            box-sizing: border-box;
+            padding-bottom: 30px;
+        }
     }
 
     .deliveryMethod {
