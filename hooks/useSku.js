@@ -33,7 +33,13 @@ const useSku = (data, show, default_sku = []) => {
         if (data) {
             setload(false)
             console.log('重新初始化');
-            option.init(data)
+            option.init(data);
+            setSku({
+                sku: false,
+                desc: {
+                    str: data?.skuSpec.map(e => e.specName).join(' ')
+                }
+            })
         }
     }, [data]);
 
