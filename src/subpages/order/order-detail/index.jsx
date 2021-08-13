@@ -1,7 +1,8 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import { View, Text, Image } from '@tarojs/components';
+import { View, Text, Image, Button } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
+import dayjs from 'dayjs';
 import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStorageSync, setClipboardData, setStorageSync, showLoading, showModal, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
 import { callPhone } from '@/common/public';
 import './index.scss'
@@ -64,15 +65,15 @@ const Index = () => {
             {/* 地址 */}
             <View className='square flex'>
                 <View className='right'>
-                    <View className='address'>取货码：{pageData?.order_code?.code}</View>
+                    <View className='info address'>取货码：{pageData?.order_code?.map((e)=>{return e.code})}</View>
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
-                            <View className='address'>{pageData?.order_address?.address}{pageData?.order_address?.number}</View>
+                            <View className='address'>{pageData?.order_address?.address || '暂未设置' }{pageData?.order_address?.number}</View>
                         </View>
                     </View>
-                    <Text className='name'>{pageData?.order_address?.contact_name}</Text>
-                    <Text className='phone'>{pageData?.order_address?.mobile}</Text>
+                    <Text className='name'>{pageData?.order_address?.contact_name || '暂未设置联系人'}</Text>
+                    <Text className='phone'>{pageData?.order_address?.mobile || '暂未设置电话号码'}</Text>
                 </View>
             </View>
 
@@ -117,10 +118,10 @@ const Index = () => {
                 <View className='line' />
                 <View className='order-desc'>
                     {pageData?.order_fee?.map((item)=>{
-                        return <View className='item fb'>{item.fee_type_msg}：<Text className='price'>¥{item.fee}</Text> </View>
+                        return <View className='item fb'>{item.fee_type_msg}：<Text className='price'>+&nbsp;¥{item.fee}</Text> </View>
                     })}
                     {pageData?.order_discount?.map((etem)=>{
-                        return   <View className='item fb'>{etem.detail}：<Text className='price'>¥{etem.amount}</Text> </View>
+                        return   <View className='item fb'>{etem.detail}：<Text className='price'>-&nbsp;¥{etem.amount}</Text> </View>
                     })}
                     <View className='item fb'>备注：<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
                     <View className='line' />
@@ -137,12 +138,16 @@ const Index = () => {
 
                 <View className='item fb'>
                     订单编号：
-                    <View className='copy' onClick={() => { setClipboardData({ data: pageData?.order_id, }) }}>
-                        {pageData?.order_id} &nbsp;复制
+                    <View className='fb'>
+                        <View className='copy' onClick={() => { setClipboardData({ data: pageData?.order_id, }) }}>
+                            {pageData?.order_id}
+                        </View>
+                        <View className='copy_btn'>复制</View>
                     </View>
                 </View>
-                <View className='item fb'>下单时间： <Text >{pageData?.create_at}</Text></View>
-                <View className='item fb'>配送时间： <Text >{pageData?.delivery_at || '暂未设置'}</Text> </View>
+                <View className='item fb'>取货码： <Text >{pageData?.order_code?.map((e)=>{return e.code})}</Text></View>
+                <View className='item fb'>下单时间： <Text >{dayjs(pageData?.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text></View>
+                {pageData?.delivery_at && <View className='item fb'>配送时间： <Text >{pageData?.delivery_at || '暂未设置'}</Text> </View>}
             </View>
 
             <View className='footer'>
