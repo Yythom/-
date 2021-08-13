@@ -178,7 +178,9 @@ function Index() {
                         {
                             list[0] ? list.map((e, i) => {
                                 return (
-                                    <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {})}>
+                                    <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {
+                                        product_id: e.product_id
+                                    })}>
                                         <BlurImg className='img' mode='heightFix' src={e.cover} />
                                         {/* <Image mode='heightFix' /> */}
                                         <View className='p-name'>
