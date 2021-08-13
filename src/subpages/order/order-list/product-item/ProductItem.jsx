@@ -45,7 +45,7 @@ const ProductItem = memo(({ order, getList }) => {
         const order_id = order?.order_id;
         switch (type) {
             case '取消订单':
-                showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList());
+                showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList(false));
                 break;
             case '立即付款':
 

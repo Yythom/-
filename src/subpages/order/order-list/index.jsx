@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, removeStorageSync, setStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setStorageSync, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import Tabs from '@/components/tabs/Tabs';
 import TestService from '@/services/test';
@@ -18,8 +18,10 @@ const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
 
     const [tabinit, setTabInit] = useState(false);
+    const [initHeight, setinitHeight] = useState(false);
     const [pageData, setPageData] = useState(null);
 
+    const [page, setPage] = useState(1);
     const [params, setParams] = useState({
         // page: 1,
         delivery_type: query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY, // 送货方式
@@ -63,17 +65,33 @@ const Index = () => {
         }
     };
 
-    const getList = useCallback(async (data) => {
-        const res = await OrderService.getOrderList({ ...data })
+    const getList = useCallback(async (data, _page,) => {
+        const _data = data || params
+        const res = await OrderService.getOrderList({ ..._data, page: _page })
         if (res) {
-            setPageData(res);
             setLoad(true)
             setTimeout(() => {
                 removeStorageSync('order-status-index')
                 removeStorageSync('top');
             }, 200);
+
+            if (_page) {
+                if (!res.list[0]) {
+                    showToast({ title: '没有更多', icon: 'none' });
+                    return
+                }
+                setPage(_page);
+                setPageData({ ...pageData, list: [...pageData.list, ...res.list] });
+
+            } else {
+                setPage(1);
+                setPageData(res);
+            }
+            setinitHeight(!initHeight)
         }
-    }, []) // 不需要依赖更新
+    }, [pageData, initHeight, params]) // 不需要依赖更新
+
+
 
     const [load, setLoad] = useState(false)
 
@@ -94,64 +112,72 @@ const Index = () => {
     }, [params])
 
 
+    useReachBottom(() => {
+        console.log(page + 1, '到底了');
+        getList(params, page + 1);
+    })
+
     return (
-        <ScrollView
-            scrollY
+        <View
+            // scrollY
             className='order-list-wrap'
         >
-            <NavBar back title='订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
-            <View className='deliveryMethod flex'>
-                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
-                    onClick={() => {
-                        setParams({
-                            ...params,
-                            delivery_type: make_type.DeliveryType.DELIVERY,
-                            status: ''
-                        })
-                        setTabInit(!tabinit);
-                        setDefaultIndex('0');
-                    }}
-                >
-                    配送</View>
-                <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
-                    onClick={() => {
-                        setParams({
-                            ...params,
-                            delivery_type: make_type.DeliveryType.SELF_MENTION,
-                            status: ''
-                        })
-                        setTabInit(!tabinit);
-                        setDefaultIndex('0');
-                    }}
-                >
-                    自提</View>
+            <View className='' style={{ position: 'sticky', top: '0', zIndex: '2' }}>
+                <NavBar back title='订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
+                <View className='deliveryMethod flex'>
+                    <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
+                        onClick={() => {
+                            setParams({
+                                ...params,
+                                delivery_type: make_type.DeliveryType.DELIVERY,
+                                status: ''
+                            })
+                            setTabInit(!tabinit);
+                            setDefaultIndex('0');
+                        }}
+                    >
+                        配送</View>
+                    <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
+                        onClick={() => {
+                            setParams({
+                                ...params,
+                                delivery_type: make_type.DeliveryType.SELF_MENTION,
+                                status: ''
+                            })
+                            setTabInit(!tabinit);
+                            setDefaultIndex('0');
+                        }}
+                    >
+                        自提</View>
+                </View>
             </View>
             <Tabs
                 className='order_tab'
                 tag_list={tabList}
                 onChange={tabChange}
                 defaultIndex={defaultIndex}
+                notChildScroll
                 // maxHeight={'300rpx'}
-                maxHeight={`calc(100vh - ${getStorageSync('navHeight') * 2}rpx - 204rpx - ${systemInfo.safeArea.top / 2}px)`}
+                // maxHeight={`calc(100vh - ${getStorageSync('navHeight') * 2}rpx - 204rpx - ${systemInfo.safeArea.top / 2}px)`}
                 initTabs={tabinit}
+                initHeight={initHeight}
                 isRefresh
                 isSticy
-                top='0'
-                // notChildScroll
-                request={{
-                    params: { ...params, page: 1 },
-                    http: OrderService.getOrderList
-                }}
-                onScrollBottom={(_newList) => {
-                    if (_newList) {
-                        setPageData({ ...pageData, list: [...pageData.list, ..._newList.list] })
-                    }
-                }}
-                init={(_newList) => {
-                    if (_newList) {
-                        setPageData({ ...pageData, list: _newList.list })
-                    }
-                }}
+                top={`calc(${getStorageSync('navHeight')}px + 94rpx)`}
+            // request={{
+            //     params: { ...params, page: 1 },
+            //     http: OrderService.getOrderList
+            // }}
+            // onScrollBottom={(_newList) => {
+            //     if (_newList) {
+            //         setPageData({ ...pageData, list: [...pageData.list, ..._newList.list] })
+            //     }
+            // }}
+            // init={(_newList) => {
+            //     if (_newList) {
+            //         setPageData({ ...pageData, list: _newList.list })
+            //     }
+            // }}
             >
                 {
                     pageData && (
@@ -174,7 +200,7 @@ const Index = () => {
                     )
                 }
             </Tabs>
-        </ScrollView >
+        </View >
     )
 }
 export default Index;
