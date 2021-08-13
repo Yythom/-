@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView, Text } from '@tarojs/components';
-import Taro, { getStorageSync, setStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro';
+import Taro, { getStorageSync, navigateBack, setStorageSync, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro';
 import Search from '@/components/search/Search';
 import Screen from '@/components/screen';
 import { actions } from '../../../store';
@@ -83,7 +83,7 @@ const Index = () => {
     return (
         <View className='product-list-wrap' >
             <View className='fc search' style={{ width: '100vw' }}>
-                <Search width='720rpx' value={search?.keywords} text='搜索商品' onBlur={(value) => {
+                <Search width='720rpx' onClick={() => navigateBack({ delta: 1 })} value={search?.keywords} text='搜索商品' onBlur={(value) => {
                     // changeSearch('keywords', value);
                     // let log = getStorageSync('search-log') || []
                     // const $log = [value, ...log];
