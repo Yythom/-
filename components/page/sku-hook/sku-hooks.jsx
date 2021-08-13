@@ -107,7 +107,7 @@ const Skuhooks = memo(({
                     <View className='sku'>
                         <View className='iconfont icon-close' onClick={() => { setShow(false) }}></View>
                         <View className='title flex'>
-                            <BlurImg className='img' src={sku ? sku.cover : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
+                            <BlurImg className='img' src={sku ? sku.cover : product?.cover} />
                             <View className='content fd'>
                                 {/* <View className='price'>
                                     <Text className='_money'>¥</Text>
