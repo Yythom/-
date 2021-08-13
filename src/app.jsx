@@ -9,6 +9,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import store from '../store';
 import '../assets/icon.css';
+import '../assets/lkicon.css';
 import './app.scss';
 import { setEnableDebug } from '@tarojs/taro';
 
