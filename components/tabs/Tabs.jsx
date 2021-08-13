@@ -23,6 +23,7 @@ const Index = (props) => { // 不能有padding父元素
         // 监听并初始化tabs
         initTabs,
         maxHeight,
+        initHeight, // 监听是否重新设置view高度 notChildScroll设置
 
         // 防止页面多tabs获取元素信息污染
         parentClass = 'nav-parent', // 是 并且不能为 nav
@@ -83,12 +84,14 @@ const Index = (props) => { // 不能有padding父元素
     function initContentHeight(current) {
         setTimeout(() => {
             createSelectorQuery().selectAll(`.autoHeight${className}`).boundingClientRect(function (rect) {
+                // console.log(rect[current], 'rectrectrect');
                 if (rect[current]) {
+
                     // console.log(rect[current].height);
                     setHeight(rect[current].height)
                 }
             }).exec()
-        }, 200);
+        }, 300);
     }
 
 
@@ -175,9 +178,10 @@ const Index = (props) => { // 不能有padding父元素
         console.log('tag_list 改变 tab重载入');
     }, [tag_list])
 
-    // useEffect(() => {
-    //     setNavInfos([]);
-    // }, [initTabs])
+    useEffect(() => {
+        console.log('列表高度改变 ');
+        initContentHeight(swiperIndex);
+    }, [initHeight])
 
     useEffect(() => {
         if (navInfos[0] && tag_list[0]) {
@@ -228,7 +232,12 @@ const Index = (props) => { // 不能有padding父元素
                         {  // 内容区域
                             props.children
                             &&
-                            <View className='swiper' style={{ height: height + Number(notChildScroll ? getStorageSync('safeArea') : 0) + 'px', maxHeight: maxHeight }}>
+                            <View className='swiper'
+                                style={{
+                                    height: height + Number(notChildScroll ? getStorageSync('safeArea') : 0) + 'px',
+                                    maxHeight: maxHeight
+                                }}
+                            >
                                 <Swiper
                                     current={swiperIndex}
                                     duration={300}
@@ -260,10 +269,8 @@ const Index = (props) => { // 不能有padding父元素
                                                                         {swiperIndex == index ? props.children : null}
                                                                     </View>
                                                                 </ScrollView>
-                                                                    : <View className='swiper-scroll _view' >
-                                                                        <View className={'autoHeight' + className}>
-                                                                            {swiperIndex == index ? props.children : null}
-                                                                        </View>
+                                                                    : <View className={'autoHeight' + className}>
+                                                                        {swiperIndex == index ? props.children : null}
                                                                     </View>
                                                             }
                                                         </SwiperItem>
@@ -283,11 +290,11 @@ const Index = (props) => { // 不能有padding父元素
                                                                 <View className={'autoHeight' + className}>
                                                                     {swiperIndex == index ? props.children : null}
                                                                 </View>
-                                                            </ScrollView> : <View className='swiper-scroll _view'>
+                                                            </ScrollView> :
                                                                 <View className={'autoHeight' + className}>
                                                                     {swiperIndex == index ? props.children : null}
                                                                 </View>
-                                                            </View>
+
                                                         }
                                                     </SwiperItem>
 

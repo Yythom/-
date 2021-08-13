@@ -119,6 +119,7 @@ function Index() {
             setList(res.list)
             setPage(1);
         }
+        setinitHeight(!initHeight)
         // setList
     }
 
@@ -131,6 +132,7 @@ function Index() {
         }, 100);
     }
     const [initTabs, setInit] = useState(false)
+    const [initHeight, setinitHeight] = useState(false)
 
     useDidShow(() => dispatch(tabActions.changetab(0)))
     return (
@@ -163,6 +165,7 @@ function Index() {
                     onChange={tabChange}
                     defaultIndex='0'
                     padding='60'
+                    initHeight={initHeight}
                     initTabs={initTabs}
                     isSticy
                     notChildScroll
