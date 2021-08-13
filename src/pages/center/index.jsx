@@ -98,7 +98,7 @@ const Index = () => {
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', { is_center: true })}>
                     <View className='flex'>
                         <Text className='iconfont icon-dingwei' />
-                        <Text className=''>收获地址</Text>
+                        <Text className=''>收货地址</Text>
                     </View>
                     <View className='flex'>
                         {/* <Text className=''>查看</Text> */}
