@@ -68,7 +68,7 @@ const ProductItem = memo(({ order, getList }) => {
         >
             <View className='title fb'>
                 <Text>{dayjs(order.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text>
-                <Text className='status'>待支付</Text>
+                <Text className='status'>{order.status_msg}</Text>
             </View>
             <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
                 <View className='pruduct_wrap ' style={{ paddingRight: '170rpx', width: 'max-content' }}  >
