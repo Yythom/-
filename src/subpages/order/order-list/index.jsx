@@ -70,11 +70,7 @@ const Index = () => {
         const res = await OrderService.getOrderList({ ..._data, page: _page });
         stopPullDownRefresh();
         if (res) {
-            setLoad(true)
-            setTimeout(() => {
-                removeStorageSync('order-status-index')
-                removeStorageSync('top');
-            }, 200);
+            setLoad(true);
             if (_page) {
                 if (!res.list[0]) {
                     showToast({ title: '没有更多', icon: 'none' });

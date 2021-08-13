@@ -26,7 +26,6 @@ const OrderType = memo(() => {
                                 <View
                                     className='fdc'
                                     onClick={() => {
-                                        setStorageSync('order-status-index', i)
                                         setTimeout(() => {
                                             navLinkTo('order/order-list/index', {
                                                 delivery_type: make_type.DeliveryType.SELF_MENTION,
