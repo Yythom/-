@@ -25,7 +25,7 @@ import ProductService from '@/services/product';
 const RenderList = memo(({ twoCate, _list, skuOption }) => {
     const { show, setShow, setSkuData, skuData } = skuOption;
     const showSku = async (product_id) => {
-        const res = await ProductService.getProductDataApi();
+        const res = await ProductService.getProductDataApi(product_id);
         setSkuData({ ...filter_data(res) })
         setTimeout(() => {
             setShow(1);
