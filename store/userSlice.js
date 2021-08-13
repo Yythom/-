@@ -87,13 +87,15 @@ const changeTokenActionAsync = createAsyncThunk(
             // mobile: ''
         }); // 通过微信登入获取code取接口token
         setStorageSync('token', res?.token || '');
-        showLoading();
+        res && showLoading();
         await new Promise((resolve, reject) => { setTimeout(() => { resolve(true) }, 300); });
-        const user_info = await UserService.getUserInfoApi();
-        const info = { ...data, ...user_info, }
-        console.log(info, res, data, 'user_info');
-
-        return { info, token: res?.token };
+        if (res) {
+            const user_info = await UserService.getUserInfoApi();
+            const info = { ...data, ...user_info, }
+            console.log(info, res, data, 'user_info');
+            return { info, token: res?.token };
+        }
+        return {}
     }
 )
 /**
