@@ -14,7 +14,7 @@ const Avatar = ({ size, style }) => {
             {
                 !userInfo && !userInfo?.avatar
                     ? <Text class='iconfont icon-wode' style={{ fontSize: size }} />
-                    : (userInfo && userInfo.avatar
+                    : (userInfo && userInfo.avatar_url
                         && <BlurImg className='img' src={userInfo.avatar_url} />)
             }
         </View>

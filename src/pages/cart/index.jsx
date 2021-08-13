@@ -54,7 +54,7 @@ const Index = () => {
         // },
     ]);
 
-    const [edit, setEdit] = useReducer((state) => !state, false);
+    const [edit, setEdit] = useState(false);
     const [list, summaryShop, isAll, price, selectArr] = useSummary(pageData);
 
     console.log(list, summaryShop);
@@ -173,7 +173,7 @@ const Index = () => {
     });
     const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
-        const res = await ProductService.getProductDataApi();
+        const res = await ProductService.getProductDataApi(product.product_id);
         setSkuData({ ...filter_data(res) })
         const default_sku_list = product?.sku?.sku_default_value?.map(e => { return { id: e.value_id, name: e.value } });
         if (default_sku_list[0])

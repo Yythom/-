@@ -107,7 +107,7 @@ const Skuhooks = memo(({
                     <View className='sku'>
                         <View className='iconfont icon-close' onClick={() => { setShow(false) }}></View>
                         <View className='title flex'>
-                            <BlurImg className='img' src={sku ? sku.cover : 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg'} />
+                            <BlurImg className='img' src={sku ? sku.cover : product?.cover} />
                             <View className='content fd'>
                                 {/* <View className='price'>
                                     <Text className='_money'>¥</Text>
@@ -117,17 +117,17 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? np.times(desc?.discount_price, 0.01) : '请选择'}
+                                            {desc?.price ? desc?.discount_price : '请选择'}
 
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? np.times(desc?.price, 0.01) : '请选择'}
+                                            {desc?.price ? desc?.price : '请选择'}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            <View className='vip-price fc'>￥{desc?.price ? np.times(desc?.member_price, 0.01) : '请选择'}</View>
+                                            <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : '请选择'}</View>
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}
