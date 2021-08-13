@@ -41,17 +41,17 @@ function ProductInfo({
                 <View className='price flex'>
                     <Text className='new'>
                         <Text className='_moneny'>¥</Text>
-                        {np.times(product?.discount_price || 0, 0.01)}
+                        {np.times(product?.discount_price || 0, 1)}
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
-                        {np.times(product?.market_price || 0, 0.01)}
+                        {np.times(product?.market_price || 0, 1)}
                     </Text>
                 </View>
             </View>
             <View className='other fb'>
                 <View className='flex'>
-                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {np.times(product?.member_price || 0, 0.01)}</View>
+                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {np.times(product?.member_price || 0, 1)}</View>
 
 
                     <View className='desc flex'>

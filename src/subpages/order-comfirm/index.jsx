@@ -224,6 +224,7 @@ const Index = () => {
                     <View className='price-box fd'>
                         <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 0.01)}</Text></View>
                         <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 0.01)}</Text></View>
+                        <View className='dis'>包装费：<Text>¥{np.times(pageData?.order_fee[0]?.fee || 0, 0.01)}</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {

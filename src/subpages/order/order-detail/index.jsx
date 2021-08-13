@@ -64,6 +64,7 @@ const Index = () => {
             {/* 地址 */}
             <View className='square flex'>
                 <View className='right'>
+                    <View className='address'>取货码：{pageData?.order_code?.code}</View>
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
@@ -81,7 +82,7 @@ const Index = () => {
             <View className='card'>
                 <View className='title-status fb'>
                     <Text className='msg'>{pageData?.user_status_msg}</Text>
-                    <Text className='desc'>商家配送</Text>
+                    <Text className='desc'>{pageData?.delivery_type_msg}</Text>
                 </View>
                 {
                     pageData?.order_detail?.map(product => {
