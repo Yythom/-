@@ -67,14 +67,14 @@ const Index = () => {
 
     const getList = useCallback(async (data, _page,) => {
         const _data = data || params
-        const res = await OrderService.getOrderList({ ..._data, page: _page })
+        const res = await OrderService.getOrderList({ ..._data, page: _page });
+        stopPullDownRefresh();
         if (res) {
             setLoad(true)
             setTimeout(() => {
                 removeStorageSync('order-status-index')
                 removeStorageSync('top');
             }, 200);
-
             if (_page) {
                 if (!res.list[0]) {
                     showToast({ title: '没有更多', icon: 'none' });
@@ -82,7 +82,6 @@ const Index = () => {
                 }
                 setPage(_page);
                 setPageData({ ...pageData, list: [...pageData.list, ...res.list] });
-
             } else {
                 setPage(1);
                 setPageData(res);
@@ -115,6 +114,9 @@ const Index = () => {
     useReachBottom(() => {
         console.log(page + 1, '到底了');
         getList(params, page + 1);
+    })
+    usePullDownRefresh(() => {
+        getList(params);
     })
 
     return (
@@ -157,7 +159,6 @@ const Index = () => {
                 onChange={tabChange}
                 defaultIndex={defaultIndex}
                 notChildScroll
-                // maxHeight={'300rpx'}
                 // maxHeight={`calc(100vh - ${getStorageSync('navHeight') * 2}rpx - 204rpx - ${systemInfo.safeArea.top / 2}px)`}
                 initTabs={tabinit}
                 initHeight={initHeight}
