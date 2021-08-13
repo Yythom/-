@@ -54,7 +54,7 @@ const Index = () => {
         // },
     ]);
 
-    const [edit, setEdit] = useReducer((state) => !state, false);
+    const [edit, setEdit] = useState(false);
     const [list, summaryShop, isAll, price, selectArr] = useSummary(pageData);
 
     console.log(list, summaryShop);
