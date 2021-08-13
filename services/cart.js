@@ -48,6 +48,13 @@ class CartService {
         return res;
     }
 
+    // 删除
+    static async totalPrice() {
+        const res = await http.post('/user/cart/price', {});
+        return res;
+    }
+
+
 }
 
 export default CartService;

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 // import * as actionType from './contants'
+import CartService from '@/services/cart'
 import UserService from '@/services/user'
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getStorageSync, setStorageSync, login, removeStorageSync, hideLoading, setStorage, showLoading } from '@tarojs/taro'
@@ -64,9 +65,11 @@ const userUpdata = createAsyncThunk(
 const upcart_price = createAsyncThunk(
     'user/upcart_price',
     async (data, thunkAPI) => {
-        const userStore_requesut = await 19;
-        return userStore_requesut
-
+        if (getStorageSync('token')) {
+            const userStore_requesut = await CartService.totalPrice();
+            return userStore_requesut
+        }
+        return 0
     }
 )
 

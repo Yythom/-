@@ -17,7 +17,7 @@ const useSummary = (list) => {
         selectArr = [...selectArr, ...select]
         shopData.price = select.reduce((prev, next) => np.plus( // 总价
             prev, np.times(
-                np.times((next.member_price || (next.sku.discount_price || next.market_price)), 0.01), next.product_count
+                (next.member_price || (next.sku.discount_price || next.market_price)), next.product_count
             ),
         ), 0);
 

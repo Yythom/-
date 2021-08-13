@@ -163,7 +163,7 @@ const Index = () => {
                 <View className='' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
                     <View className='deliveryMethod flex'>
-                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View>
+                        {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
                         <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
                     </View>
                 </View>
@@ -171,6 +171,14 @@ const Index = () => {
                 <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
 
                 <ProductItem pageData={pageData} />
+                <View className='order-desc'>
+                    {pageData?.order_fee?.map((item) => {
+                        return <View className='item fb'>{item.fee_type_msg}：<Text >&nbsp;¥{np.times(item.fee || 0, 0.01)}</Text> </View>
+                    })}
+                    {pageData?.order_discount?.map((etem) => {
+                        return <View className='item fb'>{etem.detail}：<Text >-&nbsp;¥{np.times(etem.amount || 0, 0.01)}</Text> </View>
+                    })}
+                </View>
 
                 {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
                 <View className='left' >优惠券</View>
@@ -224,7 +232,6 @@ const Index = () => {
                     <View className='price-box fd'>
                         <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 0.01)}</Text></View>
                         <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 0.01)}</Text></View>
-                        <View className='dis'>包装费：<Text>¥{np.times(pageData?.order_fee[0]?.fee || 0, 0.01)}</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {

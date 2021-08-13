@@ -69,9 +69,9 @@ const Index = () => {
         )
 
         if (res) {
-            const detail_item = await CartService.detail(item.user_cart_id);
+            const detail_item = await CartService.detail(res.user_cart_id);
             if (detail_item) {
-                cb(detail_item);
+                cb(detail_item, res.delete_user_cart_id, res.user_cart_id);
             }
         }
     }
@@ -108,11 +108,22 @@ const Index = () => {
             case 'sku':
                 item.product_count = value.product_count;  // 修改当前商品sku
                 item.sku.sku_id = value.sku_id;
-                success(item, shop_id, (newItem) => {
+                success(item, shop_id, (newItem, del_id, current_id) => {
                     item.sku = newItem.sku;
                     item.product_count = newItem.product_count;
+                    if (del_id) {  // 删除的购物车对象
+                        const del_index = shop.products.findIndex(e => e.user_cart_id === del_id)
+                        if (del_index !== -1) {
+                            shop.products.splice(del_index, 1);
+                        }
+                        const current_index = shop.products.findIndex(e => e.user_cart_id === current_id)
+                        if (current_index !== -1) {
+                            shop.products[current_index] = { ...shop.products[current_index], ...newItem };
+                        }
+                        if (!shop.products[0]) newList.splice(shopIndex, 1);
+                    }
                     setskuShow(false);
-                    onChange(newList)
+                    onChange(newList);
                 })
                 break;
         }
@@ -174,7 +185,7 @@ const Index = () => {
     const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
         const res = await ProductService.getProductDataApi(product.product_id);
-        setSkuData({ ...filter_data(res) })
+        setSkuData({ ...filter_data(res), product_count: product.product_count })
         const default_sku_list = product?.sku?.sku_default_value?.map(e => { return { id: e.value_id, name: e.value } });
         if (default_sku_list[0])
             setDefault_sku(default_sku_list)
@@ -184,8 +195,6 @@ const Index = () => {
         //         name: '原道型'
         //     },
         // ]
-
-
         setTimeout(() => {
             setskuShow(4);
         }, 100);
@@ -208,30 +217,18 @@ const Index = () => {
     useDidShow(() => {
         dispatch(tabActions.changetab(2))
         removeStorageSync('address_id')
-        if (pageData[0]) {
-            let length = 0;
-            let length_res = 0; // 服务器条目
+        if (!getStorageSync('addcart')) {
 
-            const length_arr = list.map(e => e.products.length);
-            length_arr.forEach(e => length += e);
-
-            CartService.list().then(res => {
-                if (!res) return
-                if (res.list[0]) {
-                    length_res = res.list.length;
-                }
-                console.log(length, length_res);
-                if (length !== length_res) init();
-            })
         } else {
             setEdit(false);
             init();
+            removeStorageSync('addcart')
         }
     })
 
-    // useEffect(() => {
-    //     init();
-    // }, [])
+    useEffect(() => {
+        init();
+    }, [])
 
 
     return (
@@ -338,6 +335,7 @@ const Index = () => {
                 setShow={setskuShow}
                 product={skuData}
                 default_sku={default_sku}
+                initNumber={skuData?.product_count}
                 onOk={(e) => {
                     onOk(e)
                     // if (e) setSku(e);

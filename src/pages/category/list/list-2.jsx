@@ -36,7 +36,7 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
             <Fragment key={cate?.category_id + 'cate-title' + i}>
                 {/* 迭代 */}
                 <View
-                    style={{ position: 'sticky', top: '0', height: '100rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '16rpx' }}
+                    style={{ position: 'sticky', top: '0', height: '100rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '20rpx' }}
                     className='nodes flex' id={`catetitle${i}`}
                 >
                     {cate.category_name}
@@ -62,14 +62,15 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                         }
                                     </View>}
                                     <View className='price-box fb'>
-                                        <View className='price'>
-                                            <View className=''> <Text className='_money'>¥</Text>{product.discount_price}</View>
-                                            <View className='del'> <Text className='_money'>¥</Text>{product.market_price}</View>
+                                        <View className='price flex'>
+                                            <View style={{ marginRight: '20rpx' }}> <Text className='_money'>¥</Text>{product.discount_price + '起'}</View>
+                                            <View className='del'> <Text className='_money'>¥</Text>{product.market_price + '起'}</View>
                                         </View>
-                                        <View className='sale'>月售{'TODO:'}</View>
+
                                     </View>
                                     <View className='foot fb'>
-                                        <View className='vip-price fc'>¥{product.member_price}</View>
+                                        <View className='vip-price fc'>¥{product.member_price + '起'}</View>
+                                        {/* <View className='sale'>月售{'TODO:'}</View> */}
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
                                             showSku(product.product_id)

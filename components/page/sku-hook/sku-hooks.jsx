@@ -20,6 +20,7 @@ const Skuhooks = memo(({
     setShow = Function.prototype,
     onChange = Function.prototype,
     onOk = Function.prototype,
+    initNumber,
     default_sku = [
         // { id: 101, name: '4.7寸', parent_name: '尺寸' },
         // { id: 201, name: '16G', parent_name: '内存' },
@@ -36,6 +37,12 @@ const Skuhooks = memo(({
         // console.log(sku, desc);
         onChange({ sku, desc })
     }, [sku, desc]);
+
+    useEffect(() => {
+        console.log(initNumber, 'initNumberinitNumberinitNumber');
+        if (initNumber) setNum(initNumber);
+        else setNum(1)
+    }, [product])
 
     useEffect(() => {
         console.log(load, 'sku---load');
@@ -92,7 +99,8 @@ const Skuhooks = memo(({
                     showToast({ title: `加入成功`, icon: 'none' })
                 }, 200);
             }
-            dispatch(actions.upcart_price())
+            dispatch(actions.upcart_price());
+            setStorageSync('addcart', true)
             console.log(sku, 'addcart');
         } else {
             showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
@@ -117,21 +125,22 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? desc?.discount_price : '请选择'}
+                                            {desc?.price ? desc?.discount_price : product?.discount_price + '起'}
 
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? desc?.price : '请选择'}
+                                            {desc?.price ? desc?.price : product?.market_price + '起'}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : '请选择'}</View>
+                                            <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : product?.member_price + '起'}</View>
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}
                                     </View>
+
                                 </View>
                                 {/*
                                 </View>

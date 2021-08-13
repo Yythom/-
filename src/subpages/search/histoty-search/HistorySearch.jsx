@@ -79,10 +79,13 @@ const HistorySearch = ({
             setStorageSync(storage_logkey, $log); // 添加新的历史
             setLog($log);
         }
+        setItem(_text)
 
 
 
-        navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) });
+        setTimeout(() => {
+            navLinkTo('product-list/index', { search_text: encodeURIComponent(_text) });
+        }, 100);
 
         // let _list = await api.api({ ...api.params });
         // console.log(api.params);
@@ -96,7 +99,6 @@ const HistorySearch = ({
         //         showToast({ title: '暂无数据', icon: 'none' })
         //     }
         // }
-        setItem(_text)
     }
 
     // 分页相关
@@ -138,7 +140,10 @@ const HistorySearch = ({
     return (
         <View className={`history_search_wrap ${className}`}  >
             <View className='fc search'>
-                <Search isEditor width='720rpx' value={item} text='搜索更多优惠商品' onBlur={searchFn} height='34px' style={{ top: getStorageSync('navHeight') + 'px' }} />
+                <Search onClick={() => {
+                    console.log('21739812793871298');
+                    searchFn(item)
+                }} isEditor width='720rpx' value={item} text='搜索更多优惠商品' onBlur={searchFn} height='34px' style={{ top: getStorageSync('navHeight') + 'px' }} />
             </View>
             {/* {
                 list[0] && renderCenter

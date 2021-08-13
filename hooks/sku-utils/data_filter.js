@@ -44,6 +44,7 @@ export default (obj) => {
         })
     })
     if (copy.skuList) {
+
         Object.values(copy.skuList).forEach(e => {
             // if (!e.img) {
             //     e.img = e.image;

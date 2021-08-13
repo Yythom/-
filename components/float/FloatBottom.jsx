@@ -33,10 +33,18 @@ const Float = ({
                 console.log(document.querySelector('.' + className).offsetHeight + 10);
                 setTop(-(document.querySelector('.' + className).offsetHeight + 10));
             } else {
-                setTop(-(900));
-                RefInfo(`${className}`).then(res => {
-                    setTop(-(res.height + 10))
-                })
+                setTop(-(1600));
+                setTimeout(() => {
+                    RefInfo(`${className}`).then(res => {
+                        if (res) {
+                            // alert(res.height)
+                            setTop(-(res.height + 10))
+                        } else {
+                            // alert('Error')
+                            setTop(-1600)
+                        }
+                    })
+                }, 100);
             }
         }
     }, [show]);

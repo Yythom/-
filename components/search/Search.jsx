@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent-props */
 import React from 'react';
 import { View, Navigator, Text, Input } from '@tarojs/components';
 import { navLinkTo } from '@/common/publicFunc';
@@ -23,7 +24,9 @@ const Search = ({
                         ? <View className='home-searchv' >
                             <Text className='iconfont icon-sousuo' />
                             <Input className='home-search home-search-input' value={value} onBlur={(e) => onBlur(e.detail.value)} placeholderStyle='color:#C8CDD1' placeholder={text}></Input>
-                            <View className='search_btn fc'>搜索</View>
+                            <View className='search_btn fc'
+                                onClick={() => { if (typeof onClick == 'function') onClick() }}
+                            >搜索</View>
                         </View>
                         : <View onClick={() => {
                             if (typeof onClick == 'function') onClick()
@@ -32,7 +35,7 @@ const Search = ({
                         >
                             <Text className='iconfont icon-sousuo' />
                             <View className='home-search'>{text}</View>
-                            <View className='search_btn fc'>搜索</View>
+                            <View className='search_btn fc' >搜索</View>
                         </View>
                 }
             </View>

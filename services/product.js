@@ -6,7 +6,7 @@ class ProductService {
         const res = await http.post('/product/list', {
             condition: {
                 with_month_sale: 0,
-                with_tag: 0
+                with_tag: 0,
             },
             search: {
                 category_id: data.category_id || '',
@@ -30,6 +30,7 @@ class ProductService {
     static async getProductDataApi(product_id = '283038144755286018',) {
         const res = await http.post('/product/detail', {
             product_id, "condition": {
+                is_uniform_price: 1,
                 "product_detail": 1,
                 "product_images": 1,
                 "product_tags": 1,

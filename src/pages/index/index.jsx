@@ -188,15 +188,15 @@ function Index() {
                                         </View>
                                         <View className='price'>
                                             <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
-                                                <Text className='_money'>¥</Text>{e.discount_price}
+                                                <Text className='_money'></Text>{e.discount_price + '起'}
                                             </Text>
                                             <Text className='del'>
-                                                <Text className='_money'>¥</Text>{e.market_price}
+                                                <Text className='_money'>¥</Text>{e.market_price + '起'}
                                             </Text>
                                         </View>
                                         <View className='foot'>
                                             <View className='vip-price fc'>
-                                                <Text className='_money'>¥</Text>{e.member_price}
+                                                <Text className='_money'>¥</Text>{e.member_price + '起'}
                                             </View>
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();

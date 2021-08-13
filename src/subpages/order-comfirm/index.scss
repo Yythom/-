@@ -19,8 +19,8 @@
         align-items: flex-end;
 
         .tab {
+            flex: 1;
             font-size: 28px;
-            width: 50%;
             height: 50px;
             color: #333;
             background: rgba(255, 255, 255, 0.5);
@@ -71,6 +71,26 @@
             }
         }
     }
+
+    .order-desc {
+        border-top: #DEDEDE solid 2px;
+        border-bottom: #DEDEDE solid 2px;
+        background-color: #fff;
+        color: #333;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        padding: 20px 16px;
+
+        .line {
+            margin: 20px 0;
+        }
+
+        .item {
+            font-size: 28px;
+            height: 70px;
+        }
+    }
+
 
     .footer {
         position: fixed;

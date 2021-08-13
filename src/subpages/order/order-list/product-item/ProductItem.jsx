@@ -69,8 +69,10 @@ const ProductItem = memo(({ order, getList }) => {
 
         >
             <View className='title fb'>
-                <Text>{dayjs(order.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text>
-                <Text className='status'>{order.status_msg}</Text>
+                <Text>取货码：{order?.order_code[0].code
+                    // dayjs(order.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')
+                }</Text>
+                <Text className='status'>{order.user_status_msg}</Text>
             </View>
             <ScrollView scrollX className='pruduct_wrap' style={{ marginBottom: '0.2rem' }}>
                 <View className='pruduct_wrap ' style={{ paddingRight: '170rpx', width: 'max-content' }}  >
@@ -94,9 +96,9 @@ const ProductItem = memo(({ order, getList }) => {
                 <Text style={{ fontSize: '24rpx' }}>共{order.sku_count}件</Text>
             </View>
             <View className='btns flex'>
-                { order.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
-                { order.user_status === order_type.UserOrderStatus.FINISH && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
-                { order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                {order.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
+                {order.user_status === order_type.UserOrderStatus.FINISH && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
+                {order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
                 {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
             </View>
         </View>

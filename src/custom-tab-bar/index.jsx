@@ -33,33 +33,33 @@ export default memo(() => {
         {
             pagePath: '/pages/index/index',
             text: '首页',
-            icon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/shouyeweixuan.png')} />,
+            icon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/shouyeweixuan.png')} />,
             iconColor: '',
-            activeIcon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/shouyeyixuan.png')} />,
+            activeIcon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/shouyeyixuan.png')} />,
             activeIconColor: '',
         },
         {
             pagePath: '/pages/category/index',
             text: '分类',
-            icon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/fenleiweixuan.png')} />,
+            icon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/fenleiweixuan.png')} />,
             iconColor: '',
-            activeIcon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/fenleiyixuan.png')} />,
+            activeIcon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/fenleiyixuan.png')} />,
             activeIconColor: '',
         },
         {
             pagePath: '/pages/cart/index',
             text: '购物车',
-            icon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/gouwuceweixuan.png')} />,
+            icon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/gouwuceweixuan.png')} />,
             iconColor: '',
-            activeIcon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/gouwuceyixuan.png')} />,
+            activeIcon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/gouwuceyixuan.png')} />,
             activeIconColor: '',
         },
         {
             pagePath: '/pages/center/index',
             text: '我的',
-            icon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/wodeweixuan.png')} />,
+            icon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/wodeweixuan.png')} />,
             iconColor: '',
-            activeIcon: <Image style={{width: '48rpx', height: '48rpx'}} src={require('../../assets/images/wodeyixuan.png')} />,
+            activeIcon: <Image style={{ width: '48rpx', height: '48rpx' }} src={require('../../assets/images/wodeyixuan.png')} />,
             activeIconColor: '',
         },
         // {
@@ -110,7 +110,8 @@ export default memo(() => {
                     )
                 })
             }
-            <View className='dig'>¥{price}</View>
+            {Number(price) ? <View className='dig'>¥{price}</View> : null}
+
         </View>
     )
 })
