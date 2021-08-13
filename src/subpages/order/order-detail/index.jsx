@@ -6,6 +6,7 @@ import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStor
 import { callPhone } from '@/common/public';
 import './index.scss'
 import BlurImg from '@/components/blur-img/BlurImg';
+import order_type from '../orderType';
 import { navLinkTo } from '@/common/publicFunc';
 import OrderService from '@/services/order';
 
@@ -66,7 +67,7 @@ const Index = () => {
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
-                            <View className='address'>{pageData?.order_address?.address}</View>
+                            <View className='address'>{pageData?.order_address?.address}{pageData?.order_address?.number}</View>
                         </View>
                     </View>
                     <Text className='name'>{pageData?.order_address?.contact_name}</Text>
@@ -146,12 +147,15 @@ const Index = () => {
             <View className='footer'>
                 {/* <View className='kefu' onClick={(event) => { }}>联系客服</View> */}
                 <View className='btns flex'>
-                    {(true) && <View className='btn fc' onClick={async () => {
+                   {/*  {(true) && <View className='btn fc' onClick={async () => {
 
                     }}
                     >确认收货</View>}
                     <View className='btn fc'>取消订单</View>
-                    <View className='btn act-btn fc'>去付款</View>
+                    <View className='btn act-btn fc'>去付款</View> */}
+                { pageData.user_status === order_type.UserOrderStatus.READY && <View className='btn fc' onClick={() => {}} >取消订单</View>}
+                { pageData.user_status === order_type.UserOrderStatus.FINISH && <View className='btn fc' onClick={() => {}}>再来一单</View>}
+                { pageData.user_status === order_type.UserOrderStatus.DELIVERING && <View className='btn act-btn fc' onClick={() => {}} >确认订单</View>}
                 </View>
             </View>
         </View>

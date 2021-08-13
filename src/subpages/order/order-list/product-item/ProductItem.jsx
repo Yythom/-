@@ -6,10 +6,12 @@ import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import dayjs from 'dayjs';
 import { setStorageSync, showModal } from '@tarojs/taro';
+import order_type from '../../orderType';
 import OrderService from '@/services/order';
 import './product.scss';
 
 const ProductItem = memo(({ order, getList }) => {
+    console.log('orderorderorderorder', order)
     if (!order) return null
 
     const againOrder = () => {
@@ -92,10 +94,10 @@ const ProductItem = memo(({ order, getList }) => {
                 <Text style={{ fontSize: '24rpx' }}>共{order.sku_count}件</Text>
             </View>
             <View className='btns flex'>
-                <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>
-                <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>
-                <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>
-                <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button>
+                { order.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
+                { order.user_status === order_type.UserOrderStatus.FINISH && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
+                { order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
             </View>
         </View>
 
