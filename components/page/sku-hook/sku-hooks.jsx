@@ -105,7 +105,7 @@ const Skuhooks = memo(({
                 load
                     ?
                     <View className='sku'>
-                        <View className='iconfont icon-close' onClick={() => { setShow(false) }}></View>
+                        <View className='iconfont iconguanbi' onClick={() => { setShow(false) }}></View>
                         <View className='title flex'>
                             <BlurImg className='img' src={sku ? sku.cover : product?.cover} />
                             <View className='content fd'>
