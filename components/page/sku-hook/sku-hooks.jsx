@@ -135,7 +135,7 @@ const Skuhooks = memo(({
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : product?.member_price + '起'}</View>
+                                            {/* <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : product?.member_price + '起'}</View> */}
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}

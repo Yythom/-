@@ -49,11 +49,11 @@ const ProductItem = memo(({
                             </View>
                         </View>
                         <View className='p-num fb'>
-                            {
+                            {/* {
                                 product?.isVip == 1
                                     ? <View className='vip-price-act'>{product?.sku.member_price}</View>
                                     : <View className='vip-price'>¥{product?.sku.member_price}</View>
-                            }
+                            } */}
 
                             <HandleInput
                                 list={list}

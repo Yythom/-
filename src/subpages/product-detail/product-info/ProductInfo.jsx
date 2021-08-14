@@ -51,8 +51,8 @@ function ProductInfo({
             </View>
             <View className='other fb'>
                 <View className='flex'>
-                    <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {product?.member_price + '起'} </View>
-
+                    <View />
+                    {/* <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {product?.member_price + '起'} </View> */}
 
                     <View className='desc flex'>
                         {product?.product_tags?.map((e, i) => {

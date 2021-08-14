@@ -195,9 +195,10 @@ function Index() {
                                             </Text>
                                         </View>
                                         <View className='foot'>
-                                            <View className='vip-price fc'>
+                                            <View />
+                                            {/* <View className='vip-price fc'>
                                                 <Text className='_money'>¥</Text>{e.member_price + '起'}
-                                            </View>
+                                            </View> */}
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
                                                 showSku(e.product_id)

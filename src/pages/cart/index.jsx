@@ -103,7 +103,7 @@ const Index = () => {
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
-                onChange(newList);
+                onChange(newList, 'no_refresh_cart_price');
                 break;
             case 'sku':
                 item.product_count = value.product_count;  // 修改当前商品sku
@@ -173,9 +173,9 @@ const Index = () => {
         setEdit(false)
     }
 
-    const onChange = useCallback(async (newList) => {
+    const onChange = useCallback(async (newList, no_refresh_cart_price) => {
         setPageData(newList);
-        dispatch(actions.upcart_price());
+        if (!no_refresh_cart_price) dispatch(actions.upcart_price());
     }, [list])
 
     const [sku_index, setSku_index] = useState({

@@ -93,15 +93,18 @@ const Index = () => {
             </ScrollView>
 
             {/* sku弹框 */}
-            <Sku
-                bottom={0}
-                show={show}
-                setShow={setShow}
-                product={pageData}
-                onChange={(e) => {
-                    if (e) setSku(e);
-                }}
-            />
+            {
+                pageData && <Sku
+                    bottom={0}
+                    show={show}
+                    setShow={setShow}
+                    product={pageData}
+                    onChange={(e) => {
+                        if (e) setSku(e);
+                    }}
+                />
+            }
+
 
             {/* 服务弹框 */}
             {/* <FloatBottom className='service-float' show={service} setShow={setService} style={{ backgroundColor: '#fff' }}>

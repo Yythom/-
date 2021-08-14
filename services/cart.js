@@ -50,7 +50,9 @@ class CartService {
 
     // 删除
     static async totalPrice() {
-        const res = await http.post('/user/cart/price', {});
+        const res = await http.post('/user/cart/price', {
+            shop_id: '1',
+        });
         return res;
     }
 

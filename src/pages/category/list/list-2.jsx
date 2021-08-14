@@ -69,7 +69,8 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
 
                                     </View>
                                     <View className='foot fb'>
-                                        <View className='vip-price fc'>¥{product.member_price + '起'}</View>
+                                        <View />
+                                        {/* <View className='vip-price fc'>¥{product.member_price + '起'}</View> */}
                                         {/* <View className='sale'>月售{'TODO:'}</View> */}
                                         <View className='show-sku' onClick={(event) => {
                                             event.stopPropagation();
