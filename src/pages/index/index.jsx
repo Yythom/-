@@ -71,18 +71,17 @@ function Index() {
         } else {
             return [{ title: '全部' },]
         }
-    }, [pageData]);
+    }, [pageData?.category.list.length]);
 
     const init = async () => {
         const res = await HomeService.getHomeApi();
         setPageData(res)
-        tabChange(0);
-        stopPullDownRefresh()
     }
 
     useEffect(() => {
         Taro.showShareMenu();
         init();
+        tabChange(0);
         console.log(commonConfig);
     }, [])
 
@@ -94,7 +93,8 @@ function Index() {
 
     usePullDownRefresh(() => {
         init();
-        setInit(!initTabs);
+        tabChange(index);
+        // setInit(!initTabs);
     })
 
     const [index, setIndex] = useState(0);
@@ -121,7 +121,7 @@ function Index() {
             setPage(1);
         }
         setinitHeight(!initHeight)
-        // setList
+        stopPullDownRefresh();
     }
 
     const showSku = async (product_id) => {
