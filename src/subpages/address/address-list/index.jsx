@@ -5,6 +5,7 @@ import Taro, { getStorageSync, hideLoading, navigateBack, setStorageSync, showLo
 import { navLinkTo } from '@/common/publicFunc';
 import AddressService from '@/services/address';
 import './index.scss'
+import Move from './MoveSquare/move';
 
 const AddressManage = () => {
     const query = Taro.getCurrentInstance().router.params;
@@ -69,71 +70,71 @@ const AddressManage = () => {
                 {
                     list && list[0] && list.map((e) => {
                         return (
-                            <View className='item'
-                                key={e.address_id}
-                                onClick={() => {
-                                    setStorageSync('edit-address', e);
-                                    navLinkTo('address/address-edit/index', {});
-                                }}
-                            >
-                                {/* 选择使用地址 */}
-                                {!query?.is_center && <View className='iconfont-vertical fc'
-                                    style={{ width: '80rpx', height: '100%', justifyContent: 'flex-end' }}
-                                    onClick={(event) => { event.stopPropagation(); use_address(e) }}
+                            <Move value={80} key={e.address_id} padding={0} onClick={() => { del(e) }}  >
+                                <View className='item'
+                                    onClick={() => {
+                                        setStorageSync('edit-address', e);
+                                        navLinkTo('address/address-edit/index', {});
+                                    }}
                                 >
-                                    {
-                                        (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
-                                            ? <Text className='iconfont icon-roundcheck ' />
-                                            : <Text className='iconfont icon-yuancircle46 ' />
-                                    }
-                                </View>}
-                                <View className='user_info fb'>
-                                    <View className='fb' >
-                                        <View className='name flex'>
-                                            {
-                                                e.is_default != 0 && <View
-                                                    className='select_icon fc'
-                                                    style={{ marginRight: '10rpx' }}
-                                                    onClick={async (event) => {
-                                                        event.stopPropagation();
-                                                        let obj = {
-                                                            "contact_name": e.contact_name,
-                                                            "mobile": e.mobile,
-                                                            "address": e.address,
-                                                            "number": e.number,
-                                                            "location": {
-                                                                lat: `${e.location.lat}`,
-                                                                lng: `${e.location.lng}`
-                                                            },
-                                                            "remark": e.remark,
-                                                            "is_default": Number(!e.is_default),
-                                                            // area: selectAddress.toString().replace(/,/g, ' ')
-                                                        }
-                                                        // console.log(obj);
-                                                        let res = await AddressService.editAddress(e.address_id, obj);
-                                                        if (res) init()
-                                                    }} >
-                                                    默认
-                                                </View>
-                                            }
-                                            <Text className='name'>{e.address} &nbsp;{e.number}</Text>
+                                    {/* 选择使用地址 */}
+                                    {!query?.is_center && <View className='iconfont-vertical fc'
+                                        style={{ width: '80rpx', height: '100%', justifyContent: 'flex-end' }}
+                                        onClick={(event) => { event.stopPropagation(); use_address(e) }}
+                                    >
+                                        {
+                                            (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
+                                                ? <Text className='iconfont icon-roundcheck ' />
+                                                : <Text className='iconfont icon-yuancircle46 ' />
+                                        }
+                                    </View>}
+                                    <View className='user_info fb'>
+                                        <View className='fb' >
+                                            <View className='name flex'>
+                                                {
+                                                    e.is_default != 0 && <View
+                                                        className='select_icon fc'
+                                                        style={{ marginRight: '10rpx' }}
+                                                        onClick={async (event) => {
+                                                            event.stopPropagation();
+                                                            let obj = {
+                                                                "contact_name": e.contact_name,
+                                                                "mobile": e.mobile,
+                                                                "address": e.address,
+                                                                "number": e.number,
+                                                                "location": {
+                                                                    lat: `${e.location.lat}`,
+                                                                    lng: `${e.location.lng}`
+                                                                },
+                                                                "remark": e.remark,
+                                                                "is_default": Number(!e.is_default),
+                                                                // area: selectAddress.toString().replace(/,/g, ' ')
+                                                            }
+                                                            // console.log(obj);
+                                                            let res = await AddressService.editAddress(e.address_id, obj);
+                                                            if (res) init()
+                                                        }} >
+                                                        默认
+                                                    </View>
+                                                }
+                                                <Text className='name'>{e.address} &nbsp;{e.number}</Text>
+                                            </View>
+
                                         </View>
 
+
                                     </View>
 
-
-                                </View>
-
-                                <View className='flex adress-content'>
-                                    <View className='address_info' >
-                                        {e.contact_name}
+                                    <View className='flex adress-content'>
+                                        <View className='address_info' >
+                                            {e.contact_name}
+                                        </View>
+                                        <View className='phone'>
+                                            {e.mobile}
+                                        </View>
                                     </View>
-                                    <View className='phone'>
-                                        {e.mobile}
-                                    </View>
-                                </View>
 
-                                {/* <View className='footer fb'>
+                                    {/* <View className='footer fb'>
                                     <View className='handle flex'>
                                         <View
                                             className='edit'
@@ -166,7 +167,8 @@ const AddressManage = () => {
                                         </View>
                                     </View>
                                 </View> */}
-                            </View>
+                                </View>
+                            </Move>
                         )
                     })
                 }

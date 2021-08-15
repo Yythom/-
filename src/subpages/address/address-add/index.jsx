@@ -96,11 +96,11 @@ const AddAddress = () => {
                     </View>
                     <View className='is_default'>
                         <View >设为默认地址</View>
-                        <Switch name='is_default' is_default={is_default} onChange={(e) => { setIs_default(e.detail.value); }} />
+                        <Switch name='is_default' checked={is_default} onChange={(e) => { setIs_default(e.detail.value); }} />
                     </View>
                 </View>
                 <View className='foot_btn'>
-                    <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存地址</Button>        
+                    <Button formType='submit' className='foot_address_btn fc' style={{ bottom: `12rpx` }} onClick={(event) => { event.stopPropagation(); }}>保存地址</Button>
                 </View>
             </Form>
         </View>
