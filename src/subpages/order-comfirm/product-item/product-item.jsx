@@ -24,12 +24,13 @@ const ProductItem = memo(({
                                     <View className='flex'>
                                         <View className='new price'>
                                             <Text className='_money'>¥</Text>{
-                                                e.member_price ? np.times(e?.member_price, 0.01)
-                                                    : np.times(e?.discount_price, 0.01)
+                                                // e.member_price ? e?.member_price
+                                                //     : 
+                                                e?.discount_price
                                             }
                                         </View>
                                         <View className='del'>
-                                            <Text className='_money'>¥</Text>{np.times(e?.market_price || 0, 0.01)}
+                                            <Text className='_money'>¥</Text>{e?.market_price}
                                         </View>
                                     </View>
                                     <View className='num'>x{e.sku_count}</View>

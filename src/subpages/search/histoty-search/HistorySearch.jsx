@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, View } from '@tarojs/components';
 import { lkHideLoading, lkShowLoading, navLinkTo } from '@/common/publicFunc';
-import { getStorageSync, removeStorageSync, setStorageSync, useDidShow, } from '@tarojs/taro';
+import { getStorageSync, removeStorageSync, setStorageSync, showToast, useDidShow, } from '@tarojs/taro';
 import Search from '@/components/search/Search';
 import './history_search.scss'
 
@@ -70,7 +70,11 @@ const HistorySearch = ({
     const searchFn = async (_text) => {
         if (!_text) {
             // setList([]);
-            setItem('')
+            setItem('');
+            showToast({
+                title: '请填写搜索内容',
+                icon: 'none',
+            })
             return;
         }
         if (!log.includes(_text)) { // 并且 历史不存在当前 输入框的值
@@ -141,7 +145,6 @@ const HistorySearch = ({
         <View className={`history_search_wrap ${className}`}  >
             <View className='fc search'>
                 <Search onClick={() => {
-                    console.log('21739812793871298');
                     searchFn(item)
                 }} isEditor width='720rpx' value={item} text='搜索更多优惠商品' onBlur={searchFn} height='34px' style={{ top: getStorageSync('navHeight') + 'px' }} />
             </View>

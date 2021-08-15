@@ -9,39 +9,12 @@ import { setStorageSync, showModal } from '@tarojs/taro';
 import order_type from '../../orderType';
 import OrderService from '@/services/order';
 import './product.scss';
+import { againOrder, showInfo } from '../../order-btn-handle';
 
 const ProductItem = memo(({ order, getList }) => {
     console.log('orderorderorderorder', order)
     if (!order) return null
 
-    const againOrder = () => {
-        const pro_arr = order.order_detail.map(e => {
-            return {
-                "sku_id": e.sku_id,
-                "count": e.sku_count
-            }
-        })
-        console.log(pro_arr);
-        let pre = {
-            "shop_id": "1",
-            "sku_items": pro_arr
-        };
-        setStorageSync('pre-data', pre);
-        setTimeout(() => {
-            navLinkTo('order-comfirm/index', {})
-        }, 200);
-    }
-    const showInfo = useCallback((content, cb) => {
-        showModal({
-            title: '提示',
-            content: content || '这是一个模态弹窗',
-            success: function (btn) {
-                if (btn.confirm) {
-                    cb()
-                }
-            }
-        })
-    }, []);
 
     const handle = async (type) => {
         const order_id = order?.order_id;
@@ -56,12 +29,14 @@ const ProductItem = memo(({ order, getList }) => {
                 // showInfo('确认订单', async () => await OrderService.offOrder(order_id) && getList());
                 break;
             case '再来一单':
-                againOrder()
+                againOrder(order);
                 break;
             default:
                 break;
         }
     }
+
+
 
     return (
         <View
@@ -69,7 +44,7 @@ const ProductItem = memo(({ order, getList }) => {
 
         >
             <View className='title fb'>
-                <Text>取货码：{order?.order_code[0].code
+                <Text>取货码：{order?.order_code?.map((e) => { return e.code })
                     // dayjs(order.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')
                 }</Text>
                 <Text className='status'>{order.user_status_msg}</Text>
