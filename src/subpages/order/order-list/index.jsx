@@ -121,7 +121,7 @@ const Index = () => {
             className='order-list-wrap'
         >
             <View className='' style={{ position: 'sticky', top: '0', zIndex: '2' }}>
-                <NavBar back title='订单' color='#fff' iconColor='#fff' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' />
+                <NavBar back title='订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <View className='deliveryMethod flex'>
                     <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
                         onClick={() => {

@@ -4,10 +4,11 @@ import { Text, Textarea, View } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
 import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
-import { getStorageSync, useDidShow } from "@tarojs/taro";
+import { getStorageSync, setStorageSync, useDidShow } from "@tarojs/taro";
 import AddressService from "@/services/address";
 import make_type from "../../order/type";
 import './address.scss';
+import { shallowEqual, useSelector } from "react-redux";
 
 const Address = memo(({
     address,
@@ -16,9 +17,11 @@ const Address = memo(({
     setDate,
     method = make_type.DeliveryType.DELIVERY,
 }) => {
+    const userStore = useSelector(e => e.userStore, shallowEqual);
+
     const [msg, setMsg] = useState({
-        oldmsg: '13145216024',
-        msg: ''
+        oldmsg: userStore?.userInfo?.mobile || '',
+        msg: userStore?.userInfo?.mobile || '',
     });
     const [modal, setModal] = useState(false);
 
@@ -30,16 +33,20 @@ const Address = memo(({
             } else {
                 AddressService.defaultAddress().then(res => {
                     if (res) {
+                        setStorageSync('address_id', res);
                         setAddress(res)
                     }
                 })
             }
         } else {
             // req 地址
-            // if (getStorageSync('address_id')) {
-            //     console.log(getStorageSync('address_id'), 'adderss-id');
-            //     setAddress(getStorageSync('address_id'))
-            // }
+            AddressService.defaultAddress().then(res => {
+                if (res) {
+                    setAddress({
+                        address: '测试地址'
+                    })
+                }
+            })
         }
     }
 
@@ -59,20 +66,20 @@ const Address = memo(({
     </View >
     return (
         <Fragment>
-            <View className='address_wrap fd' >
+            <View className='address_wrap fd' style={!address?.address && { paddingBottom: '25rpx' }} >
                 {
                     method == make_type.DeliveryType.DELIVERY
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
                                 <View className='flex'>
                                     <Text className='iconfont icon-dingwei'></Text>
-                                    {address.address}
+                                    {address.address || '请设置收货地址'}
                                 </View>
                             </View>
                             <View className='flex'>
                                 {address.contact_name}<Text className='phone'>{address.mobile}</Text>
                             </View>
-                            <View className='iconfont icon-right'></View>
+                            <View className='iconfont icon-right' style={!address?.address && { top: '12rpx' }}></View>
                         </View>
                         : <View className='shop-address fd'>
                             <View className='address'>

@@ -68,7 +68,7 @@ const AddressManage = () => {
         <View className='address_manage_wrap' style={{ paddingBottom: `120rpx` }} >
             <View className='list_scroll' >
                 {
-                    list && list[0] && list.map((e) => {
+                    list[0] ? list.map((e) => {
                         return (
                             <Move value={80} key={e.address_id} padding={0} onClick={() => { del(e) }}  >
                                 <View className='item'
@@ -83,7 +83,8 @@ const AddressManage = () => {
                                         onClick={(event) => { event.stopPropagation(); use_address(e) }}
                                     >
                                         {
-                                            (address_id?.address_id ? (e?.address_id == address_id?.address_id) : (e.is_default != 0))
+                                            address_id?.address_id && (e?.address_id == address_id?.address_id)
+                                                // : (e.is_default != 0))
                                                 ? <Text className='iconfont icon-roundcheck ' />
                                                 : <Text className='iconfont icon-yuancircle46 ' />
                                         }
@@ -170,7 +171,9 @@ const AddressManage = () => {
                                 </View>
                             </Move>
                         )
-                    })
+                    }) : <View className='empty fc'>
+                        请添加地址
+                    </View>
                 }
             </View>
             <View className='foot_btn' style={{ height: `110rpx` }} onClick={(event) => { event.stopPropagation(); navLinkTo('address/address-add/index') }}>

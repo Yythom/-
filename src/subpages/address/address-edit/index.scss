@@ -33,9 +33,11 @@
             height: 110px;
             // margin-bottom: 20px;
             border-bottom: 2px solid rgb(245, 245, 245);
+
             .tag_info {
                 flex: 1;
             }
+
             label {
                 width: 180px;
             }
@@ -67,6 +69,7 @@
                 border: 2px rgb(255, 140, 45) solid;
             }
         }
+
         .address {
             position: relative;
 
@@ -96,21 +99,24 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        .foot_address_del_btn{
+
+        .foot_address_del_btn {
             width: 330px;
             height: 90px;
             background-color: white;
-            color:  #EF5F00;;
+            color: #00D0BF;
+            ;
             font-size: 36px;
             border-radius: 58px;
-            border: 2px solid #EF5F00;
+            border: 2px solid #00D0BF;
             margin-top: 60px;
         }
+
         .foot_address_btn {
             width: 330px;
             height: 90px;
-            background-color: rgba(239, 95, 0, 1);
-            border: 2px solid #EF5F00;
+            background-color: #00D0BF;
+            border: 2px solid #00D0BF;
             color: #fff;
             font-size: 36px;
             border-radius: 58px;

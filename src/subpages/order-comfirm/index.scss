@@ -15,13 +15,14 @@
     }
 
     .deliveryMethod {
+        margin: 0 16px;
         padding-top: 30px;
         align-items: flex-end;
 
         .tab {
             flex: 1;
             font-size: 28px;
-            height: 50px;
+            height: 70px;
             color: #333;
             background: rgba(255, 255, 255, 0.5);
             border-radius: 0px 20px 0px 0px;
@@ -31,7 +32,7 @@
         .act-tab {
             background: #FFFFFF;
             font-weight: bold;
-            height: 64px;
+            height: 80px;
             border-radius: 20px 20px 0px 0px;
         }
     }
@@ -126,7 +127,7 @@
         .btn {
             width: 220px;
             height: 90px;
-            background: #EF5F00;
+            background: #00D0BF;
             border-radius: 58px;
             font-size: 36px;
             color: #fff;

@@ -160,16 +160,14 @@ const Index = () => {
     return (
         <View className='order_confirm_wrap'>
             <ScrollView className='scrollview' scrollY >
-                <View className='' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
+                <View className='' style={{ background: '#00D0BF', paddingBottom: '20rpx' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='transparent' />
                     <View className='deliveryMethod flex'>
-                        {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
+                        {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
                         <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
                     </View>
+                    <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
                 </View>
-
-                <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
-
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>
                     {pageData?.order_fee?.map((item) => {

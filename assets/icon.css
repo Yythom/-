@@ -1,9 +1,18 @@
 @font-face {
   font-family: 'iconfont';
-  /* Project id 2089783 */
-  src: url('//at.alicdn.com/t/font_2089783_kmjl09ge0q.woff2?t=1623748876473') format('woff2'),
-    url('//at.alicdn.com/t/font_2089783_kmjl09ge0q.woff?t=1623748876473') format('woff'),
-    url('//at.alicdn.com/t/font_2089783_kmjl09ge0q.ttf?t=1623748876473') format('truetype');
+  src: url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.eot');
+
+  /* lk */
+  src: url('//at.alicdn.com/t/font_2286649_t137vd3hoz.woff2?t=1628839478108') format('woff2'),
+    url('//at.alicdn.com/t/font_2286649_t137vd3hoz.woff?t=1628839478108') format('woff'),
+    url('//at.alicdn.com/t/font_2286649_t137vd3hoz.ttf?t=1628839478108') format('truetype');
+  /*  */
+
+  src: url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.eot?#iefix') format('embedded-opentype'),
+    url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.woff2') format('woff2'),
+    url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.woff') format('woff'),
+    url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.ttf') format('truetype'),
+    url('//at.alicdn.com/t/font_1924901_0fb0eso33svs.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -14,92 +23,120 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-rili:before {
-  content: "\e6d2";
+.icon-yanjing:before {
+  content: "\e6f6";
 }
 
-.icon-saoma:before {
-  content: "\e616";
+.icon-yanjingbiyan:before {
+  content: "\e61d";
 }
 
-.icon-weixinzhifu:before {
-  content: "\e689";
+.icon-bianji:before {
+  content: "\e7a1";
 }
 
-.icon-shangpu:before {
-  content: "\e626";
+.icon-right:before {
+  content: "\e6a3";
 }
 
-.icon-yuancircle46:before {
-  content: "\e75d";
+.icon-youhuiquan:before {
+  content: "\e60d";
 }
 
-.icon-dui-shi-01:before {
-  content: "\e631";
+.icon-huangguan:before {
+  content: "\e60e";
 }
 
-.icon-gouwucheman:before {
-  content: "\e600";
+.icon-renzheng:before {
+  content: "\e60c";
 }
 
-.icon-dingdanfill:before {
-  content: "\e6c6";
+.icon-jian:before {
+  content: "\e619";
 }
 
-.icon-ziyuan:before {
-  content: "\e63c";
+.icon-jia:before {
+  content: "\e61a";
 }
 
-.icon-fukuan:before {
-  content: "\e670";
+.icon-dianhua:before {
+  content: "\e606";
 }
 
-.icon-kaquan:before {
-  content: "\e69c";
+.icon-fanhui:before {
+  content: "\e611";
 }
 
-.icon-bangzhu:before {
-  content: "\e6be";
+.icon-shoucang:before {
+  content: "\e647";
 }
 
-.icon-kefu:before {
-  content: "\e612";
+.icon-shoucangmiaobian:before {
+  content: "\e64a";
 }
 
-.icon-shezhi:before {
-  content: "\e629";
+.icon-sousuo:before {
+  content: "\e609";
 }
 
-.icon-daohang:before {
-  content: "\e640";
+.icon-dingwei:before {
+  content: "\e608";
 }
 
-.icon-hui:before {
-  content: "\e6ca";
+.icon-huiyuan:before {
+  content: "\e605";
 }
 
-.icon-shijian:before {
-  content: "\e630";
+.icon-dingdan:before {
+  content: "\e604";
 }
 
-.icon-home_1:before {
-  content: "\e665";
+.icon-wode:before {
+  content: "\e603";
+}
+
+.icon-shouye:before {
+  content: "\e602";
+}
+
+.icon-huiyuanqia1:before {
+  content: "\e607";
+}
+
+.icon-wechat-pay-fill:before {
+  content: "\e61c";
+}
+
+.icon-weixin:before {
+  content: "\e63d";
 }
 
 .icon-check:before {
-  content: "\e646";
+  content: "\e645";
 }
 
 .icon-close:before {
-  content: "\e647";
+  content: "\e646";
 }
 
 .icon-edit:before {
   content: "\e649";
 }
 
+.icon-favorfill:before {
+  content: "\e64b";
+}
+
+.icon-favor:before {
+  content: "\e64c";
+}
+
 .icon-loading:before {
   content: "\e64f";
+}
+
+.icon-roundcheckfill:before {
+  content: "\e656";
 }
 
 .icon-roundcheck:before {
@@ -126,8 +163,16 @@
   content: "\e669";
 }
 
+.icon-shop:before {
+  content: "\e676";
+}
+
 .icon-more:before {
   content: "\e684";
+}
+
+.icon-scan:before {
+  content: "\e689";
 }
 
 .icon-settings:before {
@@ -138,12 +183,20 @@
   content: "\e69b";
 }
 
-.icon-right:before {
-  content: "\e6a3";
+.icon-top:before {
+  content: "\e69e";
 }
 
 .icon-deletefill:before {
   content: "\e6a6";
+}
+
+.icon-cart:before {
+  content: "\e6af";
+}
+
+.icon-qrcode:before {
+  content: "\e6b0";
 }
 
 .icon-delete:before {
@@ -152,6 +205,38 @@
 
 .icon-home:before {
   content: "\e6b8";
+}
+
+.icon-cartfill:before {
+  content: "\e6b9";
+}
+
+.icon-link:before {
+  content: "\e6bf";
+}
+
+.icon-vip:before {
+  content: "\e6c3";
+}
+
+.icon-goods:before {
+  content: "\e6cd";
+}
+
+.icon-squarecheckfill:before {
+  content: "\e6d4";
+}
+
+.icon-square:before {
+  content: "\e6d5";
+}
+
+.icon-squarecheck:before {
+  content: "\e6d6";
+}
+
+.icon-round:before {
+  content: "\e6d7";
 }
 
 .icon-add:before {
@@ -166,106 +251,22 @@
   content: "\e6e5";
 }
 
-.icon-weixin:before {
-  content: "\e63d";
+.icon-rechargefill:before {
+  content: "\e6ec";
 }
 
-.icon-jian:before {
-  content: "\e619";
+.icon-recharge:before {
+  content: "\e6ed";
 }
 
-.icon-jia:before {
-  content: "\e61a";
+.icon-vipcard:before {
+  content: "\e6ee";
 }
 
-.icon-fanhui:before {
-  content: "\e611";
+.icon-share:before {
+  content: "\e6f3";
 }
 
-.icon-bianji1:before {
-  content: "\e7a1";
-}
-
-.icon-dianhua:before {
-  content: "\e606";
-}
-
-.icon-shouye:before {
-  content: "\e602";
-}
-
-.icon-wode1:before {
-  content: "\e603";
-}
-
-.icon-dingdan:before {
-  content: "\e604";
-}
-
-.icon-dingwei1:before {
-  content: "\e608";
-}
-
-.icon-sousuo1:before {
-  content: "\e60a";
-}
-
-.icon-roundcheckfill:before {
-  content: "\e656";
-}
-
-.icon-jiahao:before {
-  content: "\e721";
-}
-
-.icon-huiyuan:before {
-  content: "\e63f";
-}
-
-.icon-shoucang:before {
-  content: "\e60b";
-}
-
-.icon-wode:before {
-  content: "\e615";
-}
-
-.icon-telephone:before {
-  content: "\e645";
-}
-
-.icon-dingwei:before {
-  content: "\e61e";
-}
-
-.icon-wuuiconsuoxiao:before {
-  content: "\e61f";
-}
-
-.icon-wuuiconxiangjifangda:before {
-  content: "\e620";
-}
-
-.icon-biyan:before {
-  content: "\e6ba";
-}
-
-.icon-zuoshangjiao:before {
-  content: "\e79a";
-}
-
-.icon-sousuo:before {
-  content: "\e782";
-}
-
-.icon-bianji:before {
-  content: "\e609";
-}
-
-.icon-yanjing:before {
-  content: "\e6cc";
-}
-
-.icon-fenxiang:before {
-  content: "\e6af";
+.icon-barcode:before {
+  content: "\e6fb";
 }

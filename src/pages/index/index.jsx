@@ -23,6 +23,7 @@ import filter_data from '../../../hooks/sku-utils/data_filter';
 import Types from './types/types';
 import Seconds from './seconds-kill/Seconds';
 import './index.scss';
+import SkewText from '@/components/page/skew-text/SkewText';
 
 function Index() {
     const dispatch = useDispatch();
@@ -181,7 +182,7 @@ function Index() {
                                     <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {
                                         product_id: e.product_id
                                     })}>
-                                        <BlurImg className='img' mode='heightFix' src={e.cover} />
+                                        <BlurImg className='img' src={e.cover} />
                                         {/* <Image mode='heightFix' /> */}
                                         <View className='p-name'>
                                             {e.product_name}
@@ -194,11 +195,11 @@ function Index() {
                                                 <Text className='_money'>¥</Text>{e.market_price + '起'}
                                             </Text>
                                         </View>
-                                        <View className='foot'>
-                                            <View />
-                                            {/* <View className='vip-price fc'>
-                                                <Text className='_money'>¥</Text>{e.member_price + '起'}
-                                            </View> */}
+                                        <View className='foot flex'>
+                                            {/* <View /> */}
+                                            <SkewText text={['会员价格', '¥' + e.member_price + '起']} />
+
+
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
                                                 showSku(e.product_id)

@@ -89,7 +89,7 @@ const Screen = memo(({ list, onShow, onClick }) => {
                                     <View
                                         className='item_sort'
                                         key={e.text + e.value}
-                                        style={act[list[index].key]?.value == e.value && { color: '#EF5F00' }}
+                                        style={act[list[index].key]?.value == e.value && { color: '#00D0BF' }}
                                         onClick={() => {
                                             const actObj = {}
                                             const key = list[index].key

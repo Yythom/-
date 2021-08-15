@@ -12,7 +12,9 @@
     }
 
     .icon-close,
-    .iconguanbi {
+    .iconguanbi,
+    .icon-roundclose,
+        {
         position: absolute;
         right: 35px;
         top: 25px;
@@ -52,7 +54,7 @@
                 .new {
                     font-size: 46px;
                     font-weight: bold;
-                    color: #EF5F00;
+                    color: #00D0BF;
 
                     ._moneny {
                         font-size: 30px;
@@ -77,11 +79,11 @@
                     .p-item2 {
                         height: 36px;
                         border-radius: 4px;
-                        border: 2px solid #EF5F00;
+                        border: 2px solid #00D0BF;
                         padding: 0 10px;
                         font-size: 24px;
                         font-weight: 400;
-                        color: #EF5F00;
+                        color: #00D0BF;
                         margin-right: 10px;
                     }
                 }
@@ -137,10 +139,10 @@
             .act_item {
                 font-size: 26px;
                 font-weight: 600;
-                color: #EF5F00;
+                color: #00D0BF;
                 background: rgba(239, 95, 0, 0.1);
                 border-radius: 10px;
-                border: 2px solid #EF5F00;
+                border: 2px solid #00D0BF;
 
             }
 
@@ -193,7 +195,7 @@
         }
 
         .cart-btn {
-            background-color: #EF5F00;
+            background-color: #00D0BF;
             border-radius: 40px 0 0 40px;
         }
     }

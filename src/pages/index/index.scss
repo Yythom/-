@@ -86,17 +86,14 @@
         }
 
         .nav-item-act {
-            color: transparent;
-            background-image: linear-gradient(135deg, #FF7A45, #F53D3D);
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #00D0BF;
         }
 
         .nav-line {
             bottom: 14px;
             border-radius: 2px;
             height: 4px;
-            background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
+            background: #00D0BF;
         }
 
 
@@ -112,14 +109,12 @@
         padding-top: 16px;
         padding-bottom: 30px;
 
-        // display: flex;
-        // flex-flow: column wrap;
         .pro-item {
             width: 352px;
-            height: 470px;
+            height: 540px;
             background: #FFFFFF;
             border-radius: 10px;
-            padding-bottom: 16px;
+            // padding-bottom: 16px;
             margin-bottom: 16px;
             justify-content: flex-start;
 
@@ -143,18 +138,21 @@
             }
 
             .p-name {
+                // height: 80px;
+                color: #666;
+                @include line(1);
                 font-size: 28px;
             }
 
             .foot {
+                box-sizing: border-box;
+                padding: 0 16px;
                 margin-top: 10px;
+                justify-content: space-between;
                 position: relative;
 
+
                 .show-sku {
-                    position: absolute;
-                    z-index: 1;
-                    right: 16px;
-                    bottom: 0;
                     width: 48px;
                     height: 48px;
                     font-size: 40px;
@@ -163,18 +161,10 @@
                     text-align: center;
                     color: #fff;
                     border-radius: 50%;
-                    background: linear-gradient(120deg, #FF7A45 0%, #F53D3D 100%);
-                }
-
-                .vip-price {
-                    margin-left: 16px;
+                    background: #00D0BF;
                 }
             }
 
-            .p-name {
-                color: #666;
-                @include line(2)
-            }
 
             .p-price {
                 color: rgb(255, 36, 36);

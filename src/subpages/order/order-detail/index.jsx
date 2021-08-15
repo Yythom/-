@@ -76,20 +76,28 @@ const Index = () => {
 
     return (
         <View className='order_detail_wrap fd'  >
-            <NavBar back onBack={() => {
-                const back = getStorageSync('back');
-                navigateBack({
-                    delta: back || 1,
-                    success: () => {
-                        removeStorageSync('back')
-                    }
-                })
-            }} title='订单详情' background='linear-gradient(360deg, #FF8C48 0%, #FF6631 100%);' color='#fff' iconColor='#fff' />
+            <View className='bg' style={{ paddingBottom: '20rpx' }}>
+                <NavBar back onBack={() => {
+                    const back = getStorageSync('back');
+                    navigateBack({
+                        delta: back || 1,
+                        success: () => {
+                            removeStorageSync('back')
+                        }
+                    })
+                }} title='订单详情' background='transparent' color='#fff' iconColor='#fff' />
+                <View className='code fc'>
+                    <Text style={{ fontSize: '32rpx' }}>取货码&nbsp;</Text>
+                    {pageData?.order_code?.map((e) => {
+                        return e.code.replace(/\s+/g, "-")
+                    })}
+                </View>
+
+            </View>
 
             {/* 地址 */}
             <View className='square flex'>
                 <View className='right'>
-                    <View className='info address'>取货码：{pageData?.order_code?.map((e) => { return e.code })}</View>
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
@@ -142,14 +150,19 @@ const Index = () => {
                 <View className='line' />
                 <View className='order-desc'>
                     {pageData?.order_fee?.map((item) => {
-                        return <View className='item fb'>{item.fee_type_msg}：<Text className='price'>+&nbsp;¥{item.fee}</Text> </View>
+                        return <View className='item fb'>{item.fee_type_msg}<Text className='price'>+&nbsp;¥{item.fee}</Text> </View>
                     })}
-                    {pageData?.order_discount?.map((etem) => {
-                        return <View className='item fb'>{etem.detail}：<Text className='price'>-&nbsp;¥{etem.amount}</Text> </View>
-                    })}
+
                     <View className='item fb'>备注：<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
                     <View className='line' />
+
                     <View className='item fb'>订单合计<Text>¥{pageData?.order_amount || '暂无备注'}</Text> </View>
+                    {pageData?.order_discount?.map((etem, i) => {
+                        return <View className='item fb discount' key={i + 'discount'} >
+                            <View className='flex'> <View className='discount_dig fc'>减</View> {etem.detail}</View>
+                            <Text className='price'>-&nbsp;¥{etem.amount}</Text>
+                        </View>
+                    })}
                     <View className='item fb' style={{ marginTop: '10rpx' }}>
                         <View className='left'></View>
                         <View className='right'>实付金额

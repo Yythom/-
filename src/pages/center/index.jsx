@@ -50,7 +50,7 @@ const Index = () => {
             style={{ height: `calc(100vh - ${Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2}px)`, }}
             className='center_wrap'
         >
-            <View className='user' style={{ background: 'linear-gradient(360deg, #FF8C48 0%, #FF6631 100%)' }}>
+            <View className='user' style={{ background: '#00D0BF' }}>
                 <NavBar title='个人中心' color='#fff' iconColor='#fff' background='transparent' />
                 <WithUserVerify isVerifyPhone onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >

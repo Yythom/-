@@ -7,6 +7,7 @@ import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import np from 'number-precision'
 import Move from './MoveSquare/move';
+import SkewText from '@/components/page/skew-text/SkewText';
 
 
 const ProductItem = memo(({
@@ -49,12 +50,9 @@ const ProductItem = memo(({
                             </View>
                         </View>
                         <View className='p-num fb'>
-                            {/* {
-                                product?.isVip == 1
-                                    ? <View className='vip-price-act'>{product?.sku.member_price}</View>
-                                    : <View className='vip-price'>¥{product?.sku.member_price}</View>
-                            } */}
-
+                            <SkewText
+                            // text={['会员价格', '¥' + product?.sku.member_price]}
+                            />
                             <HandleInput
                                 list={list}
                                 num={product.product_count}

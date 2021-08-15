@@ -6,6 +6,7 @@ import { createSelectorQuery, getStorageSync, showToast } from '@tarojs/taro';
 import { data, onlineData } from '../../../../hooks/sku-utils/data';
 import filter_data from '../../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
+import SkewText from '@/components/page/skew-text/SkewText';
 
 
 /**
@@ -69,7 +70,9 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
 
                                     </View>
                                     <View className='foot fb'>
-                                        <View />
+                                        <SkewText
+                                        // text={['会员价格', '¥' + product.member_price + '起']}
+                                        />
                                         {/* <View className='vip-price fc'>¥{product.member_price + '起'}</View> */}
                                         {/* <View className='sale'>月售{'TODO:'}</View> */}
                                         <View className='show-sku' onClick={(event) => {

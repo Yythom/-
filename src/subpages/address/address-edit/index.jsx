@@ -63,7 +63,9 @@ const EditAddress = () => {
     const del = async (e) => {
         const res = await AddressService.removeAddress(e.address_id)
         console.log(res);;
-        navLinkTo('address/address-list/index', {})
+        navigateBack({
+            delta: 1
+        })
         if (res) {
             setTimeout(() => {
                 showToast({ title: '删除成功', icon: 'none' })
