@@ -4,6 +4,8 @@ import { View, Text, Image, Button } from '@tarojs/components';
 
 import np from 'number-precision'
 import './product.scss'
+import { min_max_price_format } from '@/common/utils';
+import SkewText from '@/components/page/skew-text/SkewText';
 
 function ProductInfo({
     className,
@@ -37,36 +39,34 @@ function ProductInfo({
                 </Button> */}
             </View>
 
+            <View className='flex' style={{ marginTop: '10rpx' }}>
+                <View className='desc flex'>
+                    {product?.product_tags?.map((e, i) => {
+                        return (
+                            <View key={e.name} className='desc-item fc'>{e.name}</View>
+                        )
+                    })}
+                </View>
+            </View>
+
             <View className='price-box fb'>
                 <View className='price flex'>
                     <Text className='new'>
-                        <Text className='_fontsmall'>¥</Text>
-                        <Text className='_moneny'>{product?.discount_price}</Text>
-                        <Text className='_fontsmall'>起</Text>
+                        <Text className='_money'>¥</Text>
+                        <Text style={{ fontSize: '40rpx' }}>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</Text>
                     </Text>
                     <Text className='old'>
-                        <Text className='_moneny'>¥</Text>
-                        {product?.market_price}
+                        <Text className='_money'>¥</Text>
+                        {min_max_price_format(product?.is_uniform_price, product?.market_price)}
                     </Text>
                 </View>
             </View>
-            <View className='other fb'>
-                <View className='flex'>
-                    <View />
-                    {/* <View className='vip-price' style={{ marginRight: '10rpx' }}>¥ {product?.member_price + '起'} </View> */}
+            {/* <View className='other fb'>
 
-                    <View className='desc flex'>
-                        {product?.product_tags?.map((e, i) => {
-                            return (
-                                <View key={e.name} className='desc-item fc'>{e.name}</View>
-                            )
-                        })}
-                    </View>
-                </View>
+                <SkewText text={['会员价格', '¥' + min_max_price_format(product?.is_uniform_price, product?.member_price)]} />
 
-
-                {/* <View className='sale'>月售{product?.sale}</View> */}
-            </View>
+                <View className='sale'>月售{product?.sale}</View>
+            </View> */}
         </View>
     )
 }

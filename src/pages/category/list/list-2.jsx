@@ -7,6 +7,7 @@ import { data, onlineData } from '../../../../hooks/sku-utils/data';
 import filter_data from '../../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
 import SkewText from '@/components/page/skew-text/SkewText';
+import { min_max_price_format } from '@/common/utils';
 
 
 /**
@@ -63,14 +64,14 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                     </View>}
                                     <View className='price-box fb'>
                                         <View className='price flex'>
-                                            <View style={{ marginRight: '20rpx' }}> <Text className='_money'>¥</Text>{product.discount_price + '起'}</View>
-                                            <View className='del'> <Text className='_money'>¥</Text>{product.market_price + '起'}</View>
+                                            <View style={{ marginRight: '20rpx' }}> <Text className='_money'>¥</Text>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</View>
+                                            <View className='del'> <Text className='_money'>¥</Text>{min_max_price_format(product?.is_uniform_price, product?.market_price)}</View>
                                         </View>
 
                                     </View>
                                     <View className='foot fb'>
                                         <SkewText
-                                        // text={['会员价格', '¥' + product.member_price + '起']}
+                                        // text={['会员价格', '¥' +  min_max_price_format(product?.is_uniform_price, product?.member_price)]}
                                         />
                                         {/* <View className='vip-price fc'>¥{product.member_price + '起'}</View> */}
                                         {/* <View className='sale'>月售{'TODO:'}</View> */}

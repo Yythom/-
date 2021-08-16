@@ -36,10 +36,10 @@
 .desc-item {
     // 补贴0.31
     border-radius: 4px;
-    border: 2px solid #00D0BF;
-    height: 36px;
-    padding: 0 12px;
-    color: #00D0BF;
+    background: rgba(153, 153, 153, 0.2);
+    // height: 36px;
+    padding: 2px 12px;
+    color: #999;
     margin-right: 10px;
     font-size: 24px;
 }

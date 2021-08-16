@@ -24,6 +24,7 @@ import Types from './types/types';
 import Seconds from './seconds-kill/Seconds';
 import './index.scss';
 import SkewText from '@/components/page/skew-text/SkewText';
+import { min_max_price_format } from '@/common/utils';
 
 function Index() {
     const dispatch = useDispatch();
@@ -194,18 +195,15 @@ function Index() {
                                         </View>
                                         <View className='price fb'>
                                             <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
-                                                <Text className='_money'></Text>{e.discount_price}
-                                                <Text className='start'>起</Text>
+                                                <Text className='_money'></Text>{min_max_price_format(e.is_uniform_price, e.discount_price)}
                                             </Text>
                                             <Text className='del'>
-                                                <Text className='_money'>¥</Text>{e.market_price + '起'}
+                                                <Text className='_money'>¥</Text>{min_max_price_format(e.is_uniform_price, e.market_price)}
                                             </Text>
                                         </View>
                                         <View className='foot flex'>
                                             {/* <View /> */}
-                                            <SkewText text={['会员价格', '¥' + e.member_price + '起']} />
-
-
+                                            <SkewText text={['会员价格', '¥' + min_max_price_format(e.is_uniform_price, e.member_price)]} />
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
                                                 showSku(e.product_id)

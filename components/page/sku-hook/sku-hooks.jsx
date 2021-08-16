@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-indent-props */
-import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'react';
+import React, { Fragment, useEffect, useLayoutEffect, useState, memo, useMemo } from 'react';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { View, Text, Input, ScrollView } from '@tarojs/components';
 import { getStorageSync, hideLoading, setStorageSync, showLoading, showToast } from '@tarojs/taro';
@@ -29,6 +29,13 @@ const Skuhooks = memo(({
     product,
 }) => {
     const dispatch = useDispatch();
+    const no_show = useMemo(() => { // 当只有一个默认sku的时候不展示弹框
+        if (Object.keys(product?.skuList || {}).length == 1) {
+            return true
+        }
+        return false
+    }, [product]);
+
     const cartSlice = useSelector(state => state.userStore, shallowEqual);
     const [num, setNum] = useState(1); // 商品数量
     const [option, load, { sku, desc }, specList, setSku, specListData] = useSku(product, show, default_sku);
@@ -47,29 +54,27 @@ const Skuhooks = memo(({
     useEffect(() => {
         console.log(load, 'sku---load');
         if (load && specList) { // 如果sku没有可选择的默认设置
-            // if (specList.length == 1) {
-            //     console.log(specList, 'specList');
-            //     setSku({
-            //         sku: {
-            //             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
-            //             "price": 200,
-            //             "stock": 10,
-            //             'sku_id': '222',
-            //         },
-            //         desc: {
-            //             // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
-            //             // filterStr: desc,
-            //             price: 200,
-            //         },
-            //     })
-            // }
             hideLoading();
         }
     }, [load]);
 
-    // useEffect(() => {
-    //     if (show && !load) showLoading();
-    // }, [show])
+    useEffect(() => {
+        if (!show) return
+        if (no_show) {
+            CartService.add('1', product.product_id, `${product.skuList[Object.keys(product.skuList)[0]].sku_id}`, 1).then(res => {
+                if (res) {
+                    dispatch(actions.upcart_price());
+                    setTimeout(() => {
+                        setShow(false)
+                        showToast({ title: `加入成功`, icon: 'none' });
+                    }, 300);
+                }
+                setStorageSync('addcart', true);
+                setStorageSync('addcart-subpages', true);
+            });
+            setShow(false)
+        }
+    }, [no_show, show]);
 
     // 预下单
     const preOrder = () => {
@@ -106,6 +111,8 @@ const Skuhooks = memo(({
             showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
         }
     };
+
+    if (no_show) return null
 
     return (
         <FloatBottom bottom={bottom} className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>

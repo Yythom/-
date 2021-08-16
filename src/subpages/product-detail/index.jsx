@@ -138,21 +138,6 @@ const Index = () => {
                 </View>
                 <View className='handle' >
                     <View className='add_cart fc' onClick={async () => {
-                        console.log(pageData);
-                        if (Object.keys(pageData?.skuList || {}).length == 1) {
-                            const res = await CartService.add('1', pageData.product_id, `${pageData.skuList[Object.keys(pageData.skuList)[0]].sku_id}`, 1);
-                            if (res) {
-                                dispatch(actions.upcart_price());
-                                setTimeout(() => {
-                                    setShow(false)
-                                    showToast({ title: `加入成功`, icon: 'none' });
-                                }, 300);
-                            }
-                            setStorageSync('addcart', true);
-                            setStorageSync('addcart-subpages', true);
-                            return
-                        }
-
                         setShow(1)
                     }}>加入购物车</View>
                     {/* <View className='buy fc' onClick={() => setShow(2)}>立即购买</View> */}
