@@ -1,0 +1,34 @@
+{
+    "list": [
+        {
+            "user_cart_id": "285818215262453760",
+            "shop_id": "1",
+            "product_id": "284720805907734531",
+            "sku_id": "284720806025175040",
+            "product_count": 1,
+            "sku": {
+                "sku_id": "284720806025175040",
+                "number": "011",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/e9aba14153471759b4ccc34ab8483169.png",
+                "market_price": "14.00",
+                "discount_price": "10.00",
+                "member_price": "8.00",
+                "stock": 100,
+                "sku_default_value": [
+                    {
+                        "value_id": "285813786656247808",
+                        "value": "原味"
+                    }
+                ]
+            },
+            "product": {
+                "product_id": "284720805907734531",
+                "product_name": "安慕希",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/e9aba14153471759b4ccc34ab8483169.png",
+                "enable": 1,
+                "status": 2
+            },
+            "is_buy": 1
+        }
+    ]
+}

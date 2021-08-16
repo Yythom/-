@@ -149,6 +149,8 @@ const Index = () => {
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
         if (res) {
+            setStorageSync('addcart', true)
+            setStorageSync('addcart-subpages', true)
             removeStorageSync('pre-data')
             removeStorageSync('address_id')
             setStorageSync('order_id_detail', res.order_id)

@@ -5,9 +5,6 @@ import { View, Text, Radio, ScrollView } from '@tarojs/components';
 // import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, removeStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import FloatBottom from '@/components/float/FloatBottom';
-import np from 'number-precision'
-import isWeapp from '@/utils/env';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import Skuhooks from '@/components/page/sku-hook/sku-hooks';
 import CouponFloat from '@/components/page/coupon/coupon';
@@ -20,8 +17,6 @@ import useSummary from '../../../hooks/useSummary';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
 
-// import { data, onlineData } from '../../../hooks/sku-utils/data';
-
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
     const cartPrice = useSelector(e => e.userStore.cart_price, shallowEqual);
@@ -29,36 +24,14 @@ const Index = () => {
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
     const [couponshow, setCouponshow] = useState(false)
-    const [pageData, setPageData] = useState([
-
-        // {
-        //     shop_id: '1',
-        //     products: [
-        //         {
-        //             product_id: '101',
-        //             product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-        //             price: '7999',
-        //             sale_price: '888',
-        //             sku: ['银色', '64G', '套餐一'],
-        //             product_count: '2',
-        //         },
-        //         {
-        //             product_id: '102',
-        //             product_name: '官方直降Apple/苹果 Apple/苹果 iPhone SE (第二代)旗舰se2手机',
-        //             price: '7999',
-        //             sku: ['银色', '64G', '套餐一'],
-        //             isVip: 1,
-        //             product_count: '2',
-        //         },
-        //     ]
-        // },
-    ]);
+    const [pageData, setPageData] = useState([]);
 
     const [edit, setEdit] = useState(false);
-    const [list, summaryShop, isAll, price, selectArr] = useSummary(pageData);
+    const [list, summaryShop, isAll, price, discount_price, selectArr] = useSummary(pageData);
 
     console.log(list, summaryShop);
 
+    // 用户操作成功回调内容
     const success = async (item, shop_id, cb) => {
         const res = await CartService.change(
             shop_id,
@@ -67,8 +40,8 @@ const Index = () => {
             item.sku.sku_id,
             item.product_count
         )
-
         if (res) {
+            // 重新获取发生修改的product数据
             const detail_item = await CartService.detail(res.user_cart_id);
             if (detail_item) {
                 cb(detail_item, res.delete_user_cart_id, res.user_cart_id);
@@ -92,18 +65,11 @@ const Index = () => {
                 break;
             case 'number':
                 item.product_count = value || (value?.length == 0 ? 1 : item.sku.stock); // 修改当前商品数量
-                if (value || value?.length == 0) {
-                    success(item, shop_id, (newItem) => {
-                        item = newItem;
-                        onChange(newList);
-                    })
-                } else {
-                    setPageData(newList);
-                }
+                success(item, shop_id, (newItem) => { setPageData(newList); })
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
-                onChange(newList, 'no_refresh_cart_price');
+                onChange(newList, 'no_refresh_cart_price'); // 静态改变不需要刷新全局购物车价格
                 break;
             case 'sku':
                 item.product_count = value.product_count;  // 修改当前商品sku
@@ -111,11 +77,13 @@ const Index = () => {
                 success(item, shop_id, (newItem, del_id, current_id) => {
                     item.sku = newItem.sku;
                     item.product_count = newItem.product_count;
-                    if (del_id) {  // 删除的购物车对象
+                    if (del_id) {
+                        // 同商品修改选择同sku 删除旧数据
                         const del_index = shop.products.findIndex(e => e.user_cart_id === del_id)
                         if (del_index !== -1) {
                             shop.products.splice(del_index, 1);
                         }
+                        // 替换新product数据
                         const current_index = shop.products.findIndex(e => e.user_cart_id === current_id)
                         if (current_index !== -1) {
                             shop.products[current_index] = { ...shop.products[current_index], ...newItem };
@@ -123,7 +91,6 @@ const Index = () => {
                         if (!shop.products[0]) newList.splice(shopIndex, 1);
                     }
                     setskuShow(false);
-                    onChange(newList);
                 })
                 break;
         }
@@ -132,7 +99,6 @@ const Index = () => {
     const init = async () => {
         const res = await CartService.list();
         stopPullDownRefresh();
-
         if (!res) return
         if (res.list) setPageData([{ shop_id: '1', products: res.list }])
         console.log(res, 'res');
@@ -144,19 +110,13 @@ const Index = () => {
             return;
         }
         const pre_data = {
-            "shop_id": pageData[0].shop_id,
-            "sku_items": summaryShop[pageData[0].shop_id].products.map(e => {
+            shop_id: pageData[0].shop_id,
+            sku_items: summaryShop[pageData[0].shop_id].products.map(e => {
                 return {
-                    "sku_id": `${e.sku_id}`,
-                    "count": e.product_count,
+                    sku_id: `${e.sku_id}`,
+                    count: e.product_count,
                 }
             })
-            // [
-            //     {
-            //         "sku_id":"string",
-            //         "count":"integer"
-            //     }
-            // ]
         }
         console.log(pre_data, 'pre_data');
         setStorageSync('pre-data', pre_data)
@@ -185,23 +145,27 @@ const Index = () => {
     const [default_sku, setDefault_sku] = useState([])
     const showSku = useCallback(async (product, index, shop_id) => {
         const res = await ProductService.getProductDataApi(product.product_id);
-        setSkuData({ ...filter_data(res), product_count: product.product_count })
+        // 设置sku初始化数据
+        setSkuData({ ...filter_data(res), product_count: product.product_count });
         const default_sku_list = product?.sku?.sku_default_value?.map(e => { return { id: e.value_id, name: e.value } });
-        if (default_sku_list[0])
-            setDefault_sku(default_sku_list)
-        // [
-        //     {
-        //         id: "283038145040498689",
-        //         name: '原道型'
-        //     },
-        // ]
+        /** 
+         * 设置默认选中的sku数组对象
+         * [
+         *   {
+         *     id: "283038145040498689",
+         *     name: '原道型'
+         *   },
+         * ]
+         */
+        if (default_sku_list[0]) setDefault_sku(default_sku_list)
+
         setTimeout(() => {
             setskuShow(4);
         }, 100);
         setSku_index({ index, shop_id, })
     }, [list])
 
-    const onOk = async (sku) => {
+    const onOk = async (sku) => { // 修改sku的回调
         if (!sku) return showToast({ title: 'x', icon: 'none' })
         if (sku) {
             console.log(sku, 'on ok');
@@ -217,7 +181,7 @@ const Index = () => {
     useDidShow(() => {
         dispatch(tabActions.changetab(2))
         removeStorageSync('address_id')
-        if (!getStorageSync('addcart')) {
+        if (!getStorageSync('addcart-subpages')) {
 
         } else {
             setEdit(false);
@@ -238,14 +202,10 @@ const Index = () => {
                     <View className='total'>支付成功生成取货码，持码到店取货</View>
                     <View className='header_edit flex' >
                         {/* <View className='price' onClick={() => setCouponshow(true)} >领券</View> */}
-                        {
-                            !edit ?
-                                <View className='fc' onClick={() => { setEdit(!edit) }} >
-                                    {/* <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> */}
-                                    管理
-                                </View>
-                                : <View className='fc' onClick={() => { setEdit(!edit) }} ><Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 完成</View>
-                        }
+                        <View className='fc' onClick={() => { setEdit(!edit) }} >
+                            <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text>
+                            {!edit ? '管理' : '完成'}
+                        </View>
                     </View>
                 </View>
                 <View className='list' >
@@ -279,17 +239,13 @@ const Index = () => {
                                     )
                                 }
                             </View>
-                        ) : <View className='fc'>
-                            暂无购物车
-                        </View>
-
+                        ) : <View className='empty fc'> 暂无购物车  </View>
                     }
                 </View>
                 <View className='footer fb' style={{ bottom: `calc(${systemInfo.safeArea.top / 2}px + ${60 * 2}rpx)` }} >
                     <View className='pay fb'>
                         <View className='left flex' onClick={() => {
                             const newList = JSON.parse(JSON.stringify(pageData));
-                            console.log(isAll, 'isAll');
                             newList.forEach(e => {
                                 e.products.forEach(el => {
                                     el.checked = !isAll
@@ -302,14 +258,13 @@ const Index = () => {
                         </View>
 
                         <View className='p_wrap fc'>
-                            <View className='price-box' onClick={(event) => { }} >
+                            <View className='price-box'>
                                 <View className='fc'>
                                     合计：<Text className='price'><Text className='_money'>¥</Text>{price}</Text>
                                 </View>
-                                {/* <View style={{ fontSize: '0.5rem', color: 'rgb(255, 91, 41)' }}>
-                                已优惠 ¥{22}
-                                <Text style={{ marginLeft: '0.2rem' }}>优惠明细 <Text style={{ fontSize: '0.5rem' }} className='iconfont icon-unfold'></Text></Text>
-                            </View> */}
+                                {/* <View className='price'>
+                                    已优惠 ¥{discount_price}
+                                </View> */}
                             </View>
                             <View
                                 className='btn  fc'
