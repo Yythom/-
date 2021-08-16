@@ -135,7 +135,10 @@ function Index() {
     const [initTabs, setInit] = useState(false)
     const [initHeight, setinitHeight] = useState(false)
 
-    useDidShow(() => dispatch(tabActions.changetab(0)))
+    useDidShow(() => {
+        setinitHeight(!initHeight);
+        dispatch(tabActions.changetab(0))
+    })
     return (
         <View className='index-wrap index' >
             {/* <NavBar title='首页' /> */}
