@@ -297,7 +297,7 @@ const Index = () => {
                             });
                             setPageData(newList);
                         }}>
-                            <Radio className='radio' color='#eb472b' checked={pageData[0] ? isAll : false} />
+                            <Radio className='radio' color='#00D0BF' checked={pageData[0] ? isAll : false} />
                             {!isAll ? "全选" : (pageData[0] ? "全不选" : '全选')}
                         </View>
 
