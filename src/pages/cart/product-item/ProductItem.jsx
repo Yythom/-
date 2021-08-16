@@ -24,7 +24,7 @@ const ProductItem = memo(({
                 <View className='check fc'
                     onClick={() => { handle(index, shop_id, 'check') }}
                 >
-                    <Radio className='radio' color='#eb472b' checked={product.checked} />
+                    <Radio className='radio' color='#00D0BF' checked={product.checked} />
                 </View>
                 <View className='product flex' onClick={(e) => { navLinkTo('product-detail/index', { product_id: product.product_id }); e.stopPropagation(); }}>
                     <BlurImg className='img' mode='aspectFill' src={product?.sku.cover} />
