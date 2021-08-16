@@ -36,7 +36,7 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
         return (
             <Fragment key={cate?.category_id + 'cate-title' + i}>
                 <View
-                    style={{ position: 'sticky', top: '0', height: cate.category_name ? '100rpx' : '20rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '20rpx' }}
+                    style={{ position: 'sticky', top: '0', height: cate.category_name ? '80rpx' : '20rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '20rpx' }}
                     className='nodes flex' id={`catetitle${i}`}
                 >
                     {cate.category_name}
