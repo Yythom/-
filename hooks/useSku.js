@@ -50,6 +50,16 @@ const useSku = (data, show, default_sku = []) => {
                 default_sku.forEach((item, index) => {
                     option.handleSpecAttr(item, index);
                 })
+            } else {
+                console.log(data, 'ata?.product_skus');
+                if (Object.keys(data?.skuList || {}).length == 1) {
+                    console.log();
+                    let item = {
+                        id: data.skuSpec[0]?.specAttrList[0]?.id,
+                        name: data.skuSpec[0]?.specAttrList[0]?.name
+                    }
+                    option.handleSpecAttr(item, 0);
+                }
             }
             console.log('挂载完成');
         }

@@ -21,11 +21,11 @@ const Skuhooks = memo(({
     onChange = Function.prototype,
     onOk = Function.prototype,
     initNumber,
-    default_sku = [
-        // { id: 101, name: '4.7寸', parent_name: '尺寸' },
-        // { id: 201, name: '16G', parent_name: '内存' },
-        // { id: 302, name: '红色', parent_name: '颜色' }
-    ],
+    default_sku
+    // { id: 101, name: '4.7寸', parent_name: '尺寸' },
+    // { id: 201, name: '16G', parent_name: '内存' },
+    // { id: 302, name: '红色', parent_name: '颜色' }
+    ,
     product,
 }) => {
     const dispatch = useDispatch();
@@ -47,21 +47,22 @@ const Skuhooks = memo(({
     useEffect(() => {
         console.log(load, 'sku---load');
         if (load && specList) { // 如果sku没有可选择的默认设置
-            if (specList.length < 1) {
-                // setSku({
-                //     sku: {
-                //         "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
-                //         "price": 200,
-                //         "stock": 10,
-                //         'sku_id': '222',
-                //     },
-                //     desc: {
-                //         // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
-                //         // filterStr: desc,
-                //         price: 200,
-                //     },
-                // })
-            }
+            // if (specList.length == 1) {
+            //     console.log(specList, 'specList');
+            //     setSku({
+            //         sku: {
+            //             "img": 'https://img.alicdn.com/bao/uploaded/i2/O1CN01qJ8zzO24dezMvLpJV_!!2-juitemmedia.png_220x220q90.jpg',
+            //             "price": 200,
+            //             "stock": 10,
+            //             'sku_id': '222',
+            //         },
+            //         desc: {
+            //             // str: _sku ? desc : (str.trim().length > 0 ? str : filterStr), // 主页面展示 描述
+            //             // filterStr: desc,
+            //             price: 200,
+            //         },
+            //     })
+            // }
             hideLoading();
         }
     }, [load]);

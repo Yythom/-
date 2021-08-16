@@ -101,6 +101,12 @@
           "pathName": "subpages/cart/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "subpages/product-detail/index",
+          "pathName": "subpages/product-detail/index",
+          "query": "product_id=285807436710662146&__key_=16291108174181",
+          "scene": null
         }
       ]
     }
