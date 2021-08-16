@@ -14,6 +14,7 @@ export default {
         'product-list/index',
         'search/index', // 搜索
 
+        'cart/index',
         'user-handle/info/index',// 个人信息
 
         /** 订单 */

@@ -95,6 +95,12 @@
           "pathName": "subpages/order/order-list/index",
           "query": "defaultIndex=1&delivery_type=1",
           "scene": null
+        },
+        {
+          "name": "分包-购物车",
+          "pathName": "subpages/cart/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

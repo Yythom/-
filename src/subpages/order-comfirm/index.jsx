@@ -149,6 +149,8 @@ const Index = () => {
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
         if (res) {
+            setStorageSync('addcart', true)
+            setStorageSync('addcart-subpages', true)
             removeStorageSync('pre-data')
             removeStorageSync('address_id')
             setStorageSync('order_id_detail', res.order_id)
@@ -204,7 +206,7 @@ const Index = () => {
                 <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
                     <View className='left' >温馨提示</View>
                     <View className='right' style={{ color: '#333' }}>
-                        支付成功生成取货码，尺码到店取货
+                        支付成功生成取货码，持码到店取货
                     </View>
                 </View>
                 <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >

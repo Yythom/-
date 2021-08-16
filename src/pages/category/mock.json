@@ -1,0 +1,61 @@
+{
+    "oneCate": {
+        "list": [
+            {
+                "category_id": "282562343471472640",
+                "category_name": "西式糕点",
+                "image": ""
+            },
+            {
+                "category_id": "282562469061517312",
+                "category_name": "中式糕点",
+                "image": ""
+            },
+            {
+                "category_id": "284756920740052992",
+                "category_name": "饮料",
+                "image": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/29f6c0e13ab3c7cff9ffeaa1ca4b871e.png"
+            },
+            {
+                "category_id": "284757385271803904",
+                "category_name": "生活用品1",
+                "image": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8e625acd30723e25c358b0173cd088fd.png"
+            }
+        ]
+    },
+    "twoCate": {
+        "list": [
+            {
+                "category_id": "282567792807702528",
+                "category_name": "法式甜点",
+                "image": "",
+                "products": [
+                    {
+                        "product_id": "284714451088384004",
+                        "product_name": "羊角面包",
+                        "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/89f4a19b188d2dce2428d8eba7a5115d.png",
+                        "market_price": "0.12",
+                        "discount_price": "0.10",
+                        "member_price": "0.08"
+                    },
+                    {
+                        "product_id": "284720805907734531",
+                        "product_name": "安慕希",
+                        "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/e9aba14153471759b4ccc34ab8483169.png",
+                        "market_price": "14.00",
+                        "discount_price": "10.00",
+                        "member_price": "8.00"
+                    },
+                    {
+                        "product_id": "285809175992061955",
+                        "product_name": "测试商品",
+                        "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/4c8ad228c175ff969835a7afd6722080.png",
+                        "market_price": "100.00",
+                        "discount_price": "99.00",
+                        "member_price": "98.00"
+                    }
+                ]
+            }
+        ]
+    }
+}

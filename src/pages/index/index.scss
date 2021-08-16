@@ -101,7 +101,7 @@
 
     .pro-list {
         // width: 100%;
-        min-height: 600px;
+
         flex-wrap: wrap;
         align-items: flex-start;
         box-sizing: border-box;
@@ -135,6 +135,7 @@
                 box-sizing: border-box;
                 padding: 0 16px;
                 font-size: 36px;
+
                 .start {
                     font-size: 26px;
                 }

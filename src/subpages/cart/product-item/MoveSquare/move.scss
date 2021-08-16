@@ -1,0 +1,45 @@
+@import '../../../../../common/mixins/index.scss';
+
+.move_wrap {
+    // height: 260px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: 300ms;
+    // background-color: #fff;
+
+    .move_square {
+        position: absolute;
+        height: 100%;
+        right: 0;
+        // top: 50%;
+        // transform: translateY(-50%);
+        z-index: 999;
+        display: flex;
+
+        .btn {
+            height: 100%;
+            font-size: 28px;
+            box-sizing: border-box;
+            padding: 10px;
+            color: #fff;
+
+            &:nth-last-of-type(1) {
+                // border-radius: 0 0 30px 0;
+            }
+        }
+
+        .btn:nth-of-type(1) {
+            background-color: #00D0BF;
+        }
+
+        .btn:nth-of-type(2) {
+            background-color: rgb(201, 32, 32);
+        }
+    }
+
+    .content {
+        height: 100%;
+    }
+
+}

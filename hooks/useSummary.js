@@ -5,6 +5,7 @@ const useSummary = (list) => {
     const summaryShop = {}; // 每个店铺 汇总数据
     let isAll = false;
     let price = 0;
+    let discount_price = 0;
     let selectArr = [];
     newList.forEach(shop => {  // 过滤汇总数据
         const shopData = {  // 单个店铺数据 临时初始化
@@ -21,6 +22,15 @@ const useSummary = (list) => {
             ),
         ), 0);
 
+        shopData.discount_price = select.reduce((prev, next) => np.plus( // 优惠价格
+            prev, np.times(
+                np.minus(
+                    next.sku.discount_price || 0, next.sku.market_price || 0 //TODO: 目前没有会员价
+                ),
+                next.product_count
+            ),
+        ), 0);
+
         // 修改店铺选择状态
         select.length === shop.products.length ? shopData.checked = true : shopData.checked = false;
         shopData.count = select.length;
@@ -30,14 +40,18 @@ const useSummary = (list) => {
         }
     });
     price = Object.values(summaryShop).reduce((prev, next) => np.plus( // 总价
-        prev, np.times(next.price, 1),
+        prev, np.times(next.price || 0, 1),
+    ), 0);
+
+    discount_price = Object.values(summaryShop).reduce((prev, next) => np.plus( // 总价
+        prev, np.times(next.discount_price || 0, 1),
     ), 0);
 
     if (newList.length === Object.values(summaryShop).length) {
         isAll = Object.values(summaryShop).filter(e => e.checked).length === newList.length
     }
 
-    return [newList, summaryShop, isAll, price, selectArr]
+    return [newList, summaryShop, isAll, price, discount_price, selectArr]
 }
 
 export default useSummary

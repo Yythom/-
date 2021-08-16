@@ -107,15 +107,16 @@ function Index() {
         console.log(_page || 1);
         const res = await ProductService.getProductListApi({ category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id, page: _page || 1 });
         index !== i && setIndex(i);
+        if (res) return;
         if (_page) {
-            if (!res.list[0]) {
+            if (!res?.list[0]) {
                 setPage(_page + 1);
                 setNoMore(true);
                 showToast({ title: '没有更多了', icon: 'none' })
             }
             setList([...list, ...res.list])
         } else {
-            if (!res.list[0]) setNoMore(true);
+            if (!res?.list[0]) setNoMore(true);
             else setNoMore(false);
             setList(res.list)
             setPage(1);
@@ -169,6 +170,7 @@ function Index() {
                     onChange={tabChange}
                     defaultIndex='0'
                     padding='60'
+                    minHeight='calc(100vh - 600rpx - 150rpx)'
                     initHeight={initHeight}
                     initTabs={initTabs}
                     isSticy

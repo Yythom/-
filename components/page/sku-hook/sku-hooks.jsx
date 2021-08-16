@@ -101,6 +101,7 @@ const Skuhooks = memo(({
             }
             dispatch(actions.upcart_price());
             setStorageSync('addcart', true)
+            setStorageSync('addcart-subpages', true)
             console.log(sku, 'addcart');
         } else {
             showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
@@ -189,7 +190,7 @@ const Skuhooks = memo(({
                             <HandleInput num={num} onChange={(value) => {
                                 if (!sku) return showToast({ title: '请选择规格', icon: 'none', })
                                 if (value > sku?.stock) {
-                                    setNum(50)
+                                    setNum(sku?.stock)
                                     return showToast({ title: '超过库存上限', icon: 'none' })
                                 }
                                 setNum(value)

@@ -142,7 +142,8 @@ const Index = () => {
         index: '',
         shop_id: '',
     });
-    const [default_sku, setDefault_sku] = useState([])
+    const [default_sku, setDefault_sku] = useState([]);
+
     const showSku = useCallback(async (product, index, shop_id) => {
         const res = await ProductService.getProductDataApi(product.product_id);
         // 设置sku初始化数据
@@ -165,7 +166,7 @@ const Index = () => {
         setSku_index({ index, shop_id, })
     }, [list])
 
-    const onOk = async (sku) => { // 修改sku的回调
+    const onOk = async (sku) => {
         if (!sku) return showToast({ title: 'x', icon: 'none' })
         if (sku) {
             console.log(sku, 'on ok');
@@ -196,16 +197,20 @@ const Index = () => {
 
 
     return (
-        <View className='cart-wrap index' >
+        <View className='subpage-cart-wrap index' >
             <ScrollView scrollY className='scrollview'>
                 <View className='cart-title fb' style={{ top: 0 + 'px' }}>
                     <View className='total'>支付成功生成取货码，持码到店取货</View>
                     <View className='header_edit flex' >
                         {/* <View className='price' onClick={() => setCouponshow(true)} >领券</View> */}
-                        <View className='fc' onClick={() => { setEdit(!edit) }} >
-                            <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text>
-                            {!edit ? '管理' : '完成'}
-                        </View>
+                        {
+                            !edit ?
+                                <View className='fc' onClick={() => { setEdit(!edit) }} >
+                                    {/* <Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> */}
+                                    管理
+                                </View>
+                                : <View className='fc' onClick={() => { setEdit(!edit) }} ><Text style={{ fontWeight: 'bold', color: '#DEDEDE' }}>｜</Text> 完成</View>
+                        }
                     </View>
                 </View>
                 <View className='list' >
@@ -239,13 +244,17 @@ const Index = () => {
                                     )
                                 }
                             </View>
-                        ) : <View className='empty fc'> 暂无购物车  </View>
+                        ) : <View className='fc'>
+                            暂无购物车
+                        </View>
+
                     }
                 </View>
-                <View className='footer fb' style={{ bottom: `calc(${systemInfo.safeArea.top / 2}px + ${60 * 2}rpx)` }} >
+                <View className='footer fb'  >
                     <View className='pay fb'>
                         <View className='left flex' onClick={() => {
                             const newList = JSON.parse(JSON.stringify(pageData));
+                            console.log(isAll, 'isAll');
                             newList.forEach(e => {
                                 e.products.forEach(el => {
                                     el.checked = !isAll
@@ -258,7 +267,7 @@ const Index = () => {
                         </View>
 
                         <View className='p_wrap fc'>
-                            <View className='price-box'>
+                            <View className='price-box' onClick={(event) => { }} >
                                 <View className='fc'>
                                     合计：<Text className='price'><Text className='_money'>¥</Text>{price}</Text>
                                 </View>
@@ -286,6 +295,7 @@ const Index = () => {
 
             {/* sku弹框 */}
             <Skuhooks
+                buttom={0}
                 show={skushow}
                 setShow={setskuShow}
                 product={skuData}

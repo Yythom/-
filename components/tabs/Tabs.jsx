@@ -23,6 +23,7 @@ const Index = (props) => { // 不能有padding父元素
         // 监听并初始化tabs
         initTabs,
         maxHeight,
+        minHeight,
         initHeight, // 监听是否重新设置view高度 notChildScroll设置
 
         // 防止页面多tabs获取元素信息污染
@@ -235,7 +236,8 @@ const Index = (props) => { // 不能有padding父元素
                             <View className='swiper'
                                 style={{
                                     height: height + Number(notChildScroll ? getStorageSync('safeArea') : 0) + 'px',
-                                    maxHeight: maxHeight
+                                    maxHeight: maxHeight,
+                                    minHeight: minHeight
                                 }}
                             >
                                 <Swiper
