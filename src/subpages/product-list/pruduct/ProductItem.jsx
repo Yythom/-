@@ -3,7 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { View, Text, Radio } from '@tarojs/components';
 import BlurImg from '@/components/blur-img/BlurImg';
 import { navLinkTo } from '@/common/publicFunc';
-import np from 'number-precision';
+import { min_max_price_format } from '@/common/utils';
 import './ProductItem.scss';
 
 const ProductItem = memo(({ product, }) => {
@@ -23,7 +23,7 @@ const ProductItem = memo(({ product, }) => {
 
                     <View className='p-num fb'>
                         <View className='price-box flex'>
-                            <Text className='price'><Text className='_money'>¥</Text>{product?.discount_price + '起'}</Text>
+                            <Text className='price'>{min_max_price_format(product?.max_discount_price, product?.discount_price)}</Text>
                             {/* <Text className='del'><Text className='_money'>¥</Text>{product?.market_price}</Text> */}
                             {/* <View className='vip-price' ><Text className='_money'>¥</Text>{product?.member_price + '起'}</View> */}
                             <View />

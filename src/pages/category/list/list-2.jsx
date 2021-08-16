@@ -64,14 +64,14 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                     </View>}
                                     <View className='price-box fb'>
                                         <View className='price flex'>
-                                            <View style={{ marginRight: '20rpx' }}>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</View>
-                                            <View className='del'>{min_max_price_format(product?.is_uniform_price, product?.market_price)}</View>
+                                            <View style={{ marginRight: '20rpx' }}>{min_max_price_format(product?.max_discount_price, product?.discount_price)}</View>
+                                            <View className='del'>{min_max_price_format(product?.max_market_price, product?.market_price)}</View>
                                         </View>
 
                                     </View>
                                     <View className='foot fb'>
                                         <SkewText
-                                        // text={['会员价格', '¥' +  min_max_price_format(product?.is_uniform_price, product?.member_price)]}
+                                        // text={['会员价格', '¥' +  min_max_price_format(product?.max_member_price, product?.member_price)]}
                                         />
                                         {/* <View className='vip-price fc'>¥{product.member_price + '起'}</View> */}
                                         {/* <View className='sale'>月售{'TODO:'}</View> */}
