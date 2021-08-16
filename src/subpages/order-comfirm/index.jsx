@@ -171,10 +171,10 @@ const Index = () => {
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>
                     {pageData?.order_fee?.map((item) => {
-                        return <View className='item fb'>{item.fee_type_msg}：<Text >&nbsp;¥{np.times(item.fee || 0, 0.01)}</Text> </View>
+                        return <View className='item fb'>{item.fee_type_msg}：<Text >&nbsp;¥{np.times(item.fee || 0, 1)}</Text> </View>
                     })}
                     {pageData?.order_discount?.map((etem) => {
-                        return <View className='item fb'>{etem.detail}：<Text >-&nbsp;¥{np.times(etem.amount || 0, 0.01)}</Text> </View>
+                        return <View className='item fb'>{etem.detail}：<Text >-&nbsp;¥{np.times(etem.amount || 0, 1)}</Text> </View>
                     })}
                 </View>
 
@@ -228,8 +228,8 @@ const Index = () => {
 
                 <View className='footer flex'>
                     <View className='price-box fd'>
-                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 0.01)}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 0.01)}</Text></View>
+                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 1)}</Text></View>
+                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 1)}</Text></View>
                     </View>
                     <View className='btn fc'
                         onClick={() => {

@@ -171,7 +171,7 @@ const Index = () => {
                 </View>
             </View>
 
-            <View className='summary card'>
+            <View className='summary card' style={{paddingBottom: '112rpx'}}>
 
                 <View className='item fb'>
                     订单编号：
