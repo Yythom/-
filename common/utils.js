@@ -1,3 +1,5 @@
+import React from 'react'
+import { Text } from "@tarojs/components";
 /**
  * @param {jsx绑定函数} func 
  * @param {延迟} threshold 
@@ -48,5 +50,17 @@ export function throttle(fn, wait = 500, isImmediate = false) {
                 flag = true
             }, wait)
         }
+    }
+}
+
+
+export const min_max_price_format = (min, max) => {
+    if (min == max) {
+        return `${min}`
+    } else {
+        return <Text>
+            {min}
+            <Text className='_money'>起</Text>
+        </Text>
     }
 }

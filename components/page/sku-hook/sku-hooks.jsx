@@ -93,14 +93,12 @@ const Skuhooks = memo(({
         if (sku) {
             const res = await CartService.add('1', product.product_id, `${sku.sku_id}`, num);
             if (res) {
-                console.log(res);
-
+                dispatch(actions.upcart_price());
                 setTimeout(() => {
                     setShow(false)
                     showToast({ title: `加入成功`, icon: 'none' })
                 }, 200);
             }
-            dispatch(actions.upcart_price());
             setStorageSync('addcart', true)
             setStorageSync('addcart-subpages', true)
             console.log(sku, 'addcart');

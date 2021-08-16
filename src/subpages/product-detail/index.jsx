@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useState } from 'react';
 import { View, Text, Image, ScrollView } from '@tarojs/components';
-import Taro, { getStorageSync, removeStorageSync, showModal, showShareMenu, useDidShow, useShareAppMessage } from '@tarojs/taro'
+import Taro, { getStorageSync, removeStorageSync, setStorageSync, showModal, showShareMenu, showToast, useDidShow, useShareAppMessage } from '@tarojs/taro'
 import FloatBottom from '@/components/float/FloatBottom';
 import BlurImg from '@/components/blur-img/BlurImg';
 import Banner from '@/components/page/banner/Banner';
@@ -10,11 +10,15 @@ import { navLinkTo } from '@/common/publicFunc';
 import CouponList from '@/components/page/coupon/v-coupon';
 import Sku from '@/components/page/sku-hook/sku-hooks';
 import ProductService from '@/services/product';
+import CartService from '@/services/cart';
+import { actions } from '@/store/userSlice';
+import { useDispatch } from 'react-redux';
 import ProductInfo from './product-info/ProductInfo';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import './index.scss'
 
 const Index = () => {
+    const dispatch = useDispatch();
     // sku相关
     const [show, setShow] = useState(false);
     const [service, setService] = useState(false);
@@ -133,7 +137,24 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='handle' >
-                    <View className='add_cart fc' onClick={() => setShow(1)}>加入购物车</View>
+                    <View className='add_cart fc' onClick={async () => {
+                        console.log(pageData);
+                        if (Object.keys(pageData?.skuList || {}).length == 1) {
+                            const res = await CartService.add('1', pageData.product_id, `${pageData.skuList[Object.keys(pageData.skuList)[0]].sku_id}`, 1);
+                            if (res) {
+                                dispatch(actions.upcart_price());
+                                setTimeout(() => {
+                                    setShow(false)
+                                    showToast({ title: `加入成功`, icon: 'none' });
+                                }, 300);
+                            }
+                            setStorageSync('addcart', true);
+                            setStorageSync('addcart-subpages', true);
+                            return
+                        }
+
+                        setShow(1)
+                    }}>加入购物车</View>
                     {/* <View className='buy fc' onClick={() => setShow(2)}>立即购买</View> */}
                 </View>
             </View>
