@@ -46,7 +46,7 @@ function ProductInfo({
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
-                        {product?.market_price + '起'}
+                        {product?.market_price}
                     </Text>
                 </View>
             </View>
