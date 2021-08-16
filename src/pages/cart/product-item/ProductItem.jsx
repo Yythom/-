@@ -31,18 +31,21 @@ const ProductItem = memo(({
                     {/* <Image mode='aspectFill' /> */}
                     <View className='desc fd'>
                         <Text className='p-name'>{product?.product.product_name || '空'}</Text>
-                        <View className='p-sku' onClick={(event) => {
-                            showSku(product, index, shop_id);
-                            event.stopPropagation();
-                        }}>
-                            {product?.sku?.sku_default_value.map(e => e?.value + ' ').toString()}
-                            {/* {product?.sku.map(e => {
-                                return (
-                                    <Text key={e} className='p-sku-item'>{e}</Text>
-                                )
-                            })} */}
-                            <Text className='iconfont icon-unfold'></Text>
-                        </View>
+                        {
+                            product?.sku?.sku_default_value[0] ? <View className='p-sku' onClick={(event) => {
+                                showSku(product, index, shop_id);
+                                event.stopPropagation();
+                            }}>
+                                {product?.sku?.sku_default_value.map(e => e?.value + ' ').toString()}
+                                {/* {product?.sku.map(e => {
+                                    return (
+                                        <Text key={e} className='p-sku-item'>{e}</Text>
+                                    )
+                                })} */}
+                                <Text className='iconfont icon-unfold'></Text>
+                            </View> : <View className='p-sku' style={{ background: '#fff' }} />
+                        }
+
                         <View className=' fb'>
                             <View className='flex'>
                                 <Text className='price'><Text className='_money'>¥</Text>{product?.sku.discount_price}</Text>
