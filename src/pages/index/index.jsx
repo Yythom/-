@@ -170,7 +170,7 @@ function Index() {
                     onChange={tabChange}
                     defaultIndex='0'
                     padding='60'
-                    minHeight={'40vh'}
+                    minHeight='calc(100vh - 600rpx - 150rpx)'
                     initHeight={initHeight}
                     initTabs={initTabs}
                     isSticy
