@@ -190,9 +190,10 @@ function Index() {
                                         <View className='p-name'>
                                             {e.product_name}
                                         </View>
-                                        <View className='price'>
+                                        <View className='price fb'>
                                             <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
-                                                <Text className='_money'></Text>{e.discount_price + '起'}
+                                                <Text className='_money'></Text>{e.discount_price}
+                                                <Text className='start'>起</Text>
                                             </Text>
                                             <Text className='del'>
                                                 <Text className='_money'>¥</Text>{e.market_price + '起'}
