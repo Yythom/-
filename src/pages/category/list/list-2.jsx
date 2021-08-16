@@ -3,12 +3,11 @@ import React, { Fragment, memo, useCallback, useEffect, useMemo, useState } from
 import { View, Button, Text, Image, ScrollView } from '@tarojs/components';
 import { navLinkTo, RefInfo } from '@/common/publicFunc';
 import { createSelectorQuery, getStorageSync, showToast } from '@tarojs/taro';
-import { data, onlineData } from '../../../../hooks/sku-utils/data';
-import filter_data from '../../../../hooks/sku-utils/data_filter';
 import ProductService from '@/services/product';
 import SkewText from '@/components/page/skew-text/SkewText';
 import { min_max_price_format } from '@/common/utils';
-
+// import { data, onlineData } from '../../../../hooks/sku-utils/data';
+import filter_data from '../../../../hooks/sku-utils/data_filter';
 
 /**
  * 

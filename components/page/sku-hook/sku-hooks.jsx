@@ -112,7 +112,7 @@ const Skuhooks = memo(({
         }
     };
 
-    if (no_show) return null
+    if (show && no_show) return null
 
     return (
         <FloatBottom bottom={bottom} className='sku-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
