@@ -53,7 +53,6 @@
                 .new {
                     font-size: 46px;
                     font-weight: bold;
-                    color: #00D0BF;
 
                     ._moneny {
                         font-size: 30px;
@@ -99,8 +98,6 @@
 
     // sku选择
     .spec-box {
-        // background-color: yellow;
-        margin-bottom: 30px;
 
         .select_title {
             // background-color: blue;
@@ -116,7 +113,12 @@
             flex-wrap: wrap;
             padding-bottom: 30px;
             border-bottom: 2px solid #DEDEDE;
+
             // background-color: blueviolet;
+            &:nth-last-of-type(1) {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
 
             .item {
                 margin-bottom: 20px;
@@ -133,6 +135,7 @@
                 font-weight: 400;
                 color: #333333;
                 box-sizing: border-box;
+
             }
 
             .act_item {
@@ -142,7 +145,6 @@
                 background: #00D0BF15;
                 border-radius: 10px;
                 border: 2px solid #00D0BF;
-
             }
 
             .disabled {
@@ -154,8 +156,10 @@
 
     // 数量选择
     .buy_number {
+        border-top: 2px solid #DEDEDE;
         height: 56px;
         margin-top: 25px;
+        padding-top: 30px;
 
         .number_title {
             font-size: 30px;
@@ -176,7 +180,7 @@
         font-size: 28px;
         font-size: 36px;
         font-weight: 400;
-        margin-top: 143px;
+        margin-top: 120px;
 
         .btn {
             flex: 1;

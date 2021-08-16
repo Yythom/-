@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, useEffect, useLayoutEffect, useState, memo } from 'react';
 import BlurImg from '@/components/blur-img/BlurImg';
-import { View, Text, Input } from '@tarojs/components';
+import { View, Text, Input, ScrollView } from '@tarojs/components';
 import { getStorageSync, hideLoading, setStorageSync, showLoading, showToast } from '@tarojs/taro';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
 import HandleInput from '@/components/page/handle-input/HandleInput';
@@ -149,29 +149,34 @@ const Skuhooks = memo(({
                                 } */}
                             </View>
                         </View>
-                        <View className='spec-box' >
-                            {
-                                specList && specList.map((item, index) => (
-                                    <Fragment key={item.id}>
-                                        <View className='select_title flex'>{item.specName}</View>
-                                        <View className='select_list flex' key={item.id}>
-                                            {item.specAttrList.map(attrItem => {
-                                                const { disabled, active } = option.checkSpecAttrDisabled(attrItem.id, index);
-                                                return (
-                                                    <View
-                                                        key={attrItem.id}
-                                                        onClick={() => !disabled && option.handleSpecAttr({ ...attrItem, parent_name: item.specName }, index)}
-                                                        className={`${disabled && ' disabled'} ${active && ' act_item'} item`}
-                                                    >
-                                                        {attrItem.name}
-                                                    </View>
-                                                )
-                                            })}
-                                        </View>
-                                    </Fragment>
-                                ))
-                            }
-                        </View>
+                        <ScrollView
+                            scrollY
+                            style={{ maxHeight: '30vh' }}
+                        >
+                            <View className='spec-box' >
+                                {
+                                    specList && specList.map((item, index) => (
+                                        <Fragment key={item.id}>
+                                            <View className='select_title flex'>{item.specName}</View>
+                                            <View className='select_list flex' key={item.id}>
+                                                {item.specAttrList.map(attrItem => {
+                                                    const { disabled, active } = option.checkSpecAttrDisabled(attrItem.id, index);
+                                                    return (
+                                                        <View
+                                                            key={attrItem.id}
+                                                            onClick={() => !disabled && option.handleSpecAttr({ ...attrItem, parent_name: item.specName }, index)}
+                                                            className={`${disabled && ' disabled'} ${active && ' act_item'} item`}
+                                                        >
+                                                            {attrItem.name}
+                                                        </View>
+                                                    )
+                                                })}
+                                            </View>
+                                        </Fragment>
+                                    ))
+                                }
+                            </View>
+                        </ScrollView>
 
                         <View className='buy_number fb'>
                             <View className='number_title flex'>
@@ -205,14 +210,14 @@ const Skuhooks = memo(({
                                     showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
                                 }
                             }}>确定</View>}
-
-
                         </View>
                     </View>
+
                     : <View className='fc' style={{ height: '60vh', }}>
                         加载中...
                     </View>
             }
+
         </FloatBottom>
     )
 })

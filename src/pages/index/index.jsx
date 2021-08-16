@@ -136,7 +136,7 @@ function Index() {
     const [initHeight, setinitHeight] = useState(false)
 
     useDidShow(() => {
-        setinitHeight(!initHeight);
+        // setinitHeight(!initHeight);
         dispatch(tabActions.changetab(0))
     })
     return (
