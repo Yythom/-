@@ -40,8 +40,9 @@ function ProductInfo({
             <View className='price-box fb'>
                 <View className='price flex'>
                     <Text className='new'>
-                        <Text className='_moneny'>¥</Text>
-                        {product?.discount_price + '起'}
+                        <Text className='_fontsmall'>¥</Text>
+                        <Text className='_moneny'>{product?.discount_price}</Text>
+                        <Text className='_fontsmall'>起</Text>
                     </Text>
                     <Text className='old'>
                         <Text className='_moneny'>¥</Text>
