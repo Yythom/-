@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import { Text, View, Radio } from '@tarojs/components';
+import { Text, View, Image } from '@tarojs/components';
 import Taro, { getStorageSync, hideLoading, navigateBack, setStorageSync, showLoading, showModal, showToast, useDidShow } from '@tarojs/taro'
 import { navLinkTo } from '@/common/publicFunc';
 import AddressService from '@/services/address';
@@ -171,8 +171,8 @@ const AddressManage = () => {
                                 </View>
                             </Move>
                         )
-                    }) : <View className='empty fc'>
-                        请添加地址
+                    }) : <View className='empty fc' style={{minHeight: '100vh'}}>
+                        <Image style={{ width: '260rpx', height: '260rpx' }} src={require('../../../../assets/images/shouyeyixuan.png')} />
                     </View>
                 }
             </View>
