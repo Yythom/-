@@ -127,9 +127,9 @@ const Skuhooks = memo(({
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
                                             {desc?.price ? desc?.discount_price :
-                                                <View>
-                                                    {product?.discount_price}  <Text className='_moneny'>起</Text>
-                                                </View>
+                                                <Text>
+                                                    {product?.discount_price}<Text className='_moneny'>起</Text>
+                                                </Text>
                                             }
                                         </Text>
                                         <Text className='old'>
