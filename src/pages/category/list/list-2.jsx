@@ -35,9 +35,8 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
     return twoCate?.map((cate, i) => {
         return (
             <Fragment key={cate?.category_id + 'cate-title' + i}>
-                {/* 迭代 */}
                 <View
-                    style={{ position: 'sticky', top: '0', height: '100rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '20rpx' }}
+                    style={{ position: 'sticky', top: '0', height: cate.category_name ? '100rpx' : '20rpx', zIndex: '1', background: '#fff', boxSizing: 'border-box', paddingLeft: '20rpx' }}
                     className='nodes flex' id={`catetitle${i}`}
                 >
                     {cate.category_name}
@@ -179,49 +178,60 @@ function VtabList({
 
     return (
         <>
-            <>
-                {show && <View className='mask' />}
-                <View className='child-tab flex' >
-                    <View className='child-wrap flex'>
-                        <ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} />
-                    </View>
-                    <View className='square fc' onClick={() => setShow(!show)}>
-                        {show ? <Text className='iconfont icon-fold'></Text> : <Text className='iconfont icon-unfold'></Text>}
-                    </View>
-                </View>
-                {show && <View className='show-cate flex'><ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} /></View>}
-                <ScrollView
-                    scrollWithAnimation
-                    scrollAnchoring
-                    scrollY
-                    scrollTop={scrollTo}
-                    onScroll={scroll}
-                    i={i}
-                    // scrollIntoView={scrollTo}
-                    className='fd item-box '
-                    style={{ height: `calc(100% - 88rpx)` }}
-                >
-                    <View style={{ position: 'relative' }}>
+            {
+                twoCate[0] ?
+                    <>
+                        {show && <View className='mask' />}
+                        <View className='child-tab flex' >
+                            <View className='child-wrap flex'>
+                                <ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} />
+                            </View>
+                            <View className='square fc' onClick={() => setShow(!show)}>
+                                {show ? <Text className='iconfont icon-fold'></Text> : <Text className='iconfont icon-unfold'></Text>}
+                            </View>
+                        </View>
+                        {show && <View className='show-cate flex'><ChildCate twoCate={twoCate} child_cate={child_cate} onClick={selectChild} /></View>}
+                        <ScrollView
+                            scrollWithAnimation
+                            scrollAnchoring
+                            scrollY
+                            scrollTop={scrollTo}
+                            onScroll={scroll}
+                            // scrollIntoView={scrollTo}
+                            className='fd item-box '
+                            style={{ height: `calc(100% - 88rpx)` }}
+                        >
+                            <View style={{ position: 'relative' }}>
+                                <RenderList
+                                    twoCate={twoCate}
+                                    skuOption={
+                                        { show: skushow, setShow: setskuShow, skuData, setSkuData }
+                                    }
+                                />
+                                {/* <View className='' style={{ position: 'sticky', top: '0', zIndex: '1', height: '1200rpx', width: '100%', background: '#ccc' }}>测试滚动的</View> */}
+
+                            </View>
+                        </ScrollView>
+                    </>
+                    :
+                    <ScrollView
+                        scrollY
+                        className='fd item-box '
+                        style={{ height: `100%` }}
+                    >
                         <RenderList
-                            twoCate={twoCate}
+                            twoCate={[{
+                                category_id: "282567792807702528",
+                                category_name: "",
+                                image: "",
+                                products: twoCate[0].products
+                            }]}
                             skuOption={
                                 { show: skushow, setShow: setskuShow, skuData, setSkuData }
                             }
                         />
-                        {/* <View className='' style={{ position: 'sticky', top: '0', zIndex: '1', height: '1200rpx', width: '100%', background: '#ccc' }}>测试滚动的</View> */}
-
-                    </View>
-                </ScrollView>
-
-            </> :
-            <View className='flex item-box'>
-                <RenderList
-                    twoCate={twoCate}
-                    skuOption={
-                        { show: skushow, setShow: setskuShow, skuData, setSkuData }
-                    }
-                />
-            </View>
+                    </ScrollView>
+            }
         </>
     )
 }
