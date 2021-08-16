@@ -65,7 +65,9 @@ const Index = () => {
                 break;
             case 'number':
                 item.product_count = value || (value?.length == 0 ? 1 : item.sku.stock); // 修改当前商品数量
-                success(item, shop_id, (newItem) => { setPageData(newList); })
+                if (value) {
+                    success(item, shop_id, (newItem) => { setPageData(newList); })
+                }
                 break;
             case 'check':
                 item.checked = !item.checked; // 修改当前商品选择状态
