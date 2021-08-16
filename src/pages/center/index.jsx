@@ -51,7 +51,7 @@ const Index = () => {
             className='center_wrap'
         >
             <View className='user' style={{ background: '#00D0BF' }}>
-                <NavBar title='个人中心' color='#fff' iconColor='#fff' background='transparent' />
+                <NavBar title='个人中心' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <WithUserVerify isVerifyPhone onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >
                         <Avatar style={{ background: '#fff', borderRadius: '10px' }} size='110rpx' />

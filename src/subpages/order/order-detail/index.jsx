@@ -85,7 +85,7 @@ const Index = () => {
                             removeStorageSync('back')
                         }
                     })
-                }} title='订单详情' background='transparent' color='#fff' iconColor='#fff' />
+                }} title='订单详情' background='#00D0BF' color='#fff' iconColor='#fff' />
                 <View className='code fc'>
                     <Text style={{ fontSize: '32rpx' }}>取货码&nbsp;</Text>
                     {pageData?.order_code?.map((e) => {
