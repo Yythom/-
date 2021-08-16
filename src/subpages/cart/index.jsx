@@ -232,7 +232,7 @@ const Index = () => {
 
 
     return (
-        <View className='cart-wrap index' >
+        <View className='subpage-cart-wrap index' >
             <ScrollView scrollY className='scrollview'>
                 <View className='cart-title fb' style={{ top: 0 + 'px' }}>
                     <View className='total'>支付成功生成取货码，持码到店取货</View>
@@ -285,7 +285,7 @@ const Index = () => {
 
                     }
                 </View>
-                <View className='footer fb' style={{ bottom: `calc(${systemInfo.safeArea.top / 2}px + ${60 * 2}rpx)` }} >
+                <View className='footer fb'  >
                     <View className='pay fb'>
                         <View className='left flex' onClick={() => {
                             const newList = JSON.parse(JSON.stringify(pageData));
@@ -331,6 +331,7 @@ const Index = () => {
 
             {/* sku弹框 */}
             <Skuhooks
+                buttom={0}
                 show={skushow}
                 setShow={setskuShow}
                 product={skuData}

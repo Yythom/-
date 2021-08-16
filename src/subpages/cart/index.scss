@@ -1,0 +1,122 @@
+.subpage-cart-wrap {
+    // min-height: 100vh;
+    // background-color: pink;
+    box-sizing: border-box;
+
+    .radio {
+        // width: 40px;
+        // height: 40px;
+        // color: ;
+    }
+
+    .scrollview {
+        box-sizing: border-box;
+        background-color: #f3f3f3;
+        // padding: 0 16px;
+        height: 100vh;
+    }
+
+    .card {
+        width: 100vw;
+
+        .product {
+            width: calc(100vw - 10% - 10px);
+
+            .desc {
+                width: calc(100% - 190px);
+            }
+        }
+
+    }
+
+    .cart-title {
+        // background-color: rgb(250, 250, 250);
+        width: 100%;
+        padding: 0 24px;
+        padding-right: 0;
+        box-sizing: border-box;
+        margin-bottom: 15px;
+        position: sticky;
+        left: 0;
+        height: 104px;
+        background-color: #fff;
+        z-index: 1;
+
+        .total {
+            color: #666;
+            font-size: 28px;
+        }
+
+        .header_edit {
+            padding: 8px 38px;
+            color: rgb(107, 107, 107);
+            border-radius: 40px;
+            font-size: 30px;
+        }
+    }
+
+    .list {
+        padding-bottom: 170px;
+        overflow-x: hidden;
+    }
+
+    .handle_input {
+        .btn {
+            border: 2px solid #999999;
+            background-color: #fff;
+        }
+
+        .num {
+            border-top: 2px solid #999999;
+            border-bottom: 2px solid #999999;
+            background-color: #fff;
+
+            margin: 0;
+        }
+
+    }
+
+    .footer {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        background-color: #fff;
+        width: 100%;
+        height: 130px;
+        border-top: rgb(240, 240, 240) solid 2px;
+
+        .left {
+            font-size: 30px;
+        }
+
+        .pay {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 24px;
+
+            .p_wrap {
+                font-size: 28px;
+
+                .price-box {
+                    margin-right: 20px;
+
+                    .price {
+                        font-size: 32px;
+                    }
+
+                }
+            }
+
+            .btn {
+                width: 220px;
+                height: 90px;
+                background: #00D0BF;
+                border-radius: 58px;
+                font-size: 36px;
+                color: #fff;
+            }
+        }
+    }
+
+}

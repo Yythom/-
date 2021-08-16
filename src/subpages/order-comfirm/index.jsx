@@ -204,7 +204,7 @@ const Index = () => {
                 <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
                     <View className='left' >温馨提示</View>
                     <View className='right' style={{ color: '#333' }}>
-                        支付成功生成取货码，尺码到店取货
+                        支付成功生成取货码，持码到店取货
                     </View>
                 </View>
                 <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >

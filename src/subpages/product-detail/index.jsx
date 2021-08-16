@@ -126,7 +126,7 @@ const Index = () => {
             {/* 底部 */}
             <View className='footer fb'>
                 <View className='user'>
-                    <View className='item' style={{ position: 'relative' }} onClick={() => navLinkTo('cart/index', {}, false)}>
+                    <View className='item' style={{ position: 'relative' }} onClick={() => navLinkTo('cart/index', {})}>
                         <Text className='iconfont icon-gouwucheman'></Text>
                         <Text className='cart' >购物车</Text>
                         {/* <View className='cart_dig' style={{ background: 'red', zIndex: '1', width: '.7rem', height: '.7rem', borderRadius: '50%', position: 'absolute', top: '0', right: '-0.5rem' }}></View> */}
