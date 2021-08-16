@@ -133,7 +133,7 @@ const Skuhooks = memo(({
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? desc?.price : product?.market_price + '起'}
+                                            {desc?.price ? desc?.price : product?.market_price}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
