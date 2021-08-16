@@ -195,15 +195,15 @@ function Index() {
                                         </View>
                                         <View className='price fb'>
                                             <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
-                                                <Text className='_money'></Text>{min_max_price_format(e.is_uniform_price, e.discount_price)}
+                                                {min_max_price_format(e.is_uniform_price, e.discount_price)}
                                             </Text>
                                             <Text className='del'>
-                                                <Text className='_money'>¥</Text>{min_max_price_format(e.is_uniform_price, e.market_price)}
+                                                {min_max_price_format(e.is_uniform_price, e.market_price)}
                                             </Text>
                                         </View>
                                         <View className='foot flex'>
                                             {/* <View /> */}
-                                            <SkewText text={['会员价格', '¥' + min_max_price_format(e.is_uniform_price, e.member_price)]} />
+                                            <SkewText text={['会员价格', min_max_price_format(e.is_uniform_price, e.member_price)]} />
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
                                                 showSku(e.product_id)

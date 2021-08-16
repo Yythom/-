@@ -64,8 +64,8 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                     </View>}
                                     <View className='price-box fb'>
                                         <View className='price flex'>
-                                            <View style={{ marginRight: '20rpx' }}> <Text className='_money'>¥</Text>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</View>
-                                            <View className='del'> <Text className='_money'>¥</Text>{min_max_price_format(product?.is_uniform_price, product?.market_price)}</View>
+                                            <View style={{ marginRight: '20rpx' }}>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</View>
+                                            <View className='del'>{min_max_price_format(product?.is_uniform_price, product?.market_price)}</View>
                                         </View>
 
                                     </View>

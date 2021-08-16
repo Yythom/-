@@ -52,18 +52,16 @@ function ProductInfo({
             <View className='price-box fb'>
                 <View className='price flex'>
                     <Text className='new'>
-                        <Text className='_money'>¥</Text>
                         <Text style={{ fontSize: '40rpx' }}>{min_max_price_format(product?.is_uniform_price, product?.discount_price)}</Text>
                     </Text>
                     <Text className='old'>
-                        <Text className='_money'>¥</Text>
                         {min_max_price_format(product?.is_uniform_price, product?.market_price)}
                     </Text>
                 </View>
             </View>
             {/* <View className='other fb'>
 
-                <SkewText text={['会员价格', '¥' + min_max_price_format(product?.is_uniform_price, product?.member_price)]} />
+                <SkewText text={['会员价格',  min_max_price_format(product?.is_uniform_price, product?.member_price)]} />
 
                 <View className='sale'>月售{product?.sale}</View>
             </View> */}
