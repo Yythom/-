@@ -77,14 +77,16 @@ const Index = () => {
                 item.product_count = value.product_count;  // 修改当前商品sku
                 item.sku.sku_id = value.sku_id;
                 success(item, shop_id, (newItem, del_id, current_id) => {
-                    item.sku = newItem.sku;
-                    item.product_count = newItem.product_count;
+                    // item.sku = newItem.sku;
+                    // item.product_count = newItem.product_count;
                     if (del_id) {
                         // 同商品修改选择同sku 删除旧数据
                         const del_index = shop.products.findIndex(e => e.user_cart_id === del_id)
                         if (del_index !== -1) {
                             shop.products.splice(del_index, 1);
                         }
+                    }
+                    if (current_id) {
                         // 替换新product数据
                         const current_index = shop.products.findIndex(e => e.user_cart_id === current_id)
                         if (current_index !== -1) {
@@ -92,6 +94,7 @@ const Index = () => {
                         }
                         if (!shop.products[0]) newList.splice(shopIndex, 1);
                     }
+                    onChange(newList);
                     setskuShow(false);
                 })
                 break;

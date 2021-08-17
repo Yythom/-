@@ -120,7 +120,7 @@ const Index = () => {
             // scrollY
             className='order-list-wrap'
         >
-            <View className='' style={{ position: 'sticky', top: '0', zIndex: '2' }}>
+            <View className='' style={{ position: 'sticky', top: '0', zIndex: '3' }}>
                 <NavBar back title='订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <View className='deliveryMethod flex'>
                     <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}

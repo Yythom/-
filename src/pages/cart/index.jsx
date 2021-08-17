@@ -85,6 +85,8 @@ const Index = () => {
                         if (del_index !== -1) {
                             shop.products.splice(del_index, 1);
                         }
+                    }
+                    if (current_id) {
                         // 替换新product数据
                         const current_index = shop.products.findIndex(e => e.user_cart_id === current_id)
                         if (current_index !== -1) {
@@ -92,6 +94,7 @@ const Index = () => {
                         }
                         if (!shop.products[0]) newList.splice(shopIndex, 1);
                     }
+                    onChange(newList);
                     setskuShow(false);
                     setPageData(newList);
                 })
