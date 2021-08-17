@@ -41,7 +41,7 @@ const Skuhooks = memo(({
     const [option, load, { sku, desc }, specList, setSku, specListData] = useSku(product, show, default_sku);
 
     useEffect(() => {
-        // console.log(sku, desc);
+        // console.log(sku, desc, 'info sku');
         onChange({ sku, desc })
     }, [sku, desc]);
 
@@ -132,7 +132,7 @@ const Skuhooks = memo(({
                                     <View className='price'>
                                         <Text className='new price-color'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? desc?.discount_price :
+                                            {!isNaN(desc?.price) ? desc?.discount_price :
                                                 <Text>
                                                     {product?.discount_price}<Text className='_moneny'>起</Text>
                                                 </Text>
@@ -140,12 +140,12 @@ const Skuhooks = memo(({
                                         </Text>
                                         <Text className='old'>
                                             <Text className='_moneny'>¥</Text>
-                                            {desc?.price ? desc?.price : product?.market_price}
+                                            {!isNaN(desc?.price) ? desc?.price : product?.market_price}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            {/* <View className='vip-price fc'>￥{desc?.price ? desc?.member_price : product?.member_price + '起'}</View> */}
+                                            {/* <View className='vip-price fc'>￥{!isNaN(desc?.price) ? desc?.member_price : product?.member_price + '起'}</View> */}
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}

@@ -115,7 +115,7 @@ const useSku = (data, show, default_sku = []) => {
             // list && setSpecListData(list);
             specListData = list;
             const _sku = getSelectObj(skuResult, list, specList);
-            const { price, desc, member_price, discount_price } = transPrice(skuResult, specListData);
+            const { price, desc, member_price, discount_price } = transPrice(skuResult, list);
             setSku({
                 sku: _sku,
                 desc: {
