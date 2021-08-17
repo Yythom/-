@@ -12,9 +12,7 @@ import './product.scss';
 import { againOrder, showInfo } from '../../order-btn-handle';
 
 const ProductItem = memo(({ order, getList }) => {
-    console.log('orderorderorderorder', order)
     if (!order) return null
-
 
     const handle = async (type) => {
         const order_id = order?.order_id;
@@ -57,6 +55,9 @@ const ProductItem = memo(({ order, getList }) => {
                                 <View className='product_item' key={product.product_id + '-product_id'}>
                                     <View className='img'>
                                         <Image mode='aspectFill' src={product.cover} />
+                                    </View>
+                                    <View className='name'>
+                                        {product?.product_name}
                                     </View>
                                 </View>
                             </>
