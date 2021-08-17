@@ -31,7 +31,7 @@ const ProductItem = memo(({
                     {/* <Image mode='aspectFill' /> */}
                     <View className='desc fd'>
                         <Text className='p-name'>{product?.product.product_name || '空'}</Text>
-                        <View className='p-sku' onClick={(event) => {
+                        {product?.sku?.sku_default_value.length > 0 && <View className='p-sku' onClick={(event) => {
                             showSku(product, index, shop_id);
                             event.stopPropagation();
                         }}>
@@ -42,7 +42,7 @@ const ProductItem = memo(({
                                 )
                             })} */}
                             <Text className='iconfont icon-unfold'></Text>
-                        </View>
+                        </View>}
                         <View className=' fb'>
                             <View className='flex'>
                                 <Text className='price'><Text className='_money'>¥</Text>{product?.sku.discount_price}</Text>

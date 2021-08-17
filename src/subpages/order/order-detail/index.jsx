@@ -87,12 +87,12 @@ const Index = () => {
                     })
                 }} title='订单详情' background='#00D0BF' color='#fff' iconColor='#fff'
                 />
-                {pageData?.user_status === order_type.UserOrderStatus.WAIT_MOTION && <View className='code fc'>
+                <View className='code fc'>
                     <Text style={{ fontSize: '32rpx' }}>取货码&nbsp;</Text>
                     {pageData?.order_code?.map((e) => {
                         return e.code.replace(/\s+/g, "-")
                     })}
-                </View>}
+                </View>
 
             </View>
 
@@ -105,8 +105,8 @@ const Index = () => {
                             <View className='address'>{pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}</View>
                         </View>
                     </View>
-                    <Text className='name'>{pageData?.self_mention?.name || '暂未设置联系人'}</Text>
-                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text>
+                    {/* <Text className='name'>{pageData?.self_mention?.name || '暂未设置联系人'}</Text>
+                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text> */}
                 </View>
             </View>
 
@@ -154,7 +154,7 @@ const Index = () => {
                         return <View className='item fb'>{item.fee_type_msg}<Text className='price'>+&nbsp;¥{item.fee}</Text> </View>
                     })}
 
-                    <View className='item fb'>备注：<Text>{pageData?.pay_at || '暂无备注'}</Text> </View>
+                    <View className='item fb'>备注：<Text>{pageData?.remark || '暂无备注'}</Text> </View>
                     <View className='line' />
 
                     <View className='item fb'>订单合计<Text>¥{pageData?.order_amount || '暂无备注'}</Text> </View>

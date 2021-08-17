@@ -93,6 +93,7 @@ const Index = () => {
                         if (!shop.products[0]) newList.splice(shopIndex, 1);
                     }
                     setskuShow(false);
+                    setPageData(newList);
                 })
                 break;
         }
