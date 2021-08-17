@@ -110,8 +110,8 @@ function Index() {
         index !== i && setIndex(i);
         if (!res) return;
         if (_page) {
+            setPage(_page + 1);
             if (!res?.list[0]) {
-                setPage(_page + 1);
                 setNoMore(true);
                 showToast({ title: '没有更多了', icon: 'none' })
             }
