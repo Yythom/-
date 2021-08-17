@@ -49,7 +49,7 @@ const ProductItem = memo(({
                         <View className=' fb'>
                             <View className='flex'>
                                 <Text className='price'><Text className='_money'>¥</Text>{product?.sku.discount_price}</Text>
-                                {product?.sku.market_price !== '0.00' && <Text className='del'><Text className='_money'>¥</Text>{product?.sku.market_price}</Text>}
+                                {product?.sku.market_price != 0 && <Text className='del'><Text className='_money'>¥</Text>{product?.sku.market_price}</Text>}
                             </View>
                         </View>
                         <View className='p-num fb'>

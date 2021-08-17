@@ -23,13 +23,12 @@ const Index = () => {
 
     const init = async (refresh) => {
         dispatch(tabActions.changetab(3));
-        const res = await ShopService.shopDetail({shop_id: '1'});
-        setShop(res)
-        console.log('resresresres', res)
+        const res = await ShopService.shopDetail({ shop_id: '1' });
+        res && setShop(res);
         if (refresh) setFLag(true)
         if (getStorageSync('relogin')) {
             dispatch(userActions.clear());
-            showToast({ title: getStorageSync('relogin'), icon: 'none' });
+            // showToast({ title: getStorageSync('relogin'), icon: 'none' });
             removeStorageSync('relogin')
         } else if (getStorageSync('token')) {
             dispatch(userActions.userUpdata(setFLag));
@@ -110,7 +109,7 @@ const Index = () => {
                         <Text className='iconfont icon-right' />
                     </View>
                 </View>
-                <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone)}>
+                <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone || '暂未设置')}>
                     <View className='flex'>
                         <Text className='iconfont icon-dianhua' />
                         <Text className=''>联系商家</Text>

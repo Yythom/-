@@ -98,6 +98,15 @@ const Index = () => {
                 "pay_channel": make_type.OrderPayChannel.UNKNOWN, // 1 wx 2 zfb
                 "user_address_id": address?.address_id || '',
             },
+            self_mention: make_type.DeliveryType.DELIVERY != deliveryMethod ? {
+                name: getStorageSync('info').nickname,
+                mobile: tell,
+                date: ''
+            } : {
+                name: '',
+                mobile: '',
+                date: ''
+            }
             // "sku_items": [
             //     {
             //         "sku_id": "string",
@@ -106,7 +115,7 @@ const Index = () => {
             // ]
         }
 
-    }, [address, payType, date, deliveryMethod, pre]);
+    }, [address, payType, date, deliveryMethod, pre, tell]);
 
 
     const preRequest = async (preData) => {
@@ -150,14 +159,7 @@ const Index = () => {
     })
 
     const pay = async () => {
-        const  obj = {
-            self_mention :{
-                name: getStorageSync('info').nickname,
-                mobile: tell,
-                date: ''
-            }
-        }
-        const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, self_mention: obj.self_mention });
+        const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, });
         if (res) {
             setStorageSync('addcart', true)
             setStorageSync('addcart-subpages', true)
@@ -178,7 +180,7 @@ const Index = () => {
                         {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
                         {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View> */}
                     </View>
-                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={{address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number}} date={date} setDate={setDate} />
+                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={{ address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number }} date={date} setDate={setDate} />
                 </View>
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>
