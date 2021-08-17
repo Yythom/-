@@ -54,17 +54,18 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                 <View className='content fd'>
                                     <View className='name'>{product.product_name}</View>
 
-                                    {product.tag && <View className='desc flex'>
+                                    {product.tags && <View className='desc flex'>
                                         {
-                                            product.tag.map(tag => {
-                                                return (<View className='desc-item fc' key={tag}>20元券</View>)
+                                            product.tags.map(tag => {
+                                                return (<View className='desc-item fc' key={tag}>{tag.name}</View>)
                                             })
                                         }
                                     </View>}
+
                                     <View className='price-box fb'>
                                         <View className='price flex'>
                                             <View style={{ marginRight: '20rpx' }}>{min_max_price_format(product?.max_discount_price, product?.discount_price)}</View>
-                                            {product?.market_price !== '0.00' && <View className='del'>{min_max_price_format(product?.max_market_price, product?.market_price)}</View>}
+                                            {product?.market_price !== '0.00' && <View className='del'>{product?.market_price}</View>}
                                         </View>
 
                                     </View>

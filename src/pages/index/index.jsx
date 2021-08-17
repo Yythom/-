@@ -198,7 +198,7 @@ function Index() {
                                                 {min_max_price_format(e.max_discount_price, e.discount_price)}
                                             </Text>
                                             {e?.market_price !== '0.00' &&<Text className='del'>
-                                                {min_max_price_format(e.max_market_price, e.market_price)}
+                                                {e.market_price}
                                             </Text>}
                                         </View>
                                         <View className='foot flex'>

@@ -30,7 +30,7 @@ const ProductItem = memo(({ order, getList }) => {
                 againOrder(order);
                 break;
             case '确认收货':
-
+                showInfo('确认收货', async () => await OrderService.okOrder(order_id) && getList(false));
                 break;
             default:
                 break;

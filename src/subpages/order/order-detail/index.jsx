@@ -65,6 +65,8 @@ const Index = () => {
             case '再来一单':
                 againOrder(pageData);
                 break;
+            case '确认收货':
+                showInfo('确认收货', async () => await OrderService.okOrder(order_id) && init());
             default:
                 break;
         }
