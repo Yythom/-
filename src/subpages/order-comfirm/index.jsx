@@ -112,6 +112,7 @@ const Index = () => {
         const res = await OrderService.preOrder(preData);
         if (res) {
             setPageData(res);
+            // setAddress({address: res.shop.shop_address + res.shop.shop_address_number})
         }
     }
 
@@ -119,6 +120,7 @@ const Index = () => {
         console.log(PreData, 'params 下单数据改变');
         if (pre) {
             if (deliveryMethod == make_type.DeliveryType.DELIVERY) {
+                console.log('address', address)
                 if (address) preRequest(PreData);
             } else {
                 preRequest(PreData)
@@ -147,7 +149,14 @@ const Index = () => {
     })
 
     const pay = async () => {
-        const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg });
+        const  obj = {
+            self_mention :{
+                name: getStorageSync('info').nickname,
+                mobile: getStorageSync('info').mobile,
+                date: ''
+            }
+        }
+        const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, self_mention: obj.self_mention });
         if (res) {
             setStorageSync('addcart', true)
             setStorageSync('addcart-subpages', true)
@@ -168,7 +177,7 @@ const Index = () => {
                         {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
                         {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View> */}
                     </View>
-                    <Address setAddress={setAddress} method={deliveryMethod} address={address} date={date} setDate={setDate} />
+                    <Address setAddress={setAddress} method={deliveryMethod} address={{address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number}} date={date} setDate={setDate} />
                 </View>
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>
