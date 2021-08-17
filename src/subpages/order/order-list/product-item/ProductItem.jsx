@@ -5,7 +5,7 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import HandleInput from '@/components/page/handle-input/HandleInput';
 import { navLinkTo } from '@/common/publicFunc';
 import dayjs from 'dayjs';
-import { setStorageSync, showModal } from '@tarojs/taro';
+import { setStorageSync, showToast } from '@tarojs/taro';
 import order_type from '../../orderType';
 import OrderService from '@/services/order';
 import './product.scss';
@@ -18,7 +18,7 @@ const ProductItem = memo(({ order, getList }) => {
         const order_id = order?.order_id;
         switch (type) {
             case '取消订单':
-                showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList(false));
+                showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList(false) && showToast({ title: '取消订单成功', icon: 'none' }));
                 break;
             case '立即付款':
 
@@ -30,7 +30,7 @@ const ProductItem = memo(({ order, getList }) => {
                 againOrder(order);
                 break;
             case '确认收货':
-                showInfo('确认收货', async () => await OrderService.okOrder(order_id) && getList(false));
+                showInfo('确认收货', async () => await OrderService.okOrder(order_id) && getList(false) && showToast({ title: '确认收货成功', icon: 'none' }));
                 break;
             default:
                 break;

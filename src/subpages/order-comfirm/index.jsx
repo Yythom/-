@@ -70,7 +70,7 @@ const Index = () => {
     const [pre, setPre] = useState(null); // 预下单商品
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
-    const [tell, setTell] = useState('')
+    const [tell, setTell] = useState(getStorageSync('info').phone)
 
     /* 信息配置 */
     const [address, setAddress] = useState(null); // 收货地址
