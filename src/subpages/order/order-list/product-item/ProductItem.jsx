@@ -29,6 +29,9 @@ const ProductItem = memo(({ order, getList }) => {
             case '再来一单':
                 againOrder(order);
                 break;
+            case '确认收货':
+
+                break;
             default:
                 break;
         }
@@ -73,8 +76,9 @@ const ProductItem = memo(({ order, getList }) => {
             </View>
             <View className='btns flex'>
                 {order.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
-                {order.user_status === order_type.UserOrderStatus.FINISH && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
-                {order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                {order.user_status === order_type.UserOrderStatus.CANCEL && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
+                {order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                {order.user_status === order_type.UserOrderStatus.WAIT_MOTION && <Button className='btn fc' onClick={(event) => { handle('确认收货'); event.stopPropagation(); }} >确认收货</Button>}
                 {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
             </View>
         </View>

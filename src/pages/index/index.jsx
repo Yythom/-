@@ -197,13 +197,13 @@ function Index() {
                                             <Text style={{ fontWeight: 'bold', marginRight: '16rpx' }}>
                                                 {min_max_price_format(e.max_discount_price, e.discount_price)}
                                             </Text>
-                                            <Text className='del'>
+                                            {e?.market_price !== '0.00' &&<Text className='del'>
                                                 {min_max_price_format(e.max_market_price, e.market_price)}
-                                            </Text>
+                                            </Text>}
                                         </View>
                                         <View className='foot flex'>
-                                            {/* <View /> */}
-                                            <SkewText text={['会员价格', min_max_price_format(e.max_member_price, e.member_price)]} />
+                                            {<View style={{minWidth: '60rpx'}}></View>}
+                                            {/* <SkewText text={['会员价格', min_max_price_format(e.max_member_price, e.member_price)]} /> */}
                                             <View className='show-sku' onClick={(event) => {
                                                 event.stopPropagation();
                                                 showSku(e.product_id)

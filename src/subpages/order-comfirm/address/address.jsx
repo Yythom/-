@@ -15,6 +15,7 @@ const Address = memo(({
     setAddress,
     date,
     setDate,
+    setTell,
     method = make_type.DeliveryType.DELIVERY,
 }) => {
     const userStore = useSelector(e => e.userStore, shallowEqual);
@@ -107,6 +108,7 @@ const Address = memo(({
                 onOk={() => {
                     if (isPhoneNumber(msg.msg)) {
                         setMsg({ ...msg, oldmsg: msg.msg })
+                        setTell(msg.msg)
                     }
                 }}
                 content={

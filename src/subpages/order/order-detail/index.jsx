@@ -105,8 +105,8 @@ const Index = () => {
                             <View className='address'>{pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}</View>
                         </View>
                     </View>
-                    {/* <Text className='name'>{pageData?.self_mention?.name || '暂未设置联系人'}</Text>
-                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text> */}
+                    <Text className='name'>预留电话：</Text>
+                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text> 
                 </View>
             </View>
 
@@ -199,8 +199,9 @@ const Index = () => {
                     <View className='btn act-btn fc'>去付款</View> */}
                     <View className='btns flex'>
                         {pageData?.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
-                        {pageData?.user_status === order_type.UserOrderStatus.FINISH && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
-                        {pageData?.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn act-btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                        {pageData?.user_status === order_type.UserOrderStatus.CANCEL && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
+                        {pageData?.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
+                        {pageData?.user_status === order_type.UserOrderStatus.WAIT_MOTION && <Button className='btn fc' onClick={(event) => { handle('确认收货'); event.stopPropagation(); }} >确认收货</Button>}
                         {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
                     </View>
                 </View>
