@@ -42,9 +42,7 @@ const Address = memo(({
             // req 地址
             AddressService.defaultAddress().then(res => {
                 if (res) {
-                    setAddress({
-                        address: '测试地址'
-                    })
+                    setAddress(address)
                 }
             })
         }

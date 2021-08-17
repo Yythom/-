@@ -1,4 +1,6 @@
 import http from '../common/request';
+// eslint-disable-next-line import/first
+import Taro, { getStorageSync } from '@tarojs/taro';
 
 class OrderService {
     static async getOrderDetailApi(order_id) {
@@ -8,7 +10,9 @@ class OrderService {
                 "with_order_discount": 1,
                 "with_order_fee": 1,
                 "with_order_address": 1,
-                "with_order_code": 1
+                "with_order_code": 1,
+                'with_order_self_mention': 1,
+                'with_shop': 1
             },
             order_id
         });

@@ -102,11 +102,11 @@ const Index = () => {
                     <View className='info flex'>
                         <View className='flex'>
                             <Text className='iconfont icon-dingwei' />
-                            <View className='address'>{pageData?.order_address?.address || '暂未设置'}{pageData?.order_address?.number}</View>
+                            <View className='address'>{pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}</View>
                         </View>
                     </View>
-                    <Text className='name'>{pageData?.order_address?.contact_name || '暂未设置联系人'}</Text>
-                    <Text className='phone'>{pageData?.order_address?.mobile || '暂未设置电话号码'}</Text>
+                    <Text className='name'>{pageData?.self_mention?.name || '暂未设置联系人'}</Text>
+                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text>
                 </View>
             </View>
 
