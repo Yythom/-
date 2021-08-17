@@ -10,6 +10,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { actions as userActions } from '@/store/userSlice';
 import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import NavBar from '@/components/navbar/NavBar';
+import ShopService from '@/services/shop'
 import './index.scss';
 import OrderType from './compont/order';
 
@@ -18,9 +19,13 @@ const Index = () => {
     const userStore = useSelector(store => store.userStore, shallowEqual);
     const { userInfo } = userStore;
     const [flag, setFLag] = useState(true);
+    const [shop, setShop] = useState({})
 
     const init = async (refresh) => {
         dispatch(tabActions.changetab(3));
+        const res = await ShopService.shopDetail({shop_id: '1'});
+        setShop(res)
+        console.log('resresresres', res)
         if (refresh) setFLag(true)
         if (getStorageSync('relogin')) {
             dispatch(userActions.clear());
@@ -105,7 +110,7 @@ const Index = () => {
                         <Text className='iconfont icon-right' />
                     </View>
                 </View>
-                <View className='flex-handle fb' onClick={(e) => callPhone(e, '888888888')}>
+                <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone)}>
                     <View className='flex'>
                         <Text className='iconfont icon-dianhua' />
                         <Text className=''>联系商家</Text>

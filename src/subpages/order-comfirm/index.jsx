@@ -70,6 +70,7 @@ const Index = () => {
     const [pre, setPre] = useState(null); // 预下单商品
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
+    const [tell, setTell] = useState('')
 
     /* 信息配置 */
     const [address, setAddress] = useState(null); // 收货地址
@@ -152,7 +153,7 @@ const Index = () => {
         const  obj = {
             self_mention :{
                 name: getStorageSync('info').nickname,
-                mobile: getStorageSync('info').mobile,
+                mobile: tell,
                 date: ''
             }
         }
@@ -177,7 +178,7 @@ const Index = () => {
                         {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
                         {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View> */}
                     </View>
-                    <Address setAddress={setAddress} method={deliveryMethod} address={{address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number}} date={date} setDate={setDate} />
+                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={{address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number}} date={date} setDate={setDate} />
                 </View>
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>

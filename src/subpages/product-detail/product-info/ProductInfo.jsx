@@ -54,9 +54,9 @@ function ProductInfo({
                     <Text className='new'>
                         <Text style={{ fontSize: '40rpx' }}>{min_max_price_format(product?.max_discount_price, product?.discount_price)}</Text>
                     </Text>
-                    <Text className='old'>
+                    {product?.market_price !== '0.00' && <Text className='old'>
                         {min_max_price_format(product?.market_price, product?.market_price)}
-                    </Text>
+                    </Text>}
                 </View>
             </View>
             {/* <View className='other fb'>

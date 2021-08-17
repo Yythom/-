@@ -24,7 +24,7 @@ const Index = () => {
     const [page, setPage] = useState(1);
     const [params, setParams] = useState({
         // page: 1,
-        delivery_type: query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY, // 送货方式
+        delivery_type: 1 ,/* query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY, */ // 送货方式
         status: '',
     })
 
