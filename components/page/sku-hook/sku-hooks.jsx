@@ -12,6 +12,7 @@ import { actions } from '@/store/userSlice';
 import np from 'number-precision'
 import useSku from '../../../hooks/useSku';
 import './sku.scss'
+import { min_max_price_format } from '@/common/utils';
 
 
 const Skuhooks = memo(({
@@ -131,21 +132,19 @@ const Skuhooks = memo(({
                                 <View className='price-box'>
                                     <View className='price'>
                                         <Text className='new price-color'>
-                                            <Text className='_moneny'>¥</Text>
                                             {!isNaN(desc?.price) ? desc?.discount_price :
                                                 <Text>
-                                                    {product?.discount_price}<Text className='_moneny'>起</Text>
+                                                    {min_max_price_format(product?.max_discount_price, product?.discount_price)}
                                                 </Text>
                                             }
                                         </Text>
                                         <Text className='old'>
-                                            <Text className='_moneny'>¥</Text>
-                                            {!isNaN(desc?.price) ? desc?.price : product?.market_price}
+                                            {!isNaN(desc?.price) ? (Number(desc?.price) || null) : min_max_price_format(product?.max_market_price, product?.market_price)}
                                         </Text>
                                     </View>
                                     <View className='extra-price fb'>
                                         <View className='flex price-l'>
-                                            {/* <View className='vip-price fc'>￥{!isNaN(desc?.price) ? desc?.member_price : product?.member_price + '起'}</View> */}
+                                            {/* <View className='vip-price fc'>￥{!isNaN(desc?.price) ? desc?.member_price : min_max_price_format(product?.max_member_price, product?.member_price) + '起'}</View> */}
                                             {/* <View className='p-item2 fc'>20元券</View> */}
                                         </View>
                                         {/* <View className='sale fc'>月售 {product?.sale}</View> */}
