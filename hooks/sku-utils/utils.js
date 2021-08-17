@@ -164,7 +164,6 @@ function getMemberPrice(skuResult, selectSpecList) {
 
 
 function transPrice(skuResult, specListData) {
-    console.log(skuResult, specListData);
     let price = getPrice(skuResult, specListData);
     let discount_price = getDiscountPrice(skuResult, specListData);
     let member_price = getMemberPrice(skuResult, specListData);
