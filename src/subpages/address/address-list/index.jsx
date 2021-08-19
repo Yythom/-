@@ -27,9 +27,11 @@ const AddressManage = () => {
 
     const init = async () => {
         // showLoading();
+
         let res = await AddressService.getAddressList();
         console.log(res, 'list');
-        setList(res.list)
+        res && setList(res.list)
+
         // hideLoading();
     };
 

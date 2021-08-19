@@ -54,14 +54,29 @@
         }
 
         .tag {
-            .item {
-                border-radius: 20px;
-                border: 2px #ccc solid;
-                font-size: 24px;
-                padding: 4px 8px;
-                margin-left: 16px;
-                transition: 500ms;
+            .tag_content{
+             
+                flex: 1;
+                justify-content: flex-start;
+                align-items: center;
+                .item {
+                    width: 80px;
+                    border-radius: 8px;
+                    border: 2px #ccc solid;
+                    font-size: 24px;
+                    padding: 4px 8px;
+                    margin-left: 16px;
+                    transition: 500ms;
+                    text-align: center;
+                    
+                    &:nth-of-type(1){
+                        margin-left: 0;
+                    }
+                }
+              
+
             }
+           
 
             .act-item {
                 color: #fff;

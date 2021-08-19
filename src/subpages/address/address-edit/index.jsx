@@ -107,7 +107,7 @@ const EditAddress = () => {
                     </View>
                     <View className='tag'>
                         <Label>标签：</Label>
-                        <View className='flex tag_info'>
+                        <View className='flex tag_content'>
                             {
                                 ['家', '公司', '学校'].map(e => {
                                     return <View key={e} className={`item ${tag == e && 'act-item'}`} onClick={() => setTag(e)} >
