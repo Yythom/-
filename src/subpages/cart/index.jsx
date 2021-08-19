@@ -300,7 +300,7 @@ const Index = () => {
 
             {/* sku弹框 */}
             <Skuhooks
-                buttom={0}
+                bottom={0}
                 show={skushow}
                 setShow={setskuShow}
                 product={skuData}

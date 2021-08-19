@@ -15,7 +15,10 @@ class CateService {
         });
         return res;
     }
-
+    static async getBannerList() {
+        const res = await http.post('/product/category/banner', {});
+        return res;
+    }
 
 }
 

@@ -57,19 +57,21 @@ const RenderList = memo(({ twoCate, _list, skuOption }) => {
                                     {product.tags && <View className='desc flex'>
                                         {
                                             product.tags.map(tag => {
-                                                return (<View className='desc-item fc' key={tag}>{tag.name}</View>)
+                                                return (<View className='desc-item fc tags' key={tag}>{tag.name}</View>)
                                             })
                                         }
                                     </View>}
 
                                     <View className='price-box fb'>
                                         <View className='price flex'>
-                                            <View style={{ marginRight: '20rpx' }}>{min_max_price_format(product?.max_discount_price, product?.discount_price)}</View>
-                                            <View className='del'>{min_max_price_format(product?.max_market_price, product?.market_price)}</View>
+                                            <View style={{ marginRight: '20rpx' }}>
+                                                {min_max_price_format(product?.max_discount_price, product?.discount_price)}
+                                            </View>
                                         </View>
 
                                     </View>
                                     <View className='foot fb'>
+                                        <View className='del'>{min_max_price_format(product?.max_market_price, product?.market_price)}</View>
                                         <SkewText
                                         // text={['会员价格', '¥' +  min_max_price_format(product?.max_member_price, product?.member_price)]}
                                         />

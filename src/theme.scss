@@ -37,9 +37,15 @@
     // 补贴0.31
     border-radius: 4px;
     background: rgba(153, 153, 153, 0.2);
+    // border: 2px solid #00D0BF;
     // height: 36px;
     padding: 2px 12px;
-    color: #999;
     margin-right: 10px;
     font-size: 24px;
+    color: #999999;
+}
+.tags {
+    border: 2px solid #00D0BF;
+    color: #00D0BF;
+    background: #fff;
 }

@@ -57,17 +57,18 @@
                 white-space: nowrap;
                 font-size: 24px;
                 background-color: #F3F3F3;
-                padding: 0 24px;
-                height: 50px;
-                line-height: 50px;
+                padding: 8px 15px;
+                height: 33px;
+                line-height: 33px;
                 border-radius: 6px;
-                margin-right: 24px;
+                margin-right: 10px;
                 color: #333;
             }
 
             .act_child-cate {
                 color: #00D0BF;
                 background: #00d0bf15;
+                border: 2px solid rgba(0, 208, 191, 0.8);
             }
 
             ::-webkit-scrollbar {

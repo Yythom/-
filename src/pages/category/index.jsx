@@ -23,6 +23,7 @@ function Index() {
     const [list, setList] = useState(vtab_data[0]);
     const [skushow, setskuShow] = useState(false);
     const [skuData, setSkuData] = useState(null);
+    const [bannerList, setBannerList] = useState([]);
 
     const [coupon, setCoupon] = useState([]);
     const [oneCate, setOneCate] = useState([])
@@ -31,8 +32,11 @@ function Index() {
     const init = async () => {
         const on_cate = await CateService.getCateList();
         const tow_cate = await CateService.getChildrenList(on_cate.list[0].category_id);
+        const bannerlist = await CateService.getBannerList()
+        console.log('bannerlist', bannerlist)
         setOneCate(on_cate.list)
         setTwoCate(tow_cate.list)
+        setBannerList(bannerlist.list)
         console.log(on_cate, 'on_cate');
     }
 
@@ -52,7 +56,7 @@ function Index() {
             <View className='fc search' style={{ width: '100vw' }}>
                 <Search width='720rpx' text='搜索商品' />
             </View>
-            <Banner w='100vw' className='cate-banner' custom />
+            <Banner w='100vw' className='cate-banner' custom list={bannerList.map((item)=>{return item.image})} />
 
             {/* 横向优惠券列表 */}
             {/* <CouponList /> */}

@@ -22,10 +22,14 @@ const Index = () => {
     const [shop, setShop] = useState({})
 
     const init = async (refresh) => {
+        console.log('refresh', refresh)
         dispatch(tabActions.changetab(3));
         const res = await ShopService.shopDetail({ shop_id: '1' });
         res && setShop(res);
         if (refresh) setFLag(true)
+        setTimeout(() => {
+            setFLag(false)
+        }, 1000);
         if (getStorageSync('relogin')) {
             dispatch(userActions.clear());
             // showToast({ title: getStorageSync('relogin'), icon: 'none' });

@@ -13,7 +13,7 @@ const Avatar = ({ size, style }) => {
         <View className='avatar-wrap' style={{ width: size, height: size, ...style }}>
             {
                 !userInfo && !userInfo?.avatar
-                    ? <Text class='iconfont icon-wode' style={{ fontSize: size }} />
+                    ? <Image style={{width: '110rpx', height: '110rpx'}} src={require('../../assets/images/userdefault.png')} />
                     : (userInfo && userInfo.avatar_url
                         && <BlurImg className='img' src={userInfo.avatar_url} />)
             }

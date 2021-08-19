@@ -29,9 +29,9 @@ const ProductItem = memo(({
                                                 e?.discount_price
                                             }
                                         </View>
-                                        <View className='del'>
+                                        {e?.market_price !== '0.00' && <View className='del'>
                                             <Text className='_money'>¥</Text>{e?.market_price}
-                                        </View>
+                                        </View>}
                                     </View>
                                     <View className='num'>x{e.sku_count}</View>
                                 </View>

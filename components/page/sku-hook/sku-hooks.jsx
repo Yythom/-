@@ -132,10 +132,11 @@ const Skuhooks = memo(({
                                 <View className='price-box'>
                                     <View className='price'>
                                         <Text className='new price-color'>
-                                            {!isNaN(desc?.price) ? desc?.discount_price :
-                                                <Text>
-                                                    {min_max_price_format(product?.max_discount_price, product?.discount_price)}
-                                                </Text>
+                                            {   
+                                                !isNaN(desc?.price) ? <Text><Text className='_money'>¥</Text>{desc?.discount_price}</Text> :
+                                                    <Text>
+                                                        {min_max_price_format(product?.max_discount_price, product?.discount_price)}
+                                                    </Text>
                                             }
                                         </Text>
                                         <Text className='old'>

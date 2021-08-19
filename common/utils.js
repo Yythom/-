@@ -56,6 +56,7 @@ export function throttle(fn, wait = 500, isImmediate = false) {
 
 export const min_max_price_format = (max, min,) => {
     if (Number(min || 0) == 0) return null
+    console.log('max', max, 'min', min, 'max - min', max - min )
     if (max - min == 0) {
         return `${min}`
     } else {
