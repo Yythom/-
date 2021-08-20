@@ -90,9 +90,14 @@ const Index = () => {
                         <Text className='text'>商品信息</Text>
                         <View className='v-line' />
                     </View>
-                    <View className='img fdc'>
-                        <Image mode='widthFix' src={pageData?.product_description?.description_image} />
-                    </View>
+                    <mp-html content='
+<p><img src="https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/desc/1451c8626b211.jpg" /></p >
+<p><span style="color: #e03e2d; font-size: 48px;"><strong>标题</strong></span></p >
+<p style="text-align: left;">&nbsp; &nbsp; &nbsp; &nbsp; 测试test测试test测试test测试test测试test<strong><em>测试test</em></strong>测试test<span style="background-color: #3598db;">。。。。。。。。</span>我的<span style="text-decoration: underline;">搭街坊</span>卡拉。<span style="text-decoration: line-through;">删除线</span></p >
+' />
+                    {/* <View className='img fdc'>
+                    {/* <Image mode='widthFix' src={pageData?.product_description?.description_image} /> */}
+                    {/* </View> */}
                 </View>
             </ScrollView>
 
@@ -145,6 +150,8 @@ const Index = () => {
                     {/* <View className='buy fc' onClick={() => setShow(2)}>立即购买</View> */}
                 </View>
             </View>
+
+
         </View >
     )
 }
