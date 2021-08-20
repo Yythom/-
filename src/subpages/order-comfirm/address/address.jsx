@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { Fragment, memo, useEffect, useState } from "react";
-import { Text, Textarea, View } from "@tarojs/components";
+import { Text, Textarea, View, Image } from "@tarojs/components";
 import { navLinkTo } from "@/common/publicFunc";
 import Modal from "@/components/modal/Modal";
 import { isPhoneNumber } from "@/common/public";
@@ -82,14 +82,18 @@ const Address = memo(({
                         </View>
                         : <View className='shop-address fd'>
                             <View className='address'>
-                                {address.address}
+                                <Text className='tag'>商家</Text>
+                                {/* <Image src={require('../../../../assets/images/shouhuodizhilvse.png')} style={{height: '34rpx', width: '34rpx'}} /> */}
+                                <Text>{address.address}</Text>
                             </View>
                             <View className='fd'>
-                                <View className='' style={{ marginBottom: '10px', color: '#666' }}>
-                                    预留电话
-                                </View>
-                                <View className='' onClick={() => setModal(true)} >
-                                    {msg?.oldmsg}<Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} />
+                                <View className='flex' onClick={() => setModal(true)} >
+                                    <View style={{ color: '#666' }}>
+                                        预留电话：
+                                    </View>
+                                    <View style={{marginRight: '13rpx'}}>{msg?.oldmsg}</View>
+                                    <Image style={{width: '26rpx', height: '26rpx'}} src={require('../../../../assets/images/shouhuodizhibianji.png')}/>
+                                    {/* <Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} /> */}
                                 </View>
                             </View>
                             {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>

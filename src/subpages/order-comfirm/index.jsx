@@ -177,8 +177,10 @@ const Index = () => {
                 <View className='' style={{ background: '#00D0BF', paddingBottom: '20rpx' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                     <View className='deliveryMethod flex'>
-                        {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
-                        {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View> */}
+                        <View className='deliveryMethod-bg'>
+                            <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View>
+                            <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
+                        </View>
                     </View>
                     <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={{ address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number }} date={date} setDate={setDate} />
                 </View>

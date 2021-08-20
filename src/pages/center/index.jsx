@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from '@tarojs/components';
+import { View, Text, ScrollView, Image } from '@tarojs/components';
 import Taro, { getStorageSync, reLaunch, removeStorageSync, setBackgroundColor, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import WithUserVerify from '@/components/auth/UserVerify';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
@@ -68,7 +68,7 @@ const Index = () => {
                                 <View className='nickname'>{userInfo?.nickname || '请登入'}</View>
                                 {userInfo?.nickname &&
                                     <View className='mobile fb'>
-                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.nickname && '请绑定手机号')}</Text>
+                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.nickname && '获取手机号')}</Text>
                                         <Text className='iconfont icon-right'></Text>
                                     </View>
                                 }
@@ -104,8 +104,9 @@ const Index = () => {
                 <OrderType />
 
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', { is_center: true })}>
-                    <View className='flex'>
-                        <Text className='iconfont icon-dingwei' />
+                    <View className='flex item'>
+                        {/* <Text className='iconfont icon-dingwei' /> */}
+                        <Image style={{width: '38rpx', height: '38rpx', marginRight: '13rpx'}} src={require('../../../assets/images/shouhuodizhi.png')} />
                         <Text className=''>收货地址</Text>
                     </View>
                     <View className='flex'>
@@ -114,8 +115,9 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone || '暂未设置')}>
-                    <View className='flex'>
-                        <Text className='iconfont icon-dianhua' />
+                    <View className='flex item'>
+                        {/* <Text className='iconfont icon-dianhua' /> */}
+                        <Image style={{width: '38rpx', height: '38rpx', marginRight: '13rpx'}} src={require('../../../assets/images/lianxishangjia.png')} />
                         <Text className=''>联系商家</Text>
                     </View>
                     <View className='flex'>

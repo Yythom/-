@@ -40,6 +40,32 @@
         height: 130px;
         background: #FFFFFF;
         border-radius: 18px;
+        position: relative;
+
+        .fixed-tag {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 130px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            vertical-align: center;
+            align-items: center;
+            font-size: 26px;
+            color: #333333;
+            background: rgba(0, 208, 191, 0.25);
+            border-radius: 18px 0px 18px 0px;
+           
+        }
+
+        .num {
+            margin-right: 8px;
+            &:nth-last-child(1) {
+                margin-right: 0;
+            }
+        }
+
     }
 
     .title-status {
