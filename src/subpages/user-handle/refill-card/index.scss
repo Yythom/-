@@ -1,0 +1,210 @@
+.integral_wrap {
+    padding: 0 16px;
+    box-sizing: border-box;
+    height: 100vh;
+    background-color: rgb(250, 250, 250);
+
+    .type_wrap {
+        .title {
+            text-indent: 16px;
+            font-weight: bold;
+            font-size: 36px;
+            color: #444;
+        }
+
+        .pay_type {
+            padding: 0 16px;
+            border-radius: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px 0px rgba(9, 44, 76, 0.1);
+            margin-top: 32px;
+
+            .type {
+                width: 100%;
+                height: 100px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                .type_name {
+                    display: flex;
+                    align-items: center;
+                    color: #444;
+                    font-size: 30px;
+                }
+
+                .iconfont {
+                    font-size: 40px;
+                    margin-right: 12px;
+                }
+
+                .icon-hui {
+                    color: rgb(255, 145, 1);
+                }
+
+                .icon-weixinzhifu {
+                    color: rgb(90, 202, 39);
+                }
+
+            }
+        }
+
+    }
+
+    .center_title {
+        margin-top: 24px;
+        text-indent: 16px;
+        font-weight: bold;
+        font-size: 36px;
+        color: #444;
+    }
+
+    .info_wrap {
+        width: 100%;
+        padding: 16px;
+        margin-top: 24px;
+        box-sizing: border-box;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px 0px rgba(9, 44, 76, 0.1);
+        border-radius: 20px;
+
+        .item {
+            display: flex;
+            width: 100%;
+            height: 100px;
+            justify-content: space-between;
+            align-items: center;
+
+
+            .name {
+                min-width: 100px;
+                text-align: left;
+                display: flex;
+                align-items: center;
+            }
+
+            .left {
+                display: flex;
+                width: 80%;
+
+                input {
+                    width: calc(100% - 100px);
+                    padding: 6px 16px;
+                    font-size: 28px;
+                }
+            }
+
+            .right {
+                color: #999;
+                display: flex;
+                align-items: center;
+                font-size: 28px;
+                height: 100%;
+
+                .icon-saoma {
+                    font-size: 28px;
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    .btn {
+        width: 90%;
+        height: 90px;
+        background-color: pink;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .wx_pay {
+        .title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100px;
+
+            .left {
+                display: flex;
+                align-items: center;
+                font-size: 28px;
+
+                .name {
+                    width: 200px;
+                    font-size: 34px;
+                }
+
+                input {
+                    height: 100%;
+                    width: 220px;
+                    box-sizing: border-box;
+                    padding: 0 8px;
+                }
+            }
+
+            .right {
+                font-size: 24px;
+                display: flex;
+                color: #999;
+            }
+        }
+
+        .welfare_box {
+            display: flex;
+            flex-wrap: wrap;
+
+
+            .welfare_item {
+                width: 30%;
+                height: 150px;
+                border: rgb(255, 125, 19) 2px solid;
+                border-radius: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 300ms;
+                color: rgb(255, 125, 19);
+                margin-bottom: 12px;
+
+                .moneny {
+                    font-size: 24px;
+                }
+
+                .price {
+                    margin-bottom: 10px;
+                    font-weight: bold;
+                    font-size: 40px;
+                }
+
+                .welfare {
+                    font-size: 24px;
+                    color: #666;
+                }
+
+                &:nth-child(3n-1) {
+                    margin: 0 24px;
+                }
+            }
+
+            .act_welfare_item {
+                color: #fff;
+                background-color: rgb(255, 125, 19);
+
+                .welfare {
+                    color: #fff;
+                }
+            }
+        }
+
+    }
+
+    .foot_address_btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

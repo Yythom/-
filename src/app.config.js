@@ -28,8 +28,8 @@ export default {
         'address/address-add/index',
         'address/address-edit/index',
 
-        // 迭代地图
-        // 'mapbg/index',
+        // 迭代
+        'user-handle/refill-card/index',
 
       ],
     },

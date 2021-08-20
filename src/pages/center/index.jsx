@@ -49,7 +49,7 @@ const Index = () => {
             refresherTriggered={flag}
             onRefresherRefresh={() => {
                 // setFLag(true)
-                init('1');
+                init(true);
                 // setTimeout(() => {
                 //     setFLag(false)
                 // }, 1000);
@@ -68,7 +68,7 @@ const Index = () => {
                                 <View className='nickname'>{userInfo?.nickname || '请登入'}</View>
                                 {userInfo?.nickname &&
                                     <View className='mobile fb'>
-                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.nickname && '请绑定手机号')}</Text>
+                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.mobile && '请绑定手机号')}</Text>
                                         <Text className='iconfont icon-right'></Text>
                                     </View>
                                 }
