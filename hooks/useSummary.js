@@ -12,9 +12,10 @@ const useSummary = (list) => {
             checked: false,
             price: 0,
             count: 0,
+            discount_price: 0,
             products: [],
         }
-        const select = shop.products.filter(e => e.checked);
+        const select = shop.products.filter(e => e.checked); // 选中的数组
         selectArr = [...selectArr, ...select]
         shopData.price = select.reduce((prev, next) => np.plus( // 总价
             prev, np.times(
@@ -31,10 +32,12 @@ const useSummary = (list) => {
             ),
         ), 0);
 
-        // 修改店铺选择状态
+        // 修改店铺选择状态 ()
         select.length === shop.products.length ? shopData.checked = true : shopData.checked = false;
+
         shopData.count = select.length;
         shopData.products = select;
+
         if (select.length) {
             summaryShop[shop.shop_id] = shopData;
         }
