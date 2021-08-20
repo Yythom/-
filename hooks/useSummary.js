@@ -14,7 +14,7 @@ const useSummary = (list) => {
             count: 0,
             products: [],
         }
-        const select = shop.products.filter(e => e.checked);
+        const select = shop.products.filter(e => e.checked); // 选中的数组
         selectArr = [...selectArr, ...select]
         shopData.price = select.reduce((prev, next) => np.plus( // 总价
             prev, np.times(
