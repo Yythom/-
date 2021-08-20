@@ -25,8 +25,8 @@ const Index = () => {
         switch (Number(type)) {
             case 2:
                 WxPay.pay(money, () => {
-
-                    setMoney('')
+                    dispatch(userActions.userUpdata());
+                    setMoney('');
                 })
                 break;
             default:
