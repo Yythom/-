@@ -92,7 +92,6 @@ const Index = () => {
                     </View>
                     {pageData?.product_description.description
                         ? <mp-html
-                            container-style='white-space:nowrap;'
                             content={pageData?.product_description.description.trim()}
                         /> : null
                     }
