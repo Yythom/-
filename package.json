@@ -45,7 +45,6 @@
     "@tarojs/taro": "3.0.7",
     "classnames": "^2.2.6",
     "dayjs": "^1.9.4",
-    "mp-html": "^2.1.5",
     "number-precision": "^1.5.0",
     "react": "^16.10.0",
     "react-dom": "^16.10.0",

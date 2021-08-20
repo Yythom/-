@@ -7106,11 +7106,6 @@
     "rimraf" "^2.5.4"
     "run-queue" "^1.0.3"
 
-"mp-html@^2.1.5":
-  "integrity" "sha1-8O8FG114dOHvSHw/27N/owA3O6k="
-  "resolved" "https://registry.nlark.com/mp-html/download/mp-html-2.1.5.tgz"
-  "version" "2.1.5"
-
 "ms@^2.1.1", "ms@2.1.2":
   "integrity" "sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk="
   "resolved" "https://registry.npm.taobao.org/ms/download/ms-2.1.2.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz"
