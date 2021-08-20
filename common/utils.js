@@ -58,7 +58,10 @@ export const min_max_price_format = (max, min,) => {
     if (Number(min || 0) == 0) return null
     console.log('max', max, 'min', min, 'max - min', max - min )
     if (max - min == 0) {
-        return `${min}`
+        return <Text>
+        <Text className='_money'>¥</Text>
+        {min}
+    </Text>
     } else {
         return <Text>
             <Text className='_money'>¥</Text>

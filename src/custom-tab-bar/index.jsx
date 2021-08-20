@@ -25,7 +25,7 @@ export default memo(() => {
     }, [])
 
     const price = useMemo(() => {
-        console.log('cartSlice', cartSlice);
+        // console.log('cartSlice', cartSlice);
         return cartSlice.cart_price
     }, [cartSlice])
 

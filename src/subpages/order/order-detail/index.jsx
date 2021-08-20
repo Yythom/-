@@ -143,7 +143,10 @@ const Index = () => {
                                             </View>
                                             <View className='price'><Text className='_money'>¥</Text>{product.amount}</View>
                                         </View>
-                                        <View className='del'><Text className='_money'>¥</Text>{product.market_price}</View>
+                                        {
+                                        Number(product.market_price)!==0&&  <View className='del'><Text className='_money'>¥</Text>{product.market_price}</View>
+                                        }
+                                      
                                     </View>
                                 </View>
                             </View>

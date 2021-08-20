@@ -173,8 +173,9 @@ const AddressManage = () => {
                                 </View>
                             </Move>
                         )
-                    }) : <View className='empty fc' style={{minHeight: '100vh'}}>
-                        <Image style={{ width: '260rpx', height: '260rpx' }} src={require('../../../../assets/images/shouyeyixuan.png')} />
+                    }) : <View className='empty fdc' style={{minHeight: '90vh',color:'#333',fontSize:'24rpx'}}>
+                        <Image mode='widthFix' style={{ width: '150rpx', height: '260rpx' }} src={require('../../../../assets/images/empty.png')} />
+                        <View>暂无数据</View>
                     </View>
                 }
             </View>

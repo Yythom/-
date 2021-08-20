@@ -240,19 +240,7 @@ const Index = () => {
             </View> */}
 
 
-                <View className='footer flex'>
-                    <View className='price-box fd'>
-                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 1)}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 1)}</Text></View>
-                    </View>
-                    <View className='btn fc'
-                        onClick={() => {
-                            pay();
-                        }}
-                    >
-                        提交订单
-                    </View>
-                </View>
+           
 
                 {/* couponList -get */}
                 {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
@@ -275,6 +263,19 @@ const Index = () => {
                 />
 
             </ScrollView>
+            <View className='footer flex'>
+                    <View className='price-box fd'>
+                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 1)}</Text></View>
+                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 1)}</Text></View>
+                    </View>
+                    <View className='btn fc'
+                        onClick={() => {
+                            pay();
+                        }}
+                    >
+                        提交订单
+                    </View>
+                </View>
         </View >
     )
 }
