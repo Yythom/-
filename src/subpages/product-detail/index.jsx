@@ -90,7 +90,11 @@ const Index = () => {
                         <Text className='text'>商品信息</Text>
                         <View className='v-line' />
                     </View>
-                    {pageData?.product_description.description ? <mp-html content={pageData?.product_description.description} /> : null
+                    {pageData?.product_description.description
+                        ? <mp-html
+                            container-style='white-space:nowrap;'
+                            content={pageData?.product_description.description.trim()}
+                        /> : null
                     }
 
                     {/* <View className='img fdc'>
