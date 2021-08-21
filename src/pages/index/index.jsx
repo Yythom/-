@@ -86,36 +86,21 @@ function Index() {
         console.log(commonConfig);
     }, [])
 
-    const [page, setPage] = useState(1)
-
-    useReachBottom(() => {
-        tabChange(index, page + 1);
-    });
-
     usePullDownRefresh(() => {
         init();
-        tabChange(index);
-        // setInit(!initTabs);
     })
 
     const [params, setParams] = useState({
         category_id: '',
     })
-
-
-    const [index, setIndex] = useState(0);
-    const [result, no_more, testlist] = usePaging(params, ProductService.getProductListApi, index, () => {
+    const [initPaging, setinitPaging] = useState(false);
+    const [result, no_more, testlist] = usePaging(params, ProductService.getProductListApi, initPaging, () => {
         setinitHeight(!initHeight)
     })
 
-    useEffect(() => {
-        console.log(testlist, 'testlisttestlisttestlisttestlist');
-    }, [testlist])
-    // const [noMore, setNoMore] = useState(false);
-
     const tabChange = async (i, _page) => {
         setParams({ ...params, category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id });
-        index !== i && setIndex(i);
+        setinitPaging(!initPaging);
         stopPullDownRefresh();
     }
 
@@ -127,8 +112,8 @@ function Index() {
             setShow(1);
         }, 100);
     }
-    const [initTabs, setInit] = useState(false)
-    const [initHeight, setinitHeight] = useState(false)
+    const [initTabs, setInit] = useState(false);
+    const [initHeight, setinitHeight] = useState(false);
 
     useDidShow(() => {
         // setinitHeight(!initHeight);

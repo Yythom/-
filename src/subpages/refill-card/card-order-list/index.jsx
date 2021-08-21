@@ -24,7 +24,10 @@ const Index = () => {
     // const commonConfig = store.commonStore.themeConfig;
     // const query = Taro.getCurrentInstance().router.params;
     const [type, settype] = useState(null);
-    const [result, no_more, list] = usePaging({}, ProductService.getProductListApi, type)
+    const [init, setInit] = useState(false);
+    const [result, no_more, list] = usePaging({}, ProductService.getProductListApi, init, () => {
+
+    })
 
     const [_list, setlist] = useState([
         {
@@ -79,17 +82,11 @@ const Index = () => {
         }
     ]);
 
-    const init = async () => {
-        stopPullDownRefresh();
-    }
+
     useEffect(() => {
-        console.log(result);
+        console.log('result', list);
     }, [result])
 
-    usePullDownRefresh(() => {
-        ///
-
-    })
 
     return (
         <View className='card-order-list' style={{ paddingBottom: `calc(${systemInfo.safeArea.top / 2}px)` }} >
@@ -98,7 +95,10 @@ const Index = () => {
                 {
                     order_type.map(e => {
                         return (
-                            <View key={e.text} className={`item  fc ${e == type && 'act-item'}`} onClick={() => settype(e)} >
+                            <View key={e.text} className={`item  fc ${e == type && 'act-item'}`} onClick={() => {
+                                setInit(!init);
+                                settype(e)
+                            }} >
                                 {e.text}
                             </View>
                         )

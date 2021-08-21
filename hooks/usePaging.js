@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 
 
-const usePaging = (params, http, init, callback = Function.prototype) => {
+const usePaging = (params, http, init, callback = Function.prototype, isPag = true) => {
     const [page, setPage] = useState(1);
     const [no_more, setno_more] = useState(false);
     const [result, setResult] = useState(null);
@@ -13,17 +13,15 @@ const usePaging = (params, http, init, callback = Function.prototype) => {
     const [loading, setLoading] = useState(false);
 
     function initFn() {
-        if (typeof init !== 'undefined') {
-            console.log('params 改变init page--1');
-            setPage(1);
-            paging(1);
-            setList([]);
-            pageScrollTo({
-                scrollTop: 0,
-                duration: 600
-            });
-            setLoad(true);
-        }
+        console.log('params 改变init page--1');
+        setPage(1);
+        paging(1);
+        setList([]);
+        pageScrollTo({
+            scrollTop: 0,
+            duration: 600
+        });
+        setLoad(true);
     }
 
     usePullDownRefresh(() => {
@@ -45,14 +43,15 @@ const usePaging = (params, http, init, callback = Function.prototype) => {
         console.log('到底了---' + no_more);
         console.log('loading---' + loading);
         if (no_more) return
-
         paging();
     })
 
     const paging = useCallback(async (_page) => {
         if (loading) return
         setLoading(true);
-        const res = await http({ ...params, page: _page || page + 1 });
+        const _params = { ...params };
+        if (isPag) _params.page = _page || page + 1;
+        const res = await http(_params);
         if (res) {
             setResult(res);
             if (res?.list) {

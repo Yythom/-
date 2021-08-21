@@ -20,7 +20,7 @@ class ProductService {
             page: {
                 all: 0,
                 total: 1,
-                page: data.page || 1,
+                page: data.page || '',
                 page_size: 10
             }
         });
