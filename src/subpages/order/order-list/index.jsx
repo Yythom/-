@@ -12,6 +12,7 @@ import ProductItem from './product-item/ProductItem';
 import make_type from '../type';
 import order_type from '../orderType';
 import './index.scss'
+import usePaging from '../../../../hooks/usePaging';
 
 const Index = () => {
     const userStore = useSelector(store => store, shallowEqual);
@@ -19,13 +20,16 @@ const Index = () => {
 
     const [tabinit, setTabInit] = useState(false);
     const [initHeight, setinitHeight] = useState(false);
-    const [pageData, setPageData] = useState(null);
 
-    const [page, setPage] = useState(1);
     const [params, setParams] = useState({
         // page: 1,
-        delivery_type: 1 ,/* query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY, */ // 送货方式
+        delivery_type: query.delivery_type ? Number(query.delivery_type) : make_type.DeliveryType.DELIVERY,  // 送货方式
         status: '',
+    })
+    const [init, setInit] = useState(false);
+
+    const [result, no_more, __list] = usePaging(params, OrderService.getOrderList, init, () => {
+        setinitHeight(!initHeight);
     })
 
     const [defaultIndex, setDefaultIndex] = useState(query.defaultIndex || '0')
@@ -54,66 +58,32 @@ const Index = () => {
     const changeParams = async (key, value) => {
         let newParams = { ...params };
         newParams[key] = value;
-        // console.log(newParams, 'newParamsnewParamsnewParams');
         setParams(newParams);
+        // console.log(newParams, 'newParamsnewParamsnewParams');
     };
 
     const tabChange = (i) => {
         if (!isNaN(i)) {
-            setPageData(null)
+            // setPageData(null)
+            setInit(!init)
             changeParams('status', tabList[i].status)
         }
     };
 
-    const getList = useCallback(async (data, _page,) => {
-        const _data = data || params
-        const res = await OrderService.getOrderList({ ..._data, page: _page });
-        stopPullDownRefresh();
-        if (res) {
-            setLoad(true);
-            if (_page) {
-                if (!res.list[0]) {
-                    showToast({ title: '没有更多', icon: 'none' });
-                    return
-                }
-                setPage(_page);
-                setPageData({ ...pageData, list: [...pageData.list, ...res.list] });
-            } else {
-                setPage(1);
-                setPageData(res);
-            }
-            setinitHeight(!initHeight)
-        }
-    }, [pageData, initHeight, params]) // 不需要依赖更新
-
-
-
-    const [load, setLoad] = useState(false)
-
     useLayoutEffect(() => {
-        tabChange(query.defaultIndex)
+        tabChange(query.defaultIndex);
     }, [])
 
-
-    useDidShow(() => {
-        load && getList(params)
-    })
-
-    useEffect(() => {
-        if (params) {
-            getList(params);
-        }
-        console.log(params, '。。。。。。数据改变重新请求列表');
-    }, [params])
-
-
-    useReachBottom(() => {
-        console.log(page + 1, '到底了');
-        getList(params, page + 1);
-    })
-    usePullDownRefresh(() => {
-        getList(params);
-    })
+    const changeMethod = (delivery_type) => {
+        setParams({
+            ...params,
+            delivery_type,
+            status: ''
+        })
+        setInit(!init);
+        setTabInit(!tabinit);
+        setDefaultIndex('0');
+    }
 
     return (
         <View
@@ -124,27 +94,11 @@ const Index = () => {
                 <NavBar back title='订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <View className='deliveryMethod flex'>
                     <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
-                        onClick={() => {
-                            setParams({
-                                ...params,
-                                delivery_type: make_type.DeliveryType.DELIVERY,
-                                status: ''
-                            })
-                            setTabInit(!tabinit);
-                            setDefaultIndex('0');
-                        }}
+                        onClick={() => { changeMethod(make_type.DeliveryType.DELIVERY,) }}
                     >
                         配送</View>
                     <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
-                        onClick={() => {
-                            setParams({
-                                ...params,
-                                delivery_type: make_type.DeliveryType.SELF_MENTION,
-                                status: ''
-                            })
-                            setTabInit(!tabinit);
-                            setDefaultIndex('0');
-                        }}
+                        onClick={() => { changeMethod(make_type.DeliveryType.SELF_MENTION); }}
                     >
                         自提</View>
                 </View>
@@ -160,25 +114,11 @@ const Index = () => {
                 initHeight={initHeight}
                 isRefresh
                 isSticy
-                top={`calc(${getStorageSync('navHeight')}px + 94rpx)`}
-            // request={{
-            //     params: { ...params, page: 1 },
-            //     http: OrderService.getOrderList
-            // }}
-            // onScrollBottom={(_newList) => {
-            //     if (_newList) {
-            //         setPageData({ ...pageData, list: [...pageData.list, ..._newList.list] })
-            //     }
-            // }}
-            // init={(_newList) => {
-            //     if (_newList) {
-            //         setPageData({ ...pageData, list: _newList.list })
-            //     }
-            // }}
+                top={`calc(${getStorageSync('navHeight')}px + 90rpx)`}
             >
                 {
-                    pageData && (
-                        pageData.list[0] ? pageData.list.map(e => {
+                    __list && (
+                        __list[0] ? __list.map(e => {
                             return (
                                 <View
                                     className='fc bg'
@@ -188,7 +128,9 @@ const Index = () => {
                                         navLinkTo('order/order-detail/index', {});
                                     }}
                                 >
-                                    <ProductItem order={e} getList={getList} />
+                                    <ProductItem order={e} getList={() => {
+                                        setInit(!init)
+                                    }} />
                                 </View>
                             )
                         }) : <View className='empty fc'>

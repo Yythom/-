@@ -104,7 +104,13 @@
         },
         {
           "name": "余额充值",
-          "pathName": "subpages/user-handle/refill-card/index",
+          "pathName": "subpages/refill-card/card-full/index",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "充值订单列表",
+          "pathName": "subpages/refill-card/card-order-list/index",
           "query": "",
           "scene": null
         }

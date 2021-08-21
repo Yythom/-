@@ -25,6 +25,7 @@ import Seconds from './seconds-kill/Seconds';
 import './index.scss';
 import SkewText from '@/components/page/skew-text/SkewText';
 import { min_max_price_format } from '@/common/utils';
+import usePaging from '../../../hooks/usePaging';
 
 function Index() {
     const dispatch = useDispatch();
@@ -43,7 +44,6 @@ function Index() {
 
     // console.log(formattedRes);
     const [pageData, setPageData] = useState(null);
-    const [list, setList] = useState([]);
     const [types, setTypes] = useState([
         {
             type: '9.9包邮',
@@ -98,31 +98,24 @@ function Index() {
         // setInit(!initTabs);
     })
 
+    const [params, setParams] = useState({
+        category_id: '',
+    })
+
+
     const [index, setIndex] = useState(0);
-    const [noMore, setNoMore] = useState(false);
+    const [result, no_more, testlist] = usePaging(params, ProductService.getProductListApi, index, () => {
+        setinitHeight(!initHeight)
+    })
+
+    useEffect(() => {
+        console.log(testlist, 'testlisttestlisttestlisttestlist');
+    }, [testlist])
+    // const [noMore, setNoMore] = useState(false);
 
     const tabChange = async (i, _page) => {
-        if (!_page) setList([])
-        // console.log(list, 'listlistlist');
-        if (_page && noMore && !list[0]) return
-        console.log(_page || 1);
-        const res = await ProductService.getProductListApi({ category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id, page: _page || 1 });
+        setParams({ ...params, category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id });
         index !== i && setIndex(i);
-        if (!res) return;
-        if (_page) {
-            setPage(_page + 1);
-            if (!res?.list[0]) {
-                setNoMore(true);
-                showToast({ title: '没有更多了', icon: 'none' })
-            }
-            setList([...list, ...res.list])
-        } else {
-            if (!res?.list[0]) setNoMore(true);
-            else setNoMore(false);
-            setList(res.list)
-            setPage(1);
-        }
-        setinitHeight(!initHeight)
         stopPullDownRefresh();
     }
 
@@ -183,7 +176,7 @@ function Index() {
                 >
                     <View className='pro-list fb'>
                         {
-                            list[0] ? list.map((e, i) => {
+                            testlist[0] ? testlist.map((e, i) => {
                                 return (
                                     <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {
                                         product_id: e.product_id
@@ -221,12 +214,12 @@ function Index() {
             }
 
             {/* sku弹框 */}
-
             <Skuhooks
                 show={show}
                 setShow={setShow}
                 product={skuData}
             />
+
 
         </View>
     )
