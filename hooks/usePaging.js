@@ -16,8 +16,7 @@ const usePaging = (params, http, init, callback = Function.prototype) => {
         if (typeof init !== 'undefined') {
             console.log('params 改变init page--1');
             setPage(1);
-            setno_more(false);
-            paging(1, false);
+            paging(1);
             setList([]);
             pageScrollTo({
                 scrollTop: 0,
@@ -45,34 +44,39 @@ const usePaging = (params, http, init, callback = Function.prototype) => {
     useReachBottom(() => {
         console.log('到底了---' + no_more);
         console.log('loading---' + loading);
+        if (no_more) return
+
         paging();
     })
 
-    const paging = useCallback(async (_page, _no) => {
-        if (typeof _no === 'boolean') {
-            if (_no) return
-        } else if (no_more) return;
+    const paging = useCallback(async (_page) => {
         if (loading) return
         setLoading(true);
         const res = await http({ ...params, page: _page || page + 1 });
         if (res) {
             setResult(res);
-            if (res?.total === list.length) {
-                // showToast({ title: '没有更多', icon: 'none' });
-                setno_more(true);
-            }
-            if (res?.list[0]) {
-                console.log(res, 'res -- paging');
-                callback();
-                setList(
-                    _page
-                        ? res.list
-                        : [...list, ...res?.list]
-                )
-                setPage(_page || page + 1);
+            if (res?.list) {
+                if (res?.total === (_page ? res?.list?.length : [...list, ...res?.list]?.length)) {
+                    console.log('没有更多');
+                    setno_more(true);
+                } else {
+                    setno_more(false);
+                }
+                if (res?.list[0]) {
+                    console.log(res, 'res -- paging');
+                    callback();
+                    setList(
+                        _page
+                            ? res.list
+                            : [...list, ...res?.list]
+                    )
+                    setPage(_page || page + 1);
+                }
             }
         }
-        setLoading(false);
+        setTimeout(() => {
+            setLoading(false);
+        }, 200);
         stopPullDownRefresh();
         // return res;
     }, [params, page, no_more, loading, list]);
