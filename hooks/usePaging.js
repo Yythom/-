@@ -3,7 +3,15 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 
 
 
-const usePaging = (params, http, init, callback = Function.prototype, isPag = true) => {
+const usePaging = (
+    params,
+    http,
+    init,  // 控制是否初始化分页
+    callback = Function.prototype, // 请求成功回调
+    isPag = true, // 是否开启分页
+    isWindow = true, // 是否开启窗口触底 默认窗口触底
+    is_bottom = false, // scrollview触底 i++
+) => {
     const [page, setPage] = useState(1);
     const [no_more, setno_more] = useState(false);
     const [result, setResult] = useState(null);
@@ -12,21 +20,20 @@ const usePaging = (params, http, init, callback = Function.prototype, isPag = tr
     const [load, setLoad] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    function initFn() {
+    const initFn = useCallback(() => {
         console.log('params 改变init page--1');
         setPage(1);
         paging(1);
         setList([]);
-        pageScrollTo({
+        isWindow && pageScrollTo({
             scrollTop: 0,
             duration: 600
         });
         setLoad(true);
-    }
+    }, [params, isWindow]);
 
     usePullDownRefresh(() => {
-        initFn()
-        // getList(params);
+        isWindow && initFn()
     });
 
     useDidShow(() => {
@@ -38,13 +45,19 @@ const usePaging = (params, http, init, callback = Function.prototype, isPag = tr
         initFn()
     }, [init]);
 
+    useEffect(() => {
+        if (is_bottom) {
+            console.log('scrollview到底---' + no_more, isWindow);
+            if (no_more && !isWindow) return
+            paging();
+        }
+    }, [is_bottom]);
 
     useReachBottom(() => {
-        console.log('到底了---' + no_more);
-        console.log('loading---' + loading);
-        if (no_more) return
+        console.log('window到底---' + no_more, isWindow);
+        if (no_more && isWindow) return
         paging();
-    })
+    });
 
     const paging = useCallback(async (_page) => {
         if (loading) return
@@ -76,8 +89,7 @@ const usePaging = (params, http, init, callback = Function.prototype, isPag = tr
         setTimeout(() => {
             setLoading(false);
         }, 200);
-        stopPullDownRefresh();
-        // return res;
+        isWindow && stopPullDownRefresh();
     }, [params, page, no_more, loading, list]);
 
     return [result, no_more, list];
