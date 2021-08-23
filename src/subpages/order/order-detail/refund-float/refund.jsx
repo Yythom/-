@@ -12,7 +12,8 @@ const Refund = memo(({
     setShow = Function.prototype,
     show = true,
 }) => {
-    const [select, setSelect] = useState([])
+    const [select, setSelect] = useState([]);
+    const [all, setAll] = useState(false)
     const [productList, setProductList] = useState([
         {
             "user_cart_id": "285818215262453760",
@@ -51,7 +52,7 @@ const Refund = memo(({
     }, []);
 
     const refund_price = useMemo(() => {
-        console.log(select);
+        select.length === productList.length ? setAll(true) : setAll(false);
         return select.reduce((prev, next) => np.plus( // 总价
             prev, np.times(
                 next.price, next.product_count
@@ -105,8 +106,15 @@ const Refund = memo(({
                 )
             }
             <View className='footer-handle fb' style={{ height: `calc(120rpx + ${systemInfo.safeArea.top / 2}px)` }}>
-                <View className='fc'>
-                    <Radio /> <Text className=''>全选</Text>
+                <View className='fc' onClick={() => {
+                    const copy = JSON.parse(JSON.stringify(productList));
+                    copy.forEach(e => {
+                        e.checked = !all
+                    });
+                    setProductList(copy);
+                    setSelect(copy.filter(e => e.checked));
+                }}>
+                    <Radio color='#00D0BF' checked={all} /> <Text className=''>全选</Text>
                 </View>
                 <View className='right flex'>
                     <View className='refund-info fd'>
