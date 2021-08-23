@@ -65,7 +65,6 @@ const usePaging = (
         setLoading(true);
         const _params = { ...params };
         if (isPag) _params.page = _page || page + 1;
-        console.log(page, '_params_params_params');
         const res = await http(_params);
         if (res) {
             setResult(res);
