@@ -20,11 +20,11 @@ const usePaging = (
     const [load, setLoad] = useState(false);
     const [loading, setLoading] = useState(false);
 
-    const initFn = useCallback(() => {
+    const initFn = useCallback((is_init) => {
         console.log('params 改变init page--1');
         setPage(1);
-        paging(1);
         setList([]);
+        paging(1, true);
         isWindow && pageScrollTo({
             scrollTop: 0,
             duration: 600
@@ -33,13 +33,14 @@ const usePaging = (
     }, [params, isWindow]);
 
     usePullDownRefresh(() => {
-        isWindow && initFn()
+        console.log('刷新', isWindow);
+        isWindow && initFn(true);
     });
 
-    useDidShow(() => {
-        console.log('useDidShow init');
-        load && initFn()
-    });
+    // useDidShow(() => {
+    //     console.log('useDidShow init');
+    //     load && initFn()
+    // });
 
     useEffect(() => {
         initFn()
@@ -59,11 +60,12 @@ const usePaging = (
         paging();
     });
 
-    const paging = useCallback(async (_page) => {
-        if (loading) return
+    const paging = useCallback(async (_page, is_init) => {
+        if (loading && !is_init) return
         setLoading(true);
         const _params = { ...params };
         if (isPag) _params.page = _page || page + 1;
+        console.log(page, '_params_params_params');
         const res = await http(_params);
         if (res) {
             setResult(res);
@@ -86,9 +88,7 @@ const usePaging = (
                 }
             }
         }
-        setTimeout(() => {
-            setLoading(false);
-        }, 200);
+        setLoading(false);
         isWindow && stopPullDownRefresh();
     }, [params, page, no_more, loading, list]);
 

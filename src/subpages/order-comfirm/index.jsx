@@ -130,7 +130,6 @@ const Index = () => {
         console.log(PreData, 'params 下单数据改变');
         if (pre) {
             if (deliveryMethod == make_type.DeliveryType.DELIVERY) {
-                console.log('address', address)
                 if (address) preRequest(PreData);
             } else {
                 preRequest(PreData)
@@ -177,10 +176,14 @@ const Index = () => {
                 <View className='' style={{ background: '#00D0BF', paddingBottom: '20rpx' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                     <View className='deliveryMethod flex'>
-                        {/* <View className={`tab f c ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View> */}
-                        {/* <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View> */}
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.DELIVERY && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.DELIVERY)}>配送</View>
+                        <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
                     </View>
-                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={{ address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number }} date={date} setDate={setDate} />
+                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={
+                        deliveryMethod == make_type.DeliveryType.DELIVERY ? address : {
+                            address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number
+                        }
+                    } date={date} setDate={setDate} />
                 </View>
                 <ProductItem pageData={pageData} />
                 <View className='order-desc'>
@@ -240,7 +243,7 @@ const Index = () => {
             </View> */}
 
 
-           
+
 
                 {/* couponList -get */}
                 {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
@@ -264,18 +267,18 @@ const Index = () => {
 
             </ScrollView>
             <View className='footer flex'>
-                    <View className='price-box fd'>
-                        <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 1)}</Text></View>
-                        <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 1)}</Text></View>
-                    </View>
-                    <View className='btn fc'
-                        onClick={() => {
-                            pay();
-                        }}
-                    >
-                        提交订单
-                    </View>
+                <View className='price-box fd'>
+                    <View className='all'>总价：<Text className='price'>¥{np.times(pageData?.order_amount || 0, 1)}</Text></View>
+                    <View className='dis'>已优惠：<Text>¥{np.times(pageData?.order_discount_amount || 0, 1)}</Text></View>
                 </View>
+                <View className='btn fc'
+                    onClick={() => {
+                        pay();
+                    }}
+                >
+                    提交订单
+                </View>
+            </View>
         </View >
     )
 }

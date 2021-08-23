@@ -23,7 +23,7 @@ const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
     // const commonConfig = store.commonStore.themeConfig;
     // const query = Taro.getCurrentInstance().router.params;
-    const [type, settype] = useState(null);
+    const [type, settype] = useState(order_type[0]);
     const [init, setInit] = useState(false);
     const [result, no_more, list] = usePaging({}, ProductService.getProductListApi, init, () => {
 
@@ -98,7 +98,8 @@ const Index = () => {
                             <View key={e.text} className={`item  fc ${e == type && 'act-item'}`} onClick={() => {
                                 setInit(!init);
                                 settype(e)
-                            }} >
+                            }}
+                            >
                                 {e.text}
                             </View>
                         )

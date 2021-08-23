@@ -30,6 +30,7 @@ const Index = () => {
 
     const [result, no_more, __list] = usePaging(params, OrderService.getOrderList, init, () => {
         setinitHeight(!initHeight);
+        if (getStorageSync('order-handle')) removeStorageSync('order-handle');
     })
 
     const [defaultIndex, setDefaultIndex] = useState(query.defaultIndex || '0')
@@ -84,6 +85,12 @@ const Index = () => {
         setTabInit(!tabinit);
         setDefaultIndex('0');
     }
+    useDidShow(() => {
+        if (getStorageSync('order-handle')) {
+            setInit(!init);
+        }
+        setinitHeight(!initHeight);
+    })
 
     return (
         <View

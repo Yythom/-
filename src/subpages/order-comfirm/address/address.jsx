@@ -41,11 +41,11 @@ const Address = memo(({
             }
         } else {
             // req 地址
-            AddressService.defaultAddress().then(res => {
-                if (res) {
-                    setAddress(address)
-                }
-            })
+            // AddressService.defaultAddress().then(res => {
+            //     if (res) {
+            //         setAddress(address)
+            //     }
+            // })
         }
     }
 
@@ -54,7 +54,7 @@ const Address = memo(({
     })
 
     useEffect(() => {
-        console.log(method, 'methodmethodmethod');
+        console.log(method, address, 'methodmethodmethod');
         init()
     }, [method]);
 

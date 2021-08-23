@@ -70,6 +70,7 @@ const Index = () => {
             default:
                 break;
         }
+        setStorageSync('order-handle', true)
     }
 
     useDidShow(() => {
@@ -108,7 +109,7 @@ const Index = () => {
                         </View>
                     </View>
                     <Text className='name'>预留电话：</Text>
-                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text> 
+                    <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text>
                 </View>
             </View>
 
@@ -144,9 +145,9 @@ const Index = () => {
                                             <View className='price'><Text className='_money'>¥</Text>{product.amount}</View>
                                         </View>
                                         {
-                                        Number(product.market_price)!==0&&  <View className='del'><Text className='_money'>¥</Text>{product.market_price}</View>
+                                            Number(product.market_price) !== 0 && <View className='del'><Text className='_money'>¥</Text>{product.market_price}</View>
                                         }
-                                      
+
                                     </View>
                                 </View>
                             </View>

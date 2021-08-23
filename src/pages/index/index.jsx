@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useMemo, useState } from 'react';
-import Taro, { getStorageSync, setTabBarStyle, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro';
+import Taro, { getStorageSync, setTabBarStyle, showToast, stopPullDownRefresh, useDidShow, useReachBottom } from '@tarojs/taro';
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
 import Banner from '@/components/page/banner/Banner';
 import NavBar from '@/components/navbar/NavBar';
@@ -76,7 +76,7 @@ function Index() {
 
     const init = async () => {
         const res = await HomeService.getHomeApi();
-        setPageData(res)
+        setPageData(res);
     }
 
     useEffect(() => {
@@ -86,16 +86,18 @@ function Index() {
         console.log(commonConfig);
     }, [])
 
-    usePullDownRefresh(() => {
-        init();
-    })
+    // usePullDownRefresh(() => {
+    //     init();
+    //     setInit(!initPaging);
+    // })
 
     const [params, setParams] = useState({
         category_id: '',
     })
     const [initPaging, setinitPaging] = useState(false);
     const [result, no_more, testlist] = usePaging(params, ProductService.getProductListApi, initPaging, () => {
-        setinitHeight(!initHeight)
+        setinitHeight(!initHeight);
+        init()
     })
 
     const tabChange = async (i, _page) => {
@@ -116,7 +118,7 @@ function Index() {
     const [initHeight, setinitHeight] = useState(false);
 
     useDidShow(() => {
-        // setinitHeight(!initHeight);
+        setinitHeight(!initHeight);
         dispatch(tabActions.changetab(0))
     })
     return (

@@ -113,6 +113,12 @@
           "pathName": "subpages/refill-card/card-order-list/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "测试入口",
+          "pathName": "subpages/test-yyt/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -1,0 +1,21 @@
+.test-wrap {
+    input {
+        height: 80px;
+        box-sizing: border-box;
+        padding: 0 16px;
+        margin: 0 20px;
+        border-radius: 20px;
+        font-size: 28px;
+        border: solid 2px #00D0BF;
+    }
+
+    .btn {
+        flex: 1;
+        height: 100px;
+        margin: 0 20px;
+        margin-top: 60px;
+        background-color: #00D0BF;
+        color: #fff;
+        font-size: 28px;
+    }
+}

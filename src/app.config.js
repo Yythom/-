@@ -30,7 +30,10 @@ export default {
 
         // 迭代
         'refill-card/card-full/index',
-        'refill-card/card-order-list/index'
+        'refill-card/card-order-list/index',
+
+        // 测试入口
+        'test-yyt/index'
       ],
     },
   ],
