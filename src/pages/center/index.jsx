@@ -62,7 +62,7 @@ const Index = () => {
                 <NavBar title='个人中心' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <WithUserVerify isVerifyPhone onClick={() => { navLinkTo('user-handle/info/index', {}) }}>
                     <View className='userinfo flex' >
-                        <Avatar style={{ background: '#fff', borderRadius: '10px' }} size='110rpx' />
+                        <Avatar style={{ background: '#fff', borderRadius: '50%' }} size='110rpx' />
                         <View className='fb info'>
                             <View className='left fd'>
                                 <View className='nickname'>{userInfo?.nickname || '请登入'}</View>
