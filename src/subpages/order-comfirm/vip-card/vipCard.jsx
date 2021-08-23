@@ -26,7 +26,7 @@ const VipCard = memo(({
             setShow={setShow}
         >
             <View className='coupons_wrap' style={{ height: '900rpx' }}>
-                <View className='iconfont iconguanbi1' onClick={() => { console.log(1231); setShow(false) }}></View>
+                <View className='iconfont icon-close' onClick={() => { console.log(1231); setShow(false) }}></View>
                 <View className='title fc'>选择余额或卡</View>
                 <Tabs
                     className='vp-tabs'

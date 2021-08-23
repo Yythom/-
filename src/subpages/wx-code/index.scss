@@ -1,0 +1,36 @@
+.wx-code-wrap {
+    min-height: 100vh;
+    background-color: #f3f3f3;
+
+    .title {
+        background-color: #fff;
+        padding: 0 20px;
+        box-sizing: border-box;
+        color: #333;
+        height: 100px;
+
+        .left {}
+
+        .right {
+            .copy {
+                display: inline-block;
+                margin-left: 10px;
+                font-size: 22px;
+                text-align: center;
+                width: 64px;
+                height: 34px;
+                background: #FFFFFF;
+                border-radius: 17px;
+                border: 2px solid #999999;
+            }
+        }
+    }
+
+    .img {
+        height: 953px;
+        background: #D8D8D8;
+        margin: 0 16px;
+        margin-top: 40px;
+        border-radius: 16px;
+    }
+}
