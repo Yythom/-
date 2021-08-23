@@ -11,6 +11,7 @@ const tabsList = [
     { title: '备货中', status: order_type.UserOrderStatus.READY },
     { title: '待取货', status: order_type.UserOrderStatus.WAIT_MOTION },
     { title: '已完成', status: order_type.UserOrderStatus.FINISH },
+    { title: '待付款', status: order_type.UserOrderStatus.INIT },
     // { title: '退款', status: order_type.UserOrderStatus },
 ]
 
