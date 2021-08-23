@@ -91,9 +91,12 @@ const Index = () => {
                 }} title='订单详情' background='#00D0BF' color='#fff' iconColor='#fff'
                 />
                 <View className='code fc'>
-                    <Text style={{ fontSize: '32rpx' }}>取货码&nbsp;</Text>
+                    <Text className='fixed-tag'>取货码</Text>
                     {pageData?.order_code?.map((e) => {
-                        return e.code.replace(/\s+/g, "-")
+                        console.log('e.code.replace(/\s+/g, "-")', e.code.replace(/\s+/g, "-"))
+                        return Array.from(e.code.replace(/\s+/g, "-")).map((v, index)=>{
+                            return <Text key={index} className='num'>{v}</Text>
+                        })
                     })}
                 </View>
 
