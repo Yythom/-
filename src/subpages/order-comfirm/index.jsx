@@ -228,7 +228,7 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
-                    <View className='left' >买家留言</View>
+                    <View className='left' >备注</View>
                     <View className='right'>
                         {msg?.oldmsg || <Text style={{ color: '#999' }}>请输入</Text>}
                     </View>
