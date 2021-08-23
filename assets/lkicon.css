@@ -225,3 +225,11 @@
 .iconloading:before {
     content: "\e63c";
 }
+
+.iconshouhuodizhi:before {
+    content: "\e662";
+}
+
+.iconlianxishangjia:before {
+    content: "\e661";
+}

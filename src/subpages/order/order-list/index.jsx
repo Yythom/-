@@ -101,14 +101,16 @@ const Index = () => {
             <View className='' style={{ position: 'sticky', top: '0', zIndex: '3' }}>
                 <NavBar back title='订单' color='#fff' iconColor='#fff' background='#00D0BF' />
                 <View className='deliveryMethod flex'>
-                    <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
-                        onClick={() => { changeMethod(make_type.DeliveryType.DELIVERY,) }}
-                    >
-                        配送</View>
-                    <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
-                        onClick={() => { changeMethod(make_type.DeliveryType.SELF_MENTION); }}
-                    >
-                        自提</View>
+                    <View className='deliveryMethod-bg'>
+                        <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.DELIVERY && 'act-tab'}`}
+                            onClick={() => { changeMethod(make_type.DeliveryType.DELIVERY,) }}
+                        >
+                            配送</View>
+                        <View className={`tab fc ${params.delivery_type == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`}
+                            onClick={() => { changeMethod(make_type.DeliveryType.SELF_MENTION); }}
+                        >
+                            自提</View>
+                    </View>
                 </View>
             </View>
             <Tabs
