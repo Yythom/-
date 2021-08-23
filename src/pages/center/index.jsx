@@ -49,7 +49,7 @@ const Index = () => {
             refresherTriggered={flag}
             onRefresherRefresh={() => {
                 // setFLag(true)
-                init('1');
+                init(true);
                 // setTimeout(() => {
                 //     setFLag(false)
                 // }, 1000);
