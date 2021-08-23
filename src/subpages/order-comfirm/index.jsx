@@ -77,7 +77,7 @@ const Index = () => {
     const [payType, setPayType] = useState(1) // 1 余额 2 wx 3zfb
 
     const [date, setDate] = useState({ // 指定时间
-        show: false,
+        show: true,
         value: ''
     }); // 送达时间
     const [deliveryMethod, setDeliveryMethod] = useState(1) // 送货方式
@@ -171,7 +171,7 @@ const Index = () => {
     }
 
     return (
-        <View className='order_confirm_wrap'>
+        <View className='order_confirm_wrap' >
             <ScrollView className='scrollview' scrollY >
                 <View className='' style={{ background: '#00D0BF', paddingBottom: '20rpx' }}>
                     <NavBar back title='确认订单' color='#fff' iconColor='#fff' background='#00D0BF' />
@@ -181,34 +181,30 @@ const Index = () => {
                             <View className={`tab fc ${deliveryMethod == make_type.DeliveryType.SELF_MENTION && 'act-tab'}`} onClick={() => setDeliveryMethod(make_type.DeliveryType.SELF_MENTION)}>自提</View>
                         </View>
                     </View>
-                    <Address setTell={setTell} setAddress={setAddress} method={deliveryMethod} address={
-                        deliveryMethod == make_type.DeliveryType.DELIVERY ? address : {
-                            address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number
+                    <Address
+                        setTell={setTell}
+                        pre_data={pageData}
+                        setAddress={setAddress} method={deliveryMethod} address={
+                            deliveryMethod == make_type.DeliveryType.DELIVERY ? address : {
+                                address: pageData?.shop?.shop_address + pageData?.shop?.shop_address_number
+                            }
                         }
-                    } date={date} setDate={setDate}
+                        date={date}
+                        setDate={setDate}
                     />
                 </View>
                 <ProductItem pageData={pageData} />
-                <View className='order-desc'>
-                    {pageData?.order_fee?.map((item) => {
-                        return <View className='item fb'>{item.fee_type_msg}：<Text >&nbsp;¥{np.times(item.fee || 0, 1)}</Text> </View>
-                    })}
-                    {pageData?.order_discount?.map((etem) => {
-                        return <View className='item fb'>{etem.detail}：<Text >-&nbsp;¥{np.times(etem.amount || 0, 1)}</Text> </View>
-                    })}
+                <View style={{ background: '#fff' }}>
+                    <View className='order-desc'>
+                        {pageData?.order_fee?.map((item) => {
+                            return <View key={item.fee_type_msg} className='item fb'>{item.fee_type_msg}：<Text >&nbsp;¥{np.times(item.fee || 0, 1)}</Text> </View>
+                        })}
+                        {pageData?.order_discount?.map((item) => {
+                            return <View key={item.fee_type_msg} className='item fb'>{item.detail}：<Text >-&nbsp;¥{np.times(item.amount || 0, 1)}</Text> </View>
+                        })}
+                    </View>
                 </View>
 
-                {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
-                <View className='left' >优惠券</View>
-                <View className='right'>
-                    {
-                        pageData?.select_coupon?.shop?.activity_coupon_id ? (
-                            pageData?.select_coupon?.shop?.type == 2 ? `-¥${pageData?.select_coupon?.shop?.deduction}` : `-¥${pageData?.select_coupon?.shop?.price}`
-                        ) :
-                            pageData?.shop_coupon.filter(e => e.disable == 0).length + '张可用'
-                    }<Text className='iconfont icon-right' />
-                </View>
-            </View> */}
 
                 {/* <View className='handle fb' onClick={() => setVpShow(true)}>
                 <View className='left' >余额/卡</View>
@@ -221,36 +217,71 @@ const Index = () => {
                     }<Text className='iconfont icon-right' />
                 </View>
             </View> */}
-                <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
-                    <View className='left' >温馨提示</View>
-                    <View className='right' style={{ color: '#333' }}>
-                        支付成功生成取货码，持码到店取货
+
+                <View className='handle fb' style={{ marginTop: '20rpx' }}>
+                    <View className='left' >活动优惠</View>
+                    <View className='right'>
+                        <Text className='price-color'>
+                            ¥{pageData?.order_discount_amount}
+                        </Text>
                     </View>
                 </View>
-                <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
-                    <View className='left' >买家留言</View>
+                {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
+                    <View className='left' >优惠券</View>
+                    <View className='right' style={{ color: '#999' }}>
+                        {
+                            // pageData?.select_coupon?.shop?.activity_coupon_id ? (
+                            //     pageData?.select_coupon?.shop?.type == 2 ? `-¥${pageData?.select_coupon?.shop?.deduction}` : `-¥${pageData?.select_coupon?.shop?.price}`
+                            // ) :
+                            //     pageData?.shop_coupon?.filter(e => e.disable == 0).length + '张可用'
+                        }
+                        暂无 <Text className='iconfont icon-right' />
+                    </View>
+                </View> */}
+
+                <View className='handle fb' style={{ height: '100rpx', marginTop: '20rpx' }} onClick={() => setModal(true)} >
+                    <View className='left' >备注</View>
                     <View className='right'>
                         {msg?.oldmsg || <Text style={{ color: '#999' }}>请输入</Text>}
                     </View>
                 </View>
+                {
+                    deliveryMethod === make_type.DeliveryType.SELF_MENTION && <View className='handle fb' style={{ height: '100rpx' }} onClick={() => setModal(true)} >
+                        <View className='left' >温馨提示</View>
+                        <View className='right' style={{ color: '#333' }}>
+                            支付成功生成取货码，持码到店取货
+                        </View>
+                    </View>
+                }
 
-                {/* <View className='handle fd' style={{ height: 'auto' }}>
-                <View className='fb' onClick={() => setPayType(2)}>
-                    <Text className=''>微信支付</Text>
-                    <Radio checked={payType == 2} />
+
+
+                <View className='pay-type' style={{ marginTop: '20rpx' }}>
+                    <View className='handle fd' style={{ minHeight: '100rpx', height: 'auto', alignItems: "flex-end" }}>
+                        <View className='fb' style={{ width: '100%', height: '80rpx', fontSize: '28rpx' }}>
+                            <Text className=''>会员卡支付</Text>
+                            <Text >可用余额 <Text style={{ fontWeight: 'bold' }}>¥233.00</Text></Text>
+                            {/* 余额不足不展示 */}
+                            {/* <Radio checked={payType == 2}  onClick={() => setPayType(2)} /> */}
+                        </View>
+                        <View style={{ color: '#999' }}>
+                            余额不足 <Text className='theme-color '>充值</Text>
+                        </View>
+                    </View>
+                    <View className='handle fd' style={{ minHeight: '100rpx', height: 'auto' }}>
+                        <View className='fb' >
+                            <Text className=''>微信支付</Text>
+                            <Radio color='#00D0BF' checked={payType == 1} onClick={() => setPayType(1)} />
+                        </View>
+                    </View>
                 </View>
-                <View className='fb' onClick={() => setPayType(1)}>
-                    <Text className=''>余额支付</Text>
-                    <Radio checked={payType == 1} />
-                </View>
-            </View> */}
 
 
 
 
                 {/* couponList -get */}
                 {/* <Coupon show={couponShow} setShow={setCouponShow} /> */}
-                <Coupon show={couponShow} buttom='0' setShow={setCouponShow} />
+                {/* <Coupon show={couponShow} bottom={0} setShow={setCouponShow} /> */}
 
                 {/* vip card -get */}
                 <VipCard show={vpShow} setShow={setVpShow} />

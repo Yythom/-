@@ -3,7 +3,7 @@
 .address_wrap {
     background-color: #fff;
     // border-radius: 0 0 20px 20px;
-    border-radius: 0 0 20px 20px;
+    border-radius: 20px;
     padding: 25px 16px 32px 16px;
     margin: 0 16px;
     box-sizing: border-box;
@@ -56,15 +56,26 @@
             margin-bottom: 25px;
 
             .tag {
-                padding: 10px 13px;
+                padding: 4px 13px;
                 color: #00D0BF;
                 border: 2px solid #00D0BF;
                 background: #fff;
                 font-size: 22px;
-                border-radius: 23px;
+                border-radius: 12px;
                 margin-right: 10px;
+                transform: translateY(-6px);
             }
         }
     }
 
+    .handle {
+        height: auto !important;
+        margin-top: 20px;
+        padding: 0 !important;
+
+        .left {
+            font-weight: bold;
+            font-size: 28px;
+        }
+    }
 }

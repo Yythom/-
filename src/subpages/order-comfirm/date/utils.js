@@ -14,10 +14,10 @@ function funDate(aa) {
 
     var time2 = date2.getFullYear() + "-" + month + "-" + day;
 
-    let today = dayjs(time2).format('dddd') == dayjs(date1).format('dddd') ? '今天' : '';
-    let tomorrow = dayjs(time2).format('dddd') == dayjs(date1.valueOf() + 86400000).format('dddd') ? '明天' : '';
+    let today = dayjs(time2).format('dddd') == dayjs(date1).format('dddd') ? `今天 (${dayjs(time2).format('dddd').replace('星期', '周')})` : '';
+    let tomorrow = dayjs(time2).format('dddd') == dayjs(date1.valueOf() + 86400000).format('dddd') ? `明天 (${dayjs(time2).format('dddd').replace('星期', '周')})` : '';
     return {
-        str: `${(today || tomorrow) || dayjs(time2).format('MM-DD') + ' ' + dayjs(time2).format('dddd').replace('星期', '周')}`,
+        str: `${(today || tomorrow) || dayjs(time2).format('MM月DD号') + ' (' + dayjs(time2).format('dddd').replace('星期', '周') + ')'}`,
         time: time2
     }
 }

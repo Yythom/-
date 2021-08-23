@@ -7,7 +7,7 @@ import { View, Canvas, Button, Image } from '@tarojs/components';
 
 import './img.scss';
 
-function Uploadimg(props) {
+function OssImg(props) {
     const {
         style,
         className,
@@ -65,4 +65,4 @@ function Uploadimg(props) {
         </View>
     )
 }
-export default Uploadimg;
+export default OssImg;

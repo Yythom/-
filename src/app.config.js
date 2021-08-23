@@ -33,7 +33,8 @@ export default {
         'refill-card/card-order-list/index',
 
         // 测试入口
-        'test-yyt/index'
+        'test-yyt/index',
+        'oss-img-upload/index'
       ],
     },
   ],

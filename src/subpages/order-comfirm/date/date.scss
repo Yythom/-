@@ -1,9 +1,61 @@
 .data_float {
-    .act_item {
-        color: red;
+    border-radius: 40px 40px 0px 0px !important;
+    background-color: #fff !important;
+
+    .title {
+        background-color: #fff !important;
+        font-size: 34px;
+        color: #333;
+        height: 100px;
+    }
+
+    .tabs_item {
+        font-size: 28px !important;
+        color: #333 !important;
+    }
+
+    .tabs_act_item {
+        color: rgba(51, 51, 51, 0.75) !important;
+        background-color: #fff !important;
+    }
+
+    .nav-line {
+        width: 2px !important;
+        background-color: #00D0BF !important;
+    }
+
+    .date-tabs {
+        background-color: #EFEFEF !important;
     }
 
     .left_wrap {
-        width: 250px;
+        width: 240px;
+    }
+
+    .item_box {
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        align-items: flex-end;
+    }
+
+    .item {
+        width: calc(100% - 30px);
+        height: 90px;
+        border-bottom: 2px solid #DEDEDE;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .text {
+            color: #333;
+            font-size: 28px;
+        }
+    }
+
+    .act_item {
+        .text {
+            color: #00D0BF;
+        }
     }
 }

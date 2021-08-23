@@ -15,6 +15,7 @@ const Address = memo(({
     setAddress,
     date,
     setDate,
+    pre_data,
     setTell,
     method = make_type.DeliveryType.DELIVERY,
 }) => {
@@ -56,6 +57,7 @@ const Address = memo(({
     useEffect(() => {
         console.log(method, address, 'methodmethodmethod');
         init()
+        setDate({ date: '', show: false })
     }, [method]);
 
     if (!address) return method == make_type.DeliveryType.DELIVERY && <View className='address_wrap fd' onClick={() => navLinkTo('address/address-list/index', {})} ><View className='s_address' >
@@ -91,15 +93,17 @@ const Address = memo(({
                                     <View style={{ color: '#666' }}>
                                         预留电话：
                                     </View>
-                                    <View style={{marginRight: '13rpx'}}>{msg?.oldmsg}</View>
-                                    <Image style={{width: '26rpx', height: '26rpx'}} src={require('../../../../assets/images/shouhuodizhibianji.png')}/>
+                                    <View style={{ marginRight: '13rpx' }}>{msg?.oldmsg}</View>
+                                    <Image style={{ width: '26rpx', height: '26rpx' }} src={require('../../../../assets/images/shouhuodizhibianji.png')} />
                                     {/* <Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} /> */}
                                 </View>
                             </View>
                             {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
-                                <View className='left'>指定时间</View>
+                                <View className='left'>{
+                                    method == make_type.DeliveryType.DELIVERY ? '送达时间' : '自取时间'
+                                }</View>
                                 <View className='right'>
-                                    {date?.value}
+                                    {date?.value || '请选择时间'}
                                     <Text className='iconfont icon-right'></Text>
                                 </View>
                             </View> */}
