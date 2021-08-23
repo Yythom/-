@@ -8,6 +8,41 @@
     .user {
         // height: 200px;
         background-color: #f3f3f3;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+
+        .cardpay {
+            margin: 0 16px;
+            background-color: rgba(255, 255, 255, 1);
+            height: 180px;
+            border-radius: 17px;
+            padding-bottom: 20px;
+            position: relative;
+            background-image: url('../../../assets/images/vipbg.png');
+            background-size: 380px 100px;
+            background-repeat:no-repeat;
+            background-position-x: right;
+
+            .vip-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            .card-info {
+                padding-top: 85px;
+                margin: 0 32px;
+
+                .btn-pay {
+
+                    color: #FFFFFF;
+                    font-size: 24px;
+                    border-radius: 30px;
+                    background: #00D0BF;
+                    padding: 0 20rpx;
+                }
+            }
+        }
 
         .userinfo {
             // background: transparent;
@@ -90,7 +125,9 @@
                 width: 25%;
             }
 
-            .iconfont,
+            .iconfont {
+                font-size: 72px;
+            }
             .price {
                 height: 52px;
                 margin-bottom: 16px;
@@ -108,7 +145,7 @@
         }
 
         .order-card {
-            color: #777;
+            color: #333;
             flex-wrap: nowrap;
             padding: 25px 16px;
 

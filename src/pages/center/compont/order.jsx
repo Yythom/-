@@ -35,7 +35,7 @@ const OrderType = memo(() => {
                                         }, 200);
                                     }}
                                 >
-                                    <Text className='iconfont icon-dingdan'></Text>
+                                    <Text className='iconfont iconyiwancheng'></Text>
                                     <View className=''>{e.title}</View>
                                 </View>
                             </Fragment>
