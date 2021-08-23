@@ -264,7 +264,7 @@ const Index = () => {
                             {/* 余额不足不展示 */}
                             {/* <Radio checked={payType == 2}  onClick={() => setPayType(2)} /> */}
                         </View>
-                        <View style={{ color: '#999' }}>
+                        <View style={{ color: '#999', fontSize: '28rpx' }}>
                             余额不足 <Text className='theme-color '>充值</Text>
                         </View>
                     </View>
