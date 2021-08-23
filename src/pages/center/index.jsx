@@ -120,8 +120,8 @@ const Index = () => {
 
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', { is_center: true })}>
                     <View className='flex item'>
-                        {/* <Text className='iconfont iconshouhuodizhi' /> */}
-                        <Image style={{width: '38rpx', height: '38rpx', marginRight: '13rpx'}} src={require('../../../assets/images/shouhuodizhi.png')} />
+                        {/* <Text className='iconfont icon-dingwei' /> */}
+                        <Image style={{ width: '38rpx', height: '38rpx', marginRight: '13rpx' }} src={require('../../../assets/images/shouhuodizhi.png')} />
                         <Text className=''>收货地址</Text>
                     </View>
                     <View className='flex'>
@@ -131,9 +131,20 @@ const Index = () => {
                 </View>
                 <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone || '暂未设置')}>
                     <View className='flex item'>
-                        {/* <Text className='iconfont iconlianxishangjia' /> */}
-                        <Image style={{width: '38rpx', height: '38rpx', marginRight: '13rpx'}} src={require('../../../assets/images/lianxishangjia.png')} />
+                        {/* <Text className='iconfont icon-dianhua' /> */}
+                        <Image style={{ width: '38rpx', height: '38rpx', marginRight: '13rpx' }} src={require('../../../assets/images/lianxishangjia.png')} />
                         <Text className=''>联系商家</Text>
+                    </View>
+                    <View className='flex'>
+                        {/* <Text className=''>查看</Text> */}
+                        <Text className='iconfont icon-right' />
+                    </View>
+                </View>
+
+                <View className='flex-handle fb' onClick={() => navLinkTo('wx-code/index', {})}>
+                    <View className='flex item'>
+                        <Text className='iconfont iconweixin' />
+                        <Text className=''>商家微信</Text>
                     </View>
                     <View className='flex'>
                         {/* <Text className=''>查看</Text> */}

@@ -9,12 +9,14 @@ import BlurImg from '@/components/blur-img/BlurImg';
 import order_type from '../orderType';
 import { navLinkTo } from '@/common/publicFunc';
 import OrderService from '@/services/order';
-import './index.scss'
 import { againOrder, showInfo } from '../order-btn-handle';
+import Refund from './refund-float/refund';
+import './index.scss'
 
 
 const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
+    const [show, setShow] = useState(false); // 申请退款弹框
     const [pageData, setPageData] = useState(null
         // {
         // status_message: '待发货',
@@ -93,8 +95,7 @@ const Index = () => {
                 <View className='code fc'>
                     <Text className='fixed-tag'>取货码</Text>
                     {pageData?.order_code?.map((e) => {
-                        console.log('e.code.replace(/\s+/g, "-")', e.code.replace(/\s+/g, "-"))
-                        return Array.from(e.code.replace(/\s+/g, "-")).map((v, index)=>{
+                        return Array.from(e.code.replace(/\s+/g, "-")).map((v, index) => {
                             return <Text key={index} className='num'>{v}</Text>
                         })
                     })}
@@ -215,6 +216,8 @@ const Index = () => {
                     </View>
                 </View>
             </View>
+
+            <Refund show={show} setShow={setShow} />
         </View>
     )
 }

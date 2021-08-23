@@ -36,7 +36,7 @@ const Date = memo(({
 
     return (
         <FloatBottom show={show} setShow={setShow} className='data_float'>
-            <Text className='iconfont iconguanbi1' onClick={() => setShow(false)}></Text>
+            <Text className='iconfont icon-close' onClick={() => setShow(false)}></Text>
             <View className='date_picker' >
                 <View className='title fc'>请选择送达时间</View>
                 <Vtabs

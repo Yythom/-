@@ -51,7 +51,7 @@ const CouponFloat = ({
     return (
         <FloatBottom bottom={!isNaN(bottom) ? bottom : Number(getStorageSync('bar_height')) + systemInfo?.safeArea?.top / 2} className='coupon-float' show={show} setShow={setShow} style={{ backgroundColor: '#fff' }}>
             <View className='title-pro fc'>优惠券</View>
-            <View className='iconfont iconguanbi1' onClick={() => setShow(false)} />
+            <View className='iconfont icon-close' onClick={() => setShow(false)} />
             <View style={{ height: '65vh', overflow: 'scroll' }}>
                 {
                     list.map((e, i) => {

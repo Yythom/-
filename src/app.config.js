@@ -31,10 +31,13 @@ export default {
         // 迭代
         'refill-card/card-full/index',
         'refill-card/card-order-list/index',
+        'oss-img-upload/index',
+        'wx-code/index',
 
         // 测试入口
         'test-yyt/index',
-        'oss-img-upload/index'
+
+
       ],
     },
   ],
