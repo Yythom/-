@@ -7,11 +7,11 @@ import { navigateTo, setStorageSync } from '@tarojs/taro';
 import React, { Fragment, memo } from 'react';
 
 const tabsList = [
-    { title: '全部', status: '' },
-    { title: '备货中', status: order_type.UserOrderStatus.READY },
-    { title: '待取货', status: order_type.UserOrderStatus.WAIT_MOTION },
-    { title: '已完成', status: order_type.UserOrderStatus.FINISH },
-    { title: '待付款', status: order_type.UserOrderStatus.INIT },
+    { title: '全部', status: '' , iconname: 'iconyiwancheng'},
+    { title: '备货中', status: order_type.UserOrderStatus.READY, iconname: 'icondaifahuo' },
+    { title: '待取货', status: order_type.UserOrderStatus.WAIT_MOTION, iconname: 'icondaiquhuo' },
+    { title: '已完成', status: order_type.UserOrderStatus.FINISH, iconname: 'iconyiwancheng' },
+    { title: '待付款', status: order_type.UserOrderStatus.INIT, iconname: 'icondaifukuan' },
     // { title: '退款', status: order_type.UserOrderStatus },
 ]
 
@@ -35,7 +35,7 @@ const OrderType = memo(() => {
                                         }, 200);
                                     }}
                                 >
-                                    <Text className='iconfont iconyiwancheng'></Text>
+                                    <Text className={`iconfont ${e.iconname}`}></Text>
                                     <View className=''>{e.title}</View>
                                 </View>
                             </Fragment>

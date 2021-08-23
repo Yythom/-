@@ -127,6 +127,9 @@
 
             .iconfont {
                 font-size: 72px;
+                background-image: linear-gradient(135deg, #00FFD9 0%, #00CCFB 100%);
+                -webkit-background-clip: text;
+                color:transparent;
             }
             .price {
                 height: 52px;
