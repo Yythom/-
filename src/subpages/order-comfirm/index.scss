@@ -2,7 +2,7 @@
     height: 100vh;
     box-sizing: border-box;
     overflow: hidden;
-    padding-bottom: 140px;
+    padding-bottom: 122px;
 
     background-color: #f3f3f3;
 
@@ -35,7 +35,7 @@
                 transition: color 400ms ease;
                 // transition: 400ms;
             }
-    
+
             .act-tab {
                 background: #FFFFFF;
                 font-weight: bold;
@@ -59,37 +59,18 @@
         color: #ccc;
     }
 
-    .handle {
-        color: #333;
-        width: 100%;
-        height: 100px;
-        background-color: #fff;
-        box-sizing: border-box;
-        padding: 16px 16px;
-
-        .right {
-            max-width: 70%;
-            word-break: break-all;
-            display: flex;
-            align-items: center;
-            color: #333;
-            font-size: 28px;
-
-            .iconfont {
-                color: #333;
-                font-size: 24px;
-            }
-        }
-    }
-
     .order-desc {
+        width: calc(100% - 32px);
         border-top: #DEDEDE solid 2px;
-        border-bottom: #DEDEDE solid 2px;
-        background-color: #fff;
         color: #333;
         margin-bottom: 15px;
+        margin: 0 16px;
         box-sizing: border-box;
-        padding: 20px 16px;
+        padding: 20px 0;
+
+        &:nth-last-of-type(1) {
+            border-bottom: none !important;
+        }
 
         .line {
             margin: 20px 0;
@@ -171,4 +152,26 @@
 
     }
 
+    .handle {
+        color: #333;
+        width: 100%;
+        height: 100px;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 0 16px;
+
+        .right {
+            max-width: 70%;
+            word-break: break-all;
+            display: flex;
+            align-items: center;
+            color: #333;
+            font-size: 28px;
+
+            .iconfont {
+                color: #333;
+                font-size: 24px;
+            }
+        }
+    }
 }

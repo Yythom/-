@@ -119,6 +119,12 @@
           "pathName": "subpages/test-yyt/index",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "oss批量上传",
+          "pathName": "subpages/oss-img-upload/index",
+          "query": "",
+          "scene": null
         }
       ]
     }

@@ -3,6 +3,7 @@ import React, { memo, useEffect, useState } from 'react';
 import { View, Image, ScrollView, Swiper, SwiperItem } from '@tarojs/components';
 import { createSelectorQuery } from '@tarojs/taro';
 import './vtabs.scss'
+import { systemInfo } from '@/common/publicFunc';
 
 const Vtabs = memo(({
     list, // 左侧列表
@@ -13,6 +14,7 @@ const Vtabs = memo(({
     windowTabsLength, // 左侧列表显示的tabs数量
     // scrollTo = 0,
     isScroll,
+    isBottom = false,
 }) => {
     const query = createSelectorQuery();
     const [swiperIndex, setSwiperIndex] = useState(0); // tab index
@@ -88,6 +90,7 @@ const Vtabs = memo(({
                 scrollWithAnimation
                 scrollY
                 className='left_wrap'
+                style={{ height: `calc(100% - ${isBottom ? systemInfo.safeArea.top / 2 : 0}px)` }}
             // scrollIntoView={scrollTop}
             // scrollTop={scrollTop}
             >
@@ -99,7 +102,8 @@ const Vtabs = memo(({
                                     onClick={() => { _onChange(i, true) }}
                                     className={`tabs_item childrenClass ${i == swiperIndex && 'tabs_act_item theme-color '}`}
                                     key={'tab' + i}
-                                    style={{ height: (100 / windowTabsLength) + '%' }}>
+                                    style={{ height: `calc(${(100 / windowTabsLength) + '%'})` }}
+                                >
                                     {e.category}
                                 </View>
                             )

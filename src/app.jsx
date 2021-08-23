@@ -5,13 +5,13 @@ import { Provider, useDispatch } from 'react-redux'
 // import { initErrorNet } from '../utils/wx-net_error';
 // import { init, breadcrumb } from '../utils/wx';
 import { actions } from '@/store/commonSlice';
+import { setEnableDebug } from '@tarojs/taro';
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import store from '../store';
-import '../assets/icon.css';
+// import '../assets/icon.css';
 import '../assets/lkicon.css';
 import './app.scss';
-import { setEnableDebug } from '@tarojs/taro';
 
 dayjs.locale('zh-cn');
 const InitStore = memo(() => {

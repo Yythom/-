@@ -146,7 +146,7 @@ const NavBar = (_props) => {
                 <View className='ty-nav-bar__left' style={navLeftStyle}>
                     {
                         back && !home ? (
-                            <View onClick={handleBackClick} className='iconfont icon-fanhui' style={iconStyle} />
+                            <View onClick={handleBackClick} className='iconfont icon-left' style={iconStyle} />
                         ) : null
                     }
                     {
@@ -157,7 +157,7 @@ const NavBar = (_props) => {
                     {
                         back && home ? (
                             <View className={classnames(['ty-nav-bar__buttons', ios ? 'ios' : 'android'])}>
-                                <View onClick={handleBackClick} className='iconfont icon-fanhui' style={iconStyle} />
+                                <View onClick={handleBackClick} className='iconfont icon-left' style={iconStyle} />
                                 <View onClick={handleGoHomeClick} className='iconfont icon-home' style={iconStyle} />
                             </View>
                         ) : null
