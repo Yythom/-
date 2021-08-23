@@ -23,10 +23,10 @@ export function timeoutInterceptor(chain) {
 export function logInterceptor(chain) {
   const { requestParams } = chain;
   const { method, data, url, header } = requestParams;
-  console.log(`%c http ${method || 'GET'} --> ${url} data: %O`, 'font-weight:bold;color:#6190E8;', data);
+  console.log(`%c http ${method || 'GET'} --> ${url} data: %O`, 'font-weight:bold;color:#6190E8;', requestParams);
   const p = chain.proceed(requestParams);
   const res = p.then((res2) => {
-    console.log(`%c http <-- ${url} result: %O`, 'font-weight:bold;color:#13CE66;', res2);
+    console.log(`%c http <-- ${url} result: %O`, 'font-weight:bold;color:#13CE66;', res2?.data);
     return res2;
   });
   if (typeof p.abort === 'function') res.abort = p.abort;
