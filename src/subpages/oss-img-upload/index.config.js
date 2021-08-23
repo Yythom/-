@@ -1,3 +1,4 @@
 export default {
-    navigationBarTitleText: 'oss',
+    navigationBarTitleText: '测试',
+    navigationStyle: 'custom',
 }

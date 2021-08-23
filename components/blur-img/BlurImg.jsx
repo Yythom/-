@@ -9,7 +9,8 @@ function BlurImg(props) {
     const {
         src,
         className,
-        mode
+        mode,
+        onClick = Function.prototype,
     } = props;
 
     // const [w, setW] = useState(false);
@@ -46,6 +47,7 @@ function BlurImg(props) {
                     : <Image
                         className={load ? 'image_mohu weapp' : 'image_mohu image--not-loaded'}
                         src={src}
+                        onClick={onClick}
                         onLoad={() => { setLoad(true) }}
                         mode={mode || 'aspectFill'}
                     />
