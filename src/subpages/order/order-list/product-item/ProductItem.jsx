@@ -20,7 +20,7 @@ const ProductItem = memo(({ order, getList }) => {
             case '取消订单':
                 showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList(false) && showToast({ title: '取消订单成功', icon: 'none' }));
                 break;
-            case '立即付款':
+            case '立即支付':
 
                 break;
             case '确认订单':
@@ -75,11 +75,11 @@ const ProductItem = memo(({ order, getList }) => {
                 <Text style={{ fontSize: '24rpx' }}>共{order.sku_count}件</Text>
             </View>
             <View className='btns flex'>
-                {order.user_status === order_type.UserOrderStatus.READY && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
+                {(order.user_status === order_type.UserOrderStatus.READY || order.user_status === order_type.UserOrderStatus.INIT) && <Button className='btn fc' onClick={(event) => { handle('取消订单'); event.stopPropagation(); }} >取消订单</Button>}
                 {order.user_status === order_type.UserOrderStatus.CANCEL && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
                 {order.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
                 {order.user_status === order_type.UserOrderStatus.WAIT_MOTION && <Button className='btn fc' onClick={(event) => { handle('确认收货'); event.stopPropagation(); }} >确认收货</Button>}
-                {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
+                {order.user_status === order_type.UserOrderStatus.INIT && <Button className='btn act-btn fc' onClick={(event) => { handle('立即支付'); event.stopPropagation(); }} >立即支付</Button>}
             </View>
         </View>
 
