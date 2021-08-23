@@ -1,0 +1,51 @@
+.card-order-list {
+    background-color: #f3f3f3;
+    box-sizing: border-box;
+    min-height: 100vh;
+
+    .header {
+        position: sticky;
+
+        .item {
+            background-color: pink;
+            height: 80px;
+            font-size: 28px;
+            flex: 1;
+            transition: 500ms;
+            color: #333;
+        }
+
+        .act-item {
+            color: #00D0BF;
+        }
+    }
+
+    .list {
+        .item {
+            box-sizing: border-box;
+            background-color: #fff;
+            margin: 0 14px;
+            border-radius: 12px;
+            padding: 25px 16px;
+            margin-top: 20px;
+
+            .title {
+                .date {
+                    color: #999;
+                }
+
+                .msg {
+                    color: yellowgreen;
+                }
+
+                .fail_msg {
+                    color: red;
+                }
+            }
+
+            .info {
+                text {}
+            }
+        }
+    }
+}

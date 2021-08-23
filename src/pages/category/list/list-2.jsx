@@ -117,9 +117,14 @@ function VtabList({
     setSkuData,
     skuData,
 }) {
+    // 选中的子分类
     const [child_cate, setchild_cate] = useState(null);
-    const [arr, setArr] = useState([])
+    const [arr, setArr] = useState([]); // nodes 节点列表
+    // 展开子分类
+    const [show, setShow] = useState(false);
 
+
+    const [scrollTo, setScrollTo] = useState(0);
     function autoInfos(delay = 600) {
         let heightArray = [];
         setScrollTo(0);
@@ -152,29 +157,19 @@ function VtabList({
             let scrollTop = e.detail.scrollTop;
             arr.forEach((el, index) => {
                 let top = el - initTop
-                if (top - scrollTop < 40) {
-                    // console.log(index, 'index');
-                    // if(i>index)
+                if (top - scrollTop < 40) {  // 计算出当前滚动到的元素 index
                     indexArr.push(index)
                 }
             })
-            // selectChild(twoCate[indexArr[indexArr.length - 1]], indexArr.length - 1)
+            // 监听滚动index选择nodes
             setchild_cate(twoCate[indexArr[indexArr.length - 1]]);
         }
-
-        // console.log(;
     }
-
-    // 展开子分类
-    const [show, setShow] = useState(false);
-    const [scrollTo, setScrollTo] = useState(0);
-    const [i, setI] = useState(2);
 
     const selectChild = async (item, index) => {
         console.log(arr[index] - arr[0], scrollTo, 'scrollTo');
-        setI(i - 1);
-        let top = arr[index] - arr[0] + 0.0001
-        if (scrollTo == top) top = scrollTo + 0.0001
+        let top = arr[index] - arr[0] + 0.0001; // 防止同数据不更新视图层
+        if (scrollTo == top) top = scrollTo + 0.0001;
         setScrollTo(top);
         setchild_cate(item);
     };

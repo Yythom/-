@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import { View, Text, ScrollView } from '@tarojs/components';
+import { View, Text, ScrollView, Button } from '@tarojs/components';
 import Taro, { getStorageSync, reLaunch, removeStorageSync, setBackgroundColor, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import WithUserVerify from '@/components/auth/UserVerify';
 import { navLinkTo, systemInfo } from '@/common/publicFunc';
@@ -124,6 +124,10 @@ const Index = () => {
                     </View>
                 </View>
 
+                {
+                    process.env.NODE_ENV === 'development'
+                    && <Button onClick={() => navLinkTo('test-yyt/index', {})} >测试入口</Button>
+                }
 
                 {/* 服务 */}
                 {/* <View className='fb my-server wallet-common'>

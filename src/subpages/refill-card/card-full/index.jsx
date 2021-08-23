@@ -1,17 +1,22 @@
+/* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useState } from 'react';
 import { Input, Radio, Text, View } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, hideLoading, requestPayment, showLoading, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { actions as userActions } from '@/store/userSlice'
+import WxPay from '@/utils/wxpay';
 import './index.scss'
-import WxPay from '../wxpay';
+import Modal from '@/components/modal/Modal';
 
 const Index = () => {
     const userStore = useSelector(e => e.userStore, shallowEqual);
     const userInfo = userStore.userInfo || null;
     const [type, setType] = useState(2);
     const [money, setMoney] = useState('');
+
+    const [modal, setModal] = useState(false);
+
     const dispatch = useDispatch();
     const init = async () => {
 
@@ -58,13 +63,13 @@ const Index = () => {
             {
                 type && <View className='info_wrap'>
                     <View className='wx_pay'>
-                        <View className='title'>
+                        {/* <View className='title'>
                             <View className='left'>
                                 <Text className='name'>充值金额：¥</Text>
                                 <Input placeholder='输入充值金额' value={money} onInput={(e) => setMoney(e.detail.value)} />
                             </View>
                             <Text className='right'>当前余额：{userInfo?.card?.integral}</Text>
-                        </View>
+                        </View> */}
                         <View className='welfare_box'>
                             {
                                 [
@@ -78,7 +83,11 @@ const Index = () => {
                                     }
                                 ].map((e, i) => {
                                     return (
-                                        <View className={money == e.price ? 'act_welfare_item welfare_item' : 'welfare_item'} key={i} onClick={() => { setMoney(e.price); }}>
+                                        <View className={modal == e.price ? 'act_welfare_item welfare_item' : 'welfare_item'} key={i}
+                                            onClick={() => {
+                                                setModal(e.price.trim());
+                                            }}
+                                        >
                                             <View className='price'>
                                                 <Text className='moneny'>¥</Text>{e.price}
                                             </View>
@@ -98,6 +107,17 @@ const Index = () => {
             }
 
 
+            <Modal
+                title='充值数量'
+                onOk={() => {
+
+                }}
+                content={
+                    <Input autoFocus type='digit' className='number' onInput={(e) => {
+                        setMoney(e.detail.value.trim());
+                    }} placeholder='请输入数量' />
+                } show={modal} setShow={setModal}
+            />
             {type && <View className='foot_address_btn' style={{ bottom: `${getStorageSync('safeArea') * 2 + 10}rpx` }} onClick={() => ok()}>立即充值</View>}
         </View >
     )

@@ -37,20 +37,7 @@ const customInterceptor = (chain) => {
       // 网络监控加入stack
       newWorkStackPush('success', 'error', res.data.code, requestParams, res.data);
       return Promise.resolve(false);
-    } else if (code === 'xxx' || code === 'xxx') { // 重新登入的code
-      let resp;
-      // 如果不存在refreshToken，则是第一次使用，默认微信登录获取token
-      // if (!getStorageSync('refreshToken')) {
-
-      // } else { // 刷新token
-
-      // }
-      prevUrl = url.substring(baseURL.length);
-      prevData = data;
-      // 重新发起上一次请求
-      resp = await http.post(prevUrl, prevData);
-      return Promise.resolve(resp);
-    } else {  // 请求成功时
+    } else { // 请求成功时
       return Promise.resolve(result);
     }
     // return Promise.reject();

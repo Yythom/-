@@ -1,6 +1,18 @@
 import { showToast, hideLoading, requestPayment } from '@tarojs/taro'
+import requset from '../common/request';
 
 class WxPay {
+
+    static async getPayOrderParams(order_id, pay_order_type = 1) {
+        const res = await requset.post('/order/handle', {
+            order_id,
+            action: 1,
+            params: {
+                pay_order_type: pay_order_type
+            }
+        });
+        return res;
+    }
 
     /**
      * 
@@ -8,19 +20,17 @@ class WxPay {
      * @param {*} callback 支付成功回调
      */
     static async pay(
-        money,
+        data,
         callback = Function.prototype,
     ) {
-        console.log(money);
-        let res = {}
-        // res = await WxPayService.pay(money);
-        // 
-        if (!res) return
+        if (!data) return console.log('支付参数错误');
+        const res = data.result;
+        console.log(res, '支付签名');
         requestPayment({
             timeStamp: res.timeStamp,
             nonceStr: res.nonceStr,
             package: res.package,
-            signType: 'MD5',
+            signType: res.signType,
             paySign: res.paySign,
             success: function () {
                 setTimeout(() => {

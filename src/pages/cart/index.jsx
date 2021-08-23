@@ -16,6 +16,7 @@ import filter_data from '../../../hooks/sku-utils/data_filter';
 import useSummary from '../../../hooks/useSummary';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
+import WithUserVerify from '@/components/auth/UserVerify';
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -272,18 +273,20 @@ const Index = () => {
                                     已优惠 ¥{discount_price}
                                 </View> */}
                             </View>
-                            <View
-                                className='btn  fc'
-                                onClick={(event) => {
-                                    event.stopPropagation();
-                                    if (Object.keys(summaryShop).length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
-                                    if (!edit) pay();
-                                    else del()
-                                }}
-                            >
-                                {!edit && `结算`}
-                                {edit && '删除'}
-                            </View>
+                            <WithUserVerify isVerifyPhone >
+                                <View
+                                    className='btn  fc'
+                                    onClick={(event) => {
+                                        event.stopPropagation();
+                                        if (Object.keys(summaryShop).length == 0) return showToast({ title: '请先选择商品', icon: 'none', })
+                                        if (!edit) pay();
+                                        else del()
+                                    }}
+                                >
+                                    {!edit && `结算`}
+                                    {edit && '删除'}
+                                </View>
+                            </WithUserVerify>
                         </View>
                     </View>
                 </View>

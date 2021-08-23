@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useEffect, useMemo, useState } from 'react';
-import Taro, { getStorageSync, setTabBarStyle, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro';
+import Taro, { getStorageSync, setTabBarStyle, showToast, stopPullDownRefresh, useDidShow, useReachBottom } from '@tarojs/taro';
 import { View, Button, Text, Image, Swiper, SwiperItem } from '@tarojs/components';
 import Banner from '@/components/page/banner/Banner';
 import NavBar from '@/components/navbar/NavBar';
@@ -25,6 +25,7 @@ import Seconds from './seconds-kill/Seconds';
 import './index.scss';
 import SkewText from '@/components/page/skew-text/SkewText';
 import { min_max_price_format } from '@/common/utils';
+import usePaging from '../../../hooks/usePaging';
 
 function Index() {
     const dispatch = useDispatch();
@@ -43,7 +44,6 @@ function Index() {
 
     // console.log(formattedRes);
     const [pageData, setPageData] = useState(null);
-    const [list, setList] = useState([]);
     const [types, setTypes] = useState([
         {
             type: '9.9包邮',
@@ -76,7 +76,7 @@ function Index() {
 
     const init = async () => {
         const res = await HomeService.getHomeApi();
-        setPageData(res)
+        setPageData(res);
     }
 
     useEffect(() => {
@@ -86,43 +86,23 @@ function Index() {
         console.log(commonConfig);
     }, [])
 
-    const [page, setPage] = useState(1)
+    // usePullDownRefresh(() => {
+    //     init();
+    //     setInit(!initPaging);
+    // })
 
-    useReachBottom(() => {
-        tabChange(index, page + 1);
-    });
-
-    usePullDownRefresh(() => {
-        init();
-        tabChange(index);
-        // setInit(!initTabs);
+    const [params, setParams] = useState({
+        category_id: '',
+    })
+    const [initPaging, setinitPaging] = useState(false);
+    const [result, no_more, testlist] = usePaging(params, ProductService.getProductListApi, initPaging, () => {
+        setinitHeight(!initHeight);
+        init()
     })
 
-    const [index, setIndex] = useState(0);
-    const [noMore, setNoMore] = useState(false);
-
     const tabChange = async (i, _page) => {
-        if (!_page) setList([])
-        // console.log(list, 'listlistlist');
-        if (_page && noMore && !list[0]) return
-        console.log(_page || 1);
-        const res = await ProductService.getProductListApi({ category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id, page: _page || 1 });
-        index !== i && setIndex(i);
-        if (!res) return;
-        if (_page) {
-            setPage(_page + 1);
-            if (!res?.list[0]) {
-                setNoMore(true);
-                showToast({ title: '没有更多了', icon: 'none' })
-            }
-            setList([...list, ...res.list])
-        } else {
-            if (!res?.list[0]) setNoMore(true);
-            else setNoMore(false);
-            setList(res.list)
-            setPage(1);
-        }
-        setinitHeight(!initHeight)
+        setParams({ ...params, category_id: i == 0 ? '' : pageData?.category.list[i - 1].category_id });
+        setinitPaging(!initPaging);
         stopPullDownRefresh();
     }
 
@@ -134,11 +114,11 @@ function Index() {
             setShow(1);
         }, 100);
     }
-    const [initTabs, setInit] = useState(false)
-    const [initHeight, setinitHeight] = useState(false)
+    const [initTabs, setInit] = useState(false);
+    const [initHeight, setinitHeight] = useState(false);
 
     useDidShow(() => {
-        // setinitHeight(!initHeight);
+        setinitHeight(!initHeight);
         dispatch(tabActions.changetab(0))
     })
     return (
@@ -183,7 +163,7 @@ function Index() {
                 >
                     <View className='pro-list fb'>
                         {
-                            list[0] ? list.map((e, i) => {
+                            testlist[0] ? testlist.map((e, i) => {
                                 return (
                                     <View key={e.product_id} className='pro-item fd' onClick={() => navLinkTo('product-detail/index', {
                                         product_id: e.product_id
@@ -221,12 +201,12 @@ function Index() {
             }
 
             {/* sku弹框 */}
-
             <Skuhooks
                 show={show}
                 setShow={setShow}
                 product={skuData}
             />
+
 
         </View>
     )

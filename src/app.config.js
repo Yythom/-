@@ -29,8 +29,11 @@ export default {
         'address/address-edit/index',
 
         // 迭代
-        'user-handle/refill-card/index',
+        'refill-card/card-full/index',
+        'refill-card/card-order-list/index',
 
+        // 测试入口
+        'test-yyt/index'
       ],
     },
   ],
