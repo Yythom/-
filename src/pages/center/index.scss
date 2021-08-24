@@ -32,6 +32,7 @@
             .card-info {
                 padding-top: 85px;
                 margin: 0 32px;
+                color: #333;
 
                 .btn-pay {
 
@@ -39,7 +40,8 @@
                     font-size: 24px;
                     border-radius: 30px;
                     background: #00D0BF;
-                    padding: 0 20rpx;
+                    width: 120px;
+                    height: 52px;
                 }
             }
         }

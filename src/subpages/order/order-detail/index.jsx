@@ -92,14 +92,14 @@ const Index = () => {
                     })
                 }} title='订单详情' background='#00D0BF' color='#fff' iconColor='#fff'
                 />
-                <View className='code fc'>
+                {!(pageData?.user_status === order_type.UserOrderStatus.INIT || pageData?.user_status === order_type.UserOrderStatus.FINISH || pageData?.user_status === order_type.UserOrderStatus.CANCEL ) && <View className='code fc'>
                     <Text className='fixed-tag'>取货码</Text>
                     {pageData?.order_code?.map((e) => {
                         return Array.from(e.code.replace(/\s+/g, "-")).map((v, index) => {
                             return <Text key={index} className='num'>{v}</Text>
                         })
                     })}
-                </View>
+                </View>}
 
             </View>
 
@@ -112,7 +112,7 @@ const Index = () => {
                             <View className='address'>{pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}</View>
                         </View>
                     </View>
-                    <Text className='name'>预留电话：</Text>
+                    <Text className='name'>{pageData?.delivery_type === 1 ? '商家电话' : '预留电话'}&nbsp;</Text>
                     <Text className='phone'>{pageData?.self_mention?.mobile || '暂未设置电话号码'}</Text>
                 </View>
             </View>
@@ -194,7 +194,8 @@ const Index = () => {
                     </View>
                 </View>
                 <View className='item fb'>取货码： <Text >{pageData?.order_code?.map((e) => { return e.code })}</Text></View>
-                <View className='item fb'>下单时间： <Text >{dayjs(pageData?.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text></View>
+                <View className='item fb'>创单时间： <Text >{dayjs(pageData?.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text></View>
+                <View className='item fb'>支付方式： <Text >{pageData?.pay_type_msg}</Text></View>
                 {/* {pageData?.delivery_at && <View className='item fb'>配送时间： <Text >{pageData?.delivery_at || '暂未设置'}</Text> </View>} */}
             </View>
 

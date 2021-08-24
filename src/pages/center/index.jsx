@@ -77,21 +77,21 @@ const Index = () => {
                         </View>
                     </View>
                 </WithUserVerify>
-                <View className='cardpay'>
+                {userInfo?.nickname && <View className='cardpay'>
                     <View className='vip-img'>
                         <Image style={{width: '184rpx', height: '72rpx', marginLeft: '16rpx'}} src={require('../../../assets/images/VIP.png')}/>
                     </View>
                     <View className='flex fb card-info'>
-                        <View>储值卡余额</View>
+                        <View style={{color: '#333'}}>储值卡余额</View>
                         <View>
-                            <Text style={{fontSize: '24rpx'}}>¥</Text>
-                            <Text style={{fontSize: '40rpx', fontWeight: 'bold'}}>0.00</Text>
+                            <Text style={{fontSize: '24rpx', color: '#333'}}>¥</Text>
+                            <Text style={{fontSize: '50rpx', fontWeight: 'bold', color: '#333'}}>0.00</Text>
                         </View>
                         <View>
-                            <Button className='btn-pay'>充值</Button>
+                            <Button className='btn-pay fc'>充值</Button>
                         </View>
                     </View>
-                </View>
+                </View>}
             </View>
             {/* <View className='' onClick={() => reLaunch({ url: '/pages/center/index' })} >重载入页面</View> */}
             <View className='handle'>

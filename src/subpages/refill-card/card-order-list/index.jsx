@@ -99,8 +99,9 @@ const Index = () => {
                                 setInit(!init);
                                 settype(e)
                             }}
-                            >
-                                {e.text}
+                            >   
+                                <View>{e.text}</View>
+                                <View className={`${e == type && 'act-item-line'}`}></View>
                             </View>
                         )
                     })
@@ -118,22 +119,40 @@ const Index = () => {
                                 <View className='info fd'>
                                     {
                                         type?.type !== 3 && <>
-                                            <Text>充值金额：¥{e.pay_price}</Text>
-                                            <Text>赠送金额：¥{e.giving_price}</Text>
-                                            <Text>实际到账：¥{e.price}</Text>
+                                            <View className='fb info-item'>
+                                                <View>充值金额</View>
+                                                <View className='info-item-color'>¥{e.pay_price}</View>
+                                            </View>
+                                            <View className='fb info-item'>
+                                                <View>赠送金额</View>
+                                                <View className='info-item-color'>¥{e.giving_price}</View>
+                                            </View>
+                                            <View className='fb info-item'>
+                                                <View>实际到账</View>
+                                                <View className='info-item-color'>¥{e.price}</View>
+                                            </View>
                                         </>
                                     }
 
                                     {
                                         type?.type == 2 && <>
-                                            <Text className='remake'>充值备注：{e.price}</Text>
+                                            <View className='remake fb info-item'>
+                                                <View>充值备注</View>
+                                                <View className='info-item-color'>{e.price}</View>
+                                            </View>
                                         </>
                                     }
 
                                     {
                                         type?.type == 3 && <>
-                                            <Text>消费金额：¥{e.price}</Text>
-                                            <Text className='remake'>消费备注：{e.price}</Text>
+                                            <View className='fb info-item'>
+                                                <View>消费金额</View>
+                                                <View className='info-item-color'>¥{e.price}</View>
+                                            </View>
+                                            <View className='remake fb info-item'>
+                                                <View>消费备注</View>
+                                                <View className='info-item-color'>¥{e.price}</View>
+                                            </View>
                                         </>
                                     }
 
