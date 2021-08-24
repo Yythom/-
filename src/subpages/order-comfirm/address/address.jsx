@@ -73,7 +73,8 @@ const Address = memo(({
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
                                 {/* <View className='flex'> */}
-                                <Image src={require('../../../../assets/images/shouhuodizhilvse.png')} style={{ height: '34rpx', width: '34rpx', verticalAlign: 'middle', marginRight: '10rpx' }} />
+                                <Text className='iconfont icon-dingwei'></Text>
+                                {/* <Image src={require('../../../../assets/images/shouhuodizhilvse.png')} style={{ height: '34rpx', width: '34rpx', verticalAlign: 'middle', marginRight: '10rpx' }} /> */}
                                 {address.address || '请设置收货地址'}
                                 {/* </View> */}
                             </View>
@@ -93,8 +94,7 @@ const Address = memo(({
                                         预留电话：
                                     </View>
                                     <View style={{ marginRight: '13rpx' }}>{msg?.oldmsg}</View>
-                                    <Image style={{ width: '26rpx', height: '26rpx' }} src={require('../../../../assets/images/shouhuodizhibianji.png')} />
-                                    {/* <Text className='iconfont icon-edit' style={{ marginLeft: '15px' }} /> */}
+                                    <Text style={{ fontSize: '32rpx' }} className='iconfont icon-edit' />
                                 </View>
                             </View>
                             {/* <View className='handle fb' onClick={() => setDate({ ...date, show: true })}>
