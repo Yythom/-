@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, Image, Button } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import dayjs from 'dayjs';
-import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStorageSync, setClipboardData, setStorageSync, showLoading, showModal, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
+import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStorageSync, setClipboardData, setStorageSync, showLoading, showModal, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
 import { callPhone } from '@/common/public';
 import BlurImg from '@/components/blur-img/BlurImg';
 import order_type from '../orderType';
@@ -13,6 +13,7 @@ import { againOrder, showInfo } from '../order-btn-handle';
 import Refund from './refund-float/refund';
 import './index.scss'
 import make_type from '../type';
+import WxPay, { payment } from '@/utils/wxpay';
 
 
 const Index = () => {
@@ -53,14 +54,28 @@ const Index = () => {
     }
 
 
+
+
     const handle = async (type) => {
         const order_id = pageData?.order_id;
         switch (type) {
             case '取消订单':
                 showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && init());
                 break;
-            case '立即付款':
-
+            case '立即支付':
+                const pay_params = await WxPay.getPayOrderParams(order_id, 1)
+                if (pay_params) {
+                    let result = await payment(pay_params)
+                    if (result) {
+                        init();
+                        setTimeout(() => {
+                            showToast({ title: '支付成功', icon: 'success' });
+                        }, 400);
+                    } else {
+                        showToast({ title: '支付失败', icon: 'none' })
+                    }
+                    // pay_clear(res.order_id)
+                }
                 break;
             case '确认订单':
                 // showInfo('确认订单', async () => await OrderService.offOrder(order_id) && getList());
@@ -223,7 +238,7 @@ const Index = () => {
                         {pageData?.user_status === order_type.UserOrderStatus.CANCEL && <Button className='btn fc' onClick={(event) => { handle('再来一单');; event.stopPropagation(); }}>再来一单</Button>}
                         {pageData?.user_status === order_type.UserOrderStatus.DELIVERING && <Button className='btn fc' onClick={(event) => { handle('确认订单'); event.stopPropagation(); }} >确认订单</Button>}
                         {pageData?.user_status === order_type.UserOrderStatus.WAIT_MOTION && <Button className='btn fc' onClick={(event) => { handle('确认收货'); event.stopPropagation(); }} >确认收货</Button>}
-                        {/*  order.status === '' && <Button className='btn act-btn fc' onClick={(event) => { handle('立即付款'); event.stopPropagation(); }} >立即付款</Button> */}
+                        {pageData?.user_status === order_type.UserOrderStatus.INIT && <Button className='btn act-btn fc' onClick={(event) => { handle('立即支付'); event.stopPropagation(); }} >立即支付</Button>}
                     </View>
                 </View>
             </View>
