@@ -3,7 +3,9 @@ import { setStorageSync, switchTab } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import { systemInfo } from '@/common/publicFunc';
+import { actions as userActions } from '@/store/userSlice'
 import { actions } from './store/slice'
+
 import './index.scss'
 
 const bar_height = '60';
@@ -14,18 +16,16 @@ export default memo(() => {
     const cartSlice = useSelector(state => state.userStore, shallowEqual);
     //去除底部安全区
     useEffect(() => {
-        console.log(systemInfo, 'systemInfo');
+        dispatch(userActions.upcart_price());
         if (systemInfo.model.indexOf('iPhone X') !== -1 || systemInfo.model.indexOf('iPhone 11') !== -1 || systemInfo.model.indexOf('iPhone 12') !== -1) {
             setStorageSync('safeArea', systemInfo.safeArea.top);
         } else {
             setStorageSync('safeArea', 5);
         }
         setStorageSync('bar_height', bar_height);
-
     }, [])
 
     const price = useMemo(() => {
-        console.log('cartSlice', cartSlice);
         return cartSlice.cart_price
     }, [cartSlice])
 

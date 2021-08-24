@@ -1,0 +1,53 @@
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "order_id": "288769097973682176",
+        "shop_id": "1",
+        "user_id": "284748135443161088",
+        "sku_count": 1,
+        "order_amount": "1.60",
+        "delivery_type": 2,
+        "pay_type": 2,
+        "pay_method": 2,
+        "pay_channel": 1,
+        "remark": "",
+        "pay_status": 1,
+        "status": 100,
+        "user_status": 100,
+        "order_discount_amount": "0.00",
+        "order_detail": [
+            {
+                "order_detail_id": "288769097973682177",
+                "order_id": "288769097973682176",
+                "sku_id": "284714451184853001",
+                "product_id": "284714451088384004",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "product_name": "羊角面包",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "spec_detail": "",
+                "sku_price": "0.10",
+                "sku_count": 6,
+                "amount": "0.60"
+            }
+        ],
+        "order_discount": [],
+        "order_fee": [
+            {
+                "fee_id": "288769097986265088",
+                "order_id": "288769097973682176",
+                "fee_type": 1,
+                "fee": "1.00",
+                "fee_type_msg": "包装费"
+            }
+        ],
+        "user_status_msg": "待支付",
+        "pay_status_msg": "待支付",
+        "status_msg": "待支付",
+        "delivery_type_msg": "线上配送",
+        "pay_type_msg": "线上支付",
+        "pay_method_msg": "电子支付"
+    }
+}

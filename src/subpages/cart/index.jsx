@@ -67,7 +67,9 @@ const Index = () => {
             case 'number':
                 item.product_count = value || (value?.length == 0 ? 1 : item.sku.stock); // 修改当前商品数量
                 if (value) {
-                    success(item, shop_id, (newItem) => { setPageData(newList); })
+                    success(item, shop_id, (newItem) => {
+                        dispatch(actions.upcart_price()); setPageData(newList);
+                    })
                 }
                 break;
             case 'check':
@@ -250,12 +252,12 @@ const Index = () => {
                                     )
                                 }
                             </View>
-                        ) : <View className='empty fc' style={{minHeight: '60vh'}}> 
-                        <View>
-                            <Image mode='widthFix' style={{ width: '400rpx', height: '400rpx' }} src={require('../../../assets/images/购物车.png')} />
-                            <View className='fc' style={{fontSize: '28rpx', color: '#999'}}>购物车暂无商品哦～</View>
+                        ) : <View className='empty fc' style={{ minHeight: '60vh' }}>
+                            <View>
+                                <Image mode='widthFix' style={{ width: '400rpx', height: '400rpx' }} src={require('../../../assets/images/购物车.png')} />
+                                <View className='fc' style={{ fontSize: '28rpx', color: '#999' }}>购物车暂无商品哦～</View>
+                            </View>
                         </View>
-                </View>
 
                     }
                 </View>

@@ -3,25 +3,22 @@ import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, navigateBack, navigateTo, redirectTo, reLaunch, removeStorageSync, setStorageSync, showActionSheet, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
-import BlurImg from '@/components/blur-img/BlurImg';
 import Modal from '@/components/modal/Modal';
-import Coupon from '@/components/page/coupon/coupon';
+// import Coupon from '@/components/page/coupon/coupon';
+import OrderService from '@/services/order';
+import np from 'number-precision'
+import WxPay, { payment } from '@/utils/wxpay';
+import { actions } from '@/store/userSlice';
+import ProductItem from './product-item/product-item';
+import PayType from './pay-type/pay-type';
+import make_type from '../order/type';
 import VipCard from './vip-card/vipCard';
 import Address from './address/address';
-import './index.scss'
+import './index.scss';
 import Date from './date/date';
-import ProductItem from './product-item/product-item';
-import OrderService from '@/services/order';
-import AddressService from '@/services/address';
-import np from 'number-precision'
-import make_type from '../order/type';
-import Drop from '@/components/drop/DropDwon';
-import PayType from './pay-type/pay-type';
-import WxPay, { payment } from '@/utils/wxpay';
 
-const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
     "shop_id": "string",
     "config": {
@@ -41,35 +38,8 @@ const params = {  // 预下单数据结构
 // 
 const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
-    // const [otherDat]
-    const [pageData, setPageData] = useState(
-        null
-        // {
-        //     "shop_id": "1",
-        //     "shop_name": "海底捞八佰伴店",
-        //     "product": [
-        //         {
-        //             "product_id": "4",
-        //             "product_count": 1,
-        //             "shop_name": "海底捞八佰伴店",
-        //             "product_name": "美味金枕榴莲",
-        //             "spec": "精美盒装;2KG",
-        //             market_price: '98000',
-        //             discount_price: '88000',
-        //             member_price: '68000',
-        //             "sale_rice": 16,
-        //         }
-        //     ],
-        //     "product_price": "16.00",
-        //     "price": "16.00",
-        //     "freight": "0.00",
-        //     "shop_coupon": [],
-        //     "coupon": [],
-        //     "address_id": "",
-        //     "coupon_price": "0.00",
-        //     "select_coupon": [],
-        // }
-    );
+    const dispatch = useDispatch();
+    const [pageData, setPageData] = useState(null);
     const [pre, setPre] = useState(null); // 预下单商品
     const commonConfig = store.commonStore.themeConfig;
     const query = Taro.getCurrentInstance().router.params;
@@ -124,12 +94,10 @@ const Index = () => {
 
     }, [address, payType, date, deliveryMethod, pre, tell]);
 
-
     const preRequest = async (preData) => {
         const res = await OrderService.preOrder(preData);
         if (res) {
             setPageData(res);
-            // setAddress({address: res.shop.shop_address + res.shop.shop_address_number})
         }
     }
 
@@ -148,18 +116,9 @@ const Index = () => {
     const [couponShow, setCouponShow] = useState(false);
     const [vpShow, setVpShow] = useState(false);
 
-    const init = async () => {
-
-    }
-
     useDidShow(() => {
         if (getStorageSync('back')) {
-            navigateBack({
-                delta: 1,
-                success: () => {
-                    removeStorageSync('back');
-                }
-            })
+            navigateBack({ delta: 1, success: () => { removeStorageSync('back'); } })
         }
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
     })
@@ -177,6 +136,7 @@ const Index = () => {
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, });
         if (!res) return
+        dispatch(actions.upcart_price());
         if (payType == 1) {
             const pay_params = await WxPay.getPayOrderParams(res.order_id, 1)
             if (pay_params) {
