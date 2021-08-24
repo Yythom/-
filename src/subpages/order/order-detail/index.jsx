@@ -12,6 +12,7 @@ import OrderService from '@/services/order';
 import { againOrder, showInfo } from '../order-btn-handle';
 import Refund from './refund-float/refund';
 import './index.scss'
+import make_type from '../type';
 
 
 const Index = () => {
@@ -92,14 +93,17 @@ const Index = () => {
                     })
                 }} title='订单详情' background='#00D0BF' color='#fff' iconColor='#fff'
                 />
-                {!(pageData?.user_status === order_type.UserOrderStatus.INIT || pageData?.user_status === order_type.UserOrderStatus.FINISH || pageData?.user_status === order_type.UserOrderStatus.CANCEL ) && <View className='code fc'>
-                    <Text className='fixed-tag'>取货码</Text>
-                    {pageData?.order_code?.map((e) => {
-                        return Array.from(e.code.replace(/\s+/g, "-")).map((v, index) => {
-                            return <Text key={index} className='num'>{v}</Text>
-                        })
-                    })}
-                </View>}
+                {
+                    !(pageData?.user_status === order_type.UserOrderStatus.INIT || pageData?.user_status === order_type.UserOrderStatus.FINISH || pageData?.user_status === order_type.UserOrderStatus.CANCEL)
+                    && <View className='code fc'>
+                        <Text className='fixed-tag'>取货码</Text>
+                        {pageData?.order_code?.map((e) => {
+                            return Array.from(e.code.replace(/\s+/g, "-")).map((v, index) => {
+                                return <Text key={index} className='num'>{v}</Text>
+                            })
+                        })}
+                    </View>
+                }
 
             </View>
 
@@ -108,14 +112,14 @@ const Index = () => {
                 <View className='right'>
                     <View className='info flex'>
                         <View className='address'>
-                            {/* <Text className='iconfont icon-dingwei' /> */}
+                            <Text className='iconfont icon-dingwei' />
                             {/* pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number */}
-                            {pageData?.delivery_type === 1 ? pageData?.shop?.shop_address : pageData?.order_adress.address}
-                            {pageData?.delivery_type === 1 ? pageData?.shop?.shop_address_number : pageData?.order_adress.number}
+                            {pageData?.delivery_type === make_type.DeliveryType.SELF_MENTION ? pageData?.shop?.shop_address : pageData?.order_address?.address}
+                            {pageData?.delivery_type === make_type.DeliveryType.SELF_MENTION ? pageData?.shop?.shop_address_number : pageData?.order_address?.mobile}
                         </View>
                     </View>
-                    <Text className='name'>{pageData?.delivery_type === 1 ? '商家电话' : pageData?.order_adress.contact_name}&nbsp;</Text>
-                    <Text className='phone'>{pageData?.delivery_type === 1 ? pageData?.self_mention?.mobile : pageData?.order_adress.mobile}</Text>
+                    <Text className='name'>{pageData?.delivery_type === make_type.DeliveryType.SELF_MENTION ? '商家电话' : pageData?.order_address?.contact_name}&nbsp;</Text>
+                    <Text className='phone'>{pageData?.delivery_type === make_type.DeliveryType.SELF_MENTION ? pageData?.self_mention?.mobile : pageData?.order_address?.mobile}</Text>
                 </View>
             </View>
 
@@ -195,7 +199,11 @@ const Index = () => {
                         <View className='copy_btn' >复制</View>
                     </View>
                 </View>
-                <View className='item fb'>取货码： <Text >{pageData?.order_code?.map((e) => { return e.code })}</Text></View>
+                {
+                    !(pageData?.user_status === order_type.UserOrderStatus.INIT || pageData?.user_status === order_type.UserOrderStatus.FINISH || pageData?.user_status === order_type.UserOrderStatus.CANCEL) &&
+                    <View className='item fb'>取货码： <Text >{pageData?.order_code?.map((e) => { return e.code })}</Text></View>
+                }
+
                 <View className='item fb'>创单时间： <Text >{dayjs(pageData?.create_at * 1000).format('YYYY-MM-DD HH:mm:ss')}</Text></View>
                 <View className='item fb'>支付方式： <Text >{pageData?.pay_type_msg}</Text></View>
                 {/* {pageData?.delivery_at && <View className='item fb'>配送时间： <Text >{pageData?.delivery_at || '暂未设置'}</Text> </View>} */}
