@@ -107,9 +107,9 @@ const Index = () => {
             <View className='square flex'>
                 <View className='right'>
                     <View className='info flex'>
-                        <View className='flex'>
+                        <View className='address'>
                             <Text className='iconfont icon-dingwei' />
-                            <View className='address'>{pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}</View>
+                            {pageData?.shop?.shop_address || '暂未设置'}{pageData?.shop?.shop_address_number}
                         </View>
                     </View>
                     <Text className='name'>{pageData?.delivery_type === 1 ? '商家电话' : '预留电话'}&nbsp;</Text>
