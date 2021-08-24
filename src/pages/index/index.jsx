@@ -155,6 +155,7 @@ function Index() {
                     initHeight={initHeight}
                     initTabs={initTabs}
                     isSticy
+                    top='106rpx'
                     notChildScroll
                 // request={}
                 // init={(_newList) => {

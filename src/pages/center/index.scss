@@ -20,7 +20,7 @@
             position: relative;
             background-image: url('../../../assets/images/vipbg.png');
             background-size: 380px 100px;
-            background-repeat:no-repeat;
+            background-repeat: no-repeat;
             background-position-x: right;
 
             .vip-img {
@@ -35,7 +35,8 @@
                 color: #333;
 
                 .btn-pay {
-
+                    width: 120px;
+                    height: 52px;
                     color: #FFFFFF;
                     font-size: 24px;
                     border-radius: 30px;
@@ -137,8 +138,9 @@
                 font-size: 72px;
                 background-image: linear-gradient(135deg, #00FFD9 0%, #00CCFB 100%);
                 -webkit-background-clip: text;
-                color:transparent;
+                color: transparent;
             }
+
             .price {
                 height: 52px;
                 margin-bottom: 16px;

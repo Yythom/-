@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-indent-props */
 import React, { useState } from 'react';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Image } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, previewImage, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, previewImage, showActionSheet, stopPullDownRefresh, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import OssImg from '@/components/upload-img/oss-img';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -20,17 +20,31 @@ const Index = () => {
                     {
                         imgList.map((e, i) => {
                             return (
-                                <BlurImg
+                                <Image
+                                    mode='aspectFill'
                                     className='img'
                                     src={e}
                                     key={e}
                                     onClick={() => {
-                                        previewImage({
-                                            current: '', // 当前显示图片的http链接
-                                            urls: [imgList[i]],
-                                        });
+                                        showActionSheet({
+                                            itemList: ['预览', '删除'],
+                                            success: function (res) {
+                                                if (res.tapIndex == 1) {
+                                                    let newImgList = JSON.parse(JSON.stringify(imgList));
+                                                    newImgList.splice(i, 1)
+                                                    setImgList(newImgList);
+                                                } else {
+                                                    previewImage({
+                                                        current: '', // 当前显示图片的http链接
+                                                        urls: [imgList[i]],
+                                                    });
+                                                }
+                                            },
+                                        })
+
                                     }}
                                 />
+
                             )
                         })
                     }
