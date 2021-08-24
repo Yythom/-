@@ -17,6 +17,8 @@ import OrderService from '@/services/order';
 import AddressService from '@/services/address';
 import np from 'number-precision'
 import make_type from '../order/type';
+import Drop from '@/components/drop/DropDwon';
+import PayType from './pay-type/pay-type';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
@@ -93,9 +95,13 @@ const Index = () => {
             // "shop_id": "1",
             "config": {
                 "delivery_type": deliveryMethod, // deliveryMethod
-                "pay_type": make_type.DeliveryType.DELIVERY == deliveryMethod ? make_type.OrderPayType.ONLINE : make_type.OrderPayType.OFFLINE,
-                "pay_method": make_type.OrderPayMethod.UNKNOWN,
-                "pay_channel": make_type.OrderPayChannel.UNKNOWN, // 1 wx 2 zfb
+                "pay_type": payType === 'OFFLINE'
+                    ? make_type.OrderPayType.OFFLINE
+                    : make_type.OrderPayType.ONLINE,
+                "pay_method": typeof payType === 'number' ? (payType == make_type.OrderPayChannel.UNKNOWN
+                    ? make_type.OrderPayMethod.MEMBER_BALANCE
+                    : make_type.OrderPayMethod.ONLINE_PAY) : 0,
+                "pay_channel": typeof payType === 'number' ? payType : 0, // 0余额 1 wx 2 zfb  OFFLINE 线下
                 "user_address_id": address?.address_id || '',
             },
             self_mention: make_type.DeliveryType.DELIVERY != deliveryMethod ? {
@@ -254,29 +260,7 @@ const Index = () => {
                     </View>
                 }
 
-
-
-                <View className='pay-type' style={{ marginTop: '20rpx' }}>
-                    <View className='handle fd' style={{ minHeight: '100rpx', height: 'auto', alignItems: "flex-end" }}>
-                        <View className='fb' style={{ width: '100%', height: '80rpx', fontSize: '28rpx' }}>
-                            <Text className=''>会员卡支付</Text>
-                            <Text >可用余额 <Text style={{ fontWeight: 'bold' }}>¥233.00</Text></Text>
-                            {/* 余额不足不展示 */}
-                            {/* <Radio checked={payType == 2}  onClick={() => setPayType(2)} /> */}
-                        </View>
-                        <View style={{ color: '#999', fontSize: '28rpx' }}>
-                            余额不足 <Text className='theme-color '>充值</Text>
-                        </View>
-                    </View>
-                    <View className='handle fd' style={{ minHeight: '100rpx', height: 'auto' }}>
-                        <View className='fb' >
-                            <Text className=''>微信支付</Text>
-                            <Radio color='#00D0BF' checked={payType == 1} onClick={() => setPayType(1)} />
-                        </View>
-                    </View>
-                </View>
-
-
+                <PayType payType={payType} setPayType={setPayType} />
 
 
                 {/* couponList -get */}

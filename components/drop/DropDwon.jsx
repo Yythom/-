@@ -8,6 +8,7 @@ const Drop = ({
     onChange,
     itemHeight = 30,
     list = [],
+    mask = true,
     spaceName = '必填',
 }) => {
     const [item, setItem] = useState(null)
@@ -30,7 +31,7 @@ const Drop = ({
                 }
             </View>
             {
-                show
+                (show && mask)
                 && <View className='drop-mask' style={{ top: show ? itemHeight * list.length + 'rpx' : 0 }} onClick={
                     () => {
                         setShow(!show);

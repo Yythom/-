@@ -2,7 +2,7 @@
     height: 100vh;
     box-sizing: border-box;
     overflow: hidden;
-    padding-bottom: 122px;
+    padding-bottom: 124px;
 
     background-color: #f3f3f3;
 
@@ -12,6 +12,10 @@
         // padding: 0 16px;
         height: 100%;
         // padding-bottom: 150px;
+    }
+
+    .drop_item {
+        border-bottom: none !important;
     }
 
     .deliveryMethod {
