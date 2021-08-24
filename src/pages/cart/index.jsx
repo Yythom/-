@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
-import { View, Text, Radio, ScrollView } from '@tarojs/components';
+import { View, Text, Radio, ScrollView, Image } from '@tarojs/components';
 // import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, removeStorageSync, setStorageSync, showToast, startPullDownRefresh, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -246,7 +246,12 @@ const Index = () => {
                                     )
                                 }
                             </View>
-                        ) : <View className='empty fc'> 暂无购物车  </View>
+                        ) : <View className='empty fc' style={{minHeight: '60vh'}}> 
+                                <View>
+                                    <Image mode='widthFix' style={{ width: '400rpx', height: '400rpx' }} src={require('../../../assets/images/购物车.png')} />
+                                    <View className='fc' style={{fontSize: '28rpx', color: '#999'}}>购物车暂无商品哦～</View>
+                                </View>
+                        </View>
                     }
                 </View>
                 <View className='footer fb' style={{ bottom: `calc(${systemInfo.safeArea.top / 2}px + ${60 * 2}rpx)` }} >
