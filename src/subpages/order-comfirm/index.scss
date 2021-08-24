@@ -14,10 +14,6 @@
         // padding-bottom: 150px;
     }
 
-    .drop_item {
-        border-bottom: none !important;
-    }
-
     .deliveryMethod {
         margin: 0 16px;
         padding-top: 30px;
@@ -36,16 +32,20 @@
                 height: 66px;
                 color: #333;
                 border-radius: 0;
-                transition: 600ms;
+                transition: color 600ms;
+                color: #fff;
                 // transition: 400ms;
             }
 
             .act-tab {
                 background: #FFFFFF;
                 font-weight: bold;
+                color: #00D0BF;
                 height: 66px;
                 border-radius: 33px;
             }
+
+
         }
 
     }

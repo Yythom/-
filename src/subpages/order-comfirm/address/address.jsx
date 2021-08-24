@@ -85,7 +85,7 @@ const Address = memo(({
                         : <View className='shop-address fd'>
                             <View className='address'>
                                 <Text className='tag'>商家</Text>
-                                <Text>{address.address}</Text>
+                                <Text style={{ verticalAlign: 'middle' }}>{address.address}</Text>
                             </View>
                             <View className='fd'>
                                 <View className='flex' onClick={() => setModal(true)} >

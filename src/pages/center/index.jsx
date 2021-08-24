@@ -81,14 +81,21 @@ const Index = () => {
                     <View className='vip-img'>
                         <Image mode='widthFix' style={{ width: '190rpx', marginLeft: '20rpx' }} src={require('../../../assets/images/VIP.png')} />
                     </View>
-                    <View className='flex fb card-info'>
-                        <View style={{color: '#333'}}>储值卡余额</View>
+                    <View className='flex fb card-info' onClick={() => {
+                        navLinkTo('refill-card/card-order-list/index', {})
+                    }}>
+                        <View style={{ color: '#333' }}>储值卡余额</View>
                         <View>
-                            <Text style={{fontSize: '24rpx', color: '#333'}}>¥</Text>
-                            <Text style={{fontSize: '50rpx', fontWeight: 'bold', color: '#333'}}>0.00</Text>
+                            <Text style={{ fontSize: '24rpx', color: '#333' }}>¥</Text>
+                            <Text style={{ fontSize: '50rpx', fontWeight: 'bold', color: '#333' }}>0.00</Text>
                         </View>
                         <View>
-                            <Button className='btn-pay fc'>充值</Button>
+                            <Button className='btn-pay fc' onClick={(event) => {
+                                event.stopPropagation()
+                                navLinkTo('refill-card/card-full/index', {})
+                            }}
+                            >
+                                充值</Button>
                         </View>
                     </View>
                 </View>}

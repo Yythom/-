@@ -32,7 +32,7 @@ const Index = () => {
     const ok = async (price) => {
         // showLoading();
         // WxPay.pay()
-
+        console.log(price);
     }
 
 
