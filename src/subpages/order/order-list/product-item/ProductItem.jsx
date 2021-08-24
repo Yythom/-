@@ -10,6 +10,7 @@ import order_type from '../../orderType';
 import OrderService from '@/services/order';
 import './product.scss';
 import { againOrder, showInfo } from '../../order-btn-handle';
+import WxPay, { payment } from '@/utils/wxpay';
 
 const ProductItem = memo(({ order, getList }) => {
     if (!order) return null
@@ -21,7 +22,19 @@ const ProductItem = memo(({ order, getList }) => {
                 showInfo('确认取消订单', async () => await OrderService.offOrder(order_id) && getList(false) && showToast({ title: '取消订单成功', icon: 'none' }));
                 break;
             case '立即支付':
-
+                const pay_params = await WxPay.getPayOrderParams(order_id, 1)
+                if (pay_params) {
+                    let result = await payment(pay_params)
+                    if (result) {
+                        getList()
+                        setTimeout(() => {
+                            showToast({ title: '支付成功', icon: 'success' });
+                        }, 400);
+                    } else {
+                        showToast({ title: '支付失败', icon: 'none' })
+                    }
+                    // pay_clear(res.order_id)
+                }
                 break;
             case '确认订单':
                 // showInfo('确认订单', async () => await OrderService.offOrder(order_id) && getList());

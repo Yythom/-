@@ -192,7 +192,6 @@ const Index = () => {
             }
         } else { }
         pay_clear(res.order_id)
-
     }
 
     return (
