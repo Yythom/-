@@ -68,7 +68,7 @@ const Index = () => {
                                 <View className='nickname'>{userInfo?.nickname || '请登入'}</View>
                                 {userInfo?.nickname &&
                                     <View className='mobile fb'>
-                                        <Text className=''>{'手机号：' + hideMobile(userInfo?.mobile) || (userInfo?.nickname && '获取手机号')}</Text>
+                                        <Text className=''>{userInfo?.mobile ? '手机号：' + hideMobile(userInfo?.mobile) : (userInfo?.nickname && '获取手机号')}</Text>
                                         <Text className='iconfont icon-right'></Text>
                                     </View>
                                 }
@@ -79,16 +79,16 @@ const Index = () => {
                 </WithUserVerify>
                 <View className='cardpay'>
                     <View className='vip-img'>
-                        <Image style={{width: '184rpx', height: '72rpx', marginLeft: '16rpx'}} src={require('../../../assets/images/VIP.png')}/>
+                        <Image mode='widthFix' style={{ width: '190rpx', marginLeft: '20rpx' }} src={require('../../../assets/images/VIP.png')} />
                     </View>
                     <View className='flex fb card-info'>
                         <View>储值卡余额</View>
                         <View>
-                            <Text style={{fontSize: '24rpx'}}>¥</Text>
-                            <Text style={{fontSize: '40rpx', fontWeight: 'bold'}}>0.00</Text>
+                            <Text style={{ fontSize: '24rpx' }}>¥</Text>
+                            <Text style={{ fontSize: '40rpx', fontWeight: 'bold' }}>0.00</Text>
                         </View>
                         <View>
-                            <Button className='btn-pay'>充值</Button>
+                            <Button className='btn-pay fc'>充值</Button>
                         </View>
                     </View>
                 </View>
@@ -120,8 +120,7 @@ const Index = () => {
 
                 <View className='flex-handle fb' onClick={() => navLinkTo('address/address-list/index', { is_center: true })}>
                     <View className='flex item'>
-                        {/* <Text className='iconfont icon-dingwei' /> */}
-                        <Image style={{ width: '38rpx', height: '38rpx', marginRight: '13rpx' }} src={require('../../../assets/images/shouhuodizhi.png')} />
+                        <Text className='iconfont icon-dingwei' />
                         <Text className=''>收货地址</Text>
                     </View>
                     <View className='flex'>
@@ -131,8 +130,7 @@ const Index = () => {
                 </View>
                 <View className='flex-handle fb' onClick={(e) => callPhone(e, shop?.customer_phone || '暂未设置')}>
                     <View className='flex item'>
-                        {/* <Text className='iconfont icon-dianhua' /> */}
-                        <Image style={{ width: '38rpx', height: '38rpx', marginRight: '13rpx' }} src={require('../../../assets/images/lianxishangjia.png')} />
+                        <Text className='iconfont iconlianxishangjia' />
                         <Text className=''>联系商家</Text>
                     </View>
                     <View className='flex'>
