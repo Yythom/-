@@ -45,7 +45,7 @@ const Index = () => {
 
     const init = async () => {
         const order_id = getStorageSync('order_id_detail')
-        const res = await OrderService.getOrderDetailApi(order_id)
+        const res = await OrderService.getOrderDetailApi(query.order_id || order_id)
         console.log('res', res)
         setPageData(res)
         console.log(query);

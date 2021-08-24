@@ -72,10 +72,10 @@ const Address = memo(({
                     method == make_type.DeliveryType.DELIVERY
                         ? <View className='s_address' onClick={() => navLinkTo('address/address-list/index', {})}>
                             <View className='address flex'>
-                                <View className='flex'>
-                                    <Text className='iconfont icon-dingwei'></Text>
-                                    {address.address || '请设置收货地址'}
-                                </View>
+                                {/* <View className='flex'> */}
+                                <Image src={require('../../../../assets/images/shouhuodizhilvse.png')} style={{ height: '34rpx', width: '34rpx', verticalAlign: 'middle', marginRight: '10rpx' }} />
+                                {address.address || '请设置收货地址'}
+                                {/* </View> */}
                             </View>
                             <View className='flex'>
                                 {address.contact_name}<Text className='phone'>{address.mobile}</Text>
@@ -85,7 +85,6 @@ const Address = memo(({
                         : <View className='shop-address fd'>
                             <View className='address'>
                                 <Text className='tag'>商家</Text>
-                                {/* <Image src={require('../../../../assets/images/shouhuodizhilvse.png')} style={{height: '34rpx', width: '34rpx'}} /> */}
                                 <Text>{address.address}</Text>
                             </View>
                             <View className='fd'>

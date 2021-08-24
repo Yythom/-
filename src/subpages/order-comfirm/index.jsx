@@ -2,7 +2,7 @@
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { View, Text, Input, Textarea, Radio, ScrollView } from '@tarojs/components';
 import NavBar from '@/components/navbar/NavBar';
-import Taro, { getStorageSync, navigateBack, removeStorageSync, setStorageSync, showActionSheet, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
+import Taro, { getStorageSync, navigateBack, navigateTo, redirectTo, reLaunch, removeStorageSync, setStorageSync, showActionSheet, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useSelector } from 'react-redux';
 import { navLinkTo } from '@/common/publicFunc';
 import BlurImg from '@/components/blur-img/BlurImg';
@@ -19,6 +19,7 @@ import np from 'number-precision'
 import make_type from '../order/type';
 import Drop from '@/components/drop/DropDwon';
 import PayType from './pay-type/pay-type';
+import WxPay, { payment } from '@/utils/wxpay';
 
 const itemList = [{ text: '送货上门', value: '1' }, { text: '自提', value: '1' }];
 const params = {  // 预下单数据结构
@@ -76,13 +77,13 @@ const Index = () => {
 
     /* 信息配置 */
     const [address, setAddress] = useState(null); // 收货地址
-    const [payType, setPayType] = useState(1) // 1 余额 2 wx 3zfb
+    const [payType, setPayType] = useState(make_type.OrderPayChannel.WECHAT) //  // 0 余额 1 wx 2 zfb  OFFLINE 线下
 
     const [date, setDate] = useState({ // 指定时间
         show: true,
         value: ''
     }); // 送达时间
-    const [deliveryMethod, setDeliveryMethod] = useState(1) // 送货方式
+    const [deliveryMethod, setDeliveryMethod] = useState(make_type.DeliveryType.DELIVERY) // 送货方式
     const [msg, setMsg] = useState({  // 留言
         oldmsg: '',
         msg: ''
@@ -95,7 +96,7 @@ const Index = () => {
             // "shop_id": "1",
             "config": {
                 "delivery_type": deliveryMethod, // deliveryMethod
-                "pay_type": payType === 'OFFLINE'
+                "pay_type": (payType === 'OFFLINE' && deliveryMethod == make_type.DeliveryType.SELF_MENTION)
                     ? make_type.OrderPayType.OFFLINE
                     : make_type.OrderPayType.ONLINE,
                 "pay_method": typeof payType === 'number' ? (payType == make_type.OrderPayChannel.UNKNOWN
@@ -163,17 +164,35 @@ const Index = () => {
         if (getStorageSync('pre-data')) setPre(getStorageSync('pre-data'));
     })
 
+    function pay_clear(order_id) {
+        // removeStorageSync('pre-data')
+        removeStorageSync('address_id')
+        setStorageSync('order_id_detail', order_id)
+        setStorageSync('back', 2);
+        setTimeout(() => {
+            navLinkTo('order/order-detail/index', {})
+        }, 200);
+    }
+
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, });
-        if (res) {
-            setStorageSync('addcart', true)
-            setStorageSync('addcart-subpages', true)
-            removeStorageSync('pre-data')
-            removeStorageSync('address_id')
-            setStorageSync('order_id_detail', res.order_id)
-            setStorageSync('back', 2)
-            navLinkTo('order/order-detail/index', {});
-        }
+        if (!res) return
+        if (payType == 1) {
+            const pay_params = await WxPay.getPayOrderParams(res.order_id, 1)
+            if (pay_params) {
+                let result = await payment(pay_params)
+                if (result) {
+                    setTimeout(() => {
+                        showToast({ title: '支付成功', icon: 'success' })
+                    }, 400);
+                } else {
+                    showToast({ title: '支付失败', icon: 'none' })
+                }
+                // pay_clear(res.order_id)
+            }
+        } else { }
+        pay_clear(res.order_id)
+
     }
 
     return (
@@ -224,14 +243,14 @@ const Index = () => {
                 </View>
             </View> */}
 
-                <View className='handle fb' style={{ marginTop: '20rpx' }}>
+                {/* <View className='handle fb' style={{ marginTop: '20rpx' }}>
                     <View className='left' >活动优惠</View>
                     <View className='right'>
                         <Text className='price-color'>
                             ¥{pageData?.order_discount_amount}
                         </Text>
                     </View>
-                </View>
+                </View> */}
                 {/* <View className='handle fb' onClick={() => setCouponShow(true)}>
                     <View className='left' >优惠券</View>
                     <View className='right' style={{ color: '#999' }}>
@@ -260,7 +279,7 @@ const Index = () => {
                     </View>
                 }
 
-                <PayType payType={payType} setPayType={setPayType} />
+                <PayType payType={payType} setPayType={setPayType} method={deliveryMethod} />
 
 
                 {/* couponList -get */}
