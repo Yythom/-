@@ -5,7 +5,7 @@ import NavBar from '@/components/navbar/NavBar';
 import Taro, { getStorageSync, hideLoading, requestPayment, showLoading, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh } from '@tarojs/taro'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { actions as userActions } from '@/store/userSlice'
-import WxPay from '@/utils/wxpay';
+import WxPay, { payment } from '@/utils/wxpay';
 import './index.scss'
 import Modal from '@/components/modal/Modal';
 import FloatBottom from '@/components/float/FloatBottom';
@@ -29,9 +29,20 @@ const Index = () => {
         init();
     })
 
-    const ok = async (price) => {
+    const ok = async () => {
         // showLoading();
-        // WxPay.pay()
+        // const pay_params = await WxPay.getPayOrderParams('', 1)
+        // if (pay_params) {
+        //     let result = await payment(pay_params, () => {
+        // WxPay.pay_notify(order_id,()=>{
+        // dispatch(actions.userUpdata());
+        // });
+
+        // setTimeout(() => {
+        //     showToast({ title: '支付成功', icon: 'success' })
+        // }, 400);
+        //     });
+        // }
         console.log(price);
     }
 

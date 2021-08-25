@@ -6,17 +6,21 @@ import dayjs from 'dayjs';
 import Taro, { getStorageSync, hideLoading, navigateBack, navigateTo, removeStorageSync, setClipboardData, setStorageSync, showLoading, showModal, showToast, stopPullDownRefresh, useDidShow, usePullDownRefresh, useReachBottom } from '@tarojs/taro'
 import { callPhone } from '@/common/public';
 import BlurImg from '@/components/blur-img/BlurImg';
-import order_type from '../orderType';
 import { navLinkTo } from '@/common/publicFunc';
 import OrderService from '@/services/order';
+import WxPay, { payment } from '@/utils/wxpay';
+import { useDispatch } from 'react-redux';
 import { againOrder, showInfo } from '../order-btn-handle';
 import Refund from './refund-float/refund';
-import './index.scss'
+import order_type from '../orderType';
 import make_type from '../type';
-import WxPay, { payment } from '@/utils/wxpay';
+import './index.scss'
+import { actions } from '@/store/userSlice';
+
 
 
 const Index = () => {
+    const dispatch = useDispatch();
     const query = Taro.getCurrentInstance().router.params;
     const [show, setShow] = useState(false); // 申请退款弹框
     const [pageData, setPageData] = useState(null
@@ -44,7 +48,6 @@ const Index = () => {
         // }
     )
 
-
     const init = async () => {
         const order_id = getStorageSync('order_id_detail')
         const res = await OrderService.getOrderDetailApi(query.order_id || order_id)
@@ -52,9 +55,6 @@ const Index = () => {
         setPageData(res)
         console.log(query);
     }
-
-
-
 
     const handle = async (type) => {
         const order_id = pageData?.order_id;
@@ -65,16 +65,15 @@ const Index = () => {
             case '立即支付':
                 const pay_params = await WxPay.getPayOrderParams(order_id, 1)
                 if (pay_params) {
-                    let result = await payment(pay_params)
-                    if (result) {
-                        init();
+                    let result = await payment(pay_params, () => {
+                        WxPay.pay_notify(order_id, () => {
+                            init();
+                        });
+                        // dispatch(actions.userUpdata());
                         setTimeout(() => {
                             showToast({ title: '支付成功', icon: 'success' });
                         }, 400);
-                    } else {
-                        showToast({ title: '支付失败', icon: 'none' })
-                    }
-                    // pay_clear(res.order_id)
+                    });
                 }
                 break;
             case '确认订单':

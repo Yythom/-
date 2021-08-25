@@ -24,16 +24,14 @@ const ProductItem = memo(({ order, getList }) => {
             case '立即支付':
                 const pay_params = await WxPay.getPayOrderParams(order_id, 1)
                 if (pay_params) {
-                    let result = await payment(pay_params)
-                    if (result) {
-                        getList()
+                    let result = await payment(pay_params, () => {
+                        WxPay.pay_notify(order_id);
+                        // dispatch(actions.userUpdata());
+                        getList();
                         setTimeout(() => {
                             showToast({ title: '支付成功', icon: 'success' });
                         }, 400);
-                    } else {
-                        showToast({ title: '支付失败', icon: 'none' })
-                    }
-                    // pay_clear(res.order_id)
+                    });
                 }
                 break;
             case '确认订单':

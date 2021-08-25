@@ -19,23 +19,23 @@ import Address from './address/address';
 import './index.scss';
 import Date from './date/date';
 
-const params = {  // 预下单数据结构
-    "shop_id": "string",
-    "config": {
-        "delivery_type": "integer",
-        "pay_type": "integer",
-        "pay_method": "integer",
-        "pay_channel": "integer",
-        "user_addressId": "string"
-    },
-    "sku_items": [
-        {
-            "sku_id": "string",
-            "count": "integer"
-        }
-    ]
-}
-// 
+// const params = {  // 预下单数据结构
+//     "shop_id": "string",
+//     "config": {
+//         "delivery_type": "integer",
+//         "pay_type": "integer",
+//         "pay_method": "integer",
+//         "pay_channel": "integer",
+//         "user_addressId": "string"
+//     },
+//     "sku_items": [
+//         {
+//             "sku_id": "string",
+//             "count": "integer"
+//         }
+//     ]
+// }
+
 const Index = () => {
     const store = useSelector(_store => _store, shallowEqual);
     const dispatch = useDispatch();
@@ -113,7 +113,7 @@ const Index = () => {
     }, [PreData])
 
     const [modal, setModal] = useState(false);
-    const [couponShow, setCouponShow] = useState(false);
+    // const [couponShow, setCouponShow] = useState(false);
     const [vpShow, setVpShow] = useState(false);
 
     useDidShow(() => {
@@ -136,22 +136,19 @@ const Index = () => {
     const pay = async () => {
         const res = await OrderService.makeOrder({ ...PreData, remark: msg.oldmsg, });
         if (!res) return
+        const { order_id } = res;
         dispatch(actions.upcart_price());
-        if (payType == 1) {
-            const pay_params = await WxPay.getPayOrderParams(res.order_id, 1)
+        if (payType == make_type.OrderPayChannel.WECHAT) { // 微信支付
+            const pay_params = await WxPay.getPayOrderParams(order_id, 1)
             if (pay_params) {
-                let result = await payment(pay_params)
-                if (result) {
-                    setTimeout(() => {
-                        showToast({ title: '支付成功', icon: 'success' })
-                    }, 400);
-                } else {
-                    showToast({ title: '支付失败', icon: 'none' })
-                }
-                // pay_clear(res.order_id)
+                let result = await payment(pay_params, () => {
+                    WxPay.pay_notify(order_id, () => {
+                        // dispatch(actions.userUpdata());
+                    });
+                });
             }
         } else { }
-        pay_clear(res.order_id)
+        // pay_clear(order_id);
     }
 
     return (
