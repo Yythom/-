@@ -12,11 +12,11 @@ import ProductService from '@/services/product';
 import { actions } from '@/store/userSlice';
 import { actions as tabActions } from '@/src/custom-tab-bar/store/slice';
 import CartService from '@/services/cart';
+import WithUserVerify from '@/components/auth/UserVerify';
 import filter_data from '../../../hooks/sku-utils/data_filter';
 import useSummary from '../../../hooks/useSummary';
 import ProductItem from './product-item/ProductItem';
 import './index.scss'
-import WithUserVerify from '@/components/auth/UserVerify';
 
 const Index = () => {
     const commonStore = useSelector(e => e.commonStore, shallowEqual);
@@ -190,13 +190,8 @@ const Index = () => {
     useDidShow(() => {
         dispatch(tabActions.changetab(2))
         removeStorageSync('address_id')
-        if (!getStorageSync('addcart-subpages')) {
-
-        } else {
-            setEdit(false);
-            init();
-            removeStorageSync('addcart')
-        }
+        setEdit(false);
+        init();
     })
 
     useEffect(() => {

@@ -143,12 +143,14 @@ const Index = () => {
             if (pay_params) {
                 let result = await payment(pay_params, () => {
                     WxPay.pay_notify(order_id, () => {
-                        // dispatch(actions.userUpdata());
+                        pay_clear(order_id);
+                        dispatch(actions.userUpdata());
                     });
                 });
             }
-        } else { }
-        // pay_clear(order_id);
+        } else {
+            pay_clear(order_id);
+        }
     }
 
     return (

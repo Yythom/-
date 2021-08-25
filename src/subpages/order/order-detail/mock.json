@@ -1,0 +1,90 @@
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "order_id": "288767096321789952",
+        "shop_id": "1",
+        "user_id": "284748135443161088",
+        "sku_count": 1,
+        "order_amount": "111.00",
+        "delivery_type": 1,
+        "pay_type": 1,
+        "pay_method": 0,
+        "pay_channel": 0,
+        "pay_at": 0,
+        "refund_at": 0,
+        "delivery_at": 0,
+        "refund_success_at": 0,
+        "check_at": 0,
+        "finish_at": 0,
+        "pay_status": 0,
+        "refund_status": 0,
+        "refund_process_status": 0,
+        "check_status": 1,
+        "after_sale_status": 0,
+        "status": 200,
+        "user_status": 200,
+        "create_at": "1629807440",
+        "remark": "",
+        "order_detail": [
+            {
+                "order_detail_id": "288767096321789953",
+                "product_id": "283038144755286018",
+                "sku_id": "283038145208270850",
+                "cover": "https://img0.baidu.com/it/u=2776256342,622617970&fm=26&fmt=auto&gp=0.jpg",
+                "product_name": "网红小雪人蛋糕",
+                "spec_detail": "",
+                "market_price": "169.00",
+                "discount_price": "109.00",
+                "member_price": "99.00",
+                "sku_price": "109.00",
+                "sku_count": 1,
+                "amount": "109.00"
+            }
+        ],
+        "order_address": {
+            "contact_name": "1314",
+            "mobile": "13145216024",
+            "address": "安徽省芜湖市",
+            "number": "13",
+            "location": {
+                "lat": "31.31202",
+                "lng": "118.37273"
+            }
+        },
+        "order_discount": [],
+        "order_code": [
+            {
+                "code": "0426 0091",
+                "status": 1,
+                "status_msg": "待核销"
+            }
+        ],
+        "order_fee": [
+            {
+                "fee_id": "288767096460201984",
+                "fee_type": 1,
+                "fee": "2.00",
+                "fee_type_msg": "包装费"
+            }
+        ],
+        "shop": {
+            "shop_name": "嘛哩家烘焙店总店",
+            "shop_address": "四川省成都市武侯区高新区世纪城路1129号天府软件园A区6栋",
+            "shop_address_number": "9楼527号",
+            "customer_phone": "18581580739"
+        },
+        "self_mention": {
+            "name": "爱迪生",
+            "mobile": "13145216024",
+            "date": ""
+        },
+        "user_status_msg": "备货中",
+        "pay_status_msg": "不需要支付",
+        "check_status_msg": "待核销",
+        "status_msg": "支付成功",
+        "delivery_type_msg": "门店自提",
+        "pay_type_msg": "线下支付",
+        "pay_method_msg": "无"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "list": [
+            {
+                "address_id": "285498986067722240",
+                "user_id": "284748135443161088",
+                "contact_name": "1314",
+                "mobile": "13145216024",
+                "address": "安徽省芜湖市",
+                "number": "13",
+                "remark": "公司",
+                "is_default": 1,
+                "location": {
+                    "lat": "31.31202",
+                    "lng": "118.37273"
+                }
+            }
+        ],
+        "total": 1
+    }
+}

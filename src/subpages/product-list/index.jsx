@@ -30,7 +30,6 @@ const sortCate = [
 
 const Index = () => {
     const query = Taro.getCurrentInstance().router.params;
-
     const [sort, setSort] = useState({
         value: '',
         index: '',

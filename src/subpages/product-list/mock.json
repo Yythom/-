@@ -1,0 +1,32 @@
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "total": 1,
+        "page": 0,
+        "page_size": 10,
+        "list": [
+            {
+                "product_id": "284714451088384004",
+                "product_name": "羊角面包",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "max_market_price": "0.12",
+                "max_discount_price": "0.10",
+                "max_member_price": "0.08",
+                "tags": [
+                    {
+                        "product_id": "284714451088384004",
+                        "name": "gggg"
+                    },
+                    {
+                        "product_id": "284714451088384004",
+                        "name": "dsfsdf"
+                    }
+                ]
+            }
+        ]
+    }
+}

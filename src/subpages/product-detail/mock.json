@@ -1,0 +1,109 @@
+{
+    "code": 0,
+    "msg": "",
+    "data": {
+        "product_id": "284714451088384004",
+        "product_name": "羊角面包",
+        "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+        "introduction": "dfsldfjsldkjflsjdfk",
+        "market_price": "0.12",
+        "discount_price": "0.10",
+        "member_price": "0.08",
+        "status": 2,
+        "max_market_price": "0.12",
+        "max_discount_price": "0.10",
+        "max_member_price": "0.08",
+        "product_description": {
+            "description": "<p>面包</p>",
+            "description_image": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/exam-manager/video/23ca2bcbfa2bb.png"
+        },
+        "product_images": [
+            {
+                "type": 1,
+                "url": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8894526fdd6ba8658a6a69068bb4b76d.png"
+            }
+        ],
+        "product_tags": [
+            {
+                "name": "gggg"
+            },
+            {
+                "name": "dsfsdf"
+            }
+        ],
+        "product_specs": [
+            {
+                "spec_name": "color",
+                "spec_id": "284714451155492864",
+                "spec_values": [
+                    {
+                        "value_id": "285891662344814592",
+                        "spec_id": "284714451155492864",
+                        "value": "red"
+                    },
+                    {
+                        "value_id": "285891662344814593",
+                        "spec_id": "284714451155492864",
+                        "value": "blue"
+                    }
+                ]
+            },
+            {
+                "spec_name": "size",
+                "spec_id": "284714451155492867",
+                "spec_values": [
+                    {
+                        "value_id": "285891662344814594",
+                        "spec_id": "284714451155492867",
+                        "value": "1"
+                    },
+                    {
+                        "value_id": "285891662344814595",
+                        "spec_id": "284714451155492867",
+                        "value": "2"
+                    }
+                ]
+            }
+        ],
+        "is_uniform_price": 1,
+        "status_msg": "已上架",
+        "product_skus": {
+            "285891662344814592;285891662344814594": {
+                "sku_id": "284714451184852992",
+                "number": "1",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "stock": 100
+            },
+            "285891662344814592;285891662344814595": {
+                "sku_id": "284714451184852995",
+                "number": "2",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "stock": 100
+            },
+            "285891662344814593;285891662344814594": {
+                "sku_id": "284714451184852998",
+                "number": "3",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "stock": 100
+            },
+            "285891662344814593;285891662344814595": {
+                "sku_id": "284714451184853001",
+                "number": "4",
+                "cover": "https://ryq-mall-ml.oss-cn-chengdu.aliyuncs.com/ryq/8323d7aa183baec864f1982a3273471f.png",
+                "market_price": "0.12",
+                "discount_price": "0.10",
+                "member_price": "0.08",
+                "stock": 100
+            }
+        }
+    }
+}

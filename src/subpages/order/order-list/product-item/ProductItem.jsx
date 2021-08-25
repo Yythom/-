@@ -11,8 +11,11 @@ import OrderService from '@/services/order';
 import './product.scss';
 import { againOrder, showInfo } from '../../order-btn-handle';
 import WxPay, { payment } from '@/utils/wxpay';
+import { useDispatch } from 'react-redux';
+import { actions } from '@/store/userSlice';
 
 const ProductItem = memo(({ order, getList }) => {
+    const dispatch = useDispatch();
     if (!order) return null
 
     const handle = async (type) => {
@@ -25,12 +28,10 @@ const ProductItem = memo(({ order, getList }) => {
                 const pay_params = await WxPay.getPayOrderParams(order_id, 1)
                 if (pay_params) {
                     let result = await payment(pay_params, () => {
-                        WxPay.pay_notify(order_id);
-                        // dispatch(actions.userUpdata());
-                        getList();
-                        setTimeout(() => {
-                            showToast({ title: '支付成功', icon: 'success' });
-                        }, 400);
+                        WxPay.pay_notify(order_id, () => {
+                            dispatch(actions.userUpdata());
+                            getList();
+                        });
                     });
                 }
                 break;

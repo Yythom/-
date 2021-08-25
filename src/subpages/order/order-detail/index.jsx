@@ -23,30 +23,7 @@ const Index = () => {
     const dispatch = useDispatch();
     const query = Taro.getCurrentInstance().router.params;
     const [show, setShow] = useState(false); // 申请退款弹框
-    const [pageData, setPageData] = useState(null
-        // {
-        // status_message: '待发货',
-        // order_id: '101',
-        // pay_at: '2020-12-01',
-        // delivery_at: '2020-12-01',
-        // status: '1',
-        // price: '8799',
-        // address: {
-        //     username: '用户1',
-        //     mobile: '13489890983',
-        //     address: '一个地址',
-        // },
-        // products: [
-        //     {
-        //         product_name: '特色油门小龙虾-武汉飞飞下庄联名款名款名',
-        //         sale_price: '7999',
-        //         number: '2',
-        //         spec: '黑色；m；64G',
-        //         image: 'https://img2.baidu.com/it/u=2790689811,54471194&fm=26&fmt=auto&gp=0.jpg'
-        //     }
-        // ]
-        // }
-    )
+    const [pageData, setPageData] = useState(null);
 
     const init = async () => {
         const order_id = getStorageSync('order_id_detail')
@@ -67,12 +44,9 @@ const Index = () => {
                 if (pay_params) {
                     let result = await payment(pay_params, () => {
                         WxPay.pay_notify(order_id, () => {
+                            dispatch(actions.userUpdata());
                             init();
                         });
-                        // dispatch(actions.userUpdata());
-                        setTimeout(() => {
-                            showToast({ title: '支付成功', icon: 'success' });
-                        }, 400);
                     });
                 }
                 break;

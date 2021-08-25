@@ -70,8 +70,6 @@ const Skuhooks = memo(({
                         showToast({ title: `加入成功`, icon: 'none' });
                     }, 300);
                 }
-                setStorageSync('addcart', true);
-                setStorageSync('addcart-subpages', true);
             });
             setShow(false)
         }
@@ -105,8 +103,6 @@ const Skuhooks = memo(({
                     showToast({ title: `加入成功`, icon: 'none' })
                 }, 200);
             }
-            setStorageSync('addcart', true)
-            setStorageSync('addcart-subpages', true)
             console.log(sku, 'addcart');
         } else {
             showToast({ title: `请选择${desc ? desc.str : ''}`, icon: 'none' })
@@ -132,7 +128,7 @@ const Skuhooks = memo(({
                                 <View className='price-box'>
                                     <View className='price'>
                                         <Text className='new price-color'>
-                                            {   
+                                            {
                                                 !isNaN(desc?.price) ? <Text><Text className='_money'>¥</Text>{desc?.discount_price}</Text> :
                                                     <Text>
                                                         {min_max_price_format(product?.max_discount_price, product?.discount_price)}

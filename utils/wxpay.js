@@ -17,18 +17,23 @@ class WxPay {
         let that = this;
         // showLoading()
         let i = 0;
-        let count = 1;
+        let count = 10;
         function countdown(delay) {
             showLoading()
             i++;
             setTimeout(async () => {
                 console.log('执行', i);
                 const res = await that.getPayOrderParams(order_id, '', 10)
-                if (res?.status == 1 || i >= count) {
+                if (res?.result.pay_status == 3 || i >= count) {
                     hideLoading();
-                    callback()
+                    setTimeout(() => {
+                        callback();
+                    }, 200);
                     return console.log('结束了');
-                } else countdown(1000)
+                } else {
+                    countdown(1000);
+                    showToast({ title: '状态查询失败', icon: 'none' });
+                }
             }, delay);
         }
         // const res = await requset.post('/export/wechat/pay_notify', {
@@ -53,14 +58,11 @@ async function payment(data, callback, failCallback) {
         paySign: res.paySign,
     })
     if (result?.errMsg === "requestPayment:ok") {
-        showToast({ title: '支付成功', icon: 'success' })
-        setTimeout(() => {
-            callback();
-        }, 400);
-        return true
+        callback();
+        return true;
     } else {
         failCallback();
-        showToast({ title: '支付失败', icon: 'none' })
+        showToast({ title: '支付失败', icon: 'none' });
         return false
     }
 }
